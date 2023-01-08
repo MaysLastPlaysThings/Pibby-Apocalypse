@@ -22,6 +22,8 @@ otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
 * RiverOaken - Artist
 * Yoshubs - Assistant Programmer
 
+crack
+
 ### Special Thanks
 * bbpanzu - Ex-Programmer
 * shubs - New Input System
