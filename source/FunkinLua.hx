@@ -1097,7 +1097,7 @@ class FunkinLua {
 				leObj = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
 			}
 
-			if(leObj != null) {
+			if(leObj != null) {	
 				getInstance().remove(leObj, true);
 				getInstance().insert(position, leObj);
 				return;
@@ -1117,6 +1117,19 @@ class FunkinLua {
 				}));
 			} else {
 				luaTrace('doTweenX: Couldnt find object: ' + vars, false, false, FlxColor.RED);
+			}
+		});
+		Lua_helper.add_callback(lua, "doTweenVar", function(tag:String, vars:String, gayVar:Dynamic, value:Dynamic, duration:Float, ease:String) {
+			var penisExam:Dynamic = tweenShit(tag, vars);
+			if(penisExam != null) {
+				PlayState.instance.modchartTweens.set(tag, FlxTween.tween(penisExam, {gayVar: value}, duration, {ease: getFlxEaseByString(ease),
+					onComplete: function(twn:FlxTween) {
+						PlayState.instance.callOnLuas('onTweenCompleted', [tag]);
+						PlayState.instance.modchartTweens.remove(tag);
+					}
+				}));
+			} else {
+				luaTrace('doTweenVar: Couldnt find object: ' + vars, false, false, FlxColor.RED);
 			}
 		});
 		Lua_helper.add_callback(lua, "doTweenY", function(tag:String, vars:String, value:Dynamic, duration:Float, ease:String) {

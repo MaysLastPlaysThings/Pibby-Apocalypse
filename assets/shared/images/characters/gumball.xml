@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Gumball.png">
+<SubTexture name="Gumball Idle0000" x="514" y="360" width="227" height="305" frameX="-246" frameY="-216" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0001" x="346" y="684" width="191" height="289" frameX="-242" frameY="-219" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0002" x="173" y="684" width="173" height="292" frameX="-241" frameY="-217" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0003" x="0" y="0" width="243" height="360" frameX="-205" frameY="-168" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0004" x="243" y="0" width="192" height="336" frameX="-226" frameY="-174" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0005" x="0" y="684" width="173" height="297" frameX="-246" frameY="-214" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Idle0006" x="435" y="0" width="228" height="329" frameX="-235" frameY="-195" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Up0000" x="890" y="304" width="225" height="303" frameX="-215" frameY="-187" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Up0001" x="0" y="360" width="237" height="324" frameX="-202" frameY="-165" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Up0002" x="890" y="0" width="225" height="304" frameX="-212" frameY="-185" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Up0003" x="237" y="360" width="277" height="306" frameX="-184" frameY="-186" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Up0004" x="663" y="0" width="227" height="325" frameX="-217" frameY="-165" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Down0000" x="1147" y="981" width="183" height="235" frameX="-203" frameY="-234" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Down0001" x="787" y="684" width="184" height="275" frameX="-203" frameY="-198" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Down0002" x="1115" y="270" width="240" height="246" frameX="-186" frameY="-229" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Down0003" x="537" y="684" width="250" height="287" frameX="-175" frameY="-196" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Down0004" x="343" y="981" width="183" height="240" frameX="-203" frameY="-227" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Left0000" x="0" y="1231" width="324" height="178" frameX="-78" frameY="-341" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Left0001" x="1415" y="439" width="302" height="178" frameX="-98" frameY="-341" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Left0002" x="1115" y="516" width="294" height="241" frameX="-104" frameY="-295" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Left0003" x="1415" y="235" width="290" height="204" frameX="-109" frameY="-322" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Left0004" x="1415" y="617" width="288" height="178" frameX="-107" frameY="-341" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Right0000" x="526" y="981" width="301" height="236" frameX="-241" frameY="-276" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Right0001" x="1415" y="0" width="309" height="235" frameX="-240" frameY="-277" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Right0002" x="1115" y="0" width="300" height="270" frameX="-240" frameY="-242" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Right0003" x="0" y="981" width="343" height="250" frameX="-226" frameY="-262" frameWidth="658" frameHeight="715" />
+<SubTexture name="Gumball Right0004" x="827" y="981" width="320" height="236" frameX="-216" frameY="-277" frameWidth="658" frameHeight="715" />
+</TextureAtlas>
