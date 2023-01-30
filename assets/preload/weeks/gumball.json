@@ -1,20 +1,21 @@
 {
-	"songs": [
-		["Forgotten-World", "gf", [165, 0, 77]]
-	],
+    "songs": [
+        ["My-Amazing-World", "gumball", [165, 0, 77]],
+        ["Forgotten-World", "gf", [165, 0, 77]]
+    ],
 
-	"weekCharacters": [
-		"",
-		"bf",
-		"gf"
-	],
-	"weekBackground": "stage",
+    "weekCharacters": [
+        "",
+        "bf",
+        "gf"
+    ],
+    "weekBackground": "stage",
 
-	"storyName": "",
-	"weekBefore": "tutorial",
-	"weekName": "gumball",
-	"startUnlocked": true,
+    "storyName": "",
+    "weekBefore": "tutorial",
+    "weekName": "gumball",
+    "startUnlocked": true,
 
-	"hideStoryMode": false,
-	"hideFreeplay": false
+    "hideStoryMode": false,
+    "hideFreeplay": false
 }

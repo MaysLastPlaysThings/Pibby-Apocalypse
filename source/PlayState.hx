@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxRandom;
 import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
@@ -145,6 +146,7 @@ class PlayState extends MusicBeatState
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
+	public static var storyWeekName : String = '';
 	public static var storyDifficulty:Int = 1;
 
 	public var spawnTime:Float = 2000;
@@ -183,6 +185,8 @@ class PlayState extends MusicBeatState
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
+	public var boyfriendColor : FlxColor;
+	public var dadColor : FlxColor;
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
@@ -306,6 +310,8 @@ class PlayState extends MusicBeatState
 	var rock3:BGSprite;
 	var rock4:BGSprite;
 	var wtf:BGSprite;
+	
+	var completeDarkness : FlxSprite;
 
 	//Achievement shit
 	var keysPressed:Array<Bool> = [];
@@ -444,6 +450,7 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
 		curStage = SONG.stage;
+		var newStage = new StageConstructor(curStage);
 		//trace('stage is: ' + curStage);
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			switch (songName)
@@ -517,8 +524,6 @@ class PlayState extends MusicBeatState
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
-		cpuControlled = true;
-
 		switch (curStage)
 		{
 			case 'stage': //Week 1
@@ -581,6 +586,11 @@ class PlayState extends MusicBeatState
 				rock3.visible = false;
 				rock4.visible = false;
 				wtf.visible = false;
+			case 'newschool':
+				var lockersnshit : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-1', 0, 0, 1, 1);
+				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
+				lockersnshit.updateHitbox();
+				add(lockersnshit);
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -608,6 +618,18 @@ class PlayState extends MusicBeatState
 				add(halloweenWhite);
 			case 'tank':
 				add(foregroundSprites);
+			case 'newschool':
+				var wall : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-2', 0, 200, 0.8, 0.8);
+				wall.setGraphicSize(Std.int(wall.width * 1.1));
+				wall.updateHitbox();
+                var lighting : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-3', 0, 0, 1, 1);
+				lighting.setGraphicSize(Std.int(lighting.width * 1.3));
+				lighting.updateHitbox();
+				completeDarkness = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				//add(completeDarkness);
+				completeDarkness.cameras = [camHUD];
+				add(lighting);
+				add(wall);
 		}
 
 		#if LUA_ALLOWED
@@ -724,11 +746,13 @@ class PlayState extends MusicBeatState
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
+		dadColor = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
+		boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]);
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -779,7 +803,7 @@ class PlayState extends MusicBeatState
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font(curSong + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -897,14 +921,14 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font(curSong + '.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 20, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font(curSong + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
@@ -1121,7 +1145,7 @@ class PlayState extends MusicBeatState
 		}
 
 		callOnLuas('onCreatePost', []);
-		timeTxt.setFormat(Paths.font(curSong + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		super.create();
 
@@ -1261,10 +1285,9 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		healthBar.createFilledBar(dadColor, boyfriendColor);
 
-		timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		timeBar.createFilledBar(0xFF000000, dadColor);
 		timeBar.updateBar();
 		healthBar.updateBar();
 	}
@@ -2053,6 +2076,8 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var randomSeed : FlxRandom = new FlxRandom();
+
 	public function updateScore(miss:Bool = false)
 	{
 		scoreTxt.text = 'Score: ' + songScore
@@ -2065,9 +2090,8 @@ class PlayState extends MusicBeatState
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.scale.x = 1.075;
-			scoreTxt.scale.y = 1.075;
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
+			scoreTxt.angle = randomSeed.float(-2, 2);
+			scoreTxtTween = FlxTween.tween(scoreTxt, {angle: 0}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
 				}
@@ -2620,21 +2644,23 @@ class PlayState extends MusicBeatState
 				if (curStep > 512 && curStep < 2832) {
 					defaultCamZoom = 0.65;
 					dad.visible = true;
-					void.visible = true;
-					house.visible = true;
-					rock.visible = true;
-					rock2.visible = true;
-					rock3.visible = true;
-					rock4.visible = true;
-					wtf.visible = true;
-					iconP2.visible = true;
+					if (curStage == 'void') {
+						void.visible = true;
+						house.visible = true;
+						rock.visible = true;
+						rock2.visible = true;
+						rock3.visible = true;
+						rock4.visible = true;
+						wtf.visible = true;
 
-					house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-					camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-					rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-					rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-					rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-					wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+						house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+						camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
+						rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+						rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+						rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+						wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+					}
+					iconP2.visible = true;
 				}else{
 					camGame.angle = 0;
 					if (iconP2 != null) {

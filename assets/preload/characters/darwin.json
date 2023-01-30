@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": true,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "Darwin Idle",
-			"indices": []
+			"indices": [],
+			"name": "Darwin Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				150,
-				-10
+				32,
+				-12
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Darwin left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Darwin left"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				3,
+				83,
 				-21
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Darwin right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Darwin right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-14,
 				-67
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Darwin down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Darwin down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-28,
 				74
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Darwin up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Darwin up"
 		}
 	],
 	"no_antialiasing": false,
