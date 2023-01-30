@@ -203,7 +203,7 @@ class PlayState extends MusicBeatState
 	public var startingSong:Bool = false;
 	private var updateTime:Bool = true;
 	public static var changedDifficulty:Bool = false;
-	public static var chartingMode:Bool = false;
+	public static var chartingMode:Bool = true;
 
 	//Gameplay settings
 	public var healthGain:Float = 1;
@@ -331,6 +331,8 @@ class PlayState extends MusicBeatState
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 	private var controlArray:Array<String>;
+
+	public var focusedCharacter:Character;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
@@ -574,6 +576,7 @@ class PlayState extends MusicBeatState
 				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
 				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
 				cnlogo.updateHitbox();
+				if(ClientPrefs.downScroll) cnlogo.y -= 570;
 				add(cnlogo);
 				cnlogo.cameras = [camHUD];
 
@@ -619,7 +622,7 @@ class PlayState extends MusicBeatState
 			case 'tank':
 				add(foregroundSprites);
 			case 'newschool':
-				var wall : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-2', 0, 200, 0.8, 0.8);
+				var wall : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-2', 0, 200, 1.2, 1.2);
 				wall.setGraphicSize(Std.int(wall.width * 1.1));
 				wall.updateHitbox();
                 var lighting : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-3', 0, 0, 1, 1);
@@ -630,6 +633,13 @@ class PlayState extends MusicBeatState
 				completeDarkness.cameras = [camHUD];
 				add(lighting);
 				add(wall);
+
+				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
+				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
+				cnlogo.updateHitbox();
+				if(ClientPrefs.downScroll) cnlogo.y -= 570;
+				add(cnlogo);
+				cnlogo.cameras = [camHUD];
 		}
 
 		#if LUA_ALLOWED
@@ -2672,9 +2682,26 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		var charAnimOffsetX:Float = 0;
+		var charAnimOffsetY:Float = 0;
+		if(focusedCharacter!=null){
+			if(focusedCharacter.animation.curAnim!=null){
+				switch (focusedCharacter.animation.curAnim.name.substring(4)){
+					case 'UP' | 'UP-alt' | 'UPmiss':
+						charAnimOffsetY -= 20;
+					case 'DOWN' | 'DOWN-alt' |  'DOWNmiss':
+						charAnimOffsetY += 20;
+					case 'LEFT' | 'LEFT-alt' | 'LEFTmiss':
+						charAnimOffsetX -= 20;
+					case 'RIGHT' | 'RIGHT-alt' | 'RIGHTmiss':
+						charAnimOffsetX += 20;
+				}
+			}
+		}
+
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x + charAnimOffsetX, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y + charAnimOffsetY, lerpVal));
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -3486,13 +3513,17 @@ class PlayState extends MusicBeatState
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
-			moveCamera(true);
-			callOnLuas('onMoveCamera', ['dad']);
+			if(focusedCharacter!=dad) {
+				moveCamera(true);
+				callOnLuas('onMoveCamera', ['dad']);
+			}
 		}
 		else
 		{
-			moveCamera(false);
-			callOnLuas('onMoveCamera', ['boyfriend']);
+			if(focusedCharacter!=boyfriend) {
+				moveCamera(false);
+				callOnLuas('onMoveCamera', ['boyfriend']);
+			}
 		}
 	}
 
@@ -3501,6 +3532,7 @@ class PlayState extends MusicBeatState
 	{
 		if(isDad)
 		{
+			focusedCharacter=dad;
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
@@ -3509,6 +3541,7 @@ class PlayState extends MusicBeatState
 		else
 		{
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			focusedCharacter=boyfriend;
 			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
 			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
@@ -3616,12 +3649,6 @@ class PlayState extends MusicBeatState
 				#end
 			}
 			playbackRate = 1;
-
-			if (chartingMode)
-			{
-				openChartEditor();
-				return;
-			}
 
 			if (isStoryMode)
 			{
