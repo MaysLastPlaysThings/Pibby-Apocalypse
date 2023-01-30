@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": true,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Darwin Idle"
-		},
-		{
-			"offsets": [
-				32,
-				-12
-			],
-			"loop": false,
 			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "Darwin left"
+			"name": "Darwin Idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				83,
-				-21
+				-5
 			],
-			"loop": false,
+			"anim": "singLEFT",
 			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Darwin right"
+			"name": "Darwin left",
+			"indices": []
 		},
 		{
+			"loop": false,
+			"offsets": [
+				-35,
+				-17
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Darwin right",
+			"indices": []
+		},
+		{
+			"loop": false,
 			"offsets": [
 				-14,
 				-67
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Darwin down"
+			"fps": 24,
+			"name": "Darwin down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-28,
 				74
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Darwin up"
+			"fps": 24,
+			"name": "Darwin up",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -63,7 +63,7 @@
 		450
 	],
 	"healthicon": "bf",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		255,
 		120,
