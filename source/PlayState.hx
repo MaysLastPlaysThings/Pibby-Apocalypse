@@ -80,8 +80,12 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	var noteRows:Array<Array<Array<Note>>> = [[],[]];
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+
+	var pibbyFNF:Shaders.Pibbified;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -204,6 +208,8 @@ class PlayState extends MusicBeatState
 	private var updateTime:Bool = true;
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = true;
+
+	var shaderIntensity:Float;
 
 	//Gameplay settings
 	public var healthGain:Float = 1;
@@ -333,7 +339,6 @@ class PlayState extends MusicBeatState
 	private var controlArray:Array<String>;
 
 	public var focusedCharacter:Character;
-
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
 	// stores the last judgement object
@@ -1156,6 +1161,12 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onCreatePost', []);
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+		pibbyFNF = new Shaders.Pibbified();
+		if(ClientPrefs.shaders) {
+			camHUD.setFilters([new ShaderFilter(pibbyFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF)]);
+		}
 
 		super.create();
 
@@ -2280,6 +2291,10 @@ class PlayState extends MusicBeatState
 					oldNote = null;
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+				swagNote.row = Conductor.secsToRow(daStrumTime);
+				if(noteRows[gottaHitNote?0:1][swagNote.row]==null)
+					noteRows[gottaHitNote?0:1][swagNote.row]=[];
+				noteRows[gottaHitNote ? 0 : 1][swagNote.row].push(swagNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
@@ -2636,6 +2651,12 @@ class PlayState extends MusicBeatState
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
+		if(ClientPrefs.shaders) {
+			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+			pibbyFNF.uTime.value[0] += elapsed;
+		}
+
+		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
 		switch (curSong)
 		{
 			case 'Forgotten-World': //gumball update
@@ -2755,14 +2776,14 @@ class PlayState extends MusicBeatState
 			health = 2;
 
 		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
+			iconP1.playAnim(iconP1.char + 'losing', false, false);
 		else
-			iconP1.animation.curAnim.curFrame = 0;
+			iconP1.playAnim(iconP1.char + 'neutral', false, false);
 
 		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
+			iconP2.playAnim(iconP2.char + 'losing', false, false);
 		else
-			iconP2.animation.curAnim.curFrame = 0;
+			iconP2.playAnim(iconP2.char + 'neutral', false, false);
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -4316,8 +4337,32 @@ class PlayState extends MusicBeatState
 
 			if(char != null)
 			{
-				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
+
+				// TODO: maybe move this all away into a seperate function
+					if (!note.isSustainNote && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row] != null && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row].length > 1)
+					{
+						// potentially have jump anims?
+						var chord = noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row];
+						var animNote = chord[0];
+						var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
+						if (char.mostRecentRow != note.row)
+							char.playAnim(realAnim, true);
+
+						if (note != animNote)
+							if (health > 0.5) {
+								health -= FlxG.random.float(0.075, 0.2);
+							}
+							if (FlxG.random.float(0, 1) < 0.5) {
+								camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							} else{
+								camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							}
+
+						char.mostRecentRow = note.row;
+					}
+					else
+						char.playAnim(animToPlay, true);
 			}
 		}
 
@@ -4332,7 +4377,12 @@ class PlayState extends MusicBeatState
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-
+		if (!note.isSustainNote) {
+			if (FlxG.random.int(0, 1) < 0.01) {
+				shaderIntensity = FlxG.random.float(0.2, 0.7);
+			}
+		}
+		
 		if (!note.isSustainNote)
 		{
 			note.kill();
