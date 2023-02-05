@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
-import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
 
@@ -40,8 +39,7 @@ class HealthIcon extends FlxSprite
 		if(this.char != char) {
 			var name2:String = 'icons/icon-' + char;
 			if(Paths.fileExists('images/' + name2 + '.xml', IMAGE)) {
-				var file:FlxAtlasFrames = Paths.getSparrowAtlas('icons/icon-' + char);
-				frames = file;
+				frames = Paths.getSparrowAtlas('icons/icon-' + char);
 				
 				iconOffsets[0] = (width - 150) / 2;
 				iconOffsets[1] = (width - 150) / 2;
