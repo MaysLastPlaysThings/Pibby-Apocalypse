@@ -1,5 +1,6 @@
 package editors;
 
+import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -67,7 +68,8 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Change Strum Line'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
@@ -179,6 +181,12 @@ class ChartingState extends MusicBeatState
 
 	var waveformSprite:FlxSprite;
 	var gridLayer:FlxTypedGroup<FlxSprite>;
+
+	var eventImage : FlxSprite;
+	var eventText : FlxText;
+	var changeEvent : FlxUIDropDownMenuCustom;
+	var valueInputs : Array<FlxUIInputText>;
+	var createInputButton : FlxButton;
 
 	public static var quantization:Int = 16;
 	public static var curQuant = 3;
@@ -368,6 +376,7 @@ class ChartingState extends MusicBeatState
 		addSongUI();
 		addSectionUI();
 		addNoteUI();
+		createEventTab();
 		addEventsUI();
 		addChartingUI();
 		updateHeads();
@@ -2750,6 +2759,34 @@ class ChartingState extends MusicBeatState
 
 		_song.notes.push(sec);
 	}
+
+
+	// Creating a more modernized event tab
+	function createEventTab():Void
+	{
+		eventImage = new FlxSprite(-260, -300).loadGraphic(Paths.image('eventArrow'));
+		eventImage.setGraphicSize(60, 60);
+		eventImage.updateHitbox();
+		
+		eventText = new FlxText(-200, -290, 0, 'UNDEFINED', 30, false);
+		eventText.font = Paths.font('gumball.ttf');
+		eventText.setBorderStyle(FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK, 4);
+
+		createInputButton = new FlxButton(100, 120, 'Create New Value!', createValue);
+		createInputButton.makeGraphic(100, 20, FlxColor.BLACK);
+		createInputButton.alpha = 0.75;
+		createInputButton.label.color = FlxColor.WHITE;
+
+		add(eventText);
+		add(eventImage);
+		add(createInputButton);
+	}
+
+	function createValue():Void
+	{
+			trace('create value');
+	}
+
 
 	function selectNote(note:Note):Void
 	{
