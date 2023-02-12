@@ -1,7 +1,7 @@
 {
     "songs": [
-        ["My-Amazing-World", "gumball", [165, 0, 77]],
-        ["Forgotten-World", "gf", [165, 0, 77]]
+        ["My-Amazing-World", "gumball", [82, 165, 235]],
+        ["Forgotten-World", "gumball", [82, 165, 235]]
     ],
 
     "weekCharacters": [
@@ -12,7 +12,7 @@
     "weekBackground": "stage",
 
     "storyName": "",
-    "weekBefore": "tutorial",
+    "weekBefore": "",
     "weekName": "gumball",
     "startUnlocked": true,
 

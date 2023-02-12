@@ -1,48 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-4,
 				-7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Gumball Left"
+			"fps": 24,
+			"name": "Gumball Left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-61,
 				-7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Gumball Right"
+			"fps": 24,
+			"name": "Gumball Right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-95,
 				-62
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Gumball Down"
+			"fps": 24,
+			"name": "Gumball Down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				34,
 				-30
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Gumball Up"
+			"fps": 24,
+			"name": "Gumball Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "",
+			"fps": 20,
+			"name": "",
+			"indices": []
 		},
 		{
 			"offsets": [
@@ -51,17 +62,6 @@
 			],
 			"indices": [],
 			"fps": 20,
-			"anim": "",
-			"loop": false,
-			"name": ""
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 13,
 			"anim": "idle",
 			"loop": true,
 			"name": "Gumball Idle"

@@ -80,8 +80,12 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	var noteRows:Array<Array<Array<Note>>> = [[],[]];
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+
+	var pibbyFNF:Shaders.Pibbified;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -203,7 +207,9 @@ class PlayState extends MusicBeatState
 	public var startingSong:Bool = false;
 	private var updateTime:Bool = true;
 	public static var changedDifficulty:Bool = false;
-	public static var chartingMode:Bool = false;
+	public static var chartingMode:Bool = true;
+
+	var shaderIntensity:Float;
 
 	//Gameplay settings
 	public var healthGain:Float = 1;
@@ -332,6 +338,7 @@ class PlayState extends MusicBeatState
 	private var keysArray:Array<Dynamic>;
 	private var controlArray:Array<String>;
 
+	public var focusedCharacter:Character;
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
 	// stores the last judgement object
@@ -535,6 +542,11 @@ class PlayState extends MusicBeatState
 				stageFront.updateHitbox();
 				add(stageFront);
 
+			case 'finn':
+				var background:BGSprite = new BGSprite('finn/bg', 900, 525, 1, 1);
+				background.setGraphicSize(Std.int(background.width * 3.5));
+				add(background);
+
 			case 'void': //gumball
 				void = new BGSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
 				void.setGraphicSize(Std.int(void.width * 2.5));
@@ -574,6 +586,7 @@ class PlayState extends MusicBeatState
 				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
 				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
 				cnlogo.updateHitbox();
+				if(ClientPrefs.downScroll) cnlogo.y -= 570;
 				add(cnlogo);
 				cnlogo.cameras = [camHUD];
 
@@ -619,7 +632,7 @@ class PlayState extends MusicBeatState
 			case 'tank':
 				add(foregroundSprites);
 			case 'newschool':
-				var wall : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-2', 0, 200, 0.8, 0.8);
+				var wall : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-2', 0, 200, 1.2, 1.2);
 				wall.setGraphicSize(Std.int(wall.width * 1.1));
 				wall.updateHitbox();
                 var lighting : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-3', 0, 0, 1, 1);
@@ -630,7 +643,24 @@ class PlayState extends MusicBeatState
 				completeDarkness.cameras = [camHUD];
 				add(lighting);
 				add(wall);
+
+				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
+				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
+				cnlogo.updateHitbox();
+				if(ClientPrefs.downScroll) cnlogo.y -= 570;
+				add(cnlogo);
+				cnlogo.cameras = [camHUD];
+			case 'finn':
+				var light:BGSprite = new BGSprite('finn/light', 900, 525, 1, 1);
+				light.setGraphicSize(Std.int(light.width * 3.5));
+				light.alpha = 0.55;
+				FlxTween.tween(light, {alpha: 1}, 0.5, {ease: FlxEase.bounceInOut, type: PINGPONG});
+				add(light);
+				var bulb:BGSprite = new BGSprite('finn/bulb', 900, 525, 1, 1);
+				bulb.setGraphicSize(Std.int(bulb.width * 3.5));
+				add(bulb);
 		}
+		
 
 		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
@@ -1146,6 +1176,12 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onCreatePost', []);
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+		pibbyFNF = new Shaders.Pibbified();
+		if(ClientPrefs.shaders) {
+			camHUD.setFilters([new ShaderFilter(pibbyFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF)]);
+		}
 
 		super.create();
 
@@ -2270,6 +2306,10 @@ class PlayState extends MusicBeatState
 					oldNote = null;
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+				swagNote.row = Conductor.secsToRow(daStrumTime);
+				if(noteRows[gottaHitNote?0:1][swagNote.row]==null)
+					noteRows[gottaHitNote?0:1][swagNote.row]=[];
+				noteRows[gottaHitNote ? 0 : 1][swagNote.row].push(swagNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
@@ -2626,6 +2666,27 @@ class PlayState extends MusicBeatState
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
+		if(ClientPrefs.shaders) {
+			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+			pibbyFNF.uTime.value[0] += elapsed;
+		}
+
+		switch (curStage)
+		{
+			case 'finn':
+				camZooming = true;
+				
+				if (SONG.notes[curSection].mustHitSection) {
+					defaultCamZoom = 1.05;
+				}
+				else
+				{
+					defaultCamZoom = 0.7;
+				}
+				gf.alpha = 0;
+		}
+
+		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
 		switch (curSong)
 		{
 			case 'Forgotten-World': //gumball update
@@ -2672,9 +2733,26 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		var charAnimOffsetX:Float = 0;
+		var charAnimOffsetY:Float = 0;
+		if(focusedCharacter!=null){
+			if(focusedCharacter.animation.curAnim!=null){
+				switch (focusedCharacter.animation.curAnim.name.substring(4)){
+					case 'UP' | 'UP-alt' | 'UPmiss':
+						charAnimOffsetY -= 20;
+					case 'DOWN' | 'DOWN-alt' |  'DOWNmiss':
+						charAnimOffsetY += 20;
+					case 'LEFT' | 'LEFT-alt' | 'LEFTmiss':
+						charAnimOffsetX -= 20;
+					case 'RIGHT' | 'RIGHT-alt' | 'RIGHTmiss':
+						charAnimOffsetX += 20;
+				}
+			}
+		}
+
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x + charAnimOffsetX, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y + charAnimOffsetY, lerpVal));
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -2728,14 +2806,14 @@ class PlayState extends MusicBeatState
 			health = 2;
 
 		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
+			iconP1.playAnim(iconP1.char + 'losing', false, false);
 		else
-			iconP1.animation.curAnim.curFrame = 0;
+			iconP1.playAnim(iconP1.char + 'neutral', false, false);
 
 		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
+			iconP2.playAnim(iconP2.char + 'losing', false, false);
 		else
-			iconP2.animation.curAnim.curFrame = 0;
+			iconP2.playAnim(iconP2.char + 'neutral', false, false);
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -3486,13 +3564,17 @@ class PlayState extends MusicBeatState
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
-			moveCamera(true);
-			callOnLuas('onMoveCamera', ['dad']);
+			if(focusedCharacter!=dad) {
+				moveCamera(true);
+				callOnLuas('onMoveCamera', ['dad']);
+			}
 		}
 		else
 		{
-			moveCamera(false);
-			callOnLuas('onMoveCamera', ['boyfriend']);
+			if(focusedCharacter!=boyfriend) {
+				moveCamera(false);
+				callOnLuas('onMoveCamera', ['boyfriend']);
+			}
 		}
 	}
 
@@ -3501,6 +3583,7 @@ class PlayState extends MusicBeatState
 	{
 		if(isDad)
 		{
+			focusedCharacter=dad;
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
@@ -3509,6 +3592,7 @@ class PlayState extends MusicBeatState
 		else
 		{
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			focusedCharacter=boyfriend;
 			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
 			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
@@ -3616,12 +3700,6 @@ class PlayState extends MusicBeatState
 				#end
 			}
 			playbackRate = 1;
-
-			if (chartingMode)
-			{
-				openChartEditor();
-				return;
-			}
 
 			if (isStoryMode)
 			{
@@ -4289,8 +4367,32 @@ class PlayState extends MusicBeatState
 
 			if(char != null)
 			{
-				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
+
+				// TODO: maybe move this all away into a seperate function
+					if (!note.isSustainNote && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row] != null && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row].length > 1)
+					{
+						// potentially have jump anims?
+						var chord = noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row];
+						var animNote = chord[0];
+						var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
+						if (char.mostRecentRow != note.row)
+							char.playAnim(realAnim, true);
+
+						if (note != animNote)
+							if (health > 0.5) {
+								health -= FlxG.random.float(0.075, 0.2);
+							}
+							if (FlxG.random.float(0, 1) < 0.5) {
+								camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							} else{
+								camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							}
+
+						char.mostRecentRow = note.row;
+					}
+					else
+						char.playAnim(animToPlay, true);
 			}
 		}
 
@@ -4305,7 +4407,12 @@ class PlayState extends MusicBeatState
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-
+		if (!note.isSustainNote) {
+			if (FlxG.random.int(0, 1) < 0.01) {
+				shaderIntensity = FlxG.random.float(0.2, 0.7);
+			}
+		}
+		
 		if (!note.isSustainNote)
 		{
 			note.kill();
