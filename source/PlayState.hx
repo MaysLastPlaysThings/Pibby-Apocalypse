@@ -546,13 +546,6 @@ class PlayState extends MusicBeatState
 				var background:BGSprite = new BGSprite('finn/bg', 900, 525, 1, 1);
 				background.setGraphicSize(Std.int(background.width * 3.5));
 				add(background);
-				if (SONG.notes[curSection].mustHitSection) {
-					defaultCamZoom = 0.9;
-				}
-				else
-				{
-					defaultCamZoom = 0.6;
-				}
 
 			case 'void': //gumball
 				void = new BGSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
