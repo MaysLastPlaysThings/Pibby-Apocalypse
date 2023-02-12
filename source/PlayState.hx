@@ -542,6 +542,18 @@ class PlayState extends MusicBeatState
 				stageFront.updateHitbox();
 				add(stageFront);
 
+			case 'finn':
+				var background:BGSprite = new BGSprite('finn/bg', 900, 525, 1, 1);
+				background.setGraphicSize(Std.int(background.width * 3.5));
+				add(background);
+				if (SONG.notes[curSection].mustHitSection) {
+					defaultCamZoom = 0.9;
+				}
+				else
+				{
+					defaultCamZoom = 0.6;
+				}
+
 			case 'void': //gumball
 				void = new BGSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
 				void.setGraphicSize(Std.int(void.width * 2.5));
@@ -645,7 +657,17 @@ class PlayState extends MusicBeatState
 				if(ClientPrefs.downScroll) cnlogo.y -= 570;
 				add(cnlogo);
 				cnlogo.cameras = [camHUD];
+			case 'finn':
+				var light:BGSprite = new BGSprite('finn/light', 900, 525, 1, 1);
+				light.setGraphicSize(Std.int(light.width * 3.5));
+				light.alpha = 0.55;
+				FlxTween.tween(light, {alpha: 1}, 0.5, {ease: FlxEase.bounceInOut, type: PINGPONG});
+				add(light);
+				var bulb:BGSprite = new BGSprite('finn/bulb', 900, 525, 1, 1);
+				bulb.setGraphicSize(Std.int(bulb.width * 3.5));
+				add(bulb);
 		}
+		
 
 		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
@@ -2654,6 +2676,21 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders) {
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
+		}
+
+		switch (curStage)
+		{
+			case 'finn':
+				camZooming = true;
+				
+				if (SONG.notes[curSection].mustHitSection) {
+					defaultCamZoom = 1.05;
+				}
+				else
+				{
+					defaultCamZoom = 0.7;
+				}
+				gf.alpha = 0;
 		}
 
 		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
