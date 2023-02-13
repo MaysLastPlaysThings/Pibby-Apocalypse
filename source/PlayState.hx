@@ -439,6 +439,12 @@ class PlayState extends MusicBeatState
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
+		cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
+		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
+		cnlogo.updateHitbox();
+		if(ClientPrefs.downScroll) cnlogo.y -= 570;
+		cnlogo.cameras = [camOther];
+
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 		{
@@ -544,7 +550,7 @@ class PlayState extends MusicBeatState
 
 			case 'finn':
 				var background:BGSprite = new BGSprite('finn/bg', 900, 525, 1, 1);
-				background.setGraphicSize(Std.int(background.width * 3.5));
+				background.setGraphicSize(Std.int(background.width * 1.3));
 				add(background);
 
 			case 'void': //gumball
@@ -583,13 +589,6 @@ class PlayState extends MusicBeatState
 				wtf.updateHitbox();
 				add(wtf);
 
-				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
-				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
-				cnlogo.updateHitbox();
-				if(ClientPrefs.downScroll) cnlogo.y -= 570;
-				add(cnlogo);
-				cnlogo.cameras = [camHUD];
-
 				health = 2;
 
 				void.visible = false;
@@ -625,6 +624,16 @@ class PlayState extends MusicBeatState
 		add(dadGroup);
 		add(boyfriendGroup);
 
+		//logos
+		switch (storyWeekName)
+		{
+			case 'finn':
+				add(cnlogo);
+
+			case 'gumball':
+				add(cnlogo);
+		}
+
 		switch(curStage)
 		{
 			case 'spooky':
@@ -643,21 +652,14 @@ class PlayState extends MusicBeatState
 				completeDarkness.cameras = [camHUD];
 				add(lighting);
 				add(wall);
-
-				cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
-				cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
-				cnlogo.updateHitbox();
-				if(ClientPrefs.downScroll) cnlogo.y -= 570;
-				add(cnlogo);
-				cnlogo.cameras = [camHUD];
 			case 'finn':
 				var light:BGSprite = new BGSprite('finn/light', 900, 525, 1, 1);
-				light.setGraphicSize(Std.int(light.width * 3.5));
+				light.setGraphicSize(Std.int(light.width * 1.3));
 				light.alpha = 0.55;
-				FlxTween.tween(light, {alpha: 1}, 0.5, {ease: FlxEase.bounceInOut, type: PINGPONG});
+				FlxTween.tween(light, {alpha: 1}, 1, {ease: FlxEase.bounceInOut, type: PINGPONG});
 				add(light);
 				var bulb:BGSprite = new BGSprite('finn/bulb', 900, 525, 1, 1);
-				bulb.setGraphicSize(Std.int(bulb.width * 3.5));
+				bulb.setGraphicSize(Std.int(bulb.width * 1.3));
 				add(bulb);
 		}
 		
@@ -2677,11 +2679,11 @@ class PlayState extends MusicBeatState
 				camZooming = true;
 				
 				if (SONG.notes[curSection].mustHitSection) {
-					defaultCamZoom = 1.05;
+					defaultCamZoom = 1;
 				}
 				else
 				{
-					defaultCamZoom = 0.7;
+					defaultCamZoom = 0.8;
 				}
 				gf.alpha = 0;
 		}
