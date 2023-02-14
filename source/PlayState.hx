@@ -13,6 +13,7 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
+import flixel.effects.FlxFlicker;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
@@ -281,6 +282,8 @@ class PlayState extends MusicBeatState
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	var flickerTween:FlxTween;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -307,8 +310,9 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
-	//gumball vars
 	var cnlogo:BGSprite;
+
+	//gumball vars
 	var void:BGSprite;
 	var house:BGSprite;
 	var rock:BGSprite;
@@ -317,6 +321,11 @@ class PlayState extends MusicBeatState
 	var rock4:BGSprite;
 	var wtf:BGSprite;
 	
+	//finn var
+	var light:BGSprite;
+	var dark:BGSprite;
+	var bulb:BGSprite;
+
 	var completeDarkness : FlxSprite;
 
 	//Achievement shit
@@ -653,13 +662,20 @@ class PlayState extends MusicBeatState
 				add(lighting);
 				add(wall);
 			case 'finn':
-				var light:BGSprite = new BGSprite('finn/light', 900, 525, 1, 1);
+				dark = new BGSprite('finn/dark', 900, 405, 1, 1);
+				dark.setGraphicSize(Std.int(dark.width * 1.3));
+				dark.alpha = 0.8;
+				add(dark);
+				light = new BGSprite('finn/light', 900, 405, 1, 1);
 				light.setGraphicSize(Std.int(light.width * 1.3));
-				light.alpha = 0.55;
-				FlxTween.tween(light, {alpha: 1}, 1, {ease: FlxEase.bounceInOut, type: PINGPONG});
-				add(light);
-				var bulb:BGSprite = new BGSprite('finn/bulb', 900, 525, 1, 1);
+				light.alpha = 0.8;	
+				flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: PINGPONG});
+				bulb = new BGSprite('finn/bulb', 900, 405, 1, 1);
 				bulb.setGraphicSize(Std.int(bulb.width * 1.3));
+				light.origin.set(800, 0);
+				dark.origin.set(800, 0);
+				bulb.origin.set(800, 0);
+				add(light);
 				add(bulb);
 		}
 		
@@ -2546,6 +2562,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+			flickerTween.active = false;
+
 			for (tween in modchartTweens) {
 				tween.active = false;
 			}
@@ -2590,6 +2608,8 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			callOnLuas('onResume', []);
+
+			flickerTween.active = true;
 
 			#if desktop
 			if (startTimer != null && startTimer.finished)
@@ -2679,13 +2699,19 @@ class PlayState extends MusicBeatState
 				camZooming = true;
 				
 				if (SONG.notes[curSection].mustHitSection) {
-					defaultCamZoom = 1;
+					defaultCamZoom = 1.1;
 				}
 				else
 				{
-					defaultCamZoom = 0.8;
+					defaultCamZoom = 0.9;
 				}
 				gf.alpha = 0;
+
+				if (light != null) {
+					light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
+					dark.angle = light.angle;
+					bulb.angle = light.angle;
+				}
 		}
 
 		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
