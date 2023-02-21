@@ -1,0 +1,20 @@
+{
+    "songs": [
+        ["Suffering-Siblings", "finn", [82, 165, 235]]
+    ],
+
+    "weekCharacters": [
+        "",
+        "bf",
+        "gf"
+    ],
+    "weekBackground": "stage",
+
+    "storyName": "",
+    "weekBefore": "",
+    "weekName": "finn",
+    "startUnlocked": true,
+
+    "hideStoryMode": false,
+    "hideFreeplay": false
+}
