@@ -73,7 +73,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import vlc.MP4Handler;
+import hxcodec.VideoHandler;
 #end
 
 using StringTools;
@@ -654,7 +654,6 @@ class PlayState extends MusicBeatState
 				var light:BGSprite = new BGSprite('finn/light', 900, 525, 1, 1);
 				light.setGraphicSize(Std.int(light.width * 3.5));
 				light.alpha = 0.55;
-				FlxTween.tween(light, {alpha: 1}, 0.5, {ease: FlxEase.bounceInOut, type: PINGPONG});
 				add(light);
 				var bulb:BGSprite = new BGSprite('finn/bulb', 900, 525, 1, 1);
 				bulb.setGraphicSize(Std.int(bulb.width * 3.5));
@@ -1430,7 +1429,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		var video:MP4Handler = new MP4Handler();
+		var video:VideoHandler = new VideoHandler();
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
