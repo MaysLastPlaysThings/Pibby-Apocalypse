@@ -28,24 +28,24 @@ class MainMenuState extends MusicBeatState
 	public static var psychEngineVersion:String = '0.6.2'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
+	public var cinematicdown:FlxSprite;
+	public var cinematicup:FlxSprite;
+
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
-		'options'
+		'FREEPLAY',
+		'STORY MODE',
+		'CREDITS',
 	];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var aweTxt:FlxText;
 
 	override function create()
 	{
@@ -76,7 +76,7 @@ class MainMenuState extends MusicBeatState
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pibymenu/BACKGROUND'));
 		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(Std.int(bg.width * 1));
+		bg.setGraphicSize(Std.int(bg.width * 2));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -99,6 +99,20 @@ class MainMenuState extends MusicBeatState
 		
 		// magenta.scrollFactor.set();
 
+		cinematicdown = new FlxSprite().makeGraphic(FlxG.width, 40, FlxColor.BLACK);
+		cinematicdown.scrollFactor.set();
+		cinematicdown.setPosition(0, FlxG.height - 40);
+		add(cinematicdown);
+
+		cinematicup = new FlxSprite().makeGraphic(FlxG.width, 100, FlxColor.BLACK);
+		cinematicup.scrollFactor.set();
+		add(cinematicup);
+
+		aweTxt = new FlxText(0, FlxG.height - 36, 0, "♪ Now Playing: Menu Theme - By GoddessAwe ♪", 8);
+		aweTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
+		aweTxt.alpha = 0;
+		add(aweTxt);
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -109,16 +123,21 @@ class MainMenuState extends MusicBeatState
 
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
+			var menuItem:AlphabetTyped = new AlphabetTyped(0, 60 + (i * 160), optionShit[i]);
+			menuItem.alpha = 0.4;
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			switch (optionShit[i])
+			{
+			case 'STORY MODE':
+				menuItem.x = 640;
+				menuItem.y = 0;
+			case 'FREEPLAY':
+				menuItem.x = 200;
+				menuItem.y = 0;
+			case 'CREDITS':
+				menuItem.x = 1080;
+				menuItem.y = 0;
+			}
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -128,18 +147,18 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-
 		// NG.core.calls.event.logEvent('swag').send();
 
-		changeItem();
+		FlxTween.tween(aweTxt, {alpha: 1}, 1.5, {
+			ease: FlxEase.quadInOut, startDelay: 2,
+			onComplete: 
+			function (twn:FlxTween)
+				{
+					FlxTween.tween(aweTxt, {alpha: 0}, 1.5, {
+						ease: FlxEase.quadInOut, startDelay: 2});
+				}
+		});
+		changeItem(1);
 
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
@@ -181,13 +200,13 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (FlxG.keys.anyJustPressed([LEFT, A]))
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_DOWN_P)
+			if (FlxG.keys.anyJustPressed([RIGHT, D]))
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
@@ -266,7 +285,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+			//spr.screenCenter(X);
 		});
 	}
 
@@ -281,12 +300,19 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.animation.play('idle');
+			spr.alpha = 0.4;
 			spr.updateHitbox();
 
 			if (spr.ID == curSelected)
 			{
-				spr.animation.play('selected');
+				FlxTween.tween(spr, {alpha: 1}, 0.1, {
+					ease: FlxEase.quadInOut,
+					onComplete: 
+					function (twn:FlxTween)
+						{
+							spr.alpha = 1;
+						}
+				});
 				var add:Float = 0;
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
