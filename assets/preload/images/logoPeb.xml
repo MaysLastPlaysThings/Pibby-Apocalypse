@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="logoPeb.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Bumping0000" x="2" y="2" width="1086" height="449" frameX="-72" frameY="-46" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0001" x="1090" y="2" width="1227" height="532" frameX="0" frameY="0" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0002" x="1090" y="2" width="1227" height="532" frameX="0" frameY="0" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0003" x="2319" y="2" width="1186" height="512" frameX="-17" frameY="-11" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0004" x="2319" y="2" width="1186" height="512" frameX="-17" frameY="-11" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0005" x="2" y="536" width="1142" height="484" frameX="-29" frameY="-27" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0006" x="2" y="536" width="1142" height="484" frameX="-29" frameY="-27" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0007" x="1146" y="536" width="1104" height="535" frameX="-37" frameY="-34" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0008" x="1146" y="536" width="1104" height="535" frameX="-37" frameY="-34" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0009" x="2252" y="536" width="1024" height="566" frameX="-111" frameY="-36" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0010" x="2252" y="536" width="1024" height="566" frameX="-111" frameY="-36" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0011" x="2" y="1104" width="948" height="595" frameX="-187" frameY="-36" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0012" x="2" y="1104" width="948" height="595" frameX="-187" frameY="-36" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0013" x="952" y="1104" width="948" height="604" frameX="-187" frameY="-36" frameWidth="1227" frameHeight="640"/>
+	<SubTexture name="Bumping0014" x="952" y="1104" width="948" height="604" frameX="-187" frameY="-36" frameWidth="1227" frameHeight="640"/>
+</TextureAtlas>
