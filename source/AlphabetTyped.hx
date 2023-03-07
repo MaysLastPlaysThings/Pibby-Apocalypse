@@ -36,7 +36,7 @@ class AlphabetTyped extends FlxSpriteGroup
 		this.text = text;
 
 		actualText = new FlxText(0, 0, 0, "\n" + text);
-		actualText.setFormat(Paths.font("menuBUTTONS.ttf"), 40);
+		actualText.setFormat(Paths.font("menuBUTTONS.ttf"), 65);
 		actualText.y -= actualText.size;
 		add(actualText);
 	}

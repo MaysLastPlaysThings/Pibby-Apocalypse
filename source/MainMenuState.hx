@@ -17,6 +17,10 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
@@ -34,6 +38,11 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
+
+	var pibbyFNF:Shaders.Pibbified;
+	var VCR:Shaders.OldTVShader;
+
+	var shaderIntensity:Float;
 	
 	var optionShit:Array<String> = [
 		'FREEPLAY',
@@ -73,13 +82,21 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
+		VCR = new Shaders.OldTVShader();
+
+		pibbyFNF = new Shaders.Pibbified();
+		if(ClientPrefs.shaders) {
+			FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		}
+
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pibymenu/BACKGROUND'));
+		var bg:FlxSprite = new FlxSprite(0, -10).loadGraphic(Paths.image('pibymenu/BACKGROUND'));
 		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(Std.int(bg.width * 2));
+		bg.setGraphicSize(Std.int(bg.width * 0.8));
 		bg.updateHitbox();
-		bg.screenCenter();
+		bg.screenCenter(X);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.shader = VCR;
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -129,14 +146,14 @@ class MainMenuState extends MusicBeatState
 			switch (optionShit[i])
 			{
 			case 'STORY MODE':
-				menuItem.x = 640;
-				menuItem.y = 0;
+				menuItem.x = 240;
+				menuItem.y = -75;
 			case 'FREEPLAY':
-				menuItem.x = 200;
-				menuItem.y = 0;
+				menuItem.x = -100;
+				menuItem.y = -75;
 			case 'CREDITS':
-				menuItem.x = 1080;
-				menuItem.y = 0;
+				menuItem.x = 820;
+				menuItem.y = -75;
 			}
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
@@ -189,6 +206,20 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (FlxG.random.int(0, 1) < 0.01) 
+			{
+				shaderIntensity = FlxG.random.float(0.2, 0.3);
+			}
+
+		if(ClientPrefs.shaders) {
+			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+			pibbyFNF.uTime.value[0] += elapsed;
+		}
+		
+			VCR.iTime.value[0] += elapsed;
+
+		Conductor.changeBPM(100);
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -252,9 +283,9 @@ class MainMenuState extends MusicBeatState
 
 								switch (daChoice)
 								{
-									case 'story_mode':
+									case 'STORY MODE':
 										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
+									case 'FREEPLAY':
 										MusicBeatState.switchState(new FreeplayState());
 									#if MODS_ALLOWED
 									case 'mods':
@@ -262,7 +293,7 @@ class MainMenuState extends MusicBeatState
 									#end
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
+									case 'CREDITS':
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
