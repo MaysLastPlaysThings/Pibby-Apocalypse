@@ -12,6 +12,8 @@ import flixel.tweens.FlxEase;
 import flixel.FlxSprite;
 import flixel.FlxBasic;
 
+using StringTools;
+
 // Manages all scripts that pass through this, basically just the master location of everything.
 class ScriptManager {
 
@@ -34,6 +36,7 @@ class ScriptManager {
 		expressions.set("Math", FlxMath);
 		expressions.set("PlayState", PlayState.instance);
 		expressions.set("Paths", Paths);
+		expressions.set("Std", Std);
 		expressions.set("Conductor", Conductor);
 
 		// Just basically tells me (Aaron), if my shit is working or not.

@@ -25,10 +25,10 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
         additionalParams.set('retrieveAsset', function(path : String) {
-            return 'assets/preload/stages/${currentStage}/${path}';
+            return 'assets/stages/${currentStage}/${path}';
         });
 
-        newStage = ScriptManager.loadScript('assets/preload/stages/${currentStage}/${currentStage}.hxs', null, additionalParams);
+        newStage = ScriptManager.loadScript('assets/stages/${currentStage}/${currentStage}.hxs', null, additionalParams);
 
         if (newStage != null)
             newStage.get("onCreate")();
@@ -37,21 +37,16 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
     override function update(elapsed : Float) 
         {
             super.update(elapsed);
-
             if (newStage.exists("onUpdate"))
                 newStage.get("onUpdate")(elapsed);
         }
 
     public function onStep(curStep : Int)
-        {
-            if (newStage.exists("onStep"))
-                newStage.get("onStep")(curStep);
-        }
+        if (newStage.exists("onStep"))
+            newStage.get("onStep")(curStep);
     
     public function onBeat(curBeat : Int)
-        {
-            if (newStage.exists("onBeat"))
-                newStage.get("onBeat")(curBeat);
-        }
+        if (newStage.exists("onBeat"))
+            newStage.get("onBeat")(curBeat);
     
 }

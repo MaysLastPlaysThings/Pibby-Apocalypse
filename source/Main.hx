@@ -10,6 +10,8 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
+import HScript.ScriptManager;
+
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -83,6 +85,8 @@ class Main extends Sprite
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
+
+		ScriptManager.init();
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);

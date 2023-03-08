@@ -4,8 +4,7 @@ var stageCurtains;
 
 function onCreate()
 {
-	stage.defaultCamZoom = 0.9;
-	bg = new FlxSprite(-600, -200);
+	bg = new flixel.FlxSprite(-600, -200);
 	bg.loadGraphic(retrieveAsset('images/stageback.png', 'image'));
 	bg.antialiasing = true;
 	bg.scrollFactor.set(0.9, 0.9);
@@ -14,7 +13,7 @@ function onCreate()
 	// add to the final array
 	add(bg);
 
-	stageFront = new FlxSprite(-650, 600);
+	stageFront = new flixel.FlxSprite(-650, 600);
 	stageFront.loadGraphic(retrieveAsset('images/stagefront.png', 'image'));
 	stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 	stageFront.updateHitbox();
@@ -25,7 +24,7 @@ function onCreate()
 	// add to the final array
 	add(stageFront);
 
-	stageCurtains = new FlxSprite(-500, -300);
+	stageCurtains = new flixel.FlxSprite(-500, -300);
 	stageCurtains.loadGraphic(retrieveAsset('images/stagecurtains.png', 'image'));
 	stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 	stageCurtains.updateHitbox();
