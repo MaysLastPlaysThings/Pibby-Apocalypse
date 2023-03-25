@@ -8,9 +8,12 @@ import PlayState;
 import hscript.*;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
+import flixel.FlxG;
 import flixel.tweens.FlxEase;
 import flixel.FlxSprite;
 import flixel.FlxBasic;
+import flixel.util.FlxTimer;
+import flixel.util.FlxColor;
 
 using StringTools;
 
@@ -27,11 +30,13 @@ class ScriptManager {
 
 		// Setup all of the stuff that we will need for our stuff
 		expressions.set("flixel", {
+			"FlxG": FlxG,
 			"FlxMath": FlxMath,
 			"FlxTween": FlxTween,
 			"FlxEase": FlxEase,
 			"FlxSprite": FlxSprite,
-			"FlxBasic": FlxBasic
+			"FlxBasic": FlxBasic,
+			"FlxTimer": FlxTimer
 		});
 		expressions.set("Math", FlxMath);
 		expressions.set("PlayState", PlayState.instance);

@@ -287,15 +287,9 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'FREEPLAY':
 										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'CREDITS':
 										MusicBeatState.switchState(new CreditsState());
-									case 'options':
+									case 'OPTIONS':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
 							});

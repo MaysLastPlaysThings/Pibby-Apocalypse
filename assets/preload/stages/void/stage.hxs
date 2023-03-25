@@ -1,0 +1,103 @@
+var void;
+var house;
+var rock;
+var rock2;
+var rock3;
+var rock4;
+var wtf;
+
+var isVoid = true;
+
+function onCreate()
+{
+    iconP2.visible = false;
+    PlayState.dad.visible = false;
+    void = new flixel.FlxSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
+    void.setGraphicSize(Std.int(void.width * 2.5));
+    void.updateHitbox();
+    add(void);
+
+    house = new flixel.FlxSprite('void/Ilustracion_sin_titulo-2', 0, -200, 0.85, 0.85);
+    house.setGraphicSize(Std.int(house.width * 2.5));
+    house.updateHitbox();
+    add(house);
+
+    rock = new flixel.FlxSprite('void/Ilustracion_sin_titulo-3', 0, -200, 1, 1);
+    rock.setGraphicSize(Std.int(rock.width * 2.5));
+    rock.updateHitbox();
+    add(rock);
+
+    rock2 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-4', 0, -200, 1.1, 1.1);
+    rock2.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock2.updateHitbox();
+    add(rock2);
+
+    rock3 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-5', 0, -200, 0.9, 0.9);
+    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
+    rock3.updateHitbox();
+    add(rock3);
+
+    rock4 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-6', 0, -200, 0.85, 0.85);
+    rock4.setGraphicSize(Std.int(rock4.width * 2.5));
+    rock4.updateHitbox();
+    add(rock4);
+
+    wtf = new flixel.FlxSprite('void/Ilustracion_sin_titulo-7', 0, -200, 1, 1);
+    wtf.setGraphicSize(Std.int(wtf.width * 2.5));
+    wtf.updateHitbox();
+    add(wtf);
+
+    PlayState.health = 2;
+
+    if (PlayState.curSong == 'Forgotten-World') {
+        void.visible = false;
+        house.visible = false;
+        rock.visible = false;
+        rock2.visible = false;
+        rock3.visible = false;
+        rock4.visible = false;
+        wtf.visible = false;
+        isVoid = false;
+        PlayState.health = 1;
+    }
+}
+
+function onStep(curStep) 
+{
+    if (PlayState.curSong == 'Forgotten-World') {
+        if (curStep == 512) {
+            PlayState.defaultCamZoom = 0.65;
+            PlayState.dad.visible = true;
+            void.visible = true;
+            house.visible = true;
+            rock.visible = true;
+            rock2.visible = true;
+            rock3.visible = true;
+            rock4.visible = true;
+            wtf.visible = true;
+            PlayState.iconP2.visible = true;
+            isVoid = true;
+        }
+        if (curStep == 2832) {
+            flixel.FlxG.camera.flash(Color.BLACK, 3, null, true);
+            var whiteBG : flixel.FlxSprite
+            PlayState.camGame.angle = 0;
+            iconP2.visible = false;
+            PlayState.dad.visible = false;
+            isVoid = false;
+        }
+    }
+}
+
+function onUpdate(elapsed) 
+{
+    if (void) 
+    {
+        house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+        camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
+        rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+        rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+        rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+        wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+    }
+}
