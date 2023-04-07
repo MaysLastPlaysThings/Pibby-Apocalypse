@@ -59,6 +59,9 @@ class FreeplayState extends MusicBeatState
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
 
+		// Need to make sure the filters are disabled teehee
+		FlxG.game.filtersEnabled = false;
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
