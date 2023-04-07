@@ -175,7 +175,7 @@ class MainMenuState extends MusicBeatState
 						ease: FlxEase.quadInOut, startDelay: 2});
 				}
 		});
-		changeItem(1);
+		changeItem();
 
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
