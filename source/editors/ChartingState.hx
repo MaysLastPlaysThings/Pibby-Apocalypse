@@ -564,6 +564,8 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('stages/')];
 		#end
 			
+		var stages:Array<String> = [];
+		
 		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
