@@ -580,7 +580,7 @@ class ChartingState extends MusicBeatState
 			if(FileSystem.exists(directory)) {
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
-					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
+					if (FileSystem.isDirectory(path)) {
 						var stageToCheck:String = file.substr(0, file.length - 5);
 						if(!tempMap.exists(stageToCheck)) {
 							tempMap.set(stageToCheck, true);
