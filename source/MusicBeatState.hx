@@ -35,6 +35,7 @@ class MusicBeatState extends FlxUIState
 	override function create() {
 		camBeat = FlxG.camera;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
+		//FlxG.mouse.visible = false;
 		super.create();
 
 		if(!skip) {

@@ -24,6 +24,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('add', add);
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
+        additionalParams.set('PlayState', PlayState);
         additionalParams.set('retrieveAsset', function(path : String) {
             return 'assets/stages/${currentStage}/${path}';
         });

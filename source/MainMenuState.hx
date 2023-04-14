@@ -81,6 +81,8 @@ class MainMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
+		FlxG.mouse.visible = true; // For the hovering over the discord stuff
+
 		persistentUpdate = persistentDraw = true;
 
 		VCR = new Shaders.OldTVShader();
@@ -173,9 +175,6 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
-
-		barTab = new FlxSprite().makeGraphic(0, 5, FlxColor.WHITE);
-		add(barTab);
 
 		// NG.core.calls.event.logEvent('swag').send();
 

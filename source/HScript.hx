@@ -39,7 +39,6 @@ class ScriptManager {
 			"FlxTimer": FlxTimer
 		});
 		expressions.set("Math", FlxMath);
-		expressions.set("PlayState", PlayState.instance);
 		expressions.set("Paths", Paths);
 		expressions.set("Std", Std);
 		expressions.set("Conductor", Conductor);

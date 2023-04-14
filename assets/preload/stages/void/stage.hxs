@@ -6,12 +6,8 @@ var rock3;
 var rock4;
 var wtf;
 
-var isVoid = true;
-
 function onCreate()
 {
-    iconP2.visible = false;
-    PlayState.dad.visible = false;
     void = new flixel.FlxSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
     void.setGraphicSize(Std.int(void.width * 2.5));
     void.updateHitbox();
@@ -46,58 +42,16 @@ function onCreate()
     wtf.setGraphicSize(Std.int(wtf.width * 2.5));
     wtf.updateHitbox();
     add(wtf);
-
-    PlayState.health = 2;
-
-    if (PlayState.curSong == 'Forgotten-World') {
-        void.visible = false;
-        house.visible = false;
-        rock.visible = false;
-        rock2.visible = false;
-        rock3.visible = false;
-        rock4.visible = false;
-        wtf.visible = false;
-        isVoid = false;
-        PlayState.health = 1;
-    }
 }
 
-function onStep(curStep) 
-{
-    if (PlayState.curSong == 'Forgotten-World') {
-        if (curStep == 512) {
-            PlayState.defaultCamZoom = 0.65;
-            PlayState.dad.visible = true;
-            void.visible = true;
-            house.visible = true;
-            rock.visible = true;
-            rock2.visible = true;
-            rock3.visible = true;
-            rock4.visible = true;
-            wtf.visible = true;
-            PlayState.iconP2.visible = true;
-            isVoid = true;
-        }
-        if (curStep == 2832) {
-            flixel.FlxG.camera.flash(Color.BLACK, 3, null, true);
-            var whiteBG : flixel.FlxSprite
-            PlayState.camGame.angle = 0;
-            iconP2.visible = false;
-            PlayState.dad.visible = false;
-            isVoid = false;
-        }
-    }
-}
-
-function onUpdate(elapsed) 
-{
-    if (void) 
-    {
-        house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-        camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-        rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-        rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-        rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-        wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+function onStep(step) {
+    if (step == 512) {
+        void.visible = true;
+        house.visible = true;
+        rock.visible = true;
+        rock2.visible = true;
+        rock3.visible = true;
+        rock4.visible = true;
+        wtf.visible = true;
     }
 }

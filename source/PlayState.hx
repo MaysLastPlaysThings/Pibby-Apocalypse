@@ -1249,7 +1249,8 @@ class PlayState extends MusicBeatState
 	public function startCountdown():Void
 	{
 
-		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
+		/**
+				var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 		
 		var pibbyIntro : FlxSprite = new FlxSprite(GF_X + gf.positionArray[0], GF_Y + gf.positionArray[1]);
 		pibbyIntro.frames = Paths.getSparrowAtlas('Pibby_Intro', 'shared');
@@ -1282,6 +1283,7 @@ class PlayState extends MusicBeatState
 		introGroup.add(numberIntro);
 		
 		add(introGroup);
+		**/
 
 
 		if(startedCountdown) {
@@ -1332,26 +1334,32 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
-						for (sprite in introGroup)
-							sprite.animation.play('3');
-						cameraBump();
-						FlxG.sound.play(Paths.sound('3'), 0.6);
-					case 1:
+						/**
 						for (sprite in introGroup)
 							sprite.animation.play('2');
 						cameraBump();
+						**/
+						FlxG.sound.play(Paths.sound('3'), 0.6);
+					case 1:
+						/**
+						for (sprite in introGroup)
+							sprite.animation.play('2');
+						cameraBump();
+						**/
 						FlxG.sound.play(Paths.sound('2'), 0.6);
 					case 2:
+						/**
 						for (sprite in introGroup)
-							sprite.animation.play('1');
-						boyfriendIntro.offset.set(99, 172);
+							sprite.animation.play('2');
 						cameraBump();
+						**/
 						FlxG.sound.play(Paths.sound('1'), 0.6);
 					case 3:
+						/**
 						for (sprite in introGroup)
-							sprite.animation.play('Go');
-						boyfriendIntro.offset.set(91, -17);
+							sprite.animation.play('2');
 						cameraBump();
+						**/
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
 
@@ -1976,14 +1984,6 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 0.65;
 					dad.visible = true;
 					if (curStage == 'void') {
-						void.visible = true;
-						house.visible = true;
-						rock.visible = true;
-						rock2.visible = true;
-						rock3.visible = true;
-						rock4.visible = true;
-						wtf.visible = true;
-
 						house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
 						camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
 						rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
