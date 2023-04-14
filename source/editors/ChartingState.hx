@@ -563,17 +563,7 @@ class ChartingState extends MusicBeatState
 		#else
 		var directories:Array<String> = [Paths.getPreloadPath('stages/')];
 		#end
-
-		tempMap.clear();
-		var stageFile:Array<String> = CoolUtil.coolTextFile(Paths.txt('stageList'));
-		var stages:Array<String> = [];
-		for (i in 0...stageFile.length) { //Prevent duplicates
-			var stageToCheck:String = stageFile[i];
-			if(!tempMap.exists(stageToCheck)) {
-				stages.push(stageToCheck);
-			}
-			tempMap.set(stageToCheck, true);
-		}
+			
 		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
