@@ -35,7 +35,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
             newStage.get("onCreate")();
     }
 
-    override function update(elapsed : Float) 
+    override function update(elapsed:Float) 
         {
             super.update(elapsed);
             if (newStage.exists("onUpdate"))

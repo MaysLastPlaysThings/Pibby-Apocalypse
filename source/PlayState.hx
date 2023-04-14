@@ -550,6 +550,7 @@ class PlayState extends MusicBeatState
 				light.setGraphicSize(Std.int(light.width * 1.3));
 				light.alpha = 0.8;	
 				flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: PINGPONG});
+				flickerTween.active = true;
 				bulb = new BGSprite('finn/bulb', 900, 405, 1, 1);
 				bulb.setGraphicSize(Std.int(bulb.width * 1.3));
 				light.origin.set(800, 0);
@@ -1858,8 +1859,6 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			callOnLuas('onResume', []);
-
-			flickerTween.active = true;
 
 			#if desktop
 			if (startTimer != null && startTimer.finished)
@@ -3721,6 +3720,33 @@ class PlayState extends MusicBeatState
 		{
 			resyncVocals();
 		}
+
+		switch (SONG.song)
+			{
+				case 'Suffering Siblings':
+					switch (curStep)
+					{
+						case 240:
+							defaultCamZoom = 1;
+						case 244:
+							defaultCamZoom = 1.1;
+						case 248:
+							defaultCamZoom = 1.2;
+						case 252:
+							defaultCamZoom = 1.1;
+						case 256:
+							defaultCamZoom = 0.9;
+						case 376:
+							defaultCamZoom = 1;
+						case 378:
+							defaultCamZoom = 1.1;
+						case 379:
+							defaultCamZoom = 1.15;
+						case 384:
+							defaultCamZoom = 0.9;
+					}
+			}
+
 
 		if(curStep == lastStepHit) {
 			return;
