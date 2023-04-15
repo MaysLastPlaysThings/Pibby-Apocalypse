@@ -411,7 +411,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
-		cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
+		cnlogo = new BGSprite('cnlogo', 1070, 600, 0, 0);
 		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
 		cnlogo.updateHitbox();
 		if(ClientPrefs.downScroll) cnlogo.y -= 570;
