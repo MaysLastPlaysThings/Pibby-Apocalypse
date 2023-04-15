@@ -1956,6 +1956,8 @@ class PlayState extends MusicBeatState
 				}
 				gf.alpha = 0;
 
+			
+
 				if (light != null) {
 					light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
 					dark.angle = light.angle;
@@ -3762,7 +3764,7 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.825;
 						case 608:
 							defaultCamZoom = 0.9;
-						case 612:
+						case 616:
 							defaultCamZoom = 1.1;
 						case 624:
 							defaultCamZoom = 0.9;
