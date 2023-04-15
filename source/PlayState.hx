@@ -3492,10 +3492,10 @@ class PlayState extends MusicBeatState
 				char.holdTimer = 0;
 
 				// TODO: maybe move this all away into a seperate function
-					if (!note.isSustainNote && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row] != null && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row].length > 1)
+					if (!note.isSustainNote && noteRows[note.mustPress ? 0 : 1][note.row] != null && noteRows[note.mustPress ? 0 : 1][note.row].length > 1)
 					{
 						// potentially have jump anims?
-						var chord = noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row];
+						var chord = noteRows[note.mustPress ? 0 : 1][note.row];
 						var animNote = chord[0];
 						var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
 						if (char.mostRecentRow != note.row)
