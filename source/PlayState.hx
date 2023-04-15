@@ -3736,6 +3736,8 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.1;
 						case 256:
 							defaultCamZoom = 0.9;
+						case 369:
+							defaultCamZoom = 0.95;
 						case 376:
 							defaultCamZoom = 1;
 						case 378:
@@ -3743,6 +3745,26 @@ class PlayState extends MusicBeatState
 						case 379:
 							defaultCamZoom = 1.15;
 						case 384:
+							defaultCamZoom = 0.9;
+						case 536:
+							defaultCamZoom = 0.75;
+						case 540:
+							defaultCamZoom = 0.825;
+						case 544:
+							defaultCamZoom = 0.9;
+						case 552:
+							defaultCamZoom = 1.1;
+						case 559:
+							defaultCamZoom = 0.9;
+						case 600:
+							defaultCamZoom = 0.75;
+						case 604:
+							defaultCamZoom = 0.825;
+						case 608:
+							defaultCamZoom = 0.9;
+						case 612:
+							defaultCamZoom = 1.1;
+						case 624:
 							defaultCamZoom = 0.9;
 					}
 			}
