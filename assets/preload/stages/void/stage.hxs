@@ -8,42 +8,64 @@ var wtf;
 
 function onCreate()
 {
-    void = new flixel.FlxSprite('void/Ilustracion_sin_titulo-1', 0, -200, 0.6, 0.6);
+    void = new flixel.FlxSprite(0, -200);
+    void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
     void.setGraphicSize(Std.int(void.width * 2.5));
+    void.antialiasing = true;
+    void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
     add(void);
 
-    house = new flixel.FlxSprite('void/Ilustracion_sin_titulo-2', 0, -200, 0.85, 0.85);
+    house = new flixel.FlxSprite(0, -200);
+    house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
     house.setGraphicSize(Std.int(house.width * 2.5));
+    house.antialiasing = true;
+    house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
     add(house);
 
-    rock = new flixel.FlxSprite('void/Ilustracion_sin_titulo-3', 0, -200, 1, 1);
+    rock = new flixel.FlxSprite(0, -200);
+    rock.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
     rock.setGraphicSize(Std.int(rock.width * 2.5));
+    rock.antialiasing = true;
+    rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
     add(rock);
 
-    rock2 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-4', 0, -200, 1.1, 1.1);
+    rock2 = new flixel.FlxSprite(0, -200);
+    rock2.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-4.png', 'image'));
     rock2.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock2.antialiasing = true;
+    rock2.scrollFactor.set(1.1, 1.1);
     rock2.updateHitbox();
     add(rock2);
 
-    rock3 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-5', 0, -200, 0.9, 0.9);
-    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
+    rock3 = new flixel.FlxSprite(0, -200);
+    rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-5.png', 'image'));
+    rock3.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock3.antialiasing = true;
+    rock3.scrollFactor.set(0.9, 0.9);
     rock3.updateHitbox();
     add(rock3);
 
-    rock4 = new flixel.FlxSprite('void/Ilustracion_sin_titulo-6', 0, -200, 0.85, 0.85);
+    rock4 = new flixel.FlxSprite(0, -200);
+    rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
     rock4.setGraphicSize(Std.int(rock4.width * 2.5));
+    rock4.antialiasing = true;
+    rock4.scrollFactor.set(0.85, 0.85);
     rock4.updateHitbox();
     add(rock4);
 
-    wtf = new flixel.FlxSprite('void/Ilustracion_sin_titulo-7', 0, -200, 1, 1);
+    wtf = new flixel.FlxSprite(0, -200);
+    wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
     wtf.setGraphicSize(Std.int(wtf.width * 2.5));
+    wtf.antialiasing = true;
+    wtf.scrollFactor.set(1, 1);
     wtf.updateHitbox();
     add(wtf);
 }
 
+/** not working rn
 function onStep(step) {
     if (step == 512) {
         void.visible = true;
@@ -55,3 +77,11 @@ function onStep(step) {
         wtf.visible = true;
     }
 }
+function onUpdate(elapsed) {
+    house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+    rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+    rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+    rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+    wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+}
+**/

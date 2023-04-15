@@ -5,6 +5,7 @@ import HScript.Script;
 import HScript.ScriptManager;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
+import openfl.display.BitmapData;
 
 class StageConstructor extends FlxTypedGroup<FlxBasic>
 {
@@ -26,7 +27,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState);
         additionalParams.set('retrieveAsset', function(path : String) {
-            return 'assets/stages/${currentStage}/${path}';
+            return BitmapData.fromBytes(sys.io.File.getBytes('./assets/stages/${currentStage}/${path}'));
         });
 
         newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
