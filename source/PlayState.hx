@@ -1370,7 +1370,6 @@ class PlayState extends MusicBeatState
 					if(ClientPrefs.opponentStrums || note.mustPress)
 					{
 						note.copyAlpha = false;
-						note.alpha = note.multAlpha;
 						if(ClientPrefs.middleScroll && !note.mustPress) {
 							note.alpha *= 0.35;
 						}
@@ -2221,8 +2220,15 @@ class PlayState extends MusicBeatState
 					if (daNote.copyAngle)
 						daNote.angle = strumDirection - 90 + strumAngle;
 
-					if(daNote.copyAlpha)
-						daNote.alpha = strumAlpha;
+					if(daNote.copyAlpha) {
+						if(!daNote.mustPress) {
+							if(!daNote.gfNote) {
+								daNote.alpha = strumAlpha;
+							}else{
+								daNote.alpha = 0;
+							}
+						}
+					}
 
 					if(daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -3477,8 +3483,10 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if (health > 0.1) {
-				health -= 0.0125;
+			if(!note.gfNote) {
+				if (health > 0.1) {
+					health -= 0.0125;
+				}
 			}
 
 			var char:Character = dad;
@@ -3502,13 +3510,15 @@ class PlayState extends MusicBeatState
 							char.playAnim(realAnim, true);
 
 						if (note != animNote)
-							if (health > 0.5) {
-								health -= FlxG.random.float(0.075, 0.2);
-							}
-							if (FlxG.random.float(0, 1) < 0.5) {
-								camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
-							} else{
-								camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							if (!note.gfNote) {
+								if (health > 0.5) {
+									health -= FlxG.random.float(0.075, 0.2);
+								}
+								if (FlxG.random.float(0, 1) < 0.5) {
+									camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+								} else{
+									camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+								}
 							}
 
 						char.mostRecentRow = note.row;
@@ -3525,13 +3535,17 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
-		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		if(!note.gfNote) {
+			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		}
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-		if (!note.isSustainNote) {
-			if (FlxG.random.int(0, 1) < 0.01) {
-				shaderIntensity = FlxG.random.float(0.2, 0.7);
+		if (!note.gfNote) {
+			if (!note.isSustainNote) {
+				if (FlxG.random.int(0, 1) < 0.01) {
+					shaderIntensity = FlxG.random.float(0.2, 0.7);
+				}
 			}
 		}
 		
