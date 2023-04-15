@@ -273,6 +273,7 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
+	var touhouBG:FlxSprite;
 	var cnlogo:BGSprite;
 
 	//gumball vars
@@ -2490,6 +2491,47 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+				}
+
+			case 'Apple Filter':
+				if (value1.toLowerCase() == 'on') {
+					if (value2.toLowerCase() == 'black') {
+						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+						boyfriend.colorTransform.blueOffset = 255;
+						boyfriend.colorTransform.redOffset = 255;
+						boyfriend.colorTransform.greenOffset = 255;
+						dad.colorTransform.blueOffset = 255;
+						dad.colorTransform.redOffset = 255;
+						dad.colorTransform.greenOffset = 255;
+						gf.colorTransform.blueOffset = 255;
+						gf.colorTransform.redOffset = 255;
+						gf.colorTransform.greenOffset = 255;
+						touhouBG.scrollFactor.set();
+						addBehindDad(touhouBG);
+					}else{
+						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
+						boyfriend.color = FlxColor.BLACK;
+						dad.color = FlxColor.BLACK;
+						gf.color = FlxColor.BLACK;
+						touhouBG.scrollFactor.set();
+						addBehindDad(touhouBG);
+					}
+				}else{
+					touhouBG.kill();
+					boyfriend.colorTransform.blueOffset = 0;
+					boyfriend.colorTransform.redOffset = 0;
+					boyfriend.colorTransform.greenOffset = 0;
+					dad.colorTransform.blueOffset = 0;
+					dad.colorTransform.redOffset = 0;
+					dad.colorTransform.greenOffset = 0;
+					gf.colorTransform.blueOffset = 0;
+					gf.colorTransform.redOffset = 0;
+					gf.colorTransform.greenOffset = 0;
+					boyfriend.color = FlxColor.WHITE;
+					dad.color = FlxColor.WHITE;
+					gf.color = FlxColor.WHITE;
 				}
 
 			case 'Play Animation':
