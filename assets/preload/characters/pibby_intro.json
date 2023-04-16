@@ -1,78 +1,67 @@
 {
 	"animations": [
 		{
-			"loop": true,
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"anim": "3",
 			"fps": 24,
-			"name": "Darwin Idle",
+			"name": "Pibby 3",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				150,
-				-10
+				27,
+				146
 			],
-			"anim": "singLEFT",
+			"anim": "2",
 			"fps": 24,
-			"name": "Darwin left",
+			"name": "Pibby 2",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
 				3,
-				-21
+				-18
 			],
-			"anim": "singRIGHT",
+			"anim": "1",
 			"fps": 24,
-			"name": "Darwin right",
+			"name": "Pibby 1",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-14,
-				-67
+				-29,
+				-32
 			],
-			"anim": "singDOWN",
+			"anim": "Go",
 			"fps": 24,
-			"name": "Darwin down",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-28,
-				74
-			],
-			"anim": "singUP",
-			"fps": 24,
-			"name": "Darwin up",
+			"name": "Pibby Go",
 			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/Black",
+	"image": "characters/Pibby_Intro",
 	"position": [
-		100,
-		450
+		420,
+		420
 	],
 	"healthicon": "bf",
 	"flip_x": true,
 	"healthbar_colors": [
-		255,
-		120,
-		75
+		49,
+		176,
+		209
 	],
 	"camera_position": [
-		160,
-		-70
+		0,
+		0
 	],
 	"sing_duration": 4,
-	"scale": 1.5
+	"scale": 1
 }

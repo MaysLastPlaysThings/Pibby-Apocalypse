@@ -1,5 +1,6 @@
 package;
 
+import options.BaseOptionsMenu;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -197,6 +198,12 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		//temporary options keybind
+		if (FlxG.keys.justPressed.SHIFT)
+			{
+				LoadingState.loadAndSwitchState(new options.OptionsState());
+			}
+
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
 				shaderIntensity = FlxG.random.float(0.2, 0.3);

@@ -166,6 +166,10 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
 
+	var bfIntro:Character;
+	var pibbyIntro:Character;
+	var numIntro:Character;
+
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
@@ -273,6 +277,7 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
+	var touhouBG:FlxSprite;
 	var cnlogo:BGSprite;
 
 	//gumball vars
@@ -411,7 +416,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
-		cnlogo = new BGSprite('void/cnlogo', 1070, 600, 0, 0);
+		cnlogo = new BGSprite('cnlogo', 1070, 600, 0, 0);
 		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
 		cnlogo.updateHitbox();
 		if(ClientPrefs.downScroll) cnlogo.y -= 570;
@@ -1249,43 +1254,36 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
 	{
+		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 
-		/**
-				var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-		
-		var pibbyIntro : FlxSprite = new FlxSprite(GF_X + gf.positionArray[0], GF_Y + gf.positionArray[1]);
-		pibbyIntro.frames = Paths.getSparrowAtlas('Pibby_Intro', 'shared');
+		if (SONG.player1 == 'newbf') {
+			bfIntro = new Boyfriend(0, 0, 'bf_intro');
+			startCharacterPos(bfIntro);
+			boyfriendGroup.add(bfIntro);
+			boyfriend.alpha = 0;
 
-		pibbyIntro.animation.addByPrefix('3', 'Pibby 3', 30, false);
-		pibbyIntro.animation.addByPrefix('2', 'Pibby 2', 30, false);
-		pibbyIntro.animation.addByPrefix('1', 'Pibby 1', 30, false);
-		pibbyIntro.animation.addByPrefix('Go', 'Pibby Go', 30, false);
-		
-		introGroup.add(pibbyIntro);
+			bfIntro.playAnim('Go', true);
+			bfIntro.specialAnim = true;
+		}
 
-		var boyfriendIntro : FlxSprite = new FlxSprite(BF_X + boyfriend.positionArray[0], BF_Y + boyfriend.positionArray[1]);
-		boyfriendIntro.frames = Paths.getSparrowAtlas('BF_Pibby_Intro', 'shared');
+		if (gf.curCharacter.startsWith('pibby')) {
+			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
+			startCharacterPos(pibbyIntro);
+			boyfriendGroup.add(pibbyIntro);
+			
+			pibbyIntro.playAnim('Go', true);
+			pibbyIntro.specialAnim = true;
+		}
 
-		boyfriendIntro.animation.addByPrefix('3', 'BF 3 and 2', 30, false);
-		boyfriendIntro.animation.addByPrefix('2', 'BF 3 and 2', 30, false);
-		boyfriendIntro.animation.addByPrefix('1', 'BF 1', 30, false);
-		boyfriendIntro.animation.addByPrefix('Go', 'BF Go', 30, false);
+		numIntro = new Boyfriend(FlxG.width / 3, FlxG.height / 4, 'num_intro');
+		numIntro.cameras = [camHUD];
+		introGroup.add(numIntro);
 
-		introGroup.add(boyfriendIntro);
-
-		var numberIntro : FlxSprite = new FlxSprite(((GF_X + gf.positionArray[0]) + (BF_X + boyfriend.positionArray[0])) / 2, (BF_Y + boyfriend.positionArray[1] - 200));
-		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
-
-		numberIntro.animation.addByPrefix('3', '3', 30, false);
-		numberIntro.animation.addByPrefix('2', '2', 30, false);
-		numberIntro.animation.addByPrefix('1', '1', 30, false);
-		numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
-
-		introGroup.add(numberIntro);
+		//introGroup.add(numberIntro);
 		
 		add(introGroup);
-		**/
 
+		numIntro.alpha = 0;
 
 		if(startedCountdown) {
 			callOnLuas('onStartCountdown', []);
@@ -1340,6 +1338,23 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								numIntro.alpha = 1;
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('3', true);
+									bfIntro.specialAnim = true;
+								}
+
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('3', true);
+									pibbyIntro.specialAnim = true;
+								}
+
+								numIntro.playAnim('3', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('3'), 0.6);
 					case 1:
 						/**
@@ -1347,6 +1362,22 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('2', true);
+									bfIntro.specialAnim = true;
+								}
+
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('2', true);
+									pibbyIntro.specialAnim = true;
+								}
+								
+								numIntro.playAnim('2', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('2'), 0.6);
 					case 2:
 						/**
@@ -1354,6 +1385,22 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('1', true);
+									bfIntro.specialAnim = true;
+								}
+								
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('1', true);
+									pibbyIntro.specialAnim = true;
+								}
+
+								numIntro.playAnim('1', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('1'), 0.6);
 					case 3:
 						/**
@@ -1361,16 +1408,38 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('Go', true);
+									bfIntro.specialAnim = true;
+								}
+
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('Go', true);
+									pibbyIntro.specialAnim = true;
+								}
+								
+								numIntro.playAnim('Go', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
-
+						if (SONG.player1 == 'newbf') {
+							boyfriend.alpha = 1;
+							bfIntro.alpha = 0;
+						}
+						if (gf.curCharacter.startsWith('pibby')) {
+							pibbyIntro.alpha = 0;
+						}
+						numIntro.alpha = 0;
 				}
 
 				notes.forEachAlive(function(note:Note) {
 					if(ClientPrefs.opponentStrums || note.mustPress)
 					{
 						note.copyAlpha = false;
-						note.alpha = note.multAlpha;
 						if(ClientPrefs.middleScroll && !note.mustPress) {
 							note.alpha *= 0.35;
 						}
@@ -1956,6 +2025,8 @@ class PlayState extends MusicBeatState
 				}
 				gf.alpha = 0;
 
+			
+
 				if (light != null) {
 					light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
 					dark.angle = light.angle;
@@ -2218,8 +2289,15 @@ class PlayState extends MusicBeatState
 					if (daNote.copyAngle)
 						daNote.angle = strumDirection - 90 + strumAngle;
 
-					if(daNote.copyAlpha)
-						daNote.alpha = strumAlpha;
+					if(daNote.copyAlpha) {
+						if(!daNote.mustPress) {
+							if(!daNote.gfNote) {
+								daNote.alpha = strumAlpha;
+							}else{
+								daNote.alpha = 0;
+							}
+						}
+					}
 
 					if(daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -2481,6 +2559,47 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+				}
+
+			case 'Apple Filter':
+				if (value1.toLowerCase() == 'on') {
+					if (value2.toLowerCase() == 'black') {
+						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+						boyfriend.colorTransform.blueOffset = 255;
+						boyfriend.colorTransform.redOffset = 255;
+						boyfriend.colorTransform.greenOffset = 255;
+						dad.colorTransform.blueOffset = 255;
+						dad.colorTransform.redOffset = 255;
+						dad.colorTransform.greenOffset = 255;
+						gf.colorTransform.blueOffset = 255;
+						gf.colorTransform.redOffset = 255;
+						gf.colorTransform.greenOffset = 255;
+						touhouBG.scrollFactor.set();
+						addBehindDad(touhouBG);
+					}else{
+						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
+						boyfriend.color = FlxColor.BLACK;
+						dad.color = FlxColor.BLACK;
+						gf.color = FlxColor.BLACK;
+						touhouBG.scrollFactor.set();
+						addBehindDad(touhouBG);
+					}
+				}else{
+					touhouBG.kill();
+					boyfriend.colorTransform.blueOffset = 0;
+					boyfriend.colorTransform.redOffset = 0;
+					boyfriend.colorTransform.greenOffset = 0;
+					dad.colorTransform.blueOffset = 0;
+					dad.colorTransform.redOffset = 0;
+					dad.colorTransform.greenOffset = 0;
+					gf.colorTransform.blueOffset = 0;
+					gf.colorTransform.redOffset = 0;
+					gf.colorTransform.greenOffset = 0;
+					boyfriend.color = FlxColor.WHITE;
+					dad.color = FlxColor.WHITE;
+					gf.color = FlxColor.WHITE;
 				}
 
 			case 'Play Animation':
@@ -3474,8 +3593,10 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if (health > 0.1) {
-				health -= 0.0125;
+			if(!note.gfNote) {
+				if (health > 0.1) {
+					health -= 0.0125;
+				}
 			}
 
 			var char:Character = dad;
@@ -3489,23 +3610,25 @@ class PlayState extends MusicBeatState
 				char.holdTimer = 0;
 
 				// TODO: maybe move this all away into a seperate function
-					if (!note.isSustainNote && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row] != null && noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row].length > 1)
+					if (!note.isSustainNote && noteRows[note.mustPress ? 0 : 1][note.row] != null && noteRows[note.mustPress ? 0 : 1][note.row].length > 1)
 					{
 						// potentially have jump anims?
-						var chord = noteRows[note.gfNote ? 2 : note.mustPress ? 0 : 1][note.row];
+						var chord = noteRows[note.mustPress ? 0 : 1][note.row];
 						var animNote = chord[0];
 						var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
 						if (char.mostRecentRow != note.row)
 							char.playAnim(realAnim, true);
 
 						if (note != animNote)
-							if (health > 0.5) {
-								health -= FlxG.random.float(0.075, 0.2);
-							}
-							if (FlxG.random.float(0, 1) < 0.5) {
-								camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
-							} else{
-								camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							if (!note.gfNote) {
+								if (health > 0.5) {
+									health -= FlxG.random.float(0.075, 0.2);
+								}
+								if (FlxG.random.float(0, 1) < 0.5) {
+									camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+								} else{
+									camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+								}
 							}
 
 						char.mostRecentRow = note.row;
@@ -3522,13 +3645,17 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
-		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		if(!note.gfNote) {
+			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		}
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-		if (!note.isSustainNote) {
-			if (FlxG.random.int(0, 1) < 0.01) {
-				shaderIntensity = FlxG.random.float(0.2, 0.7);
+		if (!note.gfNote) {
+			if (!note.isSustainNote) {
+				if (FlxG.random.int(0, 1) < 0.01) {
+					shaderIntensity = FlxG.random.float(0.2, 0.7);
+				}
 			}
 		}
 		
@@ -3735,6 +3862,8 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.1;
 						case 256:
 							defaultCamZoom = 0.9;
+						case 369:
+							defaultCamZoom = 0.95;
 						case 376:
 							defaultCamZoom = 1;
 						case 378:
@@ -3742,6 +3871,26 @@ class PlayState extends MusicBeatState
 						case 379:
 							defaultCamZoom = 1.15;
 						case 384:
+							defaultCamZoom = 0.9;
+						case 536:
+							defaultCamZoom = 0.75;
+						case 540:
+							defaultCamZoom = 0.825;
+						case 544:
+							defaultCamZoom = 0.9;
+						case 552:
+							defaultCamZoom = 1.1;
+						case 559:
+							defaultCamZoom = 0.9;
+						case 600:
+							defaultCamZoom = 0.75;
+						case 604:
+							defaultCamZoom = 0.825;
+						case 608:
+							defaultCamZoom = 0.9;
+						case 616:
+							defaultCamZoom = 1.1;
+						case 624:
 							defaultCamZoom = 0.9;
 					}
 			}
