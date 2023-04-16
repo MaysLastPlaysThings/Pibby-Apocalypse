@@ -167,6 +167,7 @@ class PlayState extends MusicBeatState
 	public var boyfriend:Boyfriend = null;
 
 	var bfIntro:Character;
+	var pibbyIntro:Character;
 	var numIntro:Character;
 
 	public var notes:FlxTypedGroup<Note>;
@@ -1253,18 +1254,16 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
 	{
-
 		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-		
-		var pibbyIntro : FlxSprite = new FlxSprite(GF_X + gf.positionArray[0], GF_Y + gf.positionArray[1]);
-		pibbyIntro.frames = Paths.getSparrowAtlas('Pibby_Intro', 'shared');
-
-		pibbyIntro.animation.addByPrefix('3', 'Pibby 3', 30, false);
-		pibbyIntro.animation.addByPrefix('2', 'Pibby 2', 30, false);
-		pibbyIntro.animation.addByPrefix('1', 'Pibby 1', 30, false);
-		pibbyIntro.animation.addByPrefix('Go', 'Pibby Go', 30, false);
-		
-		//introGroup.add(pibbyIntro);
+	
+		if (gf.curCharacter.startsWith('pibby')) {
+			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
+			startCharacterPos(pibbyIntro);
+			boyfriendGroup.add(pibbyIntro);
+			
+			pibbyIntro.playAnim('Go', true);
+			pibbyIntro.specialAnim = true;
+		}
 
 		if (SONG.player1 == 'newbf') {
 			bfIntro = new Boyfriend(0, 0, 'bf_intro');
@@ -1348,6 +1347,11 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('3', true);
+									pibbyIntro.specialAnim = true;
+								}
+
 								numIntro.playAnim('3', true);
 								numIntro.specialAnim = true;
 							}
@@ -1364,6 +1368,11 @@ class PlayState extends MusicBeatState
 								if (SONG.player1 == 'newbf') {
 									bfIntro.playAnim('2', true);
 									bfIntro.specialAnim = true;
+								}
+
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('2', true);
+									pibbyIntro.specialAnim = true;
 								}
 								
 								numIntro.playAnim('2', true);
@@ -1384,6 +1393,11 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 								
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('1', true);
+									pibbyIntro.specialAnim = true;
+								}
+
 								numIntro.playAnim('1', true);
 								numIntro.specialAnim = true;
 							}
@@ -1401,6 +1415,11 @@ class PlayState extends MusicBeatState
 									bfIntro.playAnim('Go', true);
 									bfIntro.specialAnim = true;
 								}
+
+								if (gf.curCharacter.startsWith('pibby')) {
+									pibbyIntro.playAnim('Go', true);
+									pibbyIntro.specialAnim = true;
+								}
 								
 								numIntro.playAnim('Go', true);
 								numIntro.specialAnim = true;
@@ -1410,6 +1429,9 @@ class PlayState extends MusicBeatState
 						if (SONG.player1 == 'newbf') {
 							boyfriend.alpha = 1;
 							bfIntro.alpha = 0;
+						}
+						if (gf.curCharacter.startsWith('pibby')) {
+							pibbyIntro.alpha = 0;
 						}
 						numIntro.alpha = 0;
 				}

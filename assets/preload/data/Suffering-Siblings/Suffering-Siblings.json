@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "bf",
+		"player1": "newbf",
 		"notes": [
 			{
 				"typeOfSection": 0,
@@ -18097,7 +18097,7 @@
 		],
 		"gfVersion": "gf",
 		"events": [],
-		"player2": "bf",
+		"player2": "finn-R",
 		"splashSkin": "noteSplashes",
 		"song": "Suffering Siblings",
 		"validScore": true,
