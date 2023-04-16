@@ -127,7 +127,6 @@ class MainMenuState extends MusicBeatState
 		cinematicup.scrollFactor.set();
 		add(cinematicup);
 
-
 		var options = new FlxSprite().loadGraphic(Paths.image('pibymenu/Options'));
 		options.scale.set(0.3, 0.3);
 		options.updateHitbox();
