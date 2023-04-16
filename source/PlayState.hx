@@ -980,6 +980,20 @@ class PlayState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camOther;
 	}
 
+	function cinematics(type:Bool, length:Float)
+		{
+						switch (type)
+						{
+							case true:
+								FlxTween.tween(cinematicup, { y: 0}, length, {ease: FlxEase.cubeOut});
+								FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, length, {ease: FlxEase.cubeOut});
+							case false:
+								FlxTween.tween(cinematicup, { y: -100}, length, {ease: FlxEase.cubeOut});
+								FlxTween.tween(cinematicdown, { y: FlxG.height}, length, {ease: FlxEase.cubeOut});
+						}
+
+		}
+						
 	#if (!flash && sys)
 	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
 	public function createRuntimeShader(name:String):FlxRuntimeShader
@@ -3871,11 +3885,11 @@ class PlayState extends MusicBeatState
 				case 'Retcon':
 					switch (curStep)
 					{
-						case 0:
-							cinemaBars(1, 18.525);
+						case 1:
+							cinematics(true, 18.525);
 							camGame.fade(FlxColor.BLACK, 18.525, true);
 						case 248:
-							cinemaBars(0, 0.675);
+							cinematics(false, 0.675);
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
@@ -4102,19 +4116,6 @@ class PlayState extends MusicBeatState
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
 	}
-	
-	function cinemaBars(type:Int, length:Float) //adds funni overused cinema bars, if type = 1 then they appear, if type = 0 they dissapear, length represents the length of appearing/dissapearing
-		{
-			switch (type)
-				{
-					case 1:
-							FlxTween.tween(cinematicup, { y: 0}, length, {ease: FlxEase.cubeOut});
-							FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, length, {ease: FlxEase.cubeOut});
-					case 0:
-							FlxTween.tween(cinematicup, { y: -100}, length, {ease: FlxEase.cubeOut});
-							FlxTween.tween(cinematicdown, { y: FlxG.height}, length, {ease: FlxEase.cubeOut});
-				}
-		}
 
 	#if ACHIEVEMENTS_ALLOWED
 	private function checkForAchievement(achievesToCheck:Array<String> = null):String
