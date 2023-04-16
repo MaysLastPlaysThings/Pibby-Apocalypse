@@ -1,5 +1,6 @@
 package;
 
+import openfl.net.URLRequest;
 import options.BaseOptionsMenu;
 #if desktop
 import Discord.DiscordClient;
@@ -18,6 +19,9 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
+import flixel.input.mouse.FlxMouseEvent;
+import openfl.Lib;
+
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -135,12 +139,32 @@ class MainMenuState extends MusicBeatState
 		options.antialiasing = ClientPrefs.globalAntialiasing;
 		add(options);
 
+		FlxMouseEvent.add(options,
+			function(s : FlxSprite) { 
+				menuItems.forEach(function(spr:FlxSprite)
+					{
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
+							{
+								spr.kill();
+							}
+						});
+					});
+					MusicBeatState.switchState(new options.OptionsState());
+			 });
+
+
 		var discord = new FlxSprite().loadGraphic(Paths.image('pibymenu/discord'));
 		discord.scale.set(0.3, 0.3);
 		discord.updateHitbox();
 		discord.setPosition(options.x - 85, FlxG.height - 60);
 		discord.antialiasing = ClientPrefs.globalAntialiasing;
 		add(discord);
+
+		FlxMouseEvent.add(discord,
+			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/wTc9JHpWkU')); }
+		);
 
 
 		aweTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Menu Theme - By GoddessAwe ♪", 8);
