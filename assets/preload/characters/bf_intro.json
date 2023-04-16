@@ -1,55 +1,55 @@
 {
 	"animations": [
 		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "3",
-			"fps": 24,
-			"name": "BF 3 and 2",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "2",
-			"fps": 24,
-			"name": "BF 3 and 2",
-			"indices": []
-		},
-		{
-			"loop": false,
 			"offsets": [
 				68,
 				113
 			],
-			"anim": "1",
+			"loop": false,
 			"fps": 24,
-			"name": "BF 1",
-			"indices": []
+			"anim": "1",
+			"indices": [],
+			"name": "BF 1"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				68,
 				-15
 			],
-			"anim": "Go",
+			"loop": false,
 			"fps": 24,
-			"name": "BF Go",
-			"indices": []
+			"anim": "Go",
+			"indices": [],
+			"name": "BF Go"
+		},
+		{
+			"offsets": [
+				12,
+				83
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "3",
+			"indices": [],
+			"name": "BF 3"
+		},
+		{
+			"offsets": [
+				-1,
+				-2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "2",
+			"indices": [],
+			"name": "BF 2"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/BF_Pibby_Intro",
+	"image": "characters/BF_Intro",
 	"position": [
-		70,
-		340
+		68,
+		335
 	],
 	"healthicon": "bf",
 	"flip_x": true,

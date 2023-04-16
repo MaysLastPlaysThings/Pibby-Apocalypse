@@ -1255,15 +1255,6 @@ class PlayState extends MusicBeatState
 	public function startCountdown():Void
 	{
 		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-	
-		if (gf.curCharacter.startsWith('pibby')) {
-			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
-			startCharacterPos(pibbyIntro);
-			boyfriendGroup.add(pibbyIntro);
-			
-			pibbyIntro.playAnim('Go', true);
-			pibbyIntro.specialAnim = true;
-		}
 
 		if (SONG.player1 == 'newbf') {
 			bfIntro = new Boyfriend(0, 0, 'bf_intro');
@@ -1273,6 +1264,15 @@ class PlayState extends MusicBeatState
 
 			bfIntro.playAnim('Go', true);
 			bfIntro.specialAnim = true;
+		}
+
+		if (gf.curCharacter.startsWith('pibby')) {
+			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
+			startCharacterPos(pibbyIntro);
+			boyfriendGroup.add(pibbyIntro);
+			
+			pibbyIntro.playAnim('Go', true);
+			pibbyIntro.specialAnim = true;
 		}
 
 		numIntro = new Boyfriend(FlxG.width / 3, FlxG.height / 4, 'num_intro');

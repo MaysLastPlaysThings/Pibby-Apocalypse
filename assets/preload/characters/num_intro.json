@@ -1,48 +1,48 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "3",
-			"fps": 30,
-			"name": "3",
-			"indices": []
+			"loop": false,
+			"name": "3"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-85,
 				-58
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "2",
-			"fps": 30,
-			"name": "2",
-			"indices": []
+			"loop": false,
+			"name": "2"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-72,
 				-47
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "1",
-			"fps": 30,
-			"name": "1",
-			"indices": []
+			"loop": false,
+			"name": "1"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				98,
 				-15
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "Go",
-			"fps": 30,
-			"name": "Go",
-			"indices": []
+			"loop": false,
+			"name": "Go"
 		}
 	],
 	"no_antialiasing": false,

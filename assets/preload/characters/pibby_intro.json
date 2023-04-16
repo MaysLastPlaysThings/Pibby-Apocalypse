@@ -14,8 +14,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				28,
-				160
+				27,
+				146
 			],
 			"anim": "2",
 			"fps": 24,
@@ -25,8 +25,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				2,
-				-11
+				3,
+				-18
 			],
 			"anim": "1",
 			"fps": 24,
@@ -36,8 +36,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-23,
-				-15
+				-29,
+				-32
 			],
 			"anim": "Go",
 			"fps": 24,
@@ -48,8 +48,8 @@
 	"no_antialiasing": false,
 	"image": "characters/Pibby_Intro",
 	"position": [
-		80,
-		320
+		420,
+		420
 	],
 	"healthicon": "bf",
 	"flip_x": true,
