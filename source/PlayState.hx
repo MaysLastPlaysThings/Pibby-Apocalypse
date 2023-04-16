@@ -166,6 +166,9 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
 
+	var bfIntro:Character;
+	var numIntro:Character;
+
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
@@ -1251,8 +1254,7 @@ class PlayState extends MusicBeatState
 	public function startCountdown():Void
 	{
 
-		/**
-				var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
+		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 		
 		var pibbyIntro : FlxSprite = new FlxSprite(GF_X + gf.positionArray[0], GF_Y + gf.positionArray[1]);
 		pibbyIntro.frames = Paths.getSparrowAtlas('Pibby_Intro', 'shared');
@@ -1262,31 +1264,26 @@ class PlayState extends MusicBeatState
 		pibbyIntro.animation.addByPrefix('1', 'Pibby 1', 30, false);
 		pibbyIntro.animation.addByPrefix('Go', 'Pibby Go', 30, false);
 		
-		introGroup.add(pibbyIntro);
+		//introGroup.add(pibbyIntro);
 
-		var boyfriendIntro : FlxSprite = new FlxSprite(BF_X + boyfriend.positionArray[0], BF_Y + boyfriend.positionArray[1]);
-		boyfriendIntro.frames = Paths.getSparrowAtlas('BF_Pibby_Intro', 'shared');
+		bfIntro = new Boyfriend(0, 0, 'bf_intro');
+		startCharacterPos(bfIntro);
+		boyfriendGroup.add(bfIntro);
 
-		boyfriendIntro.animation.addByPrefix('3', 'BF 3 and 2', 30, false);
-		boyfriendIntro.animation.addByPrefix('2', 'BF 3 and 2', 30, false);
-		boyfriendIntro.animation.addByPrefix('1', 'BF 1', 30, false);
-		boyfriendIntro.animation.addByPrefix('Go', 'BF Go', 30, false);
+		numIntro = new Boyfriend(FlxG.width / 3, FlxG.height / 4, 'num_intro');
+		numIntro.cameras = [camHUD];
+		introGroup.add(numIntro);
 
-		introGroup.add(boyfriendIntro);
+		boyfriend.alpha = 0;
 
-		var numberIntro : FlxSprite = new FlxSprite(((GF_X + gf.positionArray[0]) + (BF_X + boyfriend.positionArray[0])) / 2, (BF_Y + boyfriend.positionArray[1] - 200));
-		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
-
-		numberIntro.animation.addByPrefix('3', '3', 30, false);
-		numberIntro.animation.addByPrefix('2', '2', 30, false);
-		numberIntro.animation.addByPrefix('1', '1', 30, false);
-		numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
-
-		introGroup.add(numberIntro);
+		//introGroup.add(numberIntro);
 		
 		add(introGroup);
-		**/
 
+		bfIntro.playAnim('Go', true);
+		bfIntro.specialAnim = true;
+
+		numIntro.alpha = 0;
 
 		if(startedCountdown) {
 			callOnLuas('onStartCountdown', []);
@@ -1341,6 +1338,16 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								numIntro.alpha = 1;
+								bfIntro.playAnim('3', true);
+								bfIntro.specialAnim = true;
+
+								numIntro.playAnim('3', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('3'), 0.6);
 					case 1:
 						/**
@@ -1348,6 +1355,15 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								bfIntro.playAnim('2', true);
+								bfIntro.specialAnim = true;
+								
+								numIntro.playAnim('2', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('2'), 0.6);
 					case 2:
 						/**
@@ -1355,6 +1371,15 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								bfIntro.playAnim('1', true);
+								bfIntro.specialAnim = true;
+								
+								numIntro.playAnim('1', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('1'), 0.6);
 					case 3:
 						/**
@@ -1362,9 +1387,20 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
+						cameraBump();
+						if (bfIntro != null)
+							{
+								bfIntro.playAnim('Go', true);
+								bfIntro.specialAnim = true;
+								
+								numIntro.playAnim('Go', true);
+								numIntro.specialAnim = true;
+							}
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
-
+						boyfriend.alpha = 1;
+						bfIntro.alpha = 0;
+						numIntro.alpha = 0;
 				}
 
 				notes.forEachAlive(function(note:Note) {
