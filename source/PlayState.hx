@@ -168,7 +168,6 @@ class PlayState extends MusicBeatState
 
 	var bfIntro:Character;
 	var pibbyIntro:Character;
-	var numIntro:Character;
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
@@ -394,6 +393,7 @@ class PlayState extends MusicBeatState
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
+		camHUD.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
@@ -636,13 +636,6 @@ class PlayState extends MusicBeatState
 		startCharacterLua(boyfriend.curCharacter);
 		boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]);
 
-		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
-		if(gf != null)
-		{
-			camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
-			camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
-		}
-
 		if(dad.curCharacter.startsWith('gf')) {
 			dad.setPosition(GF_X, GF_Y);
 			if(gf != null)
@@ -719,7 +712,6 @@ class PlayState extends MusicBeatState
 		camFollow = new FlxPoint();
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 
-		snapCamFollowToPos(camPos.x, camPos.y);
 		if (prevCamFollow != null)
 		{
 			camFollow = prevCamFollow;
@@ -731,6 +723,7 @@ class PlayState extends MusicBeatState
 			prevCamFollowPos = null;
 		}
 		add(camFollowPos);
+		camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
@@ -740,7 +733,6 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
-		moveCameraSection();
 
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
@@ -803,6 +795,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1244,18 +1237,22 @@ class PlayState extends MusicBeatState
 		Paths.sound('introGo' + introSoundsSuffix);
 	}
 
-	private function cameraBump() : Void
+	private function cameraBump( isFinal : Bool = false ) : Void
 	{
+
 		FlxG.camera.zoom += 0.1;
 		camHUD.zoom += 0.1;
-		cameraBumpTween = FlxTween.tween(FlxG.camera, {zoom : defaultCamZoom}, 0.4, {ease: FlxEase.quartOut});
-		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : 1}, 0.4, {ease: FlxEase.quartOut});
+		cameraBumpTween = FlxTween.tween(FlxG.camera, {zoom : isFinal ? defaultCamZoom : FlxG.camera.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
+		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
+
+		if (isFinal) {
+			camHUD.alpha = 1;
+			camHUD.flash(FlxColor.WHITE, 0.25);
+		}
 	}
 
 	public function startCountdown():Void
 	{
-		var introGroup : FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-
 		if (SONG.player1 == 'newbf') {
 			bfIntro = new Boyfriend(0, 0, 'bf_intro');
 			startCharacterPos(bfIntro);
@@ -1275,16 +1272,23 @@ class PlayState extends MusicBeatState
 			pibbyIntro.specialAnim = true;
 		}
 
-		numIntro = new Boyfriend(FlxG.width / 3, FlxG.height / 4, 'num_intro');
-		numIntro.cameras = [camHUD];
-		introGroup.add(numIntro);
+		var numberIntro : FlxSprite = new FlxSprite(
+			(gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0])), 
+			(BF_Y + bfIntro.positionArray[1] - 300)
+		);
+		numberIntro.x = gf.curCharacter.startsWith('pibby') ? numberIntro.x / 2 : numberIntro.x;
+		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
+		numberIntro.alpha = 0.0001;
+
+		numberIntro.animation.addByPrefix('3', '3', 30, false);
+		numberIntro.animation.addByPrefix('2', '2', 30, false);
+		numberIntro.animation.addByPrefix('1', '1', 30, false);
+		numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
+
+		add(numberIntro);
 
 		//introGroup.add(numberIntro);
-		
-		add(introGroup);
-
-		numIntro.alpha = 0;
-
+	
 		if(startedCountdown) {
 			callOnLuas('onStartCountdown', []);
 			return;
@@ -1339,9 +1343,9 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						**/
 						cameraBump();
+						numberIntro.alpha = 1;
 						if (bfIntro != null)
 							{
-								numIntro.alpha = 1;
 								if (SONG.player1 == 'newbf') {
 									bfIntro.playAnim('3', true);
 									bfIntro.specialAnim = true;
@@ -1352,8 +1356,7 @@ class PlayState extends MusicBeatState
 									pibbyIntro.specialAnim = true;
 								}
 
-								numIntro.playAnim('3', true);
-								numIntro.specialAnim = true;
+								numberIntro.animation.play('3');
 							}
 						FlxG.sound.play(Paths.sound('3'), 0.6);
 					case 1:
@@ -1375,8 +1378,8 @@ class PlayState extends MusicBeatState
 									pibbyIntro.specialAnim = true;
 								}
 								
-								numIntro.playAnim('2', true);
-								numIntro.specialAnim = true;
+								numberIntro.animation.play('2');
+								numberIntro.offset.set(-85, -58);
 							}
 						FlxG.sound.play(Paths.sound('2'), 0.6);
 					case 2:
@@ -1398,8 +1401,10 @@ class PlayState extends MusicBeatState
 									pibbyIntro.specialAnim = true;
 								}
 
-								numIntro.playAnim('1', true);
-								numIntro.specialAnim = true;
+
+								numberIntro.animation.play('1');
+								numberIntro.offset.set(-72, -47);
+
 							}
 						FlxG.sound.play(Paths.sound('1'), 0.6);
 					case 3:
@@ -1408,7 +1413,7 @@ class PlayState extends MusicBeatState
 							sprite.animation.play('2');
 						cameraBump();
 						**/
-						cameraBump();
+						cameraBump(true);
 						if (bfIntro != null)
 							{
 								if (SONG.player1 == 'newbf') {
@@ -1421,8 +1426,8 @@ class PlayState extends MusicBeatState
 									pibbyIntro.specialAnim = true;
 								}
 								
-								numIntro.playAnim('Go', true);
-								numIntro.specialAnim = true;
+								numberIntro.animation.play('Go');
+								numberIntro.offset.set(98, -15);
 							}
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
@@ -1433,7 +1438,7 @@ class PlayState extends MusicBeatState
 						if (gf.curCharacter.startsWith('pibby')) {
 							pibbyIntro.alpha = 0;
 						}
-						numIntro.alpha = 0;
+						numberIntro.alpha = 0;
 				}
 
 				notes.forEachAlive(function(note:Note) {
@@ -2854,11 +2859,6 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
-	}
-
-	function snapCamFollowToPos(x:Float, y:Float) {
-		camFollow.set(x, y);
-		camFollowPos.setPosition(x, y);
 	}
 
 	public function finishSong(?ignoreNoteOffset:Bool = false):Void

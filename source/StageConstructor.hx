@@ -42,6 +42,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
                     newGraphic.persist = true;
                     return newGraphic;
                 case SOUND:
+                    // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
             }
         });
