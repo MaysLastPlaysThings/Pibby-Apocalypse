@@ -232,6 +232,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
+	public var camOverlay:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -264,6 +265,9 @@ class PlayState extends MusicBeatState
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
 	var songLength:Float = 0;
+
+	public var cinematicdown:FlxSprite;
+	public var cinematicup:FlxSprite;
 
 	public var boyfriendCameraOffset:Array<Float> = null;
 	public var opponentCameraOffset:Array<Float> = null;
@@ -390,13 +394,16 @@ class PlayState extends MusicBeatState
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camOverlay = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
+		camOverlay.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 		camHUD.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camOverlay, false);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
@@ -644,6 +651,16 @@ class PlayState extends MusicBeatState
 
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 
+		cinematicdown = new FlxSprite().makeGraphic(FlxG.width, 100, FlxColor.BLACK);
+		cinematicdown.scrollFactor.set();
+		cinematicdown.setPosition(0, FlxG.height);
+		add(cinematicdown);
+
+		cinematicup = new FlxSprite().makeGraphic(FlxG.width, 100, FlxColor.BLACK);
+		cinematicup.scrollFactor.set();
+		cinematicup.setPosition(0, -100);
+		add(cinematicup);
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -783,6 +800,8 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
+		cinematicdown.cameras = [camOverlay];
+		cinematicup.cameras = [camOverlay];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -3849,6 +3868,15 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'Retcon':
+					switch (curStep)
+					{
+						case 0:
+							cinemaBars(1, 18.525);
+							camGame.fade(FlxColor.BLACK, 18.525, true);
+						case 248:
+							cinemaBars(0, 0.675);
+					}
 				case 'Suffering Siblings':
 					switch (curStep)
 					{
@@ -4074,6 +4102,19 @@ class PlayState extends MusicBeatState
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
 	}
+	
+	function cinemaBars(type:Int, length:Float) //adds funni overused cinema bars, if type = 1 then they appear, if type = 0 they dissapear, length represents the length of appearing/dissapearing
+		{
+			switch (type)
+				{
+					case 1:
+							FlxTween.tween(cinematicup, { y: 0}, length, {ease: FlxEase.cubeOut});
+							FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, length, {ease: FlxEase.cubeOut});
+					case 0:
+							FlxTween.tween(cinematicup, { y: -100}, length, {ease: FlxEase.cubeOut});
+							FlxTween.tween(cinematicdown, { y: FlxG.height}, length, {ease: FlxEase.cubeOut});
+				}
+		}
 
 	#if ACHIEVEMENTS_ALLOWED
 	private function checkForAchievement(achievesToCheck:Array<String> = null):String
