@@ -1266,22 +1266,23 @@ class PlayState extends MusicBeatState
 		
 		//introGroup.add(pibbyIntro);
 
-		bfIntro = new Boyfriend(0, 0, 'bf_intro');
-		startCharacterPos(bfIntro);
-		boyfriendGroup.add(bfIntro);
+		if (SONG.player1 == 'newbf') {
+			bfIntro = new Boyfriend(0, 0, 'bf_intro');
+			startCharacterPos(bfIntro);
+			boyfriendGroup.add(bfIntro);
+			boyfriend.alpha = 0;
+
+			bfIntro.playAnim('Go', true);
+			bfIntro.specialAnim = true;
+		}
 
 		numIntro = new Boyfriend(FlxG.width / 3, FlxG.height / 4, 'num_intro');
 		numIntro.cameras = [camHUD];
 		introGroup.add(numIntro);
 
-		boyfriend.alpha = 0;
-
 		//introGroup.add(numberIntro);
 		
 		add(introGroup);
-
-		bfIntro.playAnim('Go', true);
-		bfIntro.specialAnim = true;
 
 		numIntro.alpha = 0;
 
@@ -1342,8 +1343,10 @@ class PlayState extends MusicBeatState
 						if (bfIntro != null)
 							{
 								numIntro.alpha = 1;
-								bfIntro.playAnim('3', true);
-								bfIntro.specialAnim = true;
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('3', true);
+									bfIntro.specialAnim = true;
+								}
 
 								numIntro.playAnim('3', true);
 								numIntro.specialAnim = true;
@@ -1358,8 +1361,10 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						if (bfIntro != null)
 							{
-								bfIntro.playAnim('2', true);
-								bfIntro.specialAnim = true;
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('2', true);
+									bfIntro.specialAnim = true;
+								}
 								
 								numIntro.playAnim('2', true);
 								numIntro.specialAnim = true;
@@ -1374,8 +1379,10 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						if (bfIntro != null)
 							{
-								bfIntro.playAnim('1', true);
-								bfIntro.specialAnim = true;
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('1', true);
+									bfIntro.specialAnim = true;
+								}
 								
 								numIntro.playAnim('1', true);
 								numIntro.specialAnim = true;
@@ -1390,16 +1397,20 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						if (bfIntro != null)
 							{
-								bfIntro.playAnim('Go', true);
-								bfIntro.specialAnim = true;
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('Go', true);
+									bfIntro.specialAnim = true;
+								}
 								
 								numIntro.playAnim('Go', true);
 								numIntro.specialAnim = true;
 							}
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
-						boyfriend.alpha = 1;
-						bfIntro.alpha = 0;
+						if (SONG.player1 == 'newbf') {
+							boyfriend.alpha = 1;
+							bfIntro.alpha = 0;
+						}
 						numIntro.alpha = 0;
 				}
 
