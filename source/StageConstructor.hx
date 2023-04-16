@@ -1,10 +1,20 @@
 package;
 
+
+import flixel.graphics.FlxGraphic;
+import openfl.display.BitmapData;
 import haxe.ds.StringMap;
 import HScript.Script;
 import HScript.ScriptManager;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
+import flixel.FlxG;
+import sys.io.File;
+
+@:enum abstract AssetType(String) to String {
+    var IMAGE = 'image';
+    var SOUND = 'sound';
+}
 
 class StageConstructor extends FlxTypedGroup<FlxBasic>
 {
@@ -25,8 +35,15 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState);
-        additionalParams.set('retrieveAsset', function(path : String) {
-            return 'assets/stages/${currentStage}/${path}';
+        additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType) {
+            switch (assetType) {
+                case IMAGE:
+                    var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
+                    newGraphic.persist = true;
+                    return newGraphic;
+                case SOUND:
+                    return null;
+            }
         });
 
         newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
