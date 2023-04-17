@@ -174,6 +174,7 @@ class PlayState extends MusicBeatState
 	public var eventNotes:Array<EventNote> = [];
 
 	private var strumLine:FlxSprite;
+	var blackie:FlxSprite;
 
 	//Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
@@ -661,6 +662,18 @@ class PlayState extends MusicBeatState
 		cinematicup.setPosition(0, -100);
 		add(cinematicup);
 
+		blackie = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackie.scrollFactor.set();
+		blackie.alpha = 0;
+		add(blackie);
+
+		switch (SONG.song)
+			{
+				case 'Retcon':
+					blackie.alpha = 1;
+					defaultCamZoom = 1.3;
+			}
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -800,6 +813,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
+		blackie.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
 		strumLineNotes.cameras = [camHUD];
@@ -3886,10 +3900,55 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
+							blackie.alpha = 0;
 							cinematics(true, 18.525);
-							camGame.fade(FlxColor.BLACK, 18.525, true);
+							camOther.fade(FlxColor.BLACK, 18.525, true);
+							FlxTween.tween(camGame, {zoom: 0.7}, 18.525, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.7;
+									}
+							});
 						case 248:
 							cinematics(false, 0.675);
+						case 256:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 384:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 512:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1024:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1152:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1280:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1408:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1536:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1664:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1824:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1920:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 2048:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
@@ -3983,6 +4042,59 @@ class PlayState extends MusicBeatState
 		}
 
 		lastBeatHit = curBeat;
+
+		switch (SONG.song)
+			{
+				case 'Retcon':
+					if (curStep >= 256 && curStep <= 512)
+						{
+							if (curBeat % 2 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 512 && curStep <= 752)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1024 && curStep <= 1271)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1344 && curStep <= 1520)
+						{
+							if (curBeat % 2 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1547 && curStep <= 1791)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1816 && curStep <= 2048)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+			}
 
 		setOnLuas('curBeat', curBeat); //DAWGG?????
 		callOnLuas('onBeatHit', []);
