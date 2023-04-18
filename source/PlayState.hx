@@ -91,6 +91,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	var pibbyFNF:Shaders.Pibbified;
+	var chromFNF:Shaders.ChromShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -968,9 +969,14 @@ class PlayState extends MusicBeatState
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
+		chromFNF = new Shaders.ChromShader();
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF)]);
-			camGame.setFilters([new ShaderFilter(pibbyFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
+		}
+
+		if(ClientPrefs.shaders) {
+			chromFNF.amount.value[0] = -0.2;
 		}
 
 		super.create();
@@ -2613,6 +2619,12 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+				}
+
+			case 'Set Chromatic Amount':
+				if(ClientPrefs.shaders) {
+					var val1:Int = Std.parseInt(value1);
+					chromFNF.amount.value[0] = val1;
 				}
 
 			case 'Apple Filter':
