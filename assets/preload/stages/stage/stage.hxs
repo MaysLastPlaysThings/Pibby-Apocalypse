@@ -36,4 +36,4 @@ function onCreate()
 	add(stageCurtains);
 }
 
-function onUpdate(elapsed) {}
+//function onUpdate(elapsed) {}
