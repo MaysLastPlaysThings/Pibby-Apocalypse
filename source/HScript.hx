@@ -31,14 +31,20 @@ class ScriptManager {
 
 		// Setup all of the stuff that we will need for our stuff
 		expressions.set("FlxG", FlxG);
+		expressions.set("FlxMath", FlxMath);
+		expressions.set("FlxTween", FlxTween);
+		expressions.set("FlxEase", FlxEase);
 		expressions.set("FlxSprite", FlxSprite);
 		expressions.set("FlxBasic", FlxBasic);
-
+		expressions.set("FlxTimer", FlxTimer);
+		
+		/**
 		expressions.set("importClass", Reflect.makeVarArgs(function(classes:Array<Dynamic>):Void {
             for (i in classes) {
                 importClass(Std.string(i));
             }
         }));
+		**/
 
 		expressions.set("Math", FlxMath);
 		expressions.set("Paths", Paths);
@@ -52,25 +58,7 @@ class ScriptManager {
 		// Allows for the parsing of types with local variables, exceptions, function arguments, etc...
 		scriptParser.allowTypes = true;
 	}
-
-	public function importClass(name : String):Void {
-		 
-        var namee : String = name.split(".")[name.split(".").length - 1];
-
-        if (FakeClasses.map.exists(name)) {
-            var classe : Class <Dynamic> = FakeClasses.map.get(name);
-            expressions.set(namee, classe);
-            return;
-        } else {
-            var classe : Class <Dynamic> = Type.resolveClass(name);
-            expressions.set(namee, classe);
-            return;
-        }
-		
-        error('Class ${name} was not found');
-        Sys.exit(-1);
-    }
-
+	
 	public static function loadScript(path : String, ?library : String, ?additionalParamaters : StringMap<Dynamic>):Script {
 		var newScript : Script = null;
 		if (FileSystem.exists(path)) {
@@ -119,6 +107,8 @@ class Script {
 		return scriptInterpreter.variables.exists(field);
 }
 
+/**
 class FakeClasses {
-    public static var map : Map <String, Dynamic> = [];
+    public static var map  : Map<String, Dynamic> = [];
 }
+**/
