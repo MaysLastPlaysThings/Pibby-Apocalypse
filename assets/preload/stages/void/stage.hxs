@@ -14,7 +14,6 @@ function onCreate()
     void.antialiasing = true;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
-    add(void);
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
@@ -22,7 +21,6 @@ function onCreate()
     house.antialiasing = true;
     house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
-    add(house);
 
     rock = new flixel.FlxSprite(0, -200);
     rock.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
@@ -30,7 +28,6 @@ function onCreate()
     rock.antialiasing = true;
     rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
-    add(rock);
 
     rock2 = new flixel.FlxSprite(0, -200);
     rock2.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-4.png', 'image'));
@@ -38,15 +35,13 @@ function onCreate()
     rock2.antialiasing = true;
     rock2.scrollFactor.set(1.1, 1.1);
     rock2.updateHitbox();
-    add(rock2);
 
     rock3 = new flixel.FlxSprite(0, -200);
     rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-5.png', 'image'));
-    rock3.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
     rock3.antialiasing = true;
     rock3.scrollFactor.set(0.9, 0.9);
     rock3.updateHitbox();
-    add(rock3);
 
     rock4 = new flixel.FlxSprite(0, -200);
     rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
@@ -54,7 +49,6 @@ function onCreate()
     rock4.antialiasing = true;
     rock4.scrollFactor.set(0.85, 0.85);
     rock4.updateHitbox();
-    add(rock4);
 
     wtf = new flixel.FlxSprite(0, -200);
     wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
@@ -62,26 +56,45 @@ function onCreate()
     wtf.antialiasing = true;
     wtf.scrollFactor.set(1, 1);
     wtf.updateHitbox();
+
+    tweenLoopAngle(house, 4, -4, 6, 6);
+    tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
+    tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
+    tweenLoopAngle(rock3, 360, 0, 30, 30);
+    tweenLoopAngle(wtf, 2, -2, 5, 5);
+
+    FlxTween.tween(rock4, {angle: 360}, 30, {
+        ease: FlxEase.sineInOut,
+        onComplete: 
+        function (twn:FlxTween)
+            {
+                //nothing
+            }
+    });
+
+    add(void);
+    add(rock4);
+    add(rock3);
+    add(rock2);
+    add(house);
+    add(rock);
     add(wtf);
 }
 
-/** not working rn
-function onStep(step) {
-    if (step == 512) {
-        void.visible = true;
-        house.visible = true;
-        rock.visible = true;
-        rock2.visible = true;
-        rock3.visible = true;
-        rock4.visible = true;
-        wtf.visible = true;
-    }
+function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
+    FlxTween.tween(varx, {angle: distance1}, duration1, {
+        ease: FlxEase.sineInOut,
+        onComplete: 
+        function (twn:FlxTween)
+            {
+                FlxTween.tween(varx, {angle: distance2}, duration2, {
+                    ease: FlxEase.sineInOut,
+                    onComplete: 
+                    function (twn:FlxTween)
+                        {
+                            tweenLoopAngle(varx, distance1, distance2, duration1, duration2);
+                        }
+                });
+            }
+    });
 }
-function onUpdate(elapsed) {
-    house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-    rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-    rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-    rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-    wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-}
-**/

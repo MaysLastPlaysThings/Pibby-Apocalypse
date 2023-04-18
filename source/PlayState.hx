@@ -91,6 +91,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	var pibbyFNF:Shaders.Pibbified;
+	var chromFNF:Shaders.ChromShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -174,6 +175,7 @@ class PlayState extends MusicBeatState
 	public var eventNotes:Array<EventNote> = [];
 
 	private var strumLine:FlxSprite;
+	var blackie:FlxSprite;
 
 	//Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
@@ -327,6 +329,7 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
+	public static var newStage:StageConstructor;
 
 	override public function create()
 	{
@@ -449,7 +452,7 @@ class PlayState extends MusicBeatState
 		// Here we go, new stage shit that we can implement through haxe script as this is the case that we should use it
 		
 		curStage = SONG.stage;
-		var newStage = new StageConstructor(curStage);
+		newStage = new StageConstructor(curStage);
 		add(newStage);
 		SONG.stage = curStage;
 
@@ -661,6 +664,18 @@ class PlayState extends MusicBeatState
 		cinematicup.setPosition(0, -100);
 		add(cinematicup);
 
+		blackie = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackie.scrollFactor.set();
+		blackie.alpha = 0;
+		add(blackie);
+
+		switch (SONG.song)
+			{
+				case 'Retcon':
+					blackie.alpha = 1;
+					defaultCamZoom = 1.3;
+			}
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -800,6 +815,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
+		blackie.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
 		strumLineNotes.cameras = [camHUD];
@@ -953,9 +969,14 @@ class PlayState extends MusicBeatState
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
+		chromFNF = new Shaders.ChromShader();
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF)]);
-			camGame.setFilters([new ShaderFilter(pibbyFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
+		}
+
+		if(ClientPrefs.shaders) {
+			chromFNF.amount.value[0] = -0.2;
 		}
 
 		super.create();
@@ -2145,6 +2166,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
+		newStage.update(elapsed);
 
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
@@ -2597,6 +2619,12 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+				}
+
+			case 'Set Chromatic Amount':
+				if(ClientPrefs.shaders) {
+					var val1:Int = Std.parseInt(value1);
+					chromFNF.amount.value[0] = val1;
 				}
 
 			case 'Apple Filter':
@@ -3678,6 +3706,7 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
+
 		if(!note.gfNote) {
 			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		}
@@ -3744,7 +3773,10 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
-			health += note.hitHealth * healthGain;
+
+			if (!note.gfNote) {
+				health += note.hitHealth * healthGain;
+			}
 
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
@@ -3880,16 +3912,63 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		newStage.onStep(curStep);
+
 		switch (SONG.song)
 			{
 				case 'Retcon':
 					switch (curStep)
 					{
 						case 1:
+							blackie.alpha = 0;
 							cinematics(true, 18.525);
-							camGame.fade(FlxColor.BLACK, 18.525, true);
+							camOther.fade(FlxColor.BLACK, 18.525, true);
+							FlxTween.tween(camGame, {zoom: 0.7}, 18.525, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.7;
+									}
+							});
 						case 248:
 							cinematics(false, 0.675);
+						case 256:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 384:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 512:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1024:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1152:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1280:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1408:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1536:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1664:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1824:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1920:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 2048:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
@@ -3963,6 +4042,8 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
+		newStage.onBeat(curBeat);
+
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
 
@@ -3983,6 +4064,59 @@ class PlayState extends MusicBeatState
 		}
 
 		lastBeatHit = curBeat;
+
+		switch (SONG.song)
+			{
+				case 'Retcon':
+					if (curStep >= 256 && curStep <= 512)
+						{
+							if (curBeat % 2 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 512 && curStep <= 752)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1024 && curStep <= 1271)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1344 && curStep <= 1520)
+						{
+							if (curBeat % 2 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1547 && curStep <= 1791)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1816 && curStep <= 2048)
+						{
+							if (curBeat % 1 == 0)
+								{
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+			}
 
 		setOnLuas('curBeat', curBeat); //DAWGG?????
 		callOnLuas('onBeatHit', []);

@@ -155,6 +155,7 @@ class MainMenuState extends MusicBeatState
 
 
 		var discord = new FlxSprite().loadGraphic(Paths.image('pibymenu/discord'));
+		discord.alpha = 0.4;
 		discord.scale.set(0.3, 0.3);
 		discord.updateHitbox();
 		discord.setPosition(options.x - 85, FlxG.height - 60);
@@ -222,10 +223,10 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		//temporary options keybind
-		if (FlxG.keys.justPressed.SHIFT)
+	/** if (FlxG.keys.justPressed.SHIFT)
 			{
 				LoadingState.loadAndSwitchState(new options.OptionsState());
-			}
+			} **/
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
