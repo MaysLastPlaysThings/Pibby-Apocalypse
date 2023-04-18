@@ -328,6 +328,7 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
+	public static var newStage:StageConstructor;
 
 	override public function create()
 	{
@@ -450,7 +451,7 @@ class PlayState extends MusicBeatState
 		// Here we go, new stage shit that we can implement through haxe script as this is the case that we should use it
 		
 		curStage = SONG.stage;
-		var newStage = new StageConstructor(curStage);
+		newStage = new StageConstructor(curStage);
 		add(newStage);
 		SONG.stage = curStage;
 
@@ -2159,6 +2160,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
+		newStage.update(elapsed);
 
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
@@ -3692,6 +3694,7 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
+
 		if(!note.gfNote) {
 			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		}
@@ -3758,7 +3761,10 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
-			health += note.hitHealth * healthGain;
+
+			if (!note.gfNote) {
+				health += note.hitHealth * healthGain;
+			}
 
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
@@ -3894,6 +3900,8 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		newStage.onStep(curStep);
+
 		switch (SONG.song)
 			{
 				case 'Retcon':
@@ -4021,6 +4029,8 @@ class PlayState extends MusicBeatState
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
+
+		newStage.onBeat(curBeat);
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
