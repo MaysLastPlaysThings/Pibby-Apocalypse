@@ -20,7 +20,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
 {
     // Attach some metadata to the new Stage
     var newStage : Script;
-    var foreground : FlxTypedGroup<FlxBasic>;
+    public var foreground : FlxTypedGroup<FlxBasic>;
 
 
     // Incase you aren't aware already of what this is gonna do, its basically just gonna allow for hscript functionality with stages lol.
@@ -56,16 +56,16 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
     override function update(elapsed:Float) 
         {
             super.update(elapsed);
-            if (newStage.exists("onUpdate"))
+            if (newStage != null && newStage.exists("onUpdate"))
                 newStage.get("onUpdate")(elapsed);
         }
 
     public function onStep(curStep : Int)
-        if (newStage.exists("onStep"))
+        if (newStage != null && newStage.exists("onStep"))
             newStage.get("onStep")(curStep);
     
     public function onBeat(curBeat : Int)
-        if (newStage.exists("onBeat"))
+        if (newStage != null && newStage.exists("onBeat"))
             newStage.get("onBeat")(curBeat);
     
 }

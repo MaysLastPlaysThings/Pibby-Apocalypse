@@ -3,6 +3,7 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import haxe.ds.StringMap;
+import haxe.Exception;
 import Paths;
 import PlayState;
 import Conductor;
@@ -46,7 +47,8 @@ class ScriptManager {
         }));
 		**/
 
-		expressions.set("Math", FlxMath);
+		expressions.set("FlxMath", FlxMath);
+		expressions.set("Math", Math);
 		expressions.set("Paths", Paths);
 		expressions.set("Std", Std);
 		expressions.set("Conductor", Conductor);
@@ -63,6 +65,7 @@ class ScriptManager {
 		var newScript : Script = null;
 		if (FileSystem.exists(path)) {
 			trace('Currently loading script path ${path}');
+			try { scriptParser.parseString(File.getContent(path), path); } catch( e : Dynamic ) { trace(e); return null; }
 			newScript = new Script(scriptParser.parseString(File.getContent(path), path), additionalParamaters);
 			return newScript;
 		} else {

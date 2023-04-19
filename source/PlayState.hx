@@ -473,6 +473,7 @@ class PlayState extends MusicBeatState
 				camera_girlfriend: [0, 0],
 				camera_speed: 1
 			};
+			trace('Could not find the stage file for ${curStage}');
 		}
 
 		defaultCamZoom = stageData.defaultZoom;
@@ -506,11 +507,6 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 
-			case 'finn':
-				var background:BGSprite = new BGSprite('finn/bg', 900, 525, 1, 1);
-				background.setGraphicSize(Std.int(background.width * 1.3));
-				add(background);
-
 			case 'newschool':
 				var lockersnshit : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-1', 0, 0, 1, 1);
 				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
@@ -535,12 +531,14 @@ class PlayState extends MusicBeatState
 		//logos
 		switch (storyWeekName)
 		{
-			case 'finn':
+			case 'lab':
 				add(cnlogo);
 
 			case 'gumball':
 				add(cnlogo);
 		}
+
+		add(newStage.foreground);
 
 		switch(curStage)
 		{
@@ -556,23 +554,6 @@ class PlayState extends MusicBeatState
 				completeDarkness.cameras = [camHUD];
 				add(lighting);
 				add(wall);
-			case 'finn':
-				dark = new BGSprite('finn/dark', 900, 405, 1, 1);
-				dark.setGraphicSize(Std.int(dark.width * 1.3));
-				dark.alpha = 0.8;
-				add(dark);
-				light = new BGSprite('finn/light', 900, 405, 1, 1);
-				light.setGraphicSize(Std.int(light.width * 1.3));
-				light.alpha = 0.8;	
-				flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: PINGPONG});
-				flickerTween.active = true;
-				bulb = new BGSprite('finn/bulb', 900, 405, 1, 1);
-				bulb.setGraphicSize(Std.int(bulb.width * 1.3));
-				light.origin.set(800, 0);
-				dark.origin.set(800, 0);
-				bulb.origin.set(800, 0);
-				add(light);
-				add(bulb);
 		}
 		
 
@@ -755,7 +736,10 @@ class PlayState extends MusicBeatState
 			prevCamFollowPos = null;
 		}
 		add(camFollowPos);
+		
 		camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+		camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+		camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
@@ -2072,7 +2056,7 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
-			case 'finn':
+			case 'lab':
 				camZooming = true;
 				
 				if (SONG.notes[curSection].mustHitSection) {
@@ -2083,14 +2067,6 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 0.9;
 				}
 				gf.alpha = 0;
-
-			
-
-				if (light != null) {
-					light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-					dark.angle = light.angle;
-					bulb.angle = light.angle;
-				}
 		}
 
 		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
