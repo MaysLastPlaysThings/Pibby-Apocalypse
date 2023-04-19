@@ -267,6 +267,7 @@ class PlayState extends MusicBeatState
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
 	var songLength:Float = 0;
+	var fakeSongLength:Float = 0;
 
 	public var cinematicdown:FlxSprite;
 	public var cinematicup:FlxSprite;
@@ -531,7 +532,7 @@ class PlayState extends MusicBeatState
 		//logos
 		switch (storyWeekName)
 		{
-			case 'lab':
+			case 'finn':
 				add(cnlogo);
 
 			case 'gumball':
@@ -1618,6 +1619,12 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
+		fakeSongLength = songLength;
+		switch(SONG.song)
+		{
+			case "Retcon":
+				fakeSongLength = 150290;
+		}
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
@@ -2229,9 +2236,9 @@ class PlayState extends MusicBeatState
 				if(updateTime) {
 					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 					if(curTime < 0) curTime = 0;
-					songPercent = (curTime / songLength);
+					songPercent = (curTime / fakeSongLength);
 
-					var songCalc:Float = (songLength - curTime);
+					var songCalc:Float = (fakeSongLength - curTime);
 					if(ClientPrefs.timeBarType == 'Time Elapsed') songCalc = curTime;
 
 					var secondsTotal:Int = Math.floor(songCalc / 1000);
@@ -2617,19 +2624,31 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.blueOffset = 255;
 						gf.colorTransform.redOffset = 255;
 						gf.colorTransform.greenOffset = 255;
+						iconP2.colorTransform.blueOffset = 255;
+						iconP2.colorTransform.redOffset = 255;
+						iconP2.colorTransform.greenOffset = 255;
+						healthBar.createFilledBar(FlxColor.WHITE, boyfriendColor);
+						healthBar.updateBar();
 						touhouBG.scrollFactor.set();
-						addBehindDad(touhouBG);
+						addBehindGF(touhouBG);
 					}else{
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						gf.color = FlxColor.BLACK;
+						healthBar.createFilledBar(FlxColor.BLACK, boyfriendColor);
+						healthBar.updateBar();
+						iconP2.color = FlxColor.BLACK;
 						touhouBG.scrollFactor.set();
-						addBehindDad(touhouBG);
+						addBehindGF(touhouBG);
 					}
 				}else{
 					touhouBG.kill();
+					reloadHealthBarColors();
+					iconP2.colorTransform.blueOffset = 0;
+					iconP2.colorTransform.redOffset = 0;
+					iconP2.colorTransform.greenOffset = 0;
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
 					boyfriend.colorTransform.greenOffset = 0;
@@ -2639,6 +2658,7 @@ class PlayState extends MusicBeatState
 					gf.colorTransform.blueOffset = 0;
 					gf.colorTransform.redOffset = 0;
 					gf.colorTransform.greenOffset = 0;
+					iconP2.color = FlxColor.WHITE;
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					gf.color = FlxColor.WHITE;
@@ -3945,6 +3965,14 @@ class PlayState extends MusicBeatState
 						case 2048:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+						case 2064:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							shaderIntensity = 2;
+							camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+							fakeSongLength = songLength;
+							triggerEventNote('Apple Filter', 'on', 'white');
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
