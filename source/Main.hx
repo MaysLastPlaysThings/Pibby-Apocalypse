@@ -10,7 +10,9 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
+import flixel.FlxSprite;
 import HScript.ScriptManager;
+using flixel.util.FlxSpriteUtil;
 
 
 //crash handler stuff
@@ -29,6 +31,7 @@ using StringTools;
 
 class Main extends Sprite
 {
+	var sprite:FlxSprite;
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
@@ -98,10 +101,11 @@ class Main extends Sprite
 		}
 		#end
 
-		#if html5
 		FlxG.autoPause = false;
-		FlxG.mouse.visible = false;
-		#end
+		FlxG.mouse.visible = true;
+		sprite = new FlxSprite().loadGraphic(Paths.image('mouse'));
+
+		FlxG.mouse.load(sprite.pixels);
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);

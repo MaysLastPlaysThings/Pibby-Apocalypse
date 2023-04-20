@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="glitch1.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Symbole 10000" x="0" y="0" width="351" height="325" frameX="-10" frameY="-35" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10001" x="0" y="0" width="351" height="325" frameX="-10" frameY="-35" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10002" x="351" y="0" width="366" height="347" frameX="0" frameY="-20" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10003" x="351" y="0" width="366" height="347" frameX="0" frameY="-20" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10004" x="0" y="347" width="345" height="343" frameX="-12" frameY="-10" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10005" x="0" y="347" width="345" height="343" frameX="-12" frameY="-10" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10006" x="345" y="347" width="344" height="371" frameX="-11" frameY="0" frameWidth="366" frameHeight="371"/>
+	<SubTexture name="Symbole 10007" x="345" y="347" width="344" height="371" frameX="-11" frameY="0" frameWidth="366" frameHeight="371"/>
+</TextureAtlas>
