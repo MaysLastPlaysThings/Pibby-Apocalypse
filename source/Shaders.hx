@@ -319,37 +319,61 @@ class ChromShader extends FlxShader
 {
   @:glFragmentSource('
   #pragma header
-
-  uniform float amount;
-
-  vec2 PincushionDistortion(in vec2 uv, float strength) 
+  /*
+  https://www.shadertoy.com/view/wtt3z2
+  */
+  
+  uniform float aberration = 0.0;
+  uniform float effectTime = 0.0;
+  
+  vec3 tex2D(sampler2D _tex,vec2 _p)
   {
-  vec2 st = uv - 0.5;
-    float uvA = atan(st.x, st.y);
-    float uvD = dot(st, st);
-    return 0.5 + vec2(sin(uvA), cos(uvA)) * sqrt(uvD) * (1.0 - strength * uvD);
+      vec3 col=texture2D(_tex,_p).xyz;
+      if(.5<abs(_p.x-.5)){
+          col=vec3(.1);
+      }
+      return col;
   }
-
-  vec3 ChromaticAbberation(sampler2D tex, in vec2 uv) 
-  {
-  float rChannel = texture2D(tex, PincushionDistortion(uv, 0.3 * amount)).r;
-    float gChannel = texture2D(tex, PincushionDistortion(uv, 0.15 * amount)).g;
-    float bChannel = texture2D(tex, PincushionDistortion(uv, 0.075 * amount)).b;
-    vec3 retColor = vec3(rChannel, gChannel, bChannel);
-    return retColor;
-  }
-
-  void main()
-  {
-    vec2 uv = openfl_TextureCoordv;
-    vec3 col = ChromaticAbberation(bitmap, uv);
-
-    gl_FragColor = vec4(col, texture2D(bitmap,uv).a);
+  
+  void main() {
+      vec2 uv = openfl_TextureCoordv; //openfl_TextureCoordv.xy*2. / openfl_TextureSize.xy-vec2(1.);
+      vec2 ndcPos = uv * 2.0 - 1.0;
+      float aspect = openfl_TextureSize.x / openfl_TextureSize.y;
+      
+      //float u_angle = -2.4;
+      
+      float u_angle = 0;
+      
+      float eye_angle = abs(u_angle);
+      float half_angle = eye_angle/2.0;
+      float half_dist = tan(half_angle);
+  
+      vec2  vp_scale = vec2(aspect, 1.0);
+      vec2  P = ndcPos * vp_scale; 
+      
+      float vp_dia = length(vp_scale);
+      vec2  rel_P = normalize(P) / normalize(vp_scale);
+  
+      vec2 pos_prj = ndcPos;
+  
+      float beta = abs(atan((length(P) / vp_dia) * half_dist) * -abs(cos(effectTime - 0.25 + 0.5)));
+      pos_prj = rel_P * beta / half_angle;
+  
+      vec2 uv_prj = (pos_prj * 0.5 + 0.5);
+  
+      vec2 trueAberration = aberration * pow((uv - 0.5), vec2(3.0, 3.0));
+      // vec4 texColor = tex2D(bitmap, uv_prj.st);
+      gl_FragColor = vec4(
+          texture2D(bitmap, uv + trueAberration).r, 
+          texture2D(bitmap, uv).g, 
+          texture2D(bitmap, uv - trueAberration).b, 
+          flixel_texture2D(bitmap,uv).a
+      );
   }
   ')
   public function new() {
     super();
-    amount.value = [];
+    aberration.value = [];
   }
 }
 

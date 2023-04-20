@@ -219,7 +219,8 @@ class PlayState extends MusicBeatState
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = true;
 
-	var shaderIntensity:Float;
+	var glitchShaderIntensity:Float;
+    var abberationShaderIntensity:Float;
 
 	//Gameplay settings
 	public var healthGain:Float = 1;
@@ -306,6 +307,8 @@ class PlayState extends MusicBeatState
 	var keysPressed:Array<Bool> = [];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
+
+    var beatShaderAmount:Float = 0.1;
 
 	// Lua shit
 	public static var instance:PlayState;
@@ -956,12 +959,12 @@ class PlayState extends MusicBeatState
 		pibbyFNF = new Shaders.Pibbified();
 		chromFNF = new Shaders.ChromShader();
 		if(ClientPrefs.shaders) {
-			camHUD.setFilters([new ShaderFilter(pibbyFNF)]);
+			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 		}
 
 		if(ClientPrefs.shaders) {
-			chromFNF.amount.value[0] = -0.2;
+			chromFNF.aberration.value[0] = 0.035;
 		}
 
 		super.create();
@@ -2057,7 +2060,8 @@ class PlayState extends MusicBeatState
 		callOnLuas('onUpdate', [elapsed]);
 
 		if(ClientPrefs.shaders) {
-			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+            chromFNF.aberration.value[0] = abberationShaderIntensity;
+			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 		}
 
@@ -2076,7 +2080,8 @@ class PlayState extends MusicBeatState
 				gf.alpha = 0;
 		}
 
-		shaderIntensity = FlxMath.lerp(shaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
+		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
+        abberationShaderIntensity = FlxMath.lerp(abberationShaderIntensity, 0, CoolUtil.boundTo(elapsed * 4, 0, 1));
 		switch (curSong)
 		{
 			case 'Forgotten-World': //gumball update
@@ -2607,7 +2612,7 @@ class PlayState extends MusicBeatState
 			case 'Set Chromatic Amount':
 				if(ClientPrefs.shaders) {
 					var val1:Int = Std.parseInt(value1);
-					chromFNF.amount.value[0] = val1;
+					chromFNF.aberration.value[0] = val1;
 				}
 
 			case 'Apple Filter':
@@ -3712,7 +3717,7 @@ class PlayState extends MusicBeatState
 		if (!note.gfNote) {
 			if (!note.isSustainNote) {
 				if (FlxG.random.int(0, 1) < 0.01) {
-					shaderIntensity = FlxG.random.float(0.2, 0.7);
+					glitchShaderIntensity = FlxG.random.float(0.2, 0.7);
 				}
 			}
 		}
@@ -3969,7 +3974,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-							shaderIntensity = 2;
+							glitchShaderIntensity = 2;
 							camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
 							fakeSongLength = songLength;
 							triggerEventNote('Apple Filter', 'on', 'white');
@@ -4076,6 +4081,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 2 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4084,6 +4090,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4092,6 +4099,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4100,6 +4108,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 2 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4108,6 +4117,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4116,6 +4126,7 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
+                                    abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
@@ -4139,6 +4150,7 @@ class PlayState extends MusicBeatState
 
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
 			{
+                abberationShaderIntensity = beatShaderAmount;
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;
 			}
