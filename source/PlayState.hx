@@ -176,6 +176,7 @@ class PlayState extends MusicBeatState
 
 	private var strumLine:FlxSprite;
 	var blackie:FlxSprite;
+	var warning:FlxSprite;
 
 	//Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
@@ -803,7 +804,16 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
+		warning = new FlxSprite();
+		warning.frames = Paths.getSparrowAtlas('lowHP/gradient');
+		warning.animation.addByPrefix('warn', 'idle', 24, true);
+		warning.scale.set(0.95, 0.85);
+		warning.screenCenter();
+		warning.alpha = 0;
+		add(warning);
+
 		blackie.cameras = [camOther];
+		warning.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
 		strumLineNotes.cameras = [camHUD];
@@ -964,7 +974,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if(ClientPrefs.shaders) {
-			chromFNF.aberration.value[0] = 0.035;
+			chromFNF.aberration.value[0] = -0.5;
 		}
 
 		super.create();
@@ -1321,6 +1331,7 @@ class PlayState extends MusicBeatState
 		numberIntro.x = gf.curCharacter.startsWith('pibby') ? numberIntro.x / 2 : numberIntro.x;
 		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
 		numberIntro.alpha = 0.0001;
+		numberIntro.cameras = [camOther];
 
 		numberIntro.animation.addByPrefix('3', '3', 30, false);
 		numberIntro.animation.addByPrefix('2', '2', 30, false);
@@ -2193,10 +2204,25 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
+		if (healthBar.percent < 40) {
+			FlxTween.tween(warning, {alpha: 0.2}, 1.25, {ease: FlxEase.quadInOut});
+			warning.animation.play('warn'); }
+		else if (healthBar.percent < 35) {
+			FlxTween.tween(warning, {alpha: 0.4}, 1.25, {ease: FlxEase.quadInOut});
+			warning.animation.play('warn'); }
+		else if (healthBar.percent < 30) {
+			FlxTween.tween(warning, {alpha: 0.6}, 1.25, {ease: FlxEase.quadInOut});
+			warning.animation.play('warn'); }
+		else if (healthBar.percent < 25) {
+			FlxTween.tween(warning, {alpha: 0.8}, 1.25, {ease: FlxEase.quadInOut});
+			warning.animation.play('warn'); }
+		else if (healthBar.percent < 20) {
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
-		else
+			FlxTween.tween(warning, {alpha: 1}, 1.25, {ease: FlxEase.quadInOut});
+			warning.animation.play('warn'); }
+		else {
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
+			FlxTween.tween(warning, {alpha: 0}, 0.75, {ease: FlxEase.quadInOut}); }
 
 		if (healthBar.percent > 80)
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
@@ -3917,6 +3943,8 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case "Child's Play":
+					gf.alpha = 0;
 				case 'Retcon':
 					switch (curStep)
 					{
