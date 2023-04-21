@@ -103,14 +103,22 @@ class Main extends Sprite
 
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
-		sprite = new FlxSprite().loadGraphic(Paths.image('mouse'));
+		sprite = new FlxSprite().loadGraphic(Paths.image('mouse (1)'));
 
 		FlxG.mouse.load(sprite.pixels);
+
+		addEventListener(Event.ENTER_FRAME, update);
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 	}
+
+	private function update(e:Event):Void
+		{
+			sprite = new FlxSprite().loadGraphic(Paths.image('mouse (' + FlxG.random.int(1, 10) + ')'));
+			FlxG.mouse.load(sprite.pixels);
+		}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
 	// very cool person for real they don't get enough credit for their work
