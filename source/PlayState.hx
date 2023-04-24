@@ -998,20 +998,6 @@ class PlayState extends MusicBeatState
 		
 		CustomFadeTransition.nextCamera = camOther;
 	}
-
-	function cinematics(type:Bool, length:Float)
-		{
-						switch (type)
-						{
-							case true:
-								FlxTween.tween(cinematicup, { y: 0}, length, {ease: FlxEase.cubeOut});
-								FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, length, {ease: FlxEase.cubeOut});
-							case false:
-								FlxTween.tween(cinematicup, { y: -100}, length, {ease: FlxEase.cubeOut});
-								FlxTween.tween(cinematicdown, { y: FlxG.height}, length, {ease: FlxEase.cubeOut});
-						}
-
-		}
 						
 	#if (!flash && sys)
 	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
@@ -1638,6 +1624,9 @@ class PlayState extends MusicBeatState
 		{
 			case "Retcon":
 				fakeSongLength = 150290;
+
+            case "Child's Play":
+                fakeSongLength = 152000;
 		}
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
@@ -2088,6 +2077,12 @@ class PlayState extends MusicBeatState
 				{
 					defaultCamZoom = 0.9;
 				}
+				gf.alpha = 0;
+		}
+
+        switch (SONG.song) //where we kill gf schweizer :(
+		{
+			case "Child's Play":
 				gf.alpha = 0;
 		}
 
@@ -2640,6 +2635,18 @@ class PlayState extends MusicBeatState
 					var val1:Int = Std.parseInt(value1);
 					chromFNF.aberration.value[0] = val1;
 				}
+
+            case 'Cinematics':
+                var val2:Int = Std.parseInt(value2);
+                switch (value1.toLowerCase())
+                {
+                    case 'on':
+                        FlxTween.tween(cinematicup, { y: 0}, val2, {ease: FlxEase.cubeOut});
+                        FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, val2, {ease: FlxEase.cubeOut});
+                    case 'off':
+                        FlxTween.tween(cinematicup, { y: -100}, val2, {ease: FlxEase.cubeOut});
+                        FlxTween.tween(cinematicdown, { y: FlxG.height}, val2, {ease: FlxEase.cubeOut});
+                }
 
 			case 'Apple Filter':
 				if (value1.toLowerCase() == 'on') {
@@ -3944,13 +3951,33 @@ class PlayState extends MusicBeatState
 		switch (SONG.song)
 			{
 				case "Child's Play":
-					gf.alpha = 0;
+                    switch (curStep)
+					{
+						case 1198:
+                            triggerEventNote('Cinematics', 'on', '3');
+                            FlxTween.tween(this, {fakeSongLength: songLength, health: 0.1}, 3);
+							FlxTween.tween(camGame, {zoom: 1.2}, 3, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+                                        camOverlay.flash(FlxColor.WHITE, 1);
+                                        triggerEventNote('Apple Filter', 'on', 'black');
+										defaultCamZoom = 1;
+									}
+							});
+
+                        case 1470:
+                            defaultCamZoom = 0.8;
+                            camOverlay.flash(FlxColor.WHITE, 1);
+                            triggerEventNote('Apple Filter', 'off', 'black');
+                    }
 				case 'Retcon':
 					switch (curStep)
 					{
 						case 1:
 							blackie.alpha = 0;
-							cinematics(true, 18.525);
+                            triggerEventNote('Cinematics', 'on', '18.525');
 							camOther.fade(FlxColor.BLACK, 18.525, true);
 							FlxTween.tween(camGame, {zoom: 0.7}, 18.525, {
 								ease: FlxEase.quadInOut,
@@ -3961,7 +3988,7 @@ class PlayState extends MusicBeatState
 									}
 							});
 						case 248:
-							cinematics(false, 0.675);
+                            triggerEventNote('Cinematics', 'off', '0.675');
 						case 256:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
