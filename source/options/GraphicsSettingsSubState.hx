@@ -49,15 +49,8 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			'globalAntialiasing',
 			'bool',
 			true);
-		option.showBoyfriend = true;
+		option.showBoyfriend = false; //was nulling for some reason aaron fix this or dont I dont really care lol
 		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
-		addOption(option);
-
-		var option:Option = new Option('Shaders', //Name
-			'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description
-			'shaders', //Save data variable name
-			'bool', //Variable type
-			true); //Default value
 		addOption(option);
 
 		#if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk

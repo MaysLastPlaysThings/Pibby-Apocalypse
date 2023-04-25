@@ -1285,7 +1285,9 @@ class PlayState extends MusicBeatState
 
 		if (isFinal) {
 			camHUD.alpha = 1;
-			camHUD.flash(FlxColor.WHITE, 0.25);
+            if (ClientPrefs.flashing) {
+			    camHUD.flash(FlxColor.WHITE, 0.25);
+            }
 		}
 	}
 
@@ -2096,7 +2098,9 @@ class PlayState extends MusicBeatState
 					health = 1;
 				}	
 				if (curStep == 2832) { //2832
-					FlxG.camera.flash(FlxColor.BLACK, 3, null, true);
+                    if (ClientPrefs.flashing) {
+					    FlxG.camera.flash(FlxColor.BLACK, 3, null, true);
+                    }
 					var whiteBG:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.WHITE);
 					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						insert(members.indexOf(dadGroup), whiteBG);
@@ -2662,10 +2666,16 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.blueOffset = 255;
 						gf.colorTransform.redOffset = 255;
 						gf.colorTransform.greenOffset = 255;
+                        scoreTxt.color = FlxColor.WHITE;
 						iconP2.colorTransform.blueOffset = 255;
 						iconP2.colorTransform.redOffset = 255;
 						iconP2.colorTransform.greenOffset = 255;
-						healthBar.createFilledBar(FlxColor.WHITE, boyfriendColor);
+                        iconP1.colorTransform.blueOffset = 255;
+						iconP1.colorTransform.redOffset = 255;
+						iconP1.colorTransform.greenOffset = 255;
+                        timeBar.createFilledBar(0xFF000000, FlxColor.WHITE);
+                        timeBar.updateBar();
+						healthBar.createFilledBar(FlxColor.WHITE, FlxColor.WHITE);
 						healthBar.updateBar();
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
@@ -2675,15 +2685,22 @@ class PlayState extends MusicBeatState
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						gf.color = FlxColor.BLACK;
-						healthBar.createFilledBar(FlxColor.BLACK, boyfriendColor);
+                        scoreTxt.color = FlxColor.BLACK;
+						healthBar.createFilledBar(FlxColor.BLACK, FlxColor.BLACK);
 						healthBar.updateBar();
+                        timeBar.createFilledBar(0xFF000000, FlxColor.WHITE); //kept it white cuz it would blend in if not...
+                        timeBar.updateBar();
 						iconP2.color = FlxColor.BLACK;
+                        iconP1.color = FlxColor.BLACK;
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
 				}else{
 					touhouBG.kill();
 					reloadHealthBarColors();
+                    iconP1.colorTransform.blueOffset = 0;
+					iconP1.colorTransform.redOffset = 0;
+					iconP1.colorTransform.greenOffset = 0;
 					iconP2.colorTransform.blueOffset = 0;
 					iconP2.colorTransform.redOffset = 0;
 					iconP2.colorTransform.greenOffset = 0;
@@ -2696,7 +2713,9 @@ class PlayState extends MusicBeatState
 					gf.colorTransform.blueOffset = 0;
 					gf.colorTransform.redOffset = 0;
 					gf.colorTransform.greenOffset = 0;
+                    scoreTxt.color = boyfriendColor;
 					iconP2.color = FlxColor.WHITE;
+                    iconP1.color = FlxColor.WHITE;
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					gf.color = FlxColor.WHITE;
@@ -2766,21 +2785,23 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Screen Shake':
-				var valuesArray:Array<String> = [value1, value2];
-				var targetsArray:Array<FlxCamera> = [camGame, camHUD];
-				for (i in 0...targetsArray.length) {
-					var split:Array<String> = valuesArray[i].split(',');
-					var duration:Float = 0;
-					var intensity:Float = 0;
-					if(split[0] != null) duration = Std.parseFloat(split[0].trim());
-					if(split[1] != null) intensity = Std.parseFloat(split[1].trim());
-					if(Math.isNaN(duration)) duration = 0;
-					if(Math.isNaN(intensity)) intensity = 0;
+                if (ClientPrefs.screenGlitch) {
+                    var valuesArray:Array<String> = [value1, value2];
+                    var targetsArray:Array<FlxCamera> = [camGame, camHUD];
+                    for (i in 0...targetsArray.length) {
+                        var split:Array<String> = valuesArray[i].split(',');
+                        var duration:Float = 0;
+                        var intensity:Float = 0;
+                        if(split[0] != null) duration = Std.parseFloat(split[0].trim());
+                        if(split[1] != null) intensity = Std.parseFloat(split[1].trim());
+                        if(Math.isNaN(duration)) duration = 0;
+                        if(Math.isNaN(intensity)) intensity = 0;
 
-					if(duration > 0 && intensity != 0) {
-						targetsArray[i].shake(intensity, duration);
-					}
-				}
+                        if(duration > 0 && intensity != 0) {
+                            targetsArray[i].shake(intensity, duration);
+                        }
+                    }
+                }
 
 
 			case 'Change Character':
@@ -3689,9 +3710,11 @@ class PlayState extends MusicBeatState
 			}
 
 			if(!note.gfNote) {
-				if (health > 0.1) {
-					health -= 0.0125;
-				}
+                if (ClientPrefs.healthDrain) {
+                    if (health > 0.1) {
+                        health -= 0.0125;
+                    }
+                }
 			}
 
 			var char:Character = dad;
@@ -3717,13 +3740,17 @@ class PlayState extends MusicBeatState
 						if (note != animNote)
 							if (!note.gfNote) {
 								if (health > 0.5) {
-									health -= FlxG.random.float(0.075, 0.2);
+                                    if (ClientPrefs.healthDrain) {
+                                        health -= FlxG.random.float(0.075, 0.2);
+                                    }
 								}
-								if (FlxG.random.float(0, 1) < 0.5) {
-									camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
-								} else{
-									camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
-								}
+                                if (ClientPrefs.screenGlitch) {
+                                    if (FlxG.random.float(0, 1) < 0.5) {
+                                        camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                                    } else{
+                                        camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                                    }
+                                }
 							}
 
 						char.mostRecentRow = note.row;
@@ -3955,13 +3982,18 @@ class PlayState extends MusicBeatState
 					{
 						case 1198:
                             triggerEventNote('Cinematics', 'on', '3');
-                            FlxTween.tween(this, {fakeSongLength: songLength, health: 0.1}, 3);
+                            FlxTween.tween(this, {fakeSongLength: songLength}, 3);
 							FlxTween.tween(camGame, {zoom: 1.2}, 3, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
 									{
-                                        camOverlay.flash(FlxColor.WHITE, 1);
+                                        if (ClientPrefs.flashing) {
+                                            camOverlay.flash(FlxColor.WHITE, 1);
+                                        }
+                                        if (ClientPrefs.healthDrain) {
+                                            health = 0.1;
+                                        }
                                         triggerEventNote('Apple Filter', 'on', 'black');
 										defaultCamZoom = 1;
 									}
@@ -3969,7 +4001,9 @@ class PlayState extends MusicBeatState
 
                         case 1470:
                             defaultCamZoom = 0.8;
-                            camOverlay.flash(FlxColor.WHITE, 1);
+                            if (ClientPrefs.flashing) {
+                                camOverlay.flash(FlxColor.WHITE, 1);
+                            }
                             triggerEventNote('Apple Filter', 'off', 'black');
                     }
 				case 'Retcon':
@@ -4030,7 +4064,9 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							glitchShaderIntensity = 2;
-							camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                            if (ClientPrefs.screenGlitch) {
+							    camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                            }
 							fakeSongLength = songLength;
 							triggerEventNote('Apple Filter', 'on', 'white');
 					}

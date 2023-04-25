@@ -16,6 +16,9 @@ class ClientPrefs {
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
+    public static var healthDrain:Bool = true;
+    public static var gore:Bool = true;
+    public static var screenGlitch:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
@@ -103,6 +106,9 @@ class ClientPrefs {
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
+        FlxG.save.data.healthDrain = healthDrain;
+        FlxG.save.data.gore = gore;
+        FlxG.save.data.screenGlitch = screenGlitch;
 		FlxG.save.data.framerate = framerate;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
@@ -170,6 +176,15 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.shaders != null) {
 			shaders = FlxG.save.data.shaders;
+		}
+        if(FlxG.save.data.healthDrain != null) {
+			healthDrain = FlxG.save.data.healthDrain;
+		}
+        if(FlxG.save.data.gore != null) {
+			gore = FlxG.save.data.gore;
+		}
+        if(FlxG.save.data.screenGlitch != null) {
+			screenGlitch = FlxG.save.data.screenGlitch;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;
