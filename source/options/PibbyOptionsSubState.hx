@@ -64,6 +64,22 @@ class PibbyOptionsSubState extends BaseOptionsMenu
             true); //Default value
         addOption(option);
 
+        for (i in 0...20) { //funny blank options
+            var option:Option = new Option(' ', //Name
+                " ", //Description
+                ' ', //Save data variable name
+                'int', //Variable type
+                0); //Default value
+            addOption(option);
+		}
+
+        var option:Option = new Option('PIBBY CORRUPTED SHAKE !?', //Name
+            "That really annoying f***KING shake that was stolen from bbpanzu's demoman mod (hi its me tormented)", //Description
+            'killyourself', //Save data variable name
+            'bool', //Variable type
+            false); //Default value
+        addOption(option);
+
 		super();
     }
 }

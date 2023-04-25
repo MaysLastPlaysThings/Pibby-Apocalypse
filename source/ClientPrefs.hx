@@ -21,6 +21,7 @@ class ClientPrefs {
     public static var screenGlitch:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
+    public static var killyourself:Bool = false;
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
@@ -109,6 +110,7 @@ class ClientPrefs {
         FlxG.save.data.healthDrain = healthDrain;
         FlxG.save.data.gore = gore;
         FlxG.save.data.screenGlitch = screenGlitch;
+        FlxG.save.data.killyourself = killyourself;
 		FlxG.save.data.framerate = framerate;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
@@ -185,6 +187,9 @@ class ClientPrefs {
 		}
         if(FlxG.save.data.screenGlitch != null) {
 			screenGlitch = FlxG.save.data.screenGlitch;
+		}
+        if(FlxG.save.data.killyourself != null) {
+			killyourself = FlxG.save.data.killyourself;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;
