@@ -10,6 +10,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import sys.io.File;
+import flixel.util.FlxColor;
 
 @:enum abstract AssetType(String) to String {
     var IMAGE = 'image';
@@ -45,6 +46,10 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
             }
+        });
+
+        additionalParams.set('debugPrint', function(text:String) {
+            PlayState.instance.addTextToDebug(text, FlxColor.RED);
         });
 
         newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
@@ -84,12 +89,35 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         if (newStage != null && newStage.exists("noteMiss"))
             newStage.get("noteMiss")(note);
 
-    public function onStep(curStep : Int)
-        if (newStage != null && newStage.exists("onStep"))
-            newStage.get("onStep")(curStep);
+    public function onStepHit(curStep : Int)
+        if (newStage != null && newStage.exists("onStepHit"))
+            newStage.get("onStepHit")(curStep);
     
-    public function onBeat(curBeat : Int)
-        if (newStage != null && newStage.exists("onBeat"))
-            newStage.get("onBeat")(curBeat);
-    
+    public function onBeatHit(curBeat : Int)
+        if (newStage != null && newStage.exists("onBeatHit"))
+            newStage.get("onBeatHit")(curBeat);
+    public function onStartCountdown()
+        if (newStage != null && newStage.exists("onStartCountdown"))
+            newStage.get("onStartCountdown")();
+    public function onSongStart()
+        if (newStage != null && newStage.exists("onSongStart"))
+            newStage.get("onSongStart")();
+    public function onEndSong()
+        if (newStage != null && newStage.exists("onEndSong"))
+            newStage.get("onEndSong")();
+    public function onPause()
+        if (newStage != null && newStage.exists("onPause"))
+            newStage.get("onPause")();
+    public function onResume()
+        if (newStage != null && newStage.exists("onResume"))
+            newStage.get("onResume")();
+    public function onGameOver()
+        if (newStage != null && newStage.exists("onGameOver"))
+            newStage.get("onGameOver")();
+    public function onMoveCamera(focus : String)
+        if (newStage != null && newStage.exists("onMoveCamera"))
+            newStage.get("onMoveCamera")(focus);
+    public function onCountdownTick(counter : Int)
+        if (newStage != null && newStage.exists("onCountdownTick"))
+            newStage.get("onCountdownTick")(counter);
 }

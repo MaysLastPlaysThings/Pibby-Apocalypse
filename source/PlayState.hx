@@ -1347,6 +1347,8 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		newStage.onStartCountdown();
+
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
@@ -1506,6 +1508,7 @@ class PlayState extends MusicBeatState
 					}
 				});
 				callOnLuas('onCountdownTick', [swagCounter]);
+				newStage.onCountdownTick(swagCounter);
 
 				swagCounter += 1;
 			}, 5);
@@ -1653,6 +1656,7 @@ class PlayState extends MusicBeatState
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
+		newStage.onSongStart();
 	}
 
 	var debugNum:Int = 0;
@@ -1997,6 +2001,7 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			callOnLuas('onResume', []);
+			newStage.onResume();
 
 			#if desktop
 			if (startTimer != null && startTimer.finished)
@@ -2185,6 +2190,7 @@ class PlayState extends MusicBeatState
 
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
+			newStage.onPause();
 			var ret:Dynamic = callOnLuas('onPause', [], false);	
 			if(ret != FunkinLua.Function_Stop) {
 				openPauseMenu();
@@ -2215,25 +2221,10 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 40) {
-			FlxTween.tween(warning, {alpha: 0.2}, 1.25, {ease: FlxEase.quadInOut});
-			warning.animation.play('warn'); }
-		else if (healthBar.percent < 35) {
-			FlxTween.tween(warning, {alpha: 0.4}, 1.25, {ease: FlxEase.quadInOut});
-			warning.animation.play('warn'); }
-		else if (healthBar.percent < 30) {
-			FlxTween.tween(warning, {alpha: 0.6}, 1.25, {ease: FlxEase.quadInOut});
-			warning.animation.play('warn'); }
-		else if (healthBar.percent < 25) {
-			FlxTween.tween(warning, {alpha: 0.8}, 1.25, {ease: FlxEase.quadInOut});
-			warning.animation.play('warn'); }
-		else if (healthBar.percent < 20) {
+		else if (healthBar.percent < 20)
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
-			FlxTween.tween(warning, {alpha: 1}, 1.25, {ease: FlxEase.quadInOut});
-			warning.animation.play('warn'); }
-		else {
+		else
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
-			FlxTween.tween(warning, {alpha: 0}, 0.75, {ease: FlxEase.quadInOut}); }
 
 		if (healthBar.percent > 80)
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
@@ -2544,6 +2535,7 @@ class PlayState extends MusicBeatState
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
+			newStage.onGameOver();
 			var ret:Dynamic = callOnLuas('onGameOver', [], false);
 			if(ret != FunkinLua.Function_Stop) {
 				boyfriend.stunned = true;
@@ -2933,6 +2925,7 @@ class PlayState extends MusicBeatState
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
 			tweenCamIn();
 			callOnLuas('onMoveCamera', ['gf']);
+			newStage.onMoveCamera('gf');
 			return;
 		}
 
@@ -2941,6 +2934,7 @@ class PlayState extends MusicBeatState
 			if(focusedCharacter!=dad) {
 				moveCamera(true);
 				callOnLuas('onMoveCamera', ['dad']);
+				newStage.onMoveCamera('dad');
 			}
 		}
 		else
@@ -2948,6 +2942,7 @@ class PlayState extends MusicBeatState
 			if(focusedCharacter!=boyfriend) {
 				moveCamera(false);
 				callOnLuas('onMoveCamera', ['boyfriend']);
+				newStage.onMoveCamera('boyfriend');
 			}
 		}
 	}
@@ -3058,6 +3053,7 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		newStage.onEndSong();
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
 			if (SONG.validScore)
@@ -3998,7 +3994,7 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
-		newStage.onStep(curStep);
+		newStage.onStepHit(curStep);
 
 		switch (SONG.song)
 			{
@@ -4187,7 +4183,7 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		newStage.onBeat(curBeat);
+		newStage.onBeatHit(curBeat);
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
