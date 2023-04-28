@@ -34,7 +34,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('add', add);
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
-        additionalParams.set('PlayState', PlayState);
+        additionalParams.set('PlayState', PlayState.instance);
         additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType) {
             switch (assetType) {
                 case IMAGE:
@@ -59,6 +59,30 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
             if (newStage != null && newStage.exists("onUpdate"))
                 newStage.get("onUpdate")(elapsed);
         }
+
+    public function onCreatePost()
+        if (newStage != null && newStage.exists("onCreatePost"))
+            newStage.get("onCreatePost")();
+
+    public function onUpdatePost(elapsed:Float)
+        if (newStage != null && newStage.exists("onUpdatePost"))
+            newStage.get("onUpdatePost")(elapsed);
+
+    public function onEvent(event:String, value1:String, value2:String)
+        if (newStage != null && newStage.exists("onEvent"))
+            newStage.get("onEvent")(event, value1, value2);
+
+    public function opponentNoteHit(index:Int, dir:Float, noteType:String, isSus:Bool)
+        if (newStage != null && newStage.exists("opponentNoteHit"))
+            newStage.get("opponentNoteHit")(index, dir, noteType, isSus);
+
+    public function goodNoteHit(index:Int, dir:Float, noteType:String, isSus:Bool)
+        if (newStage != null && newStage.exists("goodNoteHit"))
+            newStage.get("goodNoteHit")(index, dir, noteType, isSus);
+
+    public function noteMiss(note:Note)
+        if (newStage != null && newStage.exists("noteMiss"))
+            newStage.get("noteMiss")(note);
 
     public function onStep(curStep : Int)
         if (newStage != null && newStage.exists("onStep"))

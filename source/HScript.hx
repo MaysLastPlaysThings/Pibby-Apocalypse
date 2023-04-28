@@ -33,12 +33,12 @@ class ScriptManager {
 
 		// Setup all of the stuff that we will need for our stuff
 		expressions.set("FlxG", FlxG);
-		expressions.set("FlxMath", FlxMath);
 		expressions.set("FlxTween", FlxTween);
 		expressions.set("FlxEase", FlxEase);
 		expressions.set("FlxSprite", FlxSprite);
 		expressions.set("FlxBasic", FlxBasic);
 		expressions.set("FlxTimer", FlxTimer);
+        expressions.set("ClientPrefs", ClientPrefs);
 		
 		/**
 		expressions.set("importClass", Reflect.makeVarArgs(function(classes:Array<Dynamic>):Void {
@@ -48,10 +48,10 @@ class ScriptManager {
         }));
 		**/
 
-		expressions.set("FlxMath", FlxMath);
 		expressions.set("Math", Math);
 		expressions.set("Paths", Paths);
 		expressions.set("Std", Std);
+        expressions.set("Paths", Paths);
 		expressions.set("Conductor", Conductor);
 
 		// Just basically tells me (Aaron), if my shit is working or not.

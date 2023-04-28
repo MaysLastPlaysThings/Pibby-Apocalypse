@@ -34,6 +34,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
+import flixel.util.FlxAxes;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
@@ -132,6 +133,8 @@ class PlayState extends MusicBeatState
 	public var modchartTexts:Map<String, ModchartText> = new Map();
 	public var modchartSaves:Map<String, FlxSave> = new Map();
 	#end
+
+    var shakeShit:Int = 0;
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -299,6 +302,8 @@ class PlayState extends MusicBeatState
 	var rock3:BGSprite;
 	var rock4:BGSprite;
 	var wtf:BGSprite;
+
+    var defaultIconP2x:Float;
 	
 	//finn var
 	var light:BGSprite;
@@ -338,6 +343,9 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 	public static var newStage:StageConstructor;
+
+    var defaultOpponentStrum:Array<{x:Float, y:Float}> = [];
+    var defaultPlayerStrum:Array<{x:Float, y:Float}> = [];
 
 	override public function create()
 	{
@@ -967,6 +975,7 @@ class PlayState extends MusicBeatState
 		}
 
 		callOnLuas('onCreatePost', []);
+        newStage.onCreatePost();
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
@@ -1348,10 +1357,12 @@ class PlayState extends MusicBeatState
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+                defaultPlayerStrum.push({x: playerStrums.members[i].x, y: playerStrums.members[i].y});
 			}
 			for (i in 0...opponentStrums.length) {
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
+                defaultOpponentStrum.push({x: opponentStrums.members[i].x, y: opponentStrums.members[i].y});
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
@@ -2199,7 +2210,7 @@ class PlayState extends MusicBeatState
 		var iconOffset:Int = 26;
 
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		defaultIconP2x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
 		if (health > 2)
 			health = 2;
@@ -2484,6 +2495,10 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
+        newStage.onUpdatePost(elapsed);
+
+        iconP2.x = defaultIconP2x + FlxG.random.float(-glitchShaderIntensity, glitchShaderIntensity);
+        iconP2.y = healthBar.y - 75 + FlxG.random.float(-glitchShaderIntensity, glitchShaderIntensity);
 	}
 
 	function openPauseMenu()
@@ -2589,6 +2604,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
+        newStage.onEvent(eventName, value1, value2);
 		switch(eventName) {
 			case 'Hey!':
 				var value:Int = 2;
@@ -2684,7 +2700,7 @@ class PlayState extends MusicBeatState
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						gf.color = FlxColor.BLACK;
-                        scoreTxt.color = FlxColor.BLACK;
+                        scoreTxt.color = FlxColor.WHITE;
 						healthBar.createFilledBar(FlxColor.BLACK, FlxColor.BLACK);
 						healthBar.updateBar();
                         timeBar.createFilledBar(0xFF000000, FlxColor.WHITE); //kept it white cuz it would blend in if not...
@@ -3604,6 +3620,7 @@ class PlayState extends MusicBeatState
 
 	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		//Dupe note remove
+        newStage.noteMiss(daNote);
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
 				note.kill();
@@ -3748,6 +3765,13 @@ class PlayState extends MusicBeatState
                                         camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
                                     } else{
                                         camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                                        for (i in 0...opponentStrums.length) {
+                                            opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                                            opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+
+                                            playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                                            playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                                        }
                                     }
                                 }
 							}
@@ -3773,7 +3797,8 @@ class PlayState extends MusicBeatState
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-		if (!note.gfNote) {
+        newStage.opponentNoteHit(notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote);
+        if (!note.gfNote) {
 			if (!note.isSustainNote) {
 				if (FlxG.random.int(0, 1) < 0.01) {
 					glitchShaderIntensity = FlxG.random.float(0.2, 0.7);
@@ -3890,6 +3915,7 @@ class PlayState extends MusicBeatState
 			var leData:Int = Math.round(Math.abs(note.noteData));
 			var leType:String = note.noteType;
 			callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
+            newStage.goodNoteHit(notes.members.indexOf(note), leData, leType, isSus);
 
 			if (!note.isSustainNote)
 			{
@@ -4020,6 +4046,7 @@ class PlayState extends MusicBeatState
 										defaultCamZoom = 0.7;
 									}
 							});
+
 						case 248:
                             triggerEventNote('Cinematics', 'off', '0.675');
 						case 256:
