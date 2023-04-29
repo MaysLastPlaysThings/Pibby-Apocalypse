@@ -7,6 +7,7 @@ import haxe.ds.StringMap;
 import HScript.Script;
 import HScript.ScriptManager;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import sys.io.File;
@@ -14,6 +15,7 @@ import flixel.util.FlxColor;
 
 @:enum abstract AssetType(String) to String {
     var IMAGE = 'image';
+    var ATLAS = 'atlas';
     var SOUND = 'sound';
 }
 
@@ -42,6 +44,9 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
                     var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
                     newGraphic.persist = true;
                     return newGraphic;
+                case ATLAS:
+                    var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}.png')), false, 'assets/stages/${currentStage}/${path}.png');
+                    return FlxAtlasFrames.fromSparrow(newGraphic, Std.string( File.getBytes('assets/stages/${currentStage}/${path}.xml') ));
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
