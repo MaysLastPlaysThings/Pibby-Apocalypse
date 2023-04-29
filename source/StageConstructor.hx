@@ -43,10 +43,20 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
                 case IMAGE:
                     var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
                     newGraphic.persist = true;
-                    return newGraphic;
+                    return cast newGraphic;
                 case ATLAS:
-                    var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}.png')), false, 'assets/stages/${currentStage}/${path}.png');
-                    return FlxAtlasFrames.fromSparrow(newGraphic, Std.string( File.getBytes('assets/stages/${currentStage}/${path}.xml') ));
+                    var newGraphic : FlxGraphic = FlxG.bitmap.add(
+                        BitmapData.fromBytes(
+                            File.getBytes('assets/stages/${currentStage}/${path}.png')
+                        ), 
+                        false, 
+                        'assets/stages/${currentStage}/${path}.png'
+                    );
+                    var newSparrow = FlxAtlasFrames.fromSparrow(
+                        newGraphic, 
+                        Std.string( File.getBytes('assets/stages/${currentStage}/${path}.xml') )
+                    );
+                    return cast newSparrow;
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
