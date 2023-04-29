@@ -9,6 +9,7 @@ import HScript.ScriptManager;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxBasic;
+import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import sys.io.File;
 import flixel.util.FlxColor;
@@ -128,10 +129,20 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
             newStage.get("onEndSong")();
     public function onPause()
         if (newStage != null && newStage.exists("onPause"))
-            newStage.get("onPause")();
+            {
+                newStage.get("onPause")();
+                FlxTween.globalManager.forEach(function( tween : FlxTween ) {
+                    tween.active = false;
+                });
+            }
     public function onResume()
         if (newStage != null && newStage.exists("onResume"))
-            newStage.get("onResume")();
+            {
+                newStage.get("onResume")();
+                FlxTween.globalManager.forEach(function( tween : FlxTween ) {
+                    tween.active = true;
+                });
+            }
     public function onGameOver()
         if (newStage != null && newStage.exists("onGameOver"))
             newStage.get("onGameOver")();
