@@ -47,10 +47,10 @@ class StageData {
 		if ( Assets.exists(path) ) 
 			rawJson = Assets.getText(path);
 		else if ( FileSystem.exists(path) )
-			rawJson = Std.string( File.getBytes(path) );
+			rawJson = File.getContent(path);
 		else
 			rawJson = null;
-		
+
 		return cast Json.parse(rawJson);
 	}
 }
