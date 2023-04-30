@@ -91,6 +91,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
+    var distortFNF:Shaders.GlitchMissingNo;
 	var pibbyFNF:Shaders.Pibbified;
 	var chromFNF:Shaders.ChromShader;
 
@@ -227,6 +228,7 @@ class PlayState extends MusicBeatState
 	public static var chartingMode:Bool = true;
 
 	var glitchShaderIntensity:Float;
+    var distortIntensity:Float;
     var abberationShaderIntensity:Float;
 
 	//Gameplay settings
@@ -978,12 +980,17 @@ class PlayState extends MusicBeatState
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
+        distortFNF = new Shaders.GlitchMissingNo();
 		chromFNF = new Shaders.ChromShader();
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
+            cnlogo.shader = distortFNF;
+            for (i in 0...strumLineNotes.length) {
+                strumLineNotes.members[i].shader = distortFNF;
+            }
+            botplayTxt.shader = distortFNF;
 		}
-
 		if(ClientPrefs.shaders) {
 			chromFNF.aberration.value[0] = -0.5;
 		}
@@ -2082,6 +2089,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders) {
             chromFNF.aberration.value[0] = abberationShaderIntensity;
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
+            distortFNF.binaryIntensity.value[0] = distortIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 		}
 
@@ -2217,18 +2225,23 @@ class PlayState extends MusicBeatState
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		defaultIconP2x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
-		if (health > 2)
-			health = 2;
-
-		else if (healthBar.percent < 20)
+		if (health > 2) {
+            health = 2;
+        }else if (healthBar.percent < 20){
+            iconP1.shader = distortFNF;
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
-		else
+        }else{
+            iconP1.shader = null;
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
+        }
 
-		if (healthBar.percent > 80)
+        if (healthBar.percent > 80){
+            iconP2.shader = distortFNF;
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
-		else
+        }else{
+            iconP2.shader = null;
 			iconP2.playAnim(iconP2.char + 'neutral', false, false);
+        }
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -3994,6 +4007,8 @@ class PlayState extends MusicBeatState
 		}
 
 		newStage.onStepHit(curStep);
+
+        distortIntensity = FlxG.random.float(4, 6);
 
 		switch (SONG.song)
 			{
