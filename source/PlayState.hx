@@ -320,6 +320,7 @@ class PlayState extends MusicBeatState
 	var boyfriendIdled:Bool = false;
 
     var beatShaderAmount:Float = 0.1;
+    var appleEnabled:Bool = false;
 
 	// Lua shit
 	public static var instance:PlayState;
@@ -443,10 +444,11 @@ class PlayState extends MusicBeatState
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
-		cnlogo = new BGSprite('cnlogo', 1070, 600, 0, 0);
-		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.2));
+		cnlogo = new BGSprite('cnlogo', 990, 640, 0, 0);
+		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.17));
 		cnlogo.updateHitbox();
 		if(ClientPrefs.downScroll) cnlogo.y -= 570;
+        cnlogo.alpha = 0.5;
 		cnlogo.cameras = [camOther];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -985,11 +987,9 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
-            cnlogo.shader = distortFNF;
             for (i in 0...strumLineNotes.length) {
                 strumLineNotes.members[i].shader = distortFNF;
             }
-            botplayTxt.shader = distortFNF;
 		}
 		if(ClientPrefs.shaders) {
 			chromFNF.aberration.value[0] = -0.5;
@@ -2228,7 +2228,11 @@ class PlayState extends MusicBeatState
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
-            iconP1.shader = distortFNF;
+            if (!appleEnabled) {
+                iconP1.shader = distortFNF;
+            }else{
+                iconP1.shader = null;
+            }
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
         }else{
             iconP1.shader = null;
@@ -2236,7 +2240,11 @@ class PlayState extends MusicBeatState
         }
 
         if (healthBar.percent > 80){
-            iconP2.shader = distortFNF;
+            if (!appleEnabled) {
+                iconP2.shader = distortFNF;
+            }else{
+                iconP1.shader = null;
+            }
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
         }else{
             iconP2.shader = null;
@@ -2673,6 +2681,7 @@ class PlayState extends MusicBeatState
 
 			case 'Apple Filter':
 				if (value1.toLowerCase() == 'on') {
+                    appleEnabled = true;
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -2699,6 +2708,7 @@ class PlayState extends MusicBeatState
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}else{
+                        appleEnabled = false;
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
