@@ -231,6 +231,8 @@ class PlayState extends MusicBeatState
     var distortIntensity:Float;
     var abberationShaderIntensity:Float;
 
+    var animOffsetValue:Float = 20;
+
 	//Gameplay settings
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
@@ -243,6 +245,7 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
+    public var iconP3:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camOverlay:FlxCamera;
 	public var camGame:FlxCamera;
@@ -320,7 +323,6 @@ class PlayState extends MusicBeatState
 	var boyfriendIdled:Bool = false;
 
     var beatShaderAmount:Float = 0.1;
-    var appleEnabled:Bool = false;
 
 	// Lua shit
 	public static var instance:PlayState;
@@ -788,6 +790,12 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
+        iconP3 = new HealthIcon(gf.healthIcon, true);
+		iconP3.y = healthBar.y - 125;
+		iconP3.visible = !ClientPrefs.hideHud;
+		iconP3.alpha = ClientPrefs.healthBarAlpha;
+		add(iconP3);
+
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
@@ -799,6 +807,7 @@ class PlayState extends MusicBeatState
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
+
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
@@ -837,6 +846,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+        iconP3.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
@@ -979,6 +989,10 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onCreatePost', []);
         newStage.onCreatePost();
+
+        if (gf.healthIcon == 'gf') {
+            iconP3.visible = false;
+        }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
@@ -2114,45 +2128,6 @@ class PlayState extends MusicBeatState
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
         abberationShaderIntensity = FlxMath.lerp(abberationShaderIntensity, 0, CoolUtil.boundTo(elapsed * 4, 0, 1));
-		switch (curSong)
-		{
-			case 'Forgotten-World': //gumball update
-			 	if (curStep == 512) {
-					defaultCamZoom = 0.65;
-					health = 1;
-				}	
-				if (curStep == 2832) { //2832
-                    if (ClientPrefs.flashing) {
-					    FlxG.camera.flash(FlxColor.BLACK, 3, null, true);
-                    }
-					var whiteBG:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.WHITE);
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						insert(members.indexOf(dadGroup), whiteBG);
-						defaultCamZoom = 0.8;
-					});
-				}
-				if (curStep > 512 && curStep < 2832) {
-					defaultCamZoom = 0.65;
-					dad.visible = true;
-					if (curStage == 'void') {
-						house.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-						camGame.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-						rock2.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-						rock3.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-						rock4.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-						wtf.y = Math.cos((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
-					}
-					iconP2.visible = true;
-				}else{
-					camGame.angle = 0;
-					if (iconP2 != null) {
-						iconP2.visible = false;
-					}
-					if (dad != null) {
-						dad.visible = false;
-					}
-				}
-		}
 
 		var charAnimOffsetX:Float = 0;
 		var charAnimOffsetY:Float = 0;
@@ -2160,13 +2135,13 @@ class PlayState extends MusicBeatState
 			if(focusedCharacter.animation.curAnim!=null){
 				switch (focusedCharacter.animation.curAnim.name.substring(4)){
 					case 'UP' | 'UP-alt' | 'UPmiss':
-						charAnimOffsetY -= 20;
+						charAnimOffsetY -= animOffsetValue;
 					case 'DOWN' | 'DOWN-alt' |  'DOWNmiss':
-						charAnimOffsetY += 20;
+						charAnimOffsetY += animOffsetValue;
 					case 'LEFT' | 'LEFT-alt' | 'LEFTmiss':
-						charAnimOffsetX -= 20;
+						charAnimOffsetX -= animOffsetValue;
 					case 'RIGHT' | 'RIGHT-alt' | 'RIGHTmiss':
-						charAnimOffsetX += 20;
+						charAnimOffsetX += animOffsetValue;
 				}
 			}
 		}
@@ -2220,31 +2195,33 @@ class PlayState extends MusicBeatState
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
 
+        var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+		iconP3.scale.set(mult, mult);
+		iconP3.updateHitbox();
+
 		var iconOffset:Int = 26;
 
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+        iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		defaultIconP2x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
-            if (!appleEnabled) {
-                iconP1.shader = distortFNF;
-            }else{
-                iconP1.shader = null;
-            }
+            iconP1.shader = distortFNF;
+            iconP3.shader = distortFNF;
+
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
+            iconP3.playAnim(iconP3.char + 'losing', false, false);
         }else{
+            iconP3.shader = null;
             iconP1.shader = null;
+            iconP3.playAnim(iconP3.char + 'neutral', false, false);
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
         }
 
         if (healthBar.percent > 80){
-            if (!appleEnabled) {
-                iconP2.shader = distortFNF;
-            }else{
-                iconP1.shader = null;
-            }
+            iconP2.shader = distortFNF;
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
         }else{
             iconP2.shader = null;
@@ -2681,7 +2658,6 @@ class PlayState extends MusicBeatState
 
 			case 'Apple Filter':
 				if (value1.toLowerCase() == 'on') {
-                    appleEnabled = true;
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -2695,44 +2671,21 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.redOffset = 255;
 						gf.colorTransform.greenOffset = 255;
                         scoreTxt.color = FlxColor.WHITE;
-						iconP2.colorTransform.blueOffset = 255;
-						iconP2.colorTransform.redOffset = 255;
-						iconP2.colorTransform.greenOffset = 255;
-                        iconP1.colorTransform.blueOffset = 255;
-						iconP1.colorTransform.redOffset = 255;
-						iconP1.colorTransform.greenOffset = 255;
-                        timeBar.createFilledBar(0xFF000000, FlxColor.WHITE);
-                        timeBar.updateBar();
-						healthBar.createFilledBar(FlxColor.WHITE, FlxColor.WHITE);
-						healthBar.updateBar();
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}else{
-                        appleEnabled = false;
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						gf.color = FlxColor.BLACK;
                         scoreTxt.color = FlxColor.WHITE;
-						healthBar.createFilledBar(FlxColor.BLACK, FlxColor.BLACK);
-						healthBar.updateBar();
-                        timeBar.createFilledBar(0xFF000000, FlxColor.WHITE); //kept it white cuz it would blend in if not...
-                        timeBar.updateBar();
-						iconP2.color = FlxColor.BLACK;
-                        iconP1.color = FlxColor.BLACK;
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
 				}else{
 					touhouBG.kill();
 					reloadHealthBarColors();
-                    iconP1.colorTransform.blueOffset = 0;
-					iconP1.colorTransform.redOffset = 0;
-					iconP1.colorTransform.greenOffset = 0;
-					iconP2.colorTransform.blueOffset = 0;
-					iconP2.colorTransform.redOffset = 0;
-					iconP2.colorTransform.greenOffset = 0;
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
 					boyfriend.colorTransform.greenOffset = 0;
@@ -2743,8 +2696,6 @@ class PlayState extends MusicBeatState
 					gf.colorTransform.redOffset = 0;
 					gf.colorTransform.greenOffset = 0;
                     scoreTxt.color = boyfriendColor;
-					iconP2.color = FlxColor.WHITE;
-                    iconP1.color = FlxColor.WHITE;
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					gf.color = FlxColor.WHITE;
@@ -2896,6 +2847,7 @@ class PlayState extends MusicBeatState
 								gf.alpha = 0.00001;
 								gf = gfMap.get(value2);
 								gf.alpha = lastAlpha;
+                                iconP3.changeIcon(gf.healthIcon);
 							}
 							setOnLuas('gfName', gf.curCharacter);
 						}
@@ -4211,9 +4163,11 @@ class PlayState extends MusicBeatState
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
+        iconP3.scale.set(1, 1);
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
+        iconP3.updateHitbox();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{

@@ -6,6 +6,7 @@ var rock3;
 var rock4;
 var wtf;
 var glitch;
+var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
 
 function onCreate()
 {
@@ -72,14 +73,10 @@ function onCreate()
     tweenLoopAngle(wtf, 2, -2, 5, 5);
 
     FlxTween.tween(rock4, {angle: 360}, 30, {
-        ease: FlxEase.sineInOut,
-        onComplete: 
-        function (twn:FlxTween)
-            {
-                //nothing
-            }
+        ease: FlxEase.sineInOut
     });
 
+    stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
     add(void);
     add(rock4);
     add(rock3);
@@ -112,4 +109,12 @@ function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
                 });
             }
     });
+}
+
+function onPause() {
+    stupidFix.active = false;
+}
+
+function onResume() {
+    stupidFix.active = true;
 }
