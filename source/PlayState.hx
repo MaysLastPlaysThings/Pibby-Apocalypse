@@ -209,6 +209,7 @@ class PlayState extends MusicBeatState
 	public var healthBar:FlxBar;
 	public var boyfriendColor : FlxColor;
 	public var dadColor : FlxColor;
+    public var gfColor : FlxColor;
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
@@ -446,10 +447,10 @@ class PlayState extends MusicBeatState
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
-		cnlogo = new BGSprite('cnlogo', 990, 640, 0, 0);
+		cnlogo = new BGSprite('cnlogo', 990, 600, 0, 0);
 		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.17));
 		cnlogo.updateHitbox();
-		if(ClientPrefs.downScroll) cnlogo.y -= 570;
+		if(ClientPrefs.downScroll) cnlogo.y -= 530;
         cnlogo.alpha = 0.5;
 		cnlogo.cameras = [camOther];
 
@@ -634,6 +635,8 @@ class PlayState extends MusicBeatState
 			gf.scrollFactor.set(0.95, 0.95);
 			gfGroup.add(gf);
 			startCharacterLua(gf.curCharacter);
+
+            gfColor = FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]);
 		}
 
 		dad = new Character(0, 0, SONG.player2);
@@ -791,7 +794,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.sprTracker = healthBar;
 
         iconP3 = new HealthIcon(gf.healthIcon, true);
-		iconP3.y = healthBar.y - 125;
+		iconP3.y = healthBar.y - 112;
 		iconP3.visible = !ClientPrefs.hideHud;
 		iconP3.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP3);
@@ -2127,7 +2130,7 @@ class PlayState extends MusicBeatState
 		}
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
-        abberationShaderIntensity = FlxMath.lerp(abberationShaderIntensity, 0, CoolUtil.boundTo(elapsed * 4, 0, 1));
+        abberationShaderIntensity = FlxMath.lerp(abberationShaderIntensity, 0, CoolUtil.boundTo(elapsed * 6, 0, 1));
 
 		var charAnimOffsetX:Float = 0;
 		var charAnimOffsetY:Float = 0;
@@ -2670,7 +2673,6 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.blueOffset = 255;
 						gf.colorTransform.redOffset = 255;
 						gf.colorTransform.greenOffset = 255;
-                        scoreTxt.color = FlxColor.WHITE;
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}else{
@@ -2679,7 +2681,7 @@ class PlayState extends MusicBeatState
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						gf.color = FlxColor.BLACK;
-                        scoreTxt.color = FlxColor.WHITE;
+
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
@@ -2695,7 +2697,6 @@ class PlayState extends MusicBeatState
 					gf.colorTransform.blueOffset = 0;
 					gf.colorTransform.redOffset = 0;
 					gf.colorTransform.greenOffset = 0;
-                    scoreTxt.color = boyfriendColor;
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					gf.color = FlxColor.WHITE;
@@ -3701,7 +3702,7 @@ class PlayState extends MusicBeatState
                         health -= 0.0125;
                     }
                 }
-			}
+            }
 
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
@@ -3829,9 +3830,27 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 			}
 
-			if (!note.gfNote) {
-				health += note.hitHealth * healthGain;
-			}
+			health += note.hitHealth * healthGain;
+
+            if (!note.gfNote) {
+                reloadHealthBarColors();
+                iconP1.changeIcon(boyfriend.healthIcon);
+                scoreTxt.color = boyfriendColor;
+                iconP3.changeIcon(gf.healthIcon);
+            }else{
+                if (gf.healthIcon == 'gf') {
+                    reloadHealthBarColors();
+                    scoreTxt.color = boyfriendColor;
+                    iconP1.changeIcon(boyfriend.healthIcon);
+                    iconP3.changeIcon(gf.healthIcon);
+                }else{
+                    healthBar.createFilledBar(dadColor, gfColor);
+                    healthBar.updateBar();
+                    scoreTxt.color = gfColor;
+                    iconP1.changeIcon(gf.healthIcon);
+                    iconP3.changeIcon(boyfriend.healthIcon);
+                }
+            }
 
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
