@@ -80,7 +80,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
 
         newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
 
-        if (newStage != null)
+        if (newStage != null && newStage.exists("onCreate"))
             newStage.get("onCreate")();
     }
 
