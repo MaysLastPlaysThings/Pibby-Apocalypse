@@ -136,6 +136,7 @@ class PlayState extends MusicBeatState
 	#end
 
     var shakeShit:Int = 0;
+    var camTween:FlxTween;
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -607,7 +608,7 @@ class PlayState extends MusicBeatState
 				{
 					if(file.endsWith('.lua') && !filesPushed.contains(file))
 					{
-						luaArray.push(new FunkinLua(folder + file));
+						luaArray.push(new FunkinLua(folder + file, false));
 						filesPushed.push(file);
 					}
 				}
@@ -871,21 +872,21 @@ class PlayState extends MusicBeatState
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
 			if(FileSystem.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(luaToLoad, false));
 			}
 			else
 			{
 				luaToLoad = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 				if(FileSystem.exists(luaToLoad))
 				{
-					luaArray.push(new FunkinLua(luaToLoad));
+					luaArray.push(new FunkinLua(luaToLoad, false));
 				}
 			}
 			#elseif sys
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 			if(OpenFlAssets.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(luaToLoad, false));
 			}
 			#end
 		}
@@ -895,21 +896,21 @@ class PlayState extends MusicBeatState
 			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
 			if(FileSystem.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(luaToLoad, false));
 			}
 			else
 			{
 				luaToLoad = Paths.getPreloadPath('custom_events/' + event + '.lua');
 				if(FileSystem.exists(luaToLoad))
 				{
-					luaArray.push(new FunkinLua(luaToLoad));
+					luaArray.push(new FunkinLua(luaToLoad, false));
 				}
 			}
 			#elseif sys
 			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
 			if(OpenFlAssets.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(luaToLoad, false));
 			}
 			#end
 		}
@@ -941,7 +942,7 @@ class PlayState extends MusicBeatState
 				{
 					if(file.endsWith('.lua') && !filesPushed.contains(file))
 					{
-						luaArray.push(new FunkinLua(folder + file));
+						luaArray.push(new FunkinLua(folder + file, false));
 						filesPushed.push(file);
 					}
 				}
@@ -1220,7 +1221,7 @@ class PlayState extends MusicBeatState
 			{
 				if(script.scriptName == luaFile) return;
 			}
-			luaArray.push(new FunkinLua(luaFile));
+			luaArray.push(new FunkinLua(luaFile, false));
 		}
 		#end
 	}
@@ -1982,6 +1983,9 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+            if(camTween != null) {
+                camTween.active = false;
+            }
 			for (tween in modchartTweens) {
 				tween.active = false;
 			}
@@ -2016,6 +2020,9 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+            if(camTween != null) {
+                camTween.active = true;
+            }
 			for (tween in modchartTweens) {
 				tween.active = true;
 			}
@@ -2150,8 +2157,15 @@ class PlayState extends MusicBeatState
 		}
 
 		if(!inCutscene) {
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x + charAnimOffsetX, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y + charAnimOffsetY, lerpVal));
+            if(camTween != null) {
+				camTween.cancel();
+			}
+            camTween = FlxTween.tween(camFollowPos, {
+                x: camFollow.x + charAnimOffsetX, 
+                y: camFollow.y + charAnimOffsetY}, 
+                0.3 / cameraSpeed / playbackRate, {
+                ease: FlxEase.linear
+            });
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -4163,6 +4177,10 @@ class PlayState extends MusicBeatState
 	}
 
 	var lastBeatHit:Int = -1;
+
+    public function runLuaCode(string:String) {
+        new FunkinLua(string, true);
+    }
 
 	override function beatHit()
 	{

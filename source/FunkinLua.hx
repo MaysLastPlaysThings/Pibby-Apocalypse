@@ -76,7 +76,7 @@ class FunkinLua {
 	public static var hscript:HScript = null;
 	#end
 	
-	public function new(script:String) {
+	public function new(script:String, mode:Bool) {
 		#if LUA_ALLOWED
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
@@ -86,27 +86,30 @@ class FunkinLua {
 		//trace("LuaJIT version: " + Lua.versionJIT());
 
 		//LuaL.dostring(lua, CLENSE);
-		try{
-			var result:Dynamic = LuaL.dofile(lua, script);
-			var resultStr:String = Lua.tostring(lua, result);
-			if(resultStr != null && result != 0) {
-				trace('Error on lua script! ' + resultStr);
-				#if windows
-				lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
-				#else
-				luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
-				#end
-				lua = null;
-				return;
-			}
-		} catch(e:Dynamic) {
-			trace(e);
-			return;
-		}
+
+        if (mode) {
+            LuaL.dostring(lua, script);
+        }else{
+            try{
+                var result:Dynamic = LuaL.dofile(lua, script);
+                var resultStr:String = Lua.tostring(lua, result);
+                if(resultStr != null && result != 0) {
+                    trace('Error on lua script! ' + resultStr);
+                    #if windows
+                    lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
+                    #else
+                    luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                    #end
+                    lua = null;
+                    return;
+                }
+            } catch(e:Dynamic) {
+                trace(e);
+                return;
+            }
+        }
 		scriptName = script;
 		initHaxeModule();
-
-		trace('lua file loaded succesfully:' + script);
 
 		// Lua shit
 		set('Function_StopLua', Function_StopLua);
@@ -829,7 +832,7 @@ class FunkinLua {
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua(cervix));
+				PlayState.instance.luaArray.push(new FunkinLua(cervix, false));
 				return;
 			}
 			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
