@@ -137,6 +137,7 @@ class PlayState extends MusicBeatState
 
     var shakeShit:Int = 0;
     var camTween:FlxTween;
+    var camTween2:FlxTween;
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -1986,6 +1987,9 @@ class PlayState extends MusicBeatState
             if(camTween != null) {
                 camTween.active = false;
             }
+            if(camTween2 != null) {
+                camTween2.active = false;
+            }
 			for (tween in modchartTweens) {
 				tween.active = false;
 			}
@@ -2022,6 +2026,9 @@ class PlayState extends MusicBeatState
 
             if(camTween != null) {
                 camTween.active = true;
+            }
+            if(camTween2 != null) {
+                camTween2.active = true;
             }
 			for (tween in modchartTweens) {
 				tween.active = true;
@@ -2160,10 +2167,19 @@ class PlayState extends MusicBeatState
             if(camTween != null) {
 				camTween.cancel();
 			}
+            if(camTween2 != null) {
+				camTween2.cancel();
+			}
             camTween = FlxTween.tween(camFollowPos, {
                 x: camFollow.x + charAnimOffsetX, 
-                y: camFollow.y + charAnimOffsetY}, 
+                y: camFollow.y + charAnimOffsetY,
+                angle: camGame.angle + charAnimOffsetX}, 
                 0.3 / cameraSpeed / playbackRate, {
+                ease: FlxEase.linear
+            });
+            camTween2 = FlxTween.tween(camGame, {
+                angle: 0 - charAnimOffsetX / 16}, 
+                0.4 / cameraSpeed / playbackRate, {
                 ease: FlxEase.linear
             });
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
