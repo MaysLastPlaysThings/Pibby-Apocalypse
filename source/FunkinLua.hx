@@ -76,7 +76,7 @@ class FunkinLua {
 	public static var hscript:HScript = null;
 	#end
 	
-	public function new(script:String) {
+	public function new(script:String, mode:Bool) {
 		#if LUA_ALLOWED
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
@@ -86,27 +86,46 @@ class FunkinLua {
 		//trace("LuaJIT version: " + Lua.versionJIT());
 
 		//LuaL.dostring(lua, CLENSE);
-		try{
-			var result:Dynamic = LuaL.dofile(lua, script);
-			var resultStr:String = Lua.tostring(lua, result);
-			if(resultStr != null && result != 0) {
-				trace('Error on lua script! ' + resultStr);
-				#if windows
-				lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
-				#else
-				luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
-				#end
-				lua = null;
-				return;
-			}
-		} catch(e:Dynamic) {
-			trace(e);
-			return;
-		}
+
+        if (mode) {
+            try{
+                var result:Dynamic = LuaL.dostring(lua, script);
+                var resultStr:String = Lua.tostring(lua, result);
+                if(resultStr != null && result != 0) {
+                    trace('Error on script! ' + resultStr);
+                    #if windows
+                    lime.app.Application.current.window.alert(resultStr, 'Error on script!');
+                    #else
+                    luaTrace('Error loading script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                    #end
+                    lua = null;
+                    return;
+                }
+            } catch(e:Dynamic) {
+                trace(e);
+                return;
+            }
+        }else{
+            try{
+                var result:Dynamic = LuaL.dofile(lua, script);
+                var resultStr:String = Lua.tostring(lua, result);
+                if(resultStr != null && result != 0) {
+                    trace('Error on script! ' + resultStr);
+                    #if windows
+                    lime.app.Application.current.window.alert(resultStr, 'Error on script!');
+                    #else
+                    luaTrace('Error loading script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                    #end
+                    lua = null;
+                    return;
+                }
+            } catch(e:Dynamic) {
+                trace(e);
+                return;
+            }
+        }
 		scriptName = script;
 		initHaxeModule();
-
-		trace('lua file loaded succesfully:' + script);
 
 		// Lua shit
 		set('Function_StopLua', Function_StopLua);
@@ -824,15 +843,15 @@ class FunkinLua {
 					{
 						if(luaInstance.scriptName == cervix)
 						{
-							luaTrace('addLuaScript: The script "' + cervix + '" is already running!');
+							luaTrace('The script "' + cervix + '" is already running!');
 							return;
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua(cervix));
+				PlayState.instance.luaArray.push(new FunkinLua(cervix, false));
 				return;
 			}
-			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("Script doesn't exist!", false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "removeLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -878,7 +897,7 @@ class FunkinLua {
 				}
 				return;
 			}
-			luaTrace("removeLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("Script doesn't exist!", false, false, FlxColor.RED);
 		});
 
 		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String) {
@@ -893,7 +912,7 @@ class FunkinLua {
 				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 			}
 			#else
-			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
+			luaTrace("HScript isn't supported on this platform!", false, false, FlxColor.RED);
 			#end
 
 			if(retVal != null && !isOfTypes(retVal, [Bool, Int, Float, String, Array])) retVal = null;
@@ -2768,7 +2787,7 @@ class FunkinLua {
 	{
 		if(hscript == null)
 		{
-			trace('initializing haxe interp for: $scriptName');
+			//trace('initializing haxe interp for: $scriptName');
 			hscript = new HScript(); //TO DO: Fix issue with 2 scripts not being able to use the same variable names
 		}
 	}

@@ -64,6 +64,10 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
             }
         });
 
+        additionalParams.set('runLuaCode', function(code:String) {
+            PlayState.instance.runLuaCode(code);
+        });
+
         additionalParams.set('triggerEvent', function(name:String, arg1:Dynamic, arg2:Dynamic) {
             var value1:String = arg1;
             var value2:String = arg2;
@@ -76,7 +80,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
 
         newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
 
-        if (newStage != null)
+        if (newStage != null && newStage.exists("onCreate"))
             newStage.get("onCreate")();
     }
 
