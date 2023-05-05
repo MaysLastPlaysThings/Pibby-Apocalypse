@@ -4172,10 +4172,7 @@ class PlayState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if(lastBeatHit >= curBeat) {
-			//trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
-			return;
-		}
+		if(lastBeatHit >= curBeat) return;
 
 		if (generatedMusic)
 		{

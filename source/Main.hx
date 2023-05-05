@@ -90,6 +90,7 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
 		ScriptManager.init();
+		InputFormatter.loadKeys();
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
