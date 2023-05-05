@@ -62,6 +62,7 @@ import animateatlas.AtlasFrameMaker;
 import Achievements;
 import StageData;
 import FunkinLua;
+import Scripts;
 import DialogueBoxPsych;
 import Conductor.Rating;
 
@@ -950,6 +951,10 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+
+        for (luaCode in Scripts.luaScripts) {
+            runLuaCode(luaCode);
+        }
 
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)
@@ -4195,7 +4200,7 @@ class PlayState extends MusicBeatState
 	var lastBeatHit:Int = -1;
 
     public function runLuaCode(string:String) {
-        new FunkinLua(string, true);
+        luaArray.push(new FunkinLua(string, true));
     }
 
 	override function beatHit()

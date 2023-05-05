@@ -88,17 +88,33 @@ class FunkinLua {
 		//LuaL.dostring(lua, CLENSE);
 
         if (mode) {
-            LuaL.dostring(lua, script);
+            try{
+                var result:Dynamic = LuaL.dostring(lua, script);
+                var resultStr:String = Lua.tostring(lua, result);
+                if(resultStr != null && result != 0) {
+                    trace('Error on script! ' + resultStr);
+                    #if windows
+                    lime.app.Application.current.window.alert(resultStr, 'Error on script!');
+                    #else
+                    luaTrace('Error loading script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                    #end
+                    lua = null;
+                    return;
+                }
+            } catch(e:Dynamic) {
+                trace(e);
+                return;
+            }
         }else{
             try{
                 var result:Dynamic = LuaL.dofile(lua, script);
                 var resultStr:String = Lua.tostring(lua, result);
                 if(resultStr != null && result != 0) {
-                    trace('Error on lua script! ' + resultStr);
+                    trace('Error on script! ' + resultStr);
                     #if windows
-                    lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
+                    lime.app.Application.current.window.alert(resultStr, 'Error on script!');
                     #else
-                    luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                    luaTrace('Error loading script: "$script"\n' + resultStr, true, false, FlxColor.RED);
                     #end
                     lua = null;
                     return;
@@ -827,7 +843,7 @@ class FunkinLua {
 					{
 						if(luaInstance.scriptName == cervix)
 						{
-							luaTrace('addLuaScript: The script "' + cervix + '" is already running!');
+							luaTrace('The script "' + cervix + '" is already running!');
 							return;
 						}
 					}
@@ -835,7 +851,7 @@ class FunkinLua {
 				PlayState.instance.luaArray.push(new FunkinLua(cervix, false));
 				return;
 			}
-			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("Script doesn't exist!", false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "removeLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -881,7 +897,7 @@ class FunkinLua {
 				}
 				return;
 			}
-			luaTrace("removeLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("Script doesn't exist!", false, false, FlxColor.RED);
 		});
 
 		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String) {
@@ -896,7 +912,7 @@ class FunkinLua {
 				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 			}
 			#else
-			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
+			luaTrace("HScript isn't supported on this platform!", false, false, FlxColor.RED);
 			#end
 
 			if(retVal != null && !isOfTypes(retVal, [Bool, Int, Float, String, Array])) retVal = null;
