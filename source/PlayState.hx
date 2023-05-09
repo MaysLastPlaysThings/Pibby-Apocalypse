@@ -65,6 +65,7 @@ import FunkinLua;
 import Scripts;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import flixel.system.FlxAssets.FlxShader;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -93,6 +94,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
     var distortFNF:Shaders.GlitchMissingNo;
+	var invertFNF:Shaders.InvertShader;
 	var pibbyFNF:Shaders.Pibbified;
 	var chromFNF:Shaders.ChromShader;
 
@@ -1010,6 +1012,7 @@ class PlayState extends MusicBeatState
 
 		pibbyFNF = new Shaders.Pibbified();
         distortFNF = new Shaders.GlitchMissingNo();
+		invertFNF = new Shaders.InvertShader();
 		chromFNF = new Shaders.ChromShader();
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -3726,6 +3729,16 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
+		if (note.noteType == 'Glitch Note') {
+			var shaderArray:Array<FlxShader> = [distortFNF, invertFNF];
+			for (i in 0...shaderArray.length)
+			dad.shader = shaderArray[i];
+			new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+			dad.shader = null;
+		});
+	
+	}
+
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
 
@@ -4027,6 +4040,11 @@ class PlayState extends MusicBeatState
 	var lastStepHit:Int = -1;
 	override function stepHit()
 	{
+		var blackFNF:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackFNF.scrollFactor.set();
+		blackFNF.alpha = 0;
+		blackFNF.cameras = [camOverlay];
+		add(blackFNF);
 		super.stepHit();
 		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
 			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
@@ -4108,13 +4126,40 @@ class PlayState extends MusicBeatState
 						case 1408:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1520:
+							FlxTween.tween(blackFNF, {alpha: 1}, 1.15, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										blackFNF.alpha = 1;
+										new FlxTimer().start(0.001, function(tmr:FlxTimer)
+										{
+											blackFNF.alpha = 0;
+											defaultCamZoom = 0.7;
+										});
+									}
+							});
+							FlxTween.tween(camGame, {zoom: 1.6}, 1.15, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.6;
+									}
+							});
 						case 1536:
+							blackFNF.alpha = 0;
+							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 						case 1664:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1792:
+							defaultCamZoom = 1.2;
 						case 1824:
+							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 						case 1920:

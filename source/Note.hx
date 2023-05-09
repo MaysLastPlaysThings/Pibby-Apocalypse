@@ -55,6 +55,7 @@ class Note extends FlxSprite
 
 	public var animSuffix:String = '';
 	public var gfNote:Bool = false;
+	public var glitchNote:Bool = false;
 	public var earlyHitMult:Float = 0.5;
 	public var lateHitMult:Float = 1;
 	public var lowPriority:Bool = false;
@@ -154,6 +155,8 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+				case 'Glitch Note':
+					glitchNote = true;
 			}
 			noteType = value;
 		}

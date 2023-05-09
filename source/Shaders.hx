@@ -555,6 +555,31 @@ class BlendModeEffect
 	}
 }
 
+class InvertShader extends FlxShader
+{
+    @:glFragmentSource('
+    #pragma header
+
+  float invertAmount = 1.0;
+
+  void main()
+  {
+      // Load the input image
+      vec4 texel = flixel_texture2D(bitmap, openfl_TextureCoordv.xy);
+    
+      // Invert the colors based on the invert amount
+      vec3 inverted = mix(texel.rgb, 1.0 - texel.rgb, invertAmount);
+    
+      // Output the final color
+      gl_FragColor = vec4(inverted, flixel_texture2D(bitmap, openfl_TextureCoordv.xy).a);
+  }
+    ')
+  
+    public function new()
+	{
+		super();
+	}
+}
 
 class OldTVShader extends FlxShader
 {
