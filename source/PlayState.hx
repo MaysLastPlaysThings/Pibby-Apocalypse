@@ -796,11 +796,14 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-        iconP3 = new HealthIcon(gf.healthIcon, true);
-		iconP3.y = healthBar.y - 112;
-		iconP3.visible = !ClientPrefs.hideHud;
-		iconP3.alpha = ClientPrefs.healthBarAlpha;
-		add(iconP3);
+		if (gf != null)
+		{
+			iconP3 = new HealthIcon(gf.healthIcon, true);
+			iconP3.y = healthBar.y - 112;
+			iconP3.visible = !ClientPrefs.hideHud;
+			iconP3.alpha = ClientPrefs.healthBarAlpha;
+			add(iconP3);
+		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -852,7 +855,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
-        iconP3.cameras = [camHUD];
+        if ( gf != null ) iconP3.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
@@ -1000,7 +1003,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onCreatePost', []);
         newStage.onCreatePost();
 
-        if (gf.healthIcon == 'gf') {
+        if (gf != null) {
             iconP3.visible = false;
         }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1345,7 +1348,7 @@ class PlayState extends MusicBeatState
 			bfIntro.specialAnim = true;
 		}
 
-		if (gf.curCharacter.startsWith('pibby')) {
+		if (gf != null && gf.curCharacter.startsWith('pibby')) {
 			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
 			startCharacterPos(pibbyIntro);
 			boyfriendGroup.add(pibbyIntro);
@@ -1355,10 +1358,10 @@ class PlayState extends MusicBeatState
 		}
 
 		var numberIntro : FlxSprite = new FlxSprite(
-			(gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0])), 
+			(gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0])), 
 			(BF_Y + bfIntro.positionArray[1] - 300)
 		);
-		numberIntro.x = gf.curCharacter.startsWith('pibby') ? numberIntro.x / 2 : numberIntro.x;
+		numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
 		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
 		numberIntro.alpha = 0.0001;
 		numberIntro.cameras = [camOther];
@@ -1438,7 +1441,7 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 
-								if (gf.curCharacter.startsWith('pibby')) {
+								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('3', true);
 									pibbyIntro.specialAnim = true;
 								}
@@ -1460,7 +1463,7 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 
-								if (gf.curCharacter.startsWith('pibby')) {
+								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('2', true);
 									pibbyIntro.specialAnim = true;
 								}
@@ -1483,7 +1486,7 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 								
-								if (gf.curCharacter.startsWith('pibby')) {
+								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('1', true);
 									pibbyIntro.specialAnim = true;
 								}
@@ -1508,7 +1511,7 @@ class PlayState extends MusicBeatState
 									bfIntro.specialAnim = true;
 								}
 
-								if (gf.curCharacter.startsWith('pibby')) {
+								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('Go', true);
 									pibbyIntro.specialAnim = true;
 								}
@@ -1522,7 +1525,7 @@ class PlayState extends MusicBeatState
 							boyfriend.alpha = 1;
 							bfIntro.alpha = 0;
 						}
-						if (gf.curCharacter.startsWith('pibby')) {
+						if (gf != null && gf.curCharacter.startsWith('pibby')) {
 							pibbyIntro.alpha = 0;
 						}
 						numberIntro.alpha = 0;
@@ -2139,13 +2142,13 @@ class PlayState extends MusicBeatState
 				{
 					defaultCamZoom = 0.9;
 				}
-				gf.alpha = 0;
+				if (gf != null)	gf.alpha = 0;
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
 		{
 			case "Child's Play":
-				gf.alpha = 0;
+				if (gf != null)	gf.alpha = 0;
 		}
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
@@ -2233,28 +2236,37 @@ class PlayState extends MusicBeatState
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
 
-        var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP3.scale.set(mult, mult);
-		iconP3.updateHitbox();
-
 		var iconOffset:Int = 26;
 
+		if (gf != null)
+		{
+			var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP3.scale.set(mult, mult);
+			iconP3.updateHitbox();
+			iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
+		}
+
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-        iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		defaultIconP2x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
             iconP1.shader = distortFNF;
-            iconP3.shader = distortFNF;
+			if (gf != null)
+			{
+				iconP3.shader = distortFNF;
+				iconP3.playAnim(iconP3.char + 'losing', false, false);
+			}
 
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
-            iconP3.playAnim(iconP3.char + 'losing', false, false);
-        }else{
-            iconP3.shader = null;
+        } else {
+			if (gf != null)
+			{
+				iconP3.shader = null;
+				iconP3.playAnim(iconP3.char + 'neutral', false, false);
+			}
             iconP1.shader = null;
-            iconP3.playAnim(iconP3.char + 'neutral', false, false);
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
         }
 
@@ -3867,23 +3879,23 @@ class PlayState extends MusicBeatState
 
 			health += note.hitHealth * healthGain;
 
-            if (!note.gfNote) {
+            if (gf != null && !note.gfNote) {
                 reloadHealthBarColors();
                 iconP1.changeIcon(boyfriend.healthIcon);
                 scoreTxt.color = boyfriendColor;
                 iconP3.changeIcon(gf.healthIcon);
             }else{
-                if (gf.healthIcon == 'gf') {
+                if (gf != null && gf.healthIcon == 'gf') {
                     reloadHealthBarColors();
                     scoreTxt.color = boyfriendColor;
                     iconP1.changeIcon(boyfriend.healthIcon);
-                    iconP3.changeIcon(gf.healthIcon);
+                    if (gf != null) iconP3.changeIcon(gf.healthIcon);
                 }else{
                     healthBar.createFilledBar(dadColor, gfColor);
                     healthBar.updateBar();
                     scoreTxt.color = gfColor;
-                    iconP1.changeIcon(gf.healthIcon);
-                    iconP3.changeIcon(boyfriend.healthIcon);
+                    if (gf != null) iconP1.changeIcon(gf.healthIcon);
+                    if (iconP3 != null) iconP3.changeIcon(boyfriend.healthIcon);
                 }
             }
 
@@ -4218,11 +4230,14 @@ class PlayState extends MusicBeatState
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
-        iconP3.scale.set(1, 1);
+        if (gf != null) 
+			{
+				iconP3.scale.set(1, 1);
+				iconP3.updateHitbox();
+			}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
-        iconP3.updateHitbox();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{

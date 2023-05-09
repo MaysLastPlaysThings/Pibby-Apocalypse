@@ -329,9 +329,12 @@ class MainMenuState extends MusicBeatState
 		// If the bar exists we destroy it to save memory
 		if (barTab != null) barTab.destroy();
 
+
+		// A bunch of math shit to make bar under the text lolll --Aaron
 		barTab = new FlxSprite().makeGraphic(Std.int(menuItems.members[curSelected].actualText.textField.textWidth) + 20, 5, FlxColor.WHITE);
 		barTab.setPosition(
-			menuItems.members[curSelected].x + (menuItems.members[curSelected].actualText.textField.textWidth / 2) - 5, 
+			menuItems.members[curSelected].x + 
+				(menuItems.members[curSelected].actualText.textField.textWidth / 2) - 5, 
 			menuItems.members[curSelected].y + 160
 		);
 		add(barTab);

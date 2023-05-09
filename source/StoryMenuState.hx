@@ -25,27 +25,15 @@ class StoryMenuState extends MusicBeatState
 {
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
 
-	var scoreText:FlxText;
-
-	private static var lastDifficultyName:String = '';
-	var curDifficulty:Int = 1;
-
-	var txtWeekTitle:FlxText;
+	var storyModeText : FlxText;
 	var bgSprite:FlxSprite;
 
 	private static var curWeek:Int = 0;
 
-	var txtTracklist:FlxText;
-
 	var grpWeekText:FlxTypedGroup<MenuItem>;
 	var grpWeekCharacters:FlxTypedGroup<MenuCharacter>;
 
-	var grpLocks:FlxTypedGroup<FlxSprite>;
-
 	var difficultySelectors:FlxGroup;
-	var sprDifficulty:FlxSprite;
-	var leftArrow:FlxSprite;
-	var rightArrow:FlxSprite;
 
 	var loadedWeeks:Array<WeekData> = [];
 
@@ -53,6 +41,12 @@ class StoryMenuState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
+		storyModeText = new FlxText(0, 0, 0, "STORY MODE");
+		storyModeText.setFormat(Paths.font("menuBUTTONS.ttf"), 65);
+		storyModeText.y -= storyModeText.size;
+		add(storyModeText);
+
 
 
 		// Need to make sure the filters are disabled teehee
