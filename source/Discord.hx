@@ -45,7 +45,7 @@ class DiscordClient
 			details: "In the Menus",
 			state: null,
 			largeImageKey: 'https://i.imgur.com/j1NOFU9.gif',
-			largeImageText: "Psych Engine"
+			largeImageText: "Pibby: Apocalypse"
 		});
 	}
 

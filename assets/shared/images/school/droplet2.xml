@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="droplet2.png">
+	<!-- Created with Adobe Animate version 23.0.1.70 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="gooey0000" x="10" y="10" width="107" height="65" pivotX="-294.35" pivotY="-505.8"/>
+	<SubTexture name="gooey0001" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0002" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0003" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0004" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0005" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0006" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0007" x="10" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0008" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0009" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0010" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0011" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0012" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0013" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0014" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0015" x="127" y="10" width="107" height="65"/>
+	<SubTexture name="gooey0016" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0017" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0018" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0019" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0020" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0021" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0022" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0023" x="10" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0024" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0025" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0026" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0027" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0028" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0029" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0030" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0031" x="127" y="85" width="107" height="65"/>
+	<SubTexture name="gooey0032" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0033" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0034" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0035" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0036" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0037" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0038" x="10" y="160" width="107" height="65"/>
+	<SubTexture name="gooey0039" x="10" y="160" width="107" height="65"/>
+</TextureAtlas>

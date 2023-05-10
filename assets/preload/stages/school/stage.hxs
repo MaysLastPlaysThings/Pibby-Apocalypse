@@ -1,0 +1,76 @@
+var background;
+var wall;
+var vignette;
+
+function onCreate()
+{
+    background = new flixel.FlxSprite(0, 0);
+    background.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
+    background.setGraphicSize(Std.int(background.width * 1.3));
+    background.antialiasing = true;
+    background.scrollFactor.set(1, 1);
+    background.updateHitbox();
+
+    wall = new flixel.FlxSprite(0, 200);
+    wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
+    wall.setGraphicSize(Std.int(wall.width * 1.1));
+    wall.antialiasing = true;
+    wall.scrollFactor.set(1, 1);
+    wall.updateHitbox();
+
+    vignette = new flixel.FlxSprite(0, 0);
+    vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
+    vignette.setGraphicSize(Std.int(vignette.width * 1.3));
+    vignette.antialiasing = true;
+    vignette.scrollFactor.set(1, 1);
+    vignette.updateHitbox();
+
+    add(background);
+    foreground.add(wall);
+    foreground.add(vignette);
+
+}
+
+function onSongStart()
+{
+    PlayState.camZooming = true;
+}
+
+function onMoveCamera(focus:String)
+    {
+        if (focus == 'dad')
+            PlayState.defaultCamZoom = 1.2;
+        else
+            PlayState.defaultCamZoom = 0.9;
+    }
+
+function onEvent(event:String, value1:String, value2:String)
+    {
+     if (event == 'Apple Filter')
+        {
+             if (value1 == 'on') 
+            {
+                wall.alpha = 0.0001;
+                vignette.alpha = 0.0001; 
+            }
+             else if (value1 == 'off')
+            {
+                wall.alpha = 1;
+                vignette.alpha = 1;
+            }
+        }
+    }
+
+function onUpdate()
+    {
+        if (PlayState.dad.curCharacter == 'gumball')
+                {
+                    PlayState.dad.x = 250;
+                    PlayState.dad.y = 450;
+                }
+        else
+                {
+                    PlayState.dad.x = 300;
+                    PlayState.dad.y = 550;
+                }
+    }

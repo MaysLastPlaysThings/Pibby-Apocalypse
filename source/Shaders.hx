@@ -555,24 +555,160 @@ class BlendModeEffect
 	}
 }
 
+class PincushionShader extends FlxShader
+{
+  @:glFragmentSource('    
+  #pragma header
+
+  vec2 uv = openfl_TextureCoordv.xy;
+  vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+  vec2 iResolution = openfl_TextureSize;
+  uniform float iTime;
+  uniform float Size;
+  #define iChannel0 bitmap
+  #define texture flixel_texture2D
+  #define fragColor gl_FragColor
+
+  #define amount -0.3 // negative : anti fish eye. positive = fisheye
+
+  //Inspired by http://stackoverflow.com/questions/6030814/add-fisheye-effect-to-images-at-runtime-using-opengl-es
+  void main()
+  {
+      vec2 p = fragCoord.xy / iResolution.x;//normalized coords with some cheat
+                                                               //(assume 1:1 prop)
+      float prop = iResolution.x / iResolution.y;//screen proroption
+      vec2 m = vec2(0.5, 0.5 / prop);//center coords
+      vec2 d = p - m;//vector from center to current fragment
+      float r = sqrt(dot(d, d)); // distance of pixel from center
+  
+      float power = amount;
+  
+      float bind;//radius of 1:1 effect
+      if (power > 0.0) 
+          bind = sqrt(dot(m, m));//stick to corners
+      else {if (prop < 1.0) 
+          bind = m.x; 
+      else 
+          bind = m.y;}//stick to borders
+  
+      //Weird formulas
+      vec2 uv;
+      if (power > 0.0)//fisheye
+          uv = m + normalize(d) * tan(r * power) * bind / tan( bind * power);
+      else if (power < 0.0)//antifisheye
+          uv = m + normalize(d) * atan(r * -power * 10.0) * bind / atan(-power * bind * 10.0);
+      else uv = p;//no effect for power = 1.0
+          
+      uv.y *= prop;
+  
+      vec3 col = texture(iChannel0, uv).rgb;
+      
+      // inverted
+      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
+                                                        //for round effect, not elliptical
+      fragColor = vec4(col, 1.0);
+    }
+   ')
+   public function new()
+    {
+      super();
+    }
+}
+
+class BlurShader extends FlxShader
+{
+    @:glFragmentSource('
+
+#pragma header
+
+uniform float iTime;
+
+vec2 iResolution = openfl_TextureSize;
+
+uniform float amount = 0.5;
+
+const float pi = radians(180.);
+const int samples = 20;
+const float sigma = float(samples) * 0.25;
+
+const float sigma2 = 2. * sigma * sigma;
+const float pisigma2 = pi * sigma2;
+
+float gaussian(vec2 i) {
+    float top = exp(-((i.x * i.x) + (i.y * i.y)) / sigma2);
+    float bot = pisigma2;
+    return top / bot;
+}
+
+vec3 blur(sampler2D sp, vec2 uv, vec2 scale) {
+    vec2 offset;
+    float weight = gaussian(offset);
+    vec3 col = texture2D(sp, uv).rgb * weight;
+    float accum = weight * amount;
+    
+    // we need to use x <= samples / 2
+    // to ensure symmetry
+    for (int x = 0; x <= samples / 2; ++x) {
+        for (int y = 1; y <= samples / 2; ++y) {
+            offset = vec2(x, y);
+            weight = gaussian(offset);
+            col += texture2D(sp, uv + scale * offset).rgb * weight;
+            accum += weight;
+
+            // since values are symmetrical
+            // we can re-use the "weight" value, saving 3 function calls
+
+            col += texture2D(sp, uv - scale * offset).rgb * weight;
+            accum += weight;
+
+            offset = vec2(-y, x);
+            col += texture2D(sp, uv + scale * offset).rgb * weight;
+            accum += weight;
+
+            col += texture2D(sp, uv - scale * offset).rgb * weight;
+            accum += weight;
+        }
+    }
+    
+    return col / accum;
+}
+
+void main() {
+    vec2 fragCoord = openfl_TextureCoordv * iResolution;
+
+    vec2 ps = vec2(1.0) / iResolution.xy;
+    vec2 uv = fragCoord * ps;
+
+    gl_FragColor = vec4(blur(bitmap, uv, ps * amount), texture2D(bitmap,uv).a);
+}
+')
+
+public function new()
+    {
+        super();
+        amount.value = [0];
+    }
+}
+
 class InvertShader extends FlxShader
 {
     @:glFragmentSource('
     #pragma header
-
-  float invertAmount = 1.0;
-
-  void main()
-  {
-      // Load the input image
-      vec4 texel = flixel_texture2D(bitmap, openfl_TextureCoordv.xy);
     
-      // Invert the colors based on the invert amount
-      vec3 inverted = mix(texel.rgb, 1.0 - texel.rgb, invertAmount);
-    
-      // Output the final color
-      gl_FragColor = vec4(inverted, flixel_texture2D(bitmap, openfl_TextureCoordv.xy).a);
-  }
+    void main()
+    {
+        vec2 p = openfl_TextureCoordv*openfl_TextureSize.xy/openfl_TextureSize.xy;
+        
+        vec4 col = flixel_texture2D(bitmap, p);
+        
+        col = vec4(1.) - col; // invert the color
+        
+        col.a = 1.0 - col.a; // invert the alpha value
+        
+        col.rgb *= col.a; // multiply color by alpha
+        
+        gl_FragColor = col;
+    }
     ')
   
     public function new()

@@ -94,9 +94,12 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
     var distortFNF:Shaders.GlitchMissingNo;
+	var distortDadFNF:Shaders.GlitchMissingNo;
 	var invertFNF:Shaders.InvertShader;
 	var pibbyFNF:Shaders.Pibbified;
 	var chromFNF:Shaders.ChromShader;
+	var pincFNF:Shaders.PincushionShader;
+	var blurFNF:Shaders.BlurShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -235,7 +238,9 @@ class PlayState extends MusicBeatState
 
 	var glitchShaderIntensity:Float;
     var distortIntensity:Float;
+	var dadGlitchIntensity:Float;
     var abberationShaderIntensity:Float;
+	var blurIntensity:Float;
 
     var animOffsetValue:Float = 20;
 
@@ -255,6 +260,7 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camOverlay:FlxCamera;
 	public var camGame:FlxCamera;
+	public var camVoid:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
 	public var cameraBumpTween : FlxTween;
@@ -422,6 +428,7 @@ class PlayState extends MusicBeatState
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
+		camVoid = new FlxCamera();
 		camGame = new FlxCamera();
 		camOverlay = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -431,6 +438,7 @@ class PlayState extends MusicBeatState
 		camHUD.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
+		FlxG.cameras.add(camVoid, false);
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camOverlay, false);
 		FlxG.cameras.add(camHUD, false);
@@ -462,15 +470,15 @@ class PlayState extends MusicBeatState
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
+			detailsText = "--CLASSIFIED--";
 		}
 		else
 		{
-			detailsText = "Freeplay";
+			detailsText = "--CLASSIFIED--";
 		}
 
 		// String for when the game is paused
-		detailsPausedText = "Paused - " + detailsText;
+		detailsPausedText = "--CLASSIFIED--";
 		#end
 
 		GameOverSubstate.resetVariables();
@@ -993,7 +1001,7 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -1012,11 +1020,15 @@ class PlayState extends MusicBeatState
 
 		pibbyFNF = new Shaders.Pibbified();
         distortFNF = new Shaders.GlitchMissingNo();
+		distortDadFNF = new Shaders.GlitchMissingNo();
 		invertFNF = new Shaders.InvertShader();
 		chromFNF = new Shaders.ChromShader();
+		pincFNF = new Shaders.PincushionShader();
+		blurFNF = new Shaders.BlurShader();
+		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
-			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF), new ShaderFilter(blurFNF)]);
             for (i in 0...strumLineNotes.length) {
                 strumLineNotes.members[i].shader = distortFNF;
             }
@@ -1026,6 +1038,15 @@ class PlayState extends MusicBeatState
 		}
 
 		super.create();
+
+		switch (SONG.song)
+			{
+				case 'My Amazing World':
+					moveCamera(true);
+					blurIntensity = 1.5;
+					blackie.alpha = 1;
+					defaultCamZoom = 1.5;
+			}
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -1688,7 +1709,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2054,11 +2075,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -2073,11 +2094,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
 			}
 		}
 		#end
@@ -2090,7 +2111,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, "nuh uh", iconP2.getCharacter());
 		}
 		#end
 
@@ -2132,7 +2153,9 @@ class PlayState extends MusicBeatState
             chromFNF.aberration.value[0] = abberationShaderIntensity;
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.binaryIntensity.value[0] = distortIntensity;
+			distortDadFNF.binaryIntensity.value[0] = dadGlitchIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
+			blurFNF.amount.value[0] = blurIntensity;
 		}
 
 		switch (curStage)
@@ -2564,7 +2587,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, "nuh uh", iconP2.getCharacter());
 		#end
 	}
 
@@ -2610,7 +2633,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, "nuh uh", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3730,7 +3753,16 @@ class PlayState extends MusicBeatState
 	function opponentNoteHit(note:Note):Void
 	{
 		if (note.noteType == 'Glitch Note') {
-			var shaderArray:Array<FlxShader> = [distortFNF, invertFNF];
+			for (i in 0...opponentStrums.length) {
+				opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+				opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+
+				playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+			}
+			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
+			dadGlitchIntensity = FlxG.random.float(40, 53);
+			var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
 			for (i in 0...shaderArray.length)
 			dad.shader = shaderArray[i];
 			new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
@@ -4076,7 +4108,7 @@ class PlayState extends MusicBeatState
                                             health = 0.1;
                                         }
                                         triggerEventNote('Apple Filter', 'on', 'black');
-										defaultCamZoom = 1;
+										defaultCamZoom = 1.1;
 									}
 							});
 
@@ -4087,6 +4119,43 @@ class PlayState extends MusicBeatState
                             }
                             triggerEventNote('Apple Filter', 'off', 'black');
                     }
+				case 'My Amazing World':
+					switch (curStep)
+					{
+						case 1:
+							triggerEventNote('Cinematics', 'on', '9.6');
+							blackie.alpha = 0;
+							camOther.fade(FlxColor.BLACK, 9.6, true);
+							FlxTween.tween(this, {blurIntensity: 0}, 9.6, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										blurIntensity = 0;
+									}
+							});
+							FlxTween.tween(camGame, {zoom: 1.1}, 9.6, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 128:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 240:
+							defaultCamZoom = 1;
+						case 246:
+							defaultCamZoom = 1.1;
+						case 252:
+							defaultCamZoom = 1.2;
+						case 256:
+							triggerEventNote('Cinematics', 'off', '0.4');
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+					}
 				case 'Retcon':
 					switch (curStep)
 					{
