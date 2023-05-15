@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				96,
 				-27
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				29,
 				43
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				15,
 				-122
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				114,
 				310
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
 		},
 		{
-			"loop": true,
 			"offsets": [
 				-14,
 				-48
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 20,
-			"name": "Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
 		}
 	],
 	"no_antialiasing": false,
@@ -62,12 +62,12 @@
 		-50,
 		150
 	],
-	"healthicon": "gumball",
+	"healthicon": "jake",
 	"flip_x": false,
 	"healthbar_colors": [
-		82,
-		165,
-		235
+		255,
+		217,
+		67
 	],
 	"camera_position": [
 		-80,
