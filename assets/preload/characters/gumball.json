@@ -1,78 +1,67 @@
 {
-	"animations": [
-		{
-			"offsets": [
-				218,
-				-212
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "Left"
-		},
-		{
-			"offsets": [
-				-34,
-				-228
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Right"
-		},
-		{
-			"offsets": [
-				88,
-				-116
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down"
-		},
-		{
-			"offsets": [
-				82,
-				-85
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singUP",
-			"indices": [],
-			"name": "Up"
-		},
-		{
-			"offsets": [
-				-20,
-				-160
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "idle",
-			"indices": [],
-			"name": "Idle"
-		}
-	],
-	"no_antialiasing": false,
-	"image": "characters/gumball",
-	"position": [
-		50,
-		250
-	],
-	"healthicon": "gumball",
-	"flip_x": false,
-	"healthbar_colors": [
-		82,
-		165,
-		235
-	],
-	"camera_position": [
-		-140,
-		110
-	],
-	"sing_duration": 3,
-	"scale": 1.2
+    "animations": [{
+            "offsets": [
+                218, -212
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singLEFT",
+            "indices": [],
+            "name": "Left"
+        },
+        {
+            "offsets": [-34, -228],
+            "loop": false,
+            "fps": 24,
+            "anim": "singRIGHT",
+            "indices": [],
+            "name": "Right"
+        },
+        {
+            "offsets": [
+                88, -116
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singDOWN",
+            "indices": [],
+            "name": "Down"
+        },
+        {
+            "offsets": [
+                82, -85
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singUP",
+            "indices": [],
+            "name": "Up"
+        },
+        {
+            "offsets": [-20, -160],
+            "loop": true,
+            "fps": 24,
+            "anim": "idle",
+            "indices": [],
+            "name": "Idle"
+        }
+    ],
+    "no_antialiasing": false,
+    "image": "characters/Gumball",
+    "position": [
+        50,
+        250
+    ],
+    "healthicon": "gumball",
+    "flip_x": false,
+    "healthbar_colors": [
+        82,
+        165,
+        235
+    ],
+    "camera_position": [-140,
+        110
+    ],
+    "sing_duration": 3,
+    "scale": 1.2
 }
