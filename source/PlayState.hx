@@ -1045,7 +1045,7 @@ class PlayState extends MusicBeatState
 					moveCamera(true);
 					blurIntensity = 1.5;
 					blackie.alpha = 1;
-					defaultCamZoom = 1.5;
+					defaultCamZoom = 1.7;
 			}
 
 		cacheCountdown();
@@ -3761,7 +3761,7 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-			dadGlitchIntensity = FlxG.random.float(40, 53);
+			dadGlitchIntensity = FlxG.random.float(12, 25);
 			var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
 			for (i in 0...shaderArray.length)
 			dad.shader = shaderArray[i];
@@ -4155,6 +4155,43 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Cinematics', 'off', '0.4');
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+						case 384:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 512:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+							triggerEventNote('Apple Filter', 'on', 'white');
+							triggerEventNote('Cinematics', 'on', '1.2');
+						case 768:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 1008:
+							triggerEventNote('Cinematics', 'off', '0.6');	
+						case 1024:
+						blurIntensity = 1.5;
+						triggerEventNote('Apple Filter', 'off', 'white');
+						camGame.zoom = 1.7;
+							triggerEventNote('Cinematics', 'on', '4.8');
+							camOther.fade(FlxColor.BLACK, 4.8, true);
+							FlxTween.tween(this, {blurIntensity: 0},4.8 , {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										blurIntensity = 0;
+									}
+							});
+							FlxTween.tween(camGame, {zoom: 1.1}, 9.6, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 1080:
+							triggerEventNote('Cinematics', 'off', '0.6');
 					}
 				case 'Retcon':
 					switch (curStep)
@@ -4370,6 +4407,43 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'My Amazing World':
+					if (curStep >= 1 && curStep <= 256)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 256 && curStep <= 495)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 512 && curStep <= 1079)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1080 && curStep <= 1280)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
 				case 'Retcon':
 					if (curStep >= 256 && curStep <= 512)
 						{

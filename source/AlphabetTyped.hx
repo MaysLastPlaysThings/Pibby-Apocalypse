@@ -14,7 +14,7 @@ using StringTools;
 
 /**
  * i spent so many fucking hours trying to re-invent this so it could be a font
- * it was litteraly so easy
+ * it was literaly so easy (hi, zero here, fixed a typo for no reason, lmao.)
  * but it looks cool
  * 
  * Feel free to take the code here and use it yourself.

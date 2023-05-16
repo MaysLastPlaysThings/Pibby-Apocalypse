@@ -16,7 +16,6 @@ function onCreate()
     void.antialiasing = true;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
-    void.cameras = [PlayState.camVoid];
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));

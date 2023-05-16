@@ -58,7 +58,7 @@ class PibbyOptionsSubState extends BaseOptionsMenu
         addOption(option);
 
         var option:Option = new Option('Death Gore', //Name
-            "If unchecked, deaths won't have gore and will be replaced with the normal deaths (NOT ADDED)", //Description
+            "If unchecked, deaths won't have gore and will be replaced with the normal death (Work In Progress)", //Description
             'gore', //Save data variable name
             'bool', //Variable type
             true); //Default value
