@@ -617,6 +617,25 @@ class Parser {
 			else
 				push(tk);
 			mk(EVar(ident,t,e),p1,(e == null) ? tokenMax : pmax(e));
+		case "import":
+			var ident = getIdent();
+			var tk = token();
+			var t = null;
+			
+			if( tk == TDoubleDot && allowTypes ) {
+				t = parseType();
+				tk = token();
+			}
+
+			var e = null;
+
+			if( Type.enumEq(tk,TOp("=")) )
+				e = parseExpr();
+			else
+				push(tk);
+
+			mk(EVar(ident,t,e),p1,(e == null) ? tokenMax : pmax(e));
+
 		case "while":
 			var econd = parseExpr();
 			var e = parseExpr();
