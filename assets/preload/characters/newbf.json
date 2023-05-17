@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
+			"loop": true,
 			"offsets": [
 				-5,
 				0
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "idle",
-			"loop": true,
-			"name": "BF idle dance"
+			"fps": 24,
+			"name": "BF idle dance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-63,
+				-11
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "MissL",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-30,
+				-50
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "MissD",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-29,
+				77
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "MissU",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-45,
+				-4
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "MissR",
+			"indices": []
 		},
 		{
 			"offsets": [
-				105,
-				91
+				-85,
+				-9
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singLEFT",
 			"loop": false,
-			"name": "left"
+			"name": "left0"
 		},
 		{
 			"offsets": [
-				-90,
-				269
+				-95,
+				-39
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singDOWN",
 			"loop": false,
-			"name": "down"
+			"name": "down0"
 		},
 		{
 			"offsets": [
-				-36,
-				47
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singUP",
-			"loop": false,
-			"name": "up"
-		},
-		{
-			"offsets": [
-				-8,
+				-12,
 				2
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singRIGHT",
 			"loop": false,
-			"name": "right"
+			"name": "right0"
 		},
 		{
 			"offsets": [
-				177,
-				59
+				113,
+				53
 			],
 			"indices": [],
 			"fps": 24,
-			"anim": "singLEFTmiss",
+			"anim": "singUP",
 			"loop": false,
-			"name": "MissL"
-		},
-		{
-			"offsets": [
-				60,
-				-32
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singDOWNmiss",
-			"loop": false,
-			"name": "MissD"
-		},
-		{
-			"offsets": [
-				164,
-				77
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singUPmiss",
-			"loop": false,
-			"name": "MissU"
-		},
-		{
-			"offsets": [
-				-35,
-				2
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHTmiss",
-			"loop": false,
-			"name": "MissR"
+			"name": "up0"
 		}
 	],
 	"no_antialiasing": false,
