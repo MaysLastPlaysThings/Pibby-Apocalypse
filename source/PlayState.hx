@@ -1043,9 +1043,16 @@ class PlayState extends MusicBeatState
 			{
 				case 'My Amazing World':
 					moveCamera(true);
-					blurIntensity = 1.5;
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
+				case 'Mindless':
+					blackie.alpha = 1;
+					dad.alpha = 0.0001;
+					healthBar.alpha = 0.0001;
+					healthBarBG.alpha = 0.0001;
+					iconP1.alpha = 0.0001;
+					iconP2.visible = false;
+					scoreTxt.alpha = 0.0001;
 			}
 
 		cacheCountdown();
@@ -1381,9 +1388,9 @@ class PlayState extends MusicBeatState
 			pibbyIntro.specialAnim = true;
 		}
 
-		var numberIntro : FlxSprite = new FlxSprite(
-			(gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0])), 
-			(BF_Y + bfIntro.positionArray[1] - 300)
+		var numberIntro:FlxSprite = new FlxSprite(
+			(gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
+			(bfIntro != null ? (BF_Y + bfIntro.positionArray[1] - 300) : 135)
 		);
 		numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
 		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
@@ -1409,8 +1416,6 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
-			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
-
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length) {
@@ -1964,7 +1969,12 @@ class PlayState extends MusicBeatState
 			{
 				//babyArrow.y -= 10;
 				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {/*y: babyArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				FlxTween.tween(babyArrow, {/*y: babyArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i),
+					onComplete: 
+					function (twn:FlxTween)
+						{
+							babyArrow.alpha = 1;
+						}});
 			}
 			else
 			{
@@ -4090,6 +4100,105 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'Mindless':
+					switch (curStep)
+					{
+						case 1:
+							blackie.alpha = 0;
+							camOther.fade(FlxColor.BLACK, 2.5, true);
+							for (i in 0...opponentStrums.length) {
+								opponentStrums.members[i].alpha = 0;
+							}
+						case 256:
+							FlxTween.tween(camGame, {zoom: 1.8}, 2.83, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+							FlxTween.tween(blackie, {alpha: 1}, 2.83, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										blackie.alpha = 1;
+									}
+							});
+						case 298:
+							dad.alpha = 1;
+							FlxTween.tween(blackie, {alpha: 0}, 0.25, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										blackie.alpha = 0;
+									}
+							});
+						case 300:
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 0.7, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											opponentStrums.members[i].alpha = 1;
+										}
+								});
+							}
+							FlxTween.tween(camGame, {zoom: 1.1}, 1.1, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 320:
+							iconP2.visible = true;
+							iconP2.alpha = 0.0001;
+							FlxTween.tween(iconP2, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										iconP2.alpha = 1;
+									}
+							});
+							FlxTween.tween(iconP1, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										iconP1.alpha = 1;
+									}
+							});
+							FlxTween.tween(healthBar, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										healthBar.alpha = 1;
+									}
+							});
+							FlxTween.tween(healthBarBG, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										healthBarBG.alpha = 1;
+									}
+							});
+							FlxTween.tween(scoreTxt, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										scoreTxt.alpha = 1;
+									}
+							});
+					}
 				case "Child's Play":
                     switch (curStep)
 					{
@@ -4126,14 +4235,6 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Cinematics', 'on', '9.6');
 							blackie.alpha = 0;
 							camOther.fade(FlxColor.BLACK, 9.6, true);
-							FlxTween.tween(this, {blurIntensity: 0}, 9.6, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										blurIntensity = 0;
-									}
-							});
 							FlxTween.tween(camGame, {zoom: 1.1}, 9.6, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4169,19 +4270,10 @@ class PlayState extends MusicBeatState
 						case 1008:
 							triggerEventNote('Cinematics', 'off', '0.6');	
 						case 1024:
-						blurIntensity = 1.5;
 						triggerEventNote('Apple Filter', 'off', 'white');
 						camGame.zoom = 1.7;
 							triggerEventNote('Cinematics', 'on', '4.8');
 							camOther.fade(FlxColor.BLACK, 4.8, true);
-							FlxTween.tween(this, {blurIntensity: 0},4.8 , {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										blurIntensity = 0;
-									}
-							});
 							FlxTween.tween(camGame, {zoom: 1.1}, 9.6, {
 								ease: FlxEase.quadInOut,
 								onComplete: 

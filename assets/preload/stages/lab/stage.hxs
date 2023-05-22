@@ -53,6 +53,14 @@ function onCreate()
 	// add to the final array
 	foreground.add(dark);
 
+	if (PlayState.songName == 'Mindless')
+		{
+			bulb.alpha = 0.0001;
+			light.alpha = 0.0001;
+			dark.alpha = 0.0001;
+			bg.alpha = 0.0001;
+		}
+
 }
 
 function onUpdate (elapsed) {
