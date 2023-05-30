@@ -10,6 +10,6 @@
 
     "camera_boyfriend": [-125, 0],
     "camera_opponent": [100, 0],
-    "camera_girlfriend": [135, -25],
+    "camera_girlfriend": [0, 0],
     "camera_speed": 1
 }

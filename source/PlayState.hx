@@ -91,6 +91,8 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
+	var crtFNF:Shaders.CRTDistorsion;
+    var ntscFNF:Shaders.NtscShader;
     var distortFNF:Shaders.GlitchMissingNo;
 	var distortDadFNF:Shaders.GlitchMissingNo;
 	var invertFNF:Shaders.InvertShader;
@@ -251,6 +253,7 @@ class PlayState extends MusicBeatState
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
+	public var lyricTxt:FlxText;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -363,6 +366,8 @@ class PlayState extends MusicBeatState
     var defaultOpponentStrum:Array<{x:Float, y:Float}> = [];
     var defaultPlayerStrum:Array<{x:Float, y:Float}> = [];
 
+	var cutscene:VideoHandler;
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -370,6 +375,7 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
+		cutscene = new VideoHandler();
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -836,6 +842,13 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		lyricTxt = new FlxText(0, healthBarBG.y - 72, FlxG.width, "", 20);
+		lyricTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 48, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lyricTxt.scrollFactor.set();
+		lyricTxt.borderSize = 1.25;
+		lyricTxt.alpha = 0;
+		add(lyricTxt);
+
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
@@ -871,6 +884,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+		lyricTxt.cameras = [camOther];
 
 
 		// if (SONG.song == 'South')
@@ -1019,6 +1033,8 @@ class PlayState extends MusicBeatState
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		pibbyFNF = new Shaders.Pibbified();
+		ntscFNF = new Shaders.NtscShader();
+		crtFNF = new Shaders.CRTDistorsion();
         distortFNF = new Shaders.GlitchMissingNo();
 		distortDadFNF = new Shaders.GlitchMissingNo();
 		invertFNF = new Shaders.InvertShader();
@@ -1028,7 +1044,7 @@ class PlayState extends MusicBeatState
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
-			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF), new ShaderFilter(blurFNF)]);
+			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
             for (i in 0...strumLineNotes.length) {
                 strumLineNotes.members[i].shader = distortFNF;
             }
@@ -1042,6 +1058,7 @@ class PlayState extends MusicBeatState
 		switch (SONG.song)
 			{
 				case 'My Amazing World':
+					gf.alpha = 0;
 					moveCamera(true);
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
@@ -2256,6 +2273,11 @@ class PlayState extends MusicBeatState
 			if(ret != FunkinLua.Function_Stop) {
 				openPauseMenu();
 			}
+
+			if (!cutscene.isPlaying)
+				cutscene.resume();
+			else
+				cutscene.pause();
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
@@ -3325,7 +3347,7 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
-		rating.cameras = [camGame];
+		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -3337,7 +3359,7 @@ class PlayState extends MusicBeatState
 		rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
-		comboSpr.cameras = [camGame];
+		comboSpr.cameras = [camHUD];
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
@@ -3403,7 +3425,7 @@ class PlayState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
-			numScore.cameras = [camGame];
+			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
@@ -3837,9 +3859,9 @@ class PlayState extends MusicBeatState
 								}
                                 if (ClientPrefs.screenGlitch) {
                                     if (FlxG.random.float(0, 1) < 0.5) {
-                                        camGame.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                                        camGame.shake(FlxG.random.float(0.025, 0.04), FlxG.random.float(0.075, 0.125));
                                     } else{
-                                        camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+                                        camHUD.shake(FlxG.random.float(0.025, 0.04), FlxG.random.float(0.075, 0.125));
                                         for (i in 0...opponentStrums.length) {
                                             opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
                                             opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
@@ -4241,7 +4263,6 @@ class PlayState extends MusicBeatState
                             triggerEventNote('Apple Filter', 'off', 'black');
                     }
 				case 'Forgotten World':
-					var cutscene:VideoHandler = new VideoHandler();
 					switch (curStep)
 					{
 						case 1:
@@ -4343,14 +4364,12 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1184:
+							cutscene.playVideo(Paths.video('forgottenscene'));
+							cutscene.resume();
+							trace(cutscene.isPlaying);
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2);
 							}
-							cutscene.playVideo(Paths.video('forgottenscene'));
-							if (paused)
-								cutscene.pause();
-							else
-								cutscene.resume();
 					}
 				case 'My Amazing World':
 					switch (curStep)
@@ -4407,12 +4426,127 @@ class PlayState extends MusicBeatState
 									}
 							});
 						case 1080:
-							triggerEventNote('Cinematics', 'off', '0.6');
+							triggerEventNote('Cinematics', 'off', '1');
 						case 1280:
 							defaultCamZoom = 1.3;
 							triggerEventNote('Cinematics', 'on', '0.6');
 						case 1296:
-							defaultCamZoom = 1.1;	
+							defaultCamZoom = 1.1;
+						case 1424:
+							FlxTween.tween(camGame, {zoom: 1.8}, 9.6, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 1520:
+							gf.alpha = 1;
+						case 1536:
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 0.2, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											opponentStrums.members[i].alpha = 0;
+										}
+								});
+							}
+						case 1552:
+							camGame.alpha = 0;
+						case 1560:
+							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										lyricTxt.alpha = 1;
+									}
+							});
+							lyricTxt.text = "D";
+							new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
+								lyricTxt.text = "D-D";
+								new FlxTimer().start(0.0375, function(tmr:FlxTimer) {
+									lyricTxt.text = "D-D-D";
+									new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
+										lyricTxt.text = "D-D-D-D";
+										new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
+											lyricTxt.text = "D-D-D-D-D";
+											new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
+												lyricTxt.text = "D-D-D-D-D";
+												new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
+													lyricTxt.text = "DARWIN?";
+												});
+											});
+										});
+									});
+								});
+							});
+						case 1568:
+							lyricTxt.text = "";
+							camGame.alpha = 1;
+							triggerEventNote('Apple Filter', 'on', 'white');
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+							triggerEventNote('Cinematics', 'on', '1');
+							FlxTween.tween(camGame, {zoom: 0.9}, 9.6, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 1824:
+							triggerEventNote('Apple Filter', 'off', 'white');
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+							triggerEventNote('Cinematics', 'off', '1');
+						case 1696:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+						case 1952:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+						case 2016:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+						case 2064:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+						case 2112:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+						case 2144:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+							triggerEventNote('Cinematics', 'off', '1');
+						case 2400:
+							moveCamera(true);
+							newStage.onMoveCamera('dad');
+							camGame.zoom = 1.7;
+							triggerEventNote('Cinematics', 'on', '4.8');
+							camOther.fade(FlxColor.BLACK, 4.8, true);
+							FlxTween.tween(camGame, {zoom: 1.1}, 4.8, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
+						case 2464:
+							triggerEventNote('Cinematics', 'off', '1');
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 2528:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
+						case 2688:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1);
 					}
 				case 'Retcon':
 					switch (curStep)
@@ -4740,6 +4874,33 @@ class PlayState extends MusicBeatState
 								}
 						}
 					if (curStep >= 1080 && curStep <= 1280)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >=1824 && curStep <= 2080)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 2144 && curStep <= 2400)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 2464 && curStep <= 2656)
 						{
 							if (curBeat % 1 == 0)
 								{
