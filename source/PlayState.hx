@@ -2185,6 +2185,8 @@ class PlayState extends MusicBeatState
 		{
 			case "Child's Play":
 				if (gf != null)	gf.alpha = 0;
+			case "Forgotten World":
+				if (gf != null) gf.alpha = 0;
 		}
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
@@ -3204,7 +3206,7 @@ class PlayState extends MusicBeatState
 					CustomFadeTransition.nextCamera = null;
 				}
 				MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('fpmenu'));
 				changedDifficulty = false;
 			}
 			transitioning = true;
