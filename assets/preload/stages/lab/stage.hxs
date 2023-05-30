@@ -6,7 +6,7 @@ var stageCurtains;
 var flickerTween;
 
 function onCreate()
-{
+{	
 	bg = new FlxSprite(900, 525);
 	bg.loadGraphic(retrieveAsset('images/bg.png', 'image'));
 	bg.antialiasing = true;
@@ -52,19 +52,44 @@ function onCreate()
 
 	// add to the final array
 	foreground.add(dark);
-
-	if (PlayState.songName == 'Mindless')
-		{
-			bulb.alpha = 0.0001;
-			light.alpha = 0.0001;
-			dark.alpha = 0.0001;
-			bg.alpha = 0.0001;
-		}
-
 }
+
+function onSongStart()
+	{
+		PlayState.camZooming = true;
+		if (PlayState.curSong == 'Mindless')
+			{
+				bg.visible = false;
+				dark.visible = false;
+				light.visible = false;
+				bulb.visible = false;
+			}
+	}
+
+function onMoveCamera(focus:String)
+    {
+        if (focus == 'dad')
+            PlayState.defaultCamZoom = 0.9;
+        else
+            PlayState.defaultCamZoom = 1.1;
+    }
 
 function onUpdate (elapsed) {
 	light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
 	dark.angle = light.angle;
 	bulb.angle = light.angle;
+}
+
+function onStepHit(curStep:Int)
+{
+	if (curStep == 296)
+	{
+		if (PlayState.curSong == 'Mindless')
+			{
+				bg.visible = true;
+				dark.visible = true;
+				light.visible = true;
+				bulb.visible = true;
+			}
+	}
 }

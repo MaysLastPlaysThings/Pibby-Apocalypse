@@ -2,7 +2,18 @@
 	"song": {
 		"sectionLengths": [],
 		"player1": "newbf",
-		"events": [],
+		"events": [
+			[
+				96000,
+				[
+					[
+						"Play Animation",
+						"haha",
+						"Dad"
+					]
+				]
+			]
+		],
 		"gfVersion": "darwinretcon",
 		"notes": [
 			{
@@ -3619,41 +3630,6 @@
 						96000,
 						7,
 						0
-					],
-					[
-						96300,
-						2,
-						0
-					],
-					[
-						96450,
-						2,
-						0
-					],
-					[
-						96600,
-						2,
-						0
-					],
-					[
-						96750,
-						2,
-						0
-					],
-					[
-						96900,
-						2,
-						0
-					],
-					[
-						97050,
-						2,
-						0
-					],
-					[
-						96000,
-						2,
-						150
 					]
 				],
 				"altAnim": false,
@@ -8787,24 +8763,54 @@
 				"bpm": 200
 			},
 			{
-				"gfSection": false,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 200,
 				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 200,
 				"changeBPM": false,
 				"mustHitSection": true
 			},
 			{
-				"gfSection": false,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 200,
 				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 200,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 200,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 200,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 200
 			},
 			{
 				"gfSection": false,

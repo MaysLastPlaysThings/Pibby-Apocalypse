@@ -1,58 +1,91 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				-5,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "BF idle dance",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "BF idle dance"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-63,
 				-11
 			],
-			"anim": "singLEFTmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "MissL",
-			"indices": []
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "MissL"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-30,
 				-50
 			],
-			"anim": "singDOWNmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "MissD",
-			"indices": []
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "MissD"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-29,
 				77
 			],
-			"anim": "singUPmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "MissU",
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "MissU"
+		},
+		{
+			"offsets": [
+				-45,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "MissR"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-95,
+				-39
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down0",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-45,
-				-4
+				-12,
+				2
 			],
-			"anim": "singRIGHTmiss",
+			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "MissR",
+			"name": "right0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				113,
+				53
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up0",
 			"indices": []
 		},
 		{
@@ -68,36 +101,102 @@
 		},
 		{
 			"offsets": [
-				-95,
-				-39
+				-40,
+				14
 			],
 			"indices": [],
 			"fps": 24,
-			"anim": "singDOWN",
+			"anim": "reload",
 			"loop": false,
-			"name": "down0"
+			"name": "BF reload"
 		},
 		{
 			"offsets": [
-				-12,
-				2
+				76,
+				106
 			],
 			"indices": [],
 			"fps": 24,
-			"anim": "singRIGHT",
+			"anim": "shootRIGHT",
 			"loop": false,
-			"name": "right0"
+			"name": "Bf Shoot R"
 		},
 		{
 			"offsets": [
-				113,
-				53
+				210,
+				110
 			],
 			"indices": [],
 			"fps": 24,
-			"anim": "singUP",
+			"anim": "shootLEFT",
 			"loop": false,
-			"name": "up0"
+			"name": "Bf Shoot L"
+		},
+		{
+			"offsets": [
+				73,
+				85
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "shootUP",
+			"loop": false,
+			"name": "Bf Shoot U"
+		},
+		{
+			"offsets": [
+				101,
+				-12
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "shootDOWN",
+			"loop": false,
+			"name": "Bf Shoot D"
+		},
+		{
+			"offsets": [
+				-20,
+				-3
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "dodgeRIGHT",
+			"loop": false,
+			"name": "dodge right"
+		},
+		{
+			"offsets": [
+				0,
+				70
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "dodgeUP",
+			"loop": false,
+			"name": "up dodge"
+		},
+		{
+			"offsets": [
+				80,
+				-17
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "dodgeDOWN",
+			"loop": false,
+			"name": "down dodge"
+		},
+		{
+			"offsets": [
+				90,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "dodgeLEFT",
+			"loop": false,
+			"name": "left dodge"
 		}
 	],
 	"no_antialiasing": false,

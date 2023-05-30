@@ -1,0 +1,171 @@
+var void;
+var sheer;
+var house;
+var rock;
+var rock2;
+var rock3;
+var rock4;
+var wtf;
+var glitch;
+var vignette;
+var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
+
+function onCreate()
+{
+    void = new flixel.FlxSprite(0, -200);
+    void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
+    void.setGraphicSize(Std.int(void.width * 2.5));
+    void.antialiasing = true;
+    void.scrollFactor.set(0.6, 0.6);
+    void.updateHitbox();
+
+    sheer = new flixel.FlxSprite(0, -200);
+    sheer.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
+    sheer.setGraphicSize(Std.int(sheer.width * 2.5));
+    sheer.antialiasing = true;
+    sheer.scrollFactor.set(0.6, 0.6);
+    sheer.updateHitbox();
+
+    house = new flixel.FlxSprite(0, -200);
+    house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
+    house.setGraphicSize(Std.int(house.width * 2.5));
+    house.antialiasing = true;
+    house.scrollFactor.set(0.85, 0.85);
+    house.updateHitbox();
+
+    rock = new flixel.FlxSprite(0, -200);
+    rock.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-4.png', 'image'));
+    rock.setGraphicSize(Std.int(rock.width * 2.5));
+    rock.antialiasing = true;
+    rock.scrollFactor.set(1, 1);
+    rock.updateHitbox();
+
+    rock2 = new flixel.FlxSprite(0, -200);
+    rock2.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-5.png', 'image'));
+    rock2.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock2.antialiasing = true;
+    rock2.scrollFactor.set(1.1, 1.1);
+    rock2.updateHitbox();
+
+    rock3 = new flixel.FlxSprite(0, -200);
+    rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
+    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
+    rock3.antialiasing = true;
+    rock3.scrollFactor.set(0.9, 0.9);
+    rock3.updateHitbox();
+
+    rock4 = new flixel.FlxSprite(0, -200);
+    rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
+    rock4.setGraphicSize(Std.int(rock4.width * 2.5));
+    rock4.antialiasing = true;
+    rock4.scrollFactor.set(0.85, 0.85);
+    rock4.updateHitbox();
+
+    wtf = new flixel.FlxSprite(0, -200);
+    wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-8.png', 'image'));
+    wtf.setGraphicSize(Std.int(wtf.width * 2.5));
+    wtf.antialiasing = true;
+    wtf.scrollFactor.set(1, 1);
+    wtf.updateHitbox();
+
+    glitch = new flixel.FlxSprite(0, -200);
+    glitch.frames = retrieveAsset('images/gumballglitchbg', 'ATLAS');
+    glitch.animation.addByPrefix('spin', 'spin', 24, true);
+    glitch.setGraphicSize(Std.int(glitch.width * 2.5));
+    glitch.scrollFactor.set(1, 1);
+    glitch.updateHitbox();
+
+    vignette = new flixel.FlxSprite(0, -200);
+    vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-9.png', 'image'));
+    vignette.setGraphicSize(Std.int(vignette.width * 2.5));
+    vignette.antialiasing = true;
+    vignette.scrollFactor.set(1, 1);
+    vignette.updateHitbox();
+
+    tweenLoopAngle(house, 4, -4, 6, 6);
+    tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
+    tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
+    tweenLoopAngle(rock3, 360, 0, 30, 30);
+    tweenLoopAngle(wtf, 2, -2, 5, 5);
+
+    FlxTween.tween(rock4, {angle: 360}, 30, {
+        ease: FlxEase.sineInOut
+    });
+
+    stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
+    add(void);
+    add(rock4);
+    add(rock3);
+    add(rock2);
+    add(house);
+    add(sheer);
+    add(rock);
+    add(wtf);
+    add(glitch);
+    foreground.add(vignette);
+}
+
+function onStepHit(curStep) {
+    if (glitch != null) {
+        glitch.animation.play('spin');
+    }
+}
+
+function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
+    FlxTween.tween(varx, {angle: distance1}, duration1, {
+        ease: FlxEase.sineInOut,
+        onComplete: 
+        function (twn:FlxTween)
+            {
+                FlxTween.tween(varx, {angle: distance2}, duration2, {
+                    ease: FlxEase.sineInOut,
+                    onComplete: 
+                    function (twn:FlxTween)
+                        {
+                            tweenLoopAngle(varx, distance1, distance2, duration1, duration2);
+                        }
+                });
+            }
+    });
+}
+
+function onPause() {
+    stupidFix.active = false;
+}
+
+function onResume() {
+    stupidFix.active = true;
+}
+
+function onEvent(event:String, value1:String, value2:String)
+    {
+     if (event == 'Apple Filter')
+        {
+             if (value1 == 'on') 
+            {
+                vignette.alpha = 0.0001;
+                void.alpha = 0.0001; 
+                rock.alpha = 0.0001; 
+                rock2.alpha = 0.0001; 
+                rock3.alpha = 0.0001; 
+                rock4.alpha = 0.0001; 
+                sheer.alpha = 0.0001;
+                house.alpha = 0.0001; 
+                wtf.alpha = 0.0001; 
+                glitch.alpha = 0.0001; 
+            }
+             else if (value1 == 'off')
+            {
+                vignette.alpha = 1;
+                void.alpha = 1; 
+                rock.alpha = 1; 
+                rock2.alpha = 1;
+                rock3.alpha = 1; 
+                rock4.alpha = 1; 
+                sheer.alpha = 1;
+                house.alpha = 1; 
+                wtf.alpha = 1; 
+                glitch.alpha = 1; 
+            }
+        }
+    }

@@ -77,11 +77,9 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-/**
 #if VIDEOS_ALLOWED
 import hxcodec.VideoHandler;
 #end
-**/
 
 
 using StringTools;
@@ -288,6 +286,7 @@ class PlayState extends MusicBeatState
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
+	private var dodgeAnimations:Array<String> = ['dodgeLEFT', 'dodgeDOWN', 'dodgeUP', 'dodgeRIGHT'];
 
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
@@ -370,6 +369,7 @@ class PlayState extends MusicBeatState
 
 		// for lua
 		instance = this;
+
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -1045,8 +1045,16 @@ class PlayState extends MusicBeatState
 					moveCamera(true);
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
-				case 'Mindless':
+				case 'Forgotten World':
+					Paths.video('forgottenscene');
 					blackie.alpha = 1;
+					healthBar.visible = false;
+					healthBarBG.visible = false;
+					iconP1.visible = false;
+					iconP2.visible = false;
+					scoreTxt.visible = false;
+				case 'Mindless':
+					camGame.alpha = 0;
 					dad.alpha = 0.0001;
 					healthBar.alpha = 0.0001;
 					healthBarBG.alpha = 0.0001;
@@ -1283,7 +1291,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	/**
+	
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -1314,7 +1322,6 @@ class PlayState extends MusicBeatState
 		return;
 		#end
 	}
-	**/
 
 	function startAndEnd()
 	{
@@ -1395,7 +1402,7 @@ class PlayState extends MusicBeatState
 		numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
 		numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
 		numberIntro.alpha = 0.0001;
-		numberIntro.cameras = [camOther];
+		numberIntro.cameras = [camOverlay];
 
 		numberIntro.animation.addByPrefix('3', '3', 30, false);
 		numberIntro.animation.addByPrefix('2', '2', 30, false);
@@ -2171,13 +2178,6 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'lab':
-				if (SONG.notes[curSection].mustHitSection) {
-					defaultCamZoom = 1.1;
-				}
-				else
-				{
-					defaultCamZoom = 0.9;
-				}
 				if (gf != null)	gf.alpha = 0;
 		}
 
@@ -2186,7 +2186,7 @@ class PlayState extends MusicBeatState
 			case "Child's Play":
 				if (gf != null)	gf.alpha = 0;
 			case "Forgotten World":
-				if (gf != null) gf.alpha = 0;
+				if (gf != null)	gf.alpha = 0;
 		}
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
@@ -3325,7 +3325,7 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
-		rating.cameras = [camHUD];
+		rating.cameras = [camGame];
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -3337,7 +3337,7 @@ class PlayState extends MusicBeatState
 		rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
-		comboSpr.cameras = [camHUD];
+		comboSpr.cameras = [camGame];
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
@@ -3403,7 +3403,7 @@ class PlayState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
-			numScore.cameras = [camHUD];
+			numScore.cameras = [camGame];
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
@@ -3958,8 +3958,16 @@ class PlayState extends MusicBeatState
 
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
+				var dodgeAnim:String = dodgeAnimations[Std.int(Math.abs(note.noteData))];
 
-				if(note.gfNote)
+				if (note.dodgeNote)
+					{
+						boyfriend.playAnim(dodgeAnim, true);
+						boyfriend.specialAnim = true;
+						boyfriend.holdTimer = 0;
+					}
+
+				else if (note.gfNote)
 				{
 					if(gf != null)
 					{
@@ -4106,8 +4114,8 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
-							blackie.alpha = 0;
-							camOther.fade(FlxColor.BLACK, 2.5, true);
+							camGame.alpha = 1;
+							camGame.fade(FlxColor.BLACK, 2.5, true);
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].alpha = 0;
 							}
@@ -4200,6 +4208,8 @@ class PlayState extends MusicBeatState
 										scoreTxt.alpha = 1;
 									}
 							});
+						case 3712:
+							camOther.fade(FlxColor.BLACK, 2.5, false);
 					}
 				case "Child's Play":
                     switch (curStep)
@@ -4230,6 +4240,118 @@ class PlayState extends MusicBeatState
                             }
                             triggerEventNote('Apple Filter', 'off', 'black');
                     }
+				case 'Forgotten World':
+					var cutscene:VideoHandler = new VideoHandler();
+					switch (curStep)
+					{
+						case 1:
+							triggerEventNote('Camera Follow Pos', '1520', '970');
+							triggerEventNote('Cinematics', 'on', '10.11');
+							camHUD.alpha = 0;
+							triggerEventNote('Apple Filter', 'on', 'white');
+							blackie.alpha = 0;
+							camOther.fade(FlxColor.BLACK, 10.11, true);
+						case 256:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							triggerEventNote('Cinematics', 'off', '1.5');
+							triggerEventNote('Camera Follow Pos', '', '');
+							camHUD.alpha = 1;
+						case 498:
+							defaultCamZoom = 0.75;
+						case 502:
+							defaultCamZoom = 0.9;
+						case 506:
+							defaultCamZoom = 1.1;
+						case 514:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1.5);
+							}
+							defaultCamZoom = 0.7;
+						case 515:
+							triggerEventNote('Apple Filter', 'off', 'white');
+						case 563:
+							defaultCamZoom = 0.85;
+						case 576:
+							defaultCamZoom = 0.7;
+						case 628:
+							defaultCamZoom = 0.95;
+						case 644:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							defaultCamZoom = 0.7;
+						case 758:
+							FlxTween.tween(camGame, {zoom: 0.8}, 1, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.7;
+									}});
+						case 774:
+							triggerEventNote('Cinematics', 'on', '1');
+						case 790:
+							defaultCamZoom = 0.95;
+						case 804:
+							FlxTween.tween(camGame, {zoom: 0.8}, 0.075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.8;
+									}});
+						case 806:
+							FlxTween.tween(camGame, {zoom: 0.7}, 0.075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.7;
+									}});
+						case 855:
+							defaultCamZoom = 0.95;
+						case 870:
+							FlxTween.tween(camGame, {zoom: 0.8}, 0.075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.8;
+									}});
+						case 872:
+							FlxTween.tween(camGame, {zoom: 0.7}, 0.075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.7;
+									}});
+						case 904:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							triggerEventNote('Cinematics', 'off', '1');
+							defaultCamZoom = 1;
+						case 969:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1035:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1184:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 2);
+							}
+							cutscene.playVideo(Paths.video('forgottenscene'));
+							if (paused)
+								cutscene.pause();
+							else
+								cutscene.resume();
+					}
 				case 'My Amazing World':
 					switch (curStep)
 					{
@@ -4286,6 +4408,11 @@ class PlayState extends MusicBeatState
 							});
 						case 1080:
 							triggerEventNote('Cinematics', 'off', '0.6');
+						case 1280:
+							defaultCamZoom = 1.3;
+							triggerEventNote('Cinematics', 'on', '0.6');
+						case 1296:
+							defaultCamZoom = 1.1;	
 					}
 				case 'Retcon':
 					switch (curStep)
@@ -4382,46 +4509,72 @@ class PlayState extends MusicBeatState
 				case 'Suffering Siblings':
 					switch (curStep)
 					{
+						case 128:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
 						case 240:
-							defaultCamZoom = 1;
-						case 244:
-							defaultCamZoom = 1.1;
-						case 248:
 							defaultCamZoom = 1.2;
+						case 244:
+							defaultCamZoom = 1.3;
+						case 248:
+							defaultCamZoom = 1.4;
 						case 252:
-							defaultCamZoom = 1.1;
+							defaultCamZoom = 1.3;
 						case 256:
-							defaultCamZoom = 0.9;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							defaultCamZoom = 1.1;
 						case 369:
-							defaultCamZoom = 0.95;
-						case 376:
-							defaultCamZoom = 1;
-						case 378:
-							defaultCamZoom = 1.1;
-						case 379:
 							defaultCamZoom = 1.15;
+						case 376:
+							defaultCamZoom = 1.2;
+						case 378:
+							defaultCamZoom = 1.3;
+						case 379:
+							defaultCamZoom = 1.25;
 						case 384:
-							defaultCamZoom = 0.9;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							defaultCamZoom = 1.1;
+						case 448:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 512:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
 						case 536:
-							defaultCamZoom = 0.75;
+							defaultCamZoom = 0.95;
 						case 540:
-							defaultCamZoom = 0.825;
+							defaultCamZoom = 1.025;
 						case 544:
-							defaultCamZoom = 0.9;
+							defaultCamZoom = 1.1;
 						case 552:
-							defaultCamZoom = 1.1;
+							defaultCamZoom = 1.3;
 						case 559:
-							defaultCamZoom = 0.9;
-						case 600:
-							defaultCamZoom = 0.75;
-						case 604:
-							defaultCamZoom = 0.825;
-						case 608:
-							defaultCamZoom = 0.9;
-						case 616:
 							defaultCamZoom = 1.1;
+						case 576:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 600:
+							defaultCamZoom = 0.95;
+						case 604:
+							defaultCamZoom = 1.025;
+						case 608:
+							defaultCamZoom = 1.1;
+						case 616:
+							defaultCamZoom = 1.3;
 						case 624:
-							defaultCamZoom = 0.9;
+							defaultCamZoom = 1.1;
+						case 640:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
 					}
 			}
 
@@ -4501,6 +4654,63 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'Suffering Siblings':
+					if (curStep >= 256 && curStep <= 508)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 512 && curStep <= 639)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 640 && curStep <= 767)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+				case 'Mindless':
+					if (curStep >= 320 && curStep <= 3712)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+				case 'Forgotten World':
+					if (curStep >= 514 && curStep <= 774)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 904 && curStep <= 1166)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
 				case 'My Amazing World':
 					if (curStep >= 1 && curStep <= 256)
 						{

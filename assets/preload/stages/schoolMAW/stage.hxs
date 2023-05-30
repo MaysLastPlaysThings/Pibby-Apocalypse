@@ -4,7 +4,6 @@ var vignette;
 
 function onCreate()
 {
-    PlayState.gf.alpha = 0;
     background = new flixel.FlxSprite(0, 0);
     background.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
     background.setGraphicSize(Std.int(background.width * 1.3));
