@@ -796,20 +796,20 @@ class PlayState extends MusicBeatState
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		healthBarBG.visible = !ClientPrefs.hideHud;
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
-		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
+		healthBarBG.alpha = 0.0001;
+		add(healthBarBG);
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
-		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
-		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
+		healthBar.alpha = 0.0001;
+		add(healthBar);
 
 		if (gf != null)
 		{
@@ -1072,8 +1072,6 @@ class PlayState extends MusicBeatState
 				case 'Mindless':
 					camGame.alpha = 0;
 					dad.alpha = 0.0001;
-					healthBar.alpha = 0.0001;
-					healthBarBG.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
 					iconP2.visible = false;
 					scoreTxt.alpha = 0.0001;
@@ -1455,7 +1453,6 @@ class PlayState extends MusicBeatState
 
 			startedCountdown = true;
 			Conductor.songPosition = (-0.67 * 5) * 1000;
-			trace(Conductor.songPosition);
 			setOnLuas('startedCountdown', true);
 			callOnLuas('onCountdownStarted', []);
 
@@ -2300,8 +2297,8 @@ class PlayState extends MusicBeatState
 			iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		}
 
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		defaultIconP2x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		iconP1.x = 614;
+		defaultIconP2x = 513;
 
 		if (health > 2) {
             health = 2;
@@ -2771,9 +2768,10 @@ class PlayState extends MusicBeatState
 						dad.colorTransform.blueOffset = 255;
 						dad.colorTransform.redOffset = 255;
 						dad.colorTransform.greenOffset = 255;
+						if (gf != null) {
 						gf.colorTransform.blueOffset = 255;
 						gf.colorTransform.redOffset = 255;
-						gf.colorTransform.greenOffset = 255;
+						gf.colorTransform.greenOffset = 255; }
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}else{
@@ -2795,12 +2793,14 @@ class PlayState extends MusicBeatState
 					dad.colorTransform.blueOffset = 0;
 					dad.colorTransform.redOffset = 0;
 					dad.colorTransform.greenOffset = 0;
+					if (gf != null) {
 					gf.colorTransform.blueOffset = 0;
 					gf.colorTransform.redOffset = 0;
-					gf.colorTransform.greenOffset = 0;
+					gf.colorTransform.greenOffset = 0; }
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
-					gf.color = FlxColor.WHITE;
+					if (gf != null) {
+					gf.color = FlxColor.WHITE; }
 				}
 
 			case 'Play Animation':
@@ -4208,22 +4208,6 @@ class PlayState extends MusicBeatState
 										iconP1.alpha = 1;
 									}
 							});
-							FlxTween.tween(healthBar, {alpha: 1}, 0.75, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										healthBar.alpha = 1;
-									}
-							});
-							FlxTween.tween(healthBarBG, {alpha: 1}, 0.75, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										healthBarBG.alpha = 1;
-									}
-							});
 							FlxTween.tween(scoreTxt, {alpha: 1}, 0.75, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4726,6 +4710,20 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 2080:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							triggerEventNote('Apple Filter', 'on', 'black');
+							defaultCamZoom = 0.65;
+						case 2336:
+							defaultCamZoom = 0.9;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 2.5);
+							}
+							triggerEventNote('Camera Follow Pos', '', '');
+							triggerEventNote('Apple Filter', 'off', 'black');
 					}
 			}
 

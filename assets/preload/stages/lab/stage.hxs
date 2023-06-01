@@ -93,3 +93,24 @@ function onStepHit(curStep:Int)
 			}
 	}
 }
+
+function onEvent(event:String, value1:String, value2:String)
+    {
+     if (event == 'Apple Filter')
+        {
+             if (value1 == 'on') 
+            {
+                bg.visible = false;
+				dark.visible = false;
+				light.visible = false;
+				bulb.visible = false;
+            }
+             else if (value1 == 'off')
+            {
+                bg.visible = true;
+				dark.visible = true;
+				light.visible = true;
+				bulb.visible = true;
+            }
+        }
+    }

@@ -1,0 +1,36 @@
+{
+	"song": {
+		"events": [
+			[
+				172583.333333333,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"finn-slash"
+					]
+				]
+			],
+			[
+				173333.333333333,
+				[
+					[
+						"Camera Follow Pos",
+						"2050",
+						"1100"
+					]
+				]
+			],
+			[
+				194666.666666667,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"finn-sword"
+					]
+				]
+			]
+		]
+	}
+}

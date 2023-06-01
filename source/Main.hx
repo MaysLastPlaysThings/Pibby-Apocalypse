@@ -45,6 +45,9 @@ class Main extends Sprite
 
 	public static function main():Void
 	{
+		#if windows
+		CppAPI.darkMode();
+     	#end
 		Lib.current.addChild(new Main());
 	}
 
