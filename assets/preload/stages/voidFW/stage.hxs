@@ -68,13 +68,6 @@ function onCreate()
     wtf.scrollFactor.set(1, 1);
     wtf.updateHitbox();
 
-    glitch = new flixel.FlxSprite(0, -200);
-    glitch.frames = retrieveAsset('images/gumballglitchbg', 'ATLAS');
-    glitch.animation.addByPrefix('spin', 'spin', 24, true);
-    glitch.setGraphicSize(Std.int(glitch.width * 2.5));
-    glitch.scrollFactor.set(1, 1);
-    glitch.updateHitbox();
-
     vignette = new flixel.FlxSprite(0, -200);
     vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-9.png', 'image'));
     vignette.setGraphicSize(Std.int(vignette.width * 2.5));
@@ -101,7 +94,6 @@ function onCreate()
     add(sheer);
     add(rock);
     add(wtf);
-    add(glitch);
     foreground.add(vignette);
 }
 
@@ -152,7 +144,6 @@ function onEvent(event:String, value1:String, value2:String)
                 sheer.alpha = 0.0001;
                 house.alpha = 0.0001; 
                 wtf.alpha = 0.0001; 
-                glitch.alpha = 0.0001; 
             }
              else if (value1 == 'off')
             {
@@ -165,7 +156,6 @@ function onEvent(event:String, value1:String, value2:String)
                 sheer.alpha = 1;
                 house.alpha = 1; 
                 wtf.alpha = 1; 
-                glitch.alpha = 1; 
             }
         }
     }

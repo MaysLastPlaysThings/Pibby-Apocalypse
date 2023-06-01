@@ -1,45 +1,67 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "Charge",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Charge"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-449,
 				106
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Hit",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Hit"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-362,
 				-56
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Second-Hit",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Second-Hit"
+		},
+		{
+			"offsets": [
+				-449,
+				106
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Hit"
+		},
+		{
+			"offsets": [
+				-363,
+				-56
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Second-Hit"
 		},
 		{
 			"loop": false,
 			"offsets": [
 				-449,
-				106
+				103
 			],
-			"anim": "singUP",
+			"anim": "singLEFT-alt",
 			"fps": 24,
 			"name": "Hit",
 			"indices": []
@@ -47,61 +69,39 @@
 		{
 			"loop": false,
 			"offsets": [
-				-363,
-				-56
+				-360,
+				-60
 			],
-			"anim": "singRIGHT",
+			"anim": "singDOWN-alt",
 			"fps": 24,
 			"name": "Second-Hit",
 			"indices": []
 		},
 		{
-			"offsets": [
-				-449,
-				103
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singLEFT-alt",
 			"loop": false,
-			"name": "Hit"
-		},
-		{
-			"offsets": [
-				-360,
-				-60
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singDOWN-alt",
-			"loop": false,
-			"name": "Second-Hit"
-		},
-		{
 			"offsets": [
 				-450,
 				103
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singUP-alt",
-			"loop": false,
-			"name": "Hit"
+			"fps": 24,
+			"name": "Hit",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-361,
 				-59
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singRIGHT-alt",
-			"loop": false,
-			"name": "Second-Hit"
+			"fps": 24,
+			"name": "Second-Hit",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/Finn-slash",
+	"image": "characters/Finn-Slash",
 	"position": [
 		-510,
 		-140

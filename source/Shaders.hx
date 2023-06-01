@@ -166,7 +166,7 @@ void main()
         texture2D(bitmap, uv+.001).r,
         texture2D(bitmap, uv).g,
         texture2D(bitmap, uv-.001).b, 
-        1.0
+        flixel_texture2D(bitmap, uv).a
     );
     
     tex *= smoothstep(uv.x,uv.x+0.01,1.)*smoothstep(uv.y,uv.y+0.01,1.)*smoothstep(-0.01,0.,uv.x)*smoothstep(-0.01,0.,uv.y);
@@ -379,7 +379,7 @@ void main()
 
 	vec3 rgb = yiq2rgb(signal.xyz);
 	float alpha = signal.a/(TAPS+1);
-	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), alpha);
+	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), flixel_texture2D(bitmap, uv).a);
 	gl_FragColor = color;
 }
 ')

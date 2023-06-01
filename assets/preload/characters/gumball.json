@@ -1,50 +1,67 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				218,
 				-212
 			],
+			"anim": "singLEFT",
 			"loop": false,
 			"fps": 24,
+			"name": "Left",
+			"indices": [],
 			"anim": "singLEFT",
 			"indices": [],
 			"name": "Left"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-34,
 				-228
 			],
+			"anim": "singRIGHT",
 			"loop": false,
 			"fps": 24,
+			"name": "Right",
+			"indices": [],
 			"anim": "singRIGHT",
 			"indices": [],
 			"name": "Right"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				88,
 				-116
 			],
+			"anim": "singDOWN",
 			"loop": false,
 			"fps": 24,
+			"name": "Down",
+			"indices": [],
 			"anim": "singDOWN",
 			"indices": [],
 			"name": "Down"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				82,
 				-85
 			],
+			"anim": "singUP",
 			"loop": false,
 			"fps": 24,
+			"name": "Up",
+			"indices": [],
 			"anim": "singUP",
 			"indices": [],
 			"name": "Up"
 		},
 		{
+			"loop": true,
 			"offsets": [
 				-20,
 				-160
@@ -56,19 +73,21 @@
 			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				50,
 				-120
 			],
-			"anim": "haha",
+			"indices": [],
 			"fps": 24,
-			"name": "Laugh",
-			"indices": []
+			"name": "Idle",
+			"indices": [],
+			"anim": "haha",
+			"loop": true,
+			"name": "Laugh"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/Gumball",
+	"image": "characters/gumball",
 	"position": [
 		50,
 		250

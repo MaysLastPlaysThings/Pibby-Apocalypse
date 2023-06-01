@@ -88,6 +88,9 @@ class PlayState extends MusicBeatState
 {
 	var noteRows:Array<Array<Array<Note>>> = [[],[]];
 
+	var channelBG:FlxSprite;
+	var channelTxt:FlxText;
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
@@ -290,6 +293,7 @@ class PlayState extends MusicBeatState
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 	private var dodgeAnimations:Array<String> = ['dodgeLEFT', 'dodgeDOWN', 'dodgeUP', 'dodgeRIGHT'];
+	private var shootAnimations:Array<String> = ['shootLEFT', 'shootDOWN', 'shootUP', 'shootRIGHT'];
 
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
@@ -366,16 +370,12 @@ class PlayState extends MusicBeatState
     var defaultOpponentStrum:Array<{x:Float, y:Float}> = [];
     var defaultPlayerStrum:Array<{x:Float, y:Float}> = [];
 
-	var cutscene:VideoHandler;
-
 	override public function create()
 	{
 		Paths.clearStoredMemory();
 
 		// for lua
 		instance = this;
-
-		cutscene = new VideoHandler();
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -547,7 +547,6 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
-
 			case 'newschool':
 				var lockersnshit : BGSprite = new BGSprite('school/Ilustracion_sin_titulo-1', 0, 0, 1, 1);
 				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
@@ -843,7 +842,7 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		lyricTxt = new FlxText(0, healthBarBG.y - 72, FlxG.width, "", 20);
-		lyricTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 48, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lyricTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 48, dadColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		lyricTxt.scrollFactor.set();
 		lyricTxt.borderSize = 1.25;
 		lyricTxt.alpha = 0;
@@ -2273,11 +2272,6 @@ class PlayState extends MusicBeatState
 			if(ret != FunkinLua.Function_Stop) {
 				openPauseMenu();
 			}
-
-			if (!cutscene.isPlaying)
-				cutscene.resume();
-			else
-				cutscene.pause();
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
@@ -3981,10 +3975,18 @@ class PlayState extends MusicBeatState
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				var dodgeAnim:String = dodgeAnimations[Std.int(Math.abs(note.noteData))];
+				var shootAnim:String = shootAnimations[Std.int(Math.abs(note.noteData))];
 
 				if (note.dodgeNote)
 					{
 						boyfriend.playAnim(dodgeAnim, true);
+						boyfriend.specialAnim = true;
+						boyfriend.holdTimer = 0;
+					}
+
+				else if (note.attackNote)
+					{
+						boyfriend.playAnim(shootAnim, true);
 						boyfriend.specialAnim = true;
 						boyfriend.holdTimer = 0;
 					}
@@ -4364,12 +4366,21 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1184:
-							cutscene.playVideo(Paths.video('forgottenscene'));
-							cutscene.resume();
-							trace(cutscene.isPlaying);
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2);
 							}
+							#if VIDEOS_ALLOWED
+							var cutscene:VideoHandler = new VideoHandler();
+							canPause = false;
+							cutscene.playVideo(Paths.video('forgottenscene'));
+							cutscene.resume();
+							trace(cutscene.isPlaying);
+							cutscene.finishCallback = function()
+								{
+									canPause = true;
+									return;
+								}
+							#end
 					}
 				case 'My Amazing World':
 					switch (curStep)
@@ -4402,6 +4413,12 @@ class PlayState extends MusicBeatState
 						case 384:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+						case 492:
+							defaultCamZoom = 1;
+						case 498:
+							defaultCamZoom = 1.1;
+						case 504:
+							defaultCamZoom = 1.2;
 						case 512:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4443,17 +4460,7 @@ class PlayState extends MusicBeatState
 							});
 						case 1520:
 							gf.alpha = 1;
-						case 1536:
-							for (i in 0...opponentStrums.length) {
-								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 0.2, {
-									ease: FlxEase.linear,
-									onComplete:
-									function (twn:FlxTween)
-										{
-											opponentStrums.members[i].alpha = 0;
-										}
-								});
-							}
+							boyfriend.alpha = 0.3;
 						case 1552:
 							camGame.alpha = 0;
 						case 1560:
@@ -4516,10 +4523,20 @@ class PlayState extends MusicBeatState
 						case 2064:
 							moveCamera(true);
 							newStage.onMoveCamera('dad');
+						case 2080:
+							if (ClientPrefs.flashing)
+								camOverlay.flash(FlxColor.WHITE, 1.75);
+							triggerEventNote('Cinematics', 'on', '1.8');
+							triggerEventNote('Apple Filter', 'on', 'white');
+							boyfriend.alpha = 0;
 						case 2112:
 							moveCamera(true);
 							newStage.onMoveCamera('dad');
 						case 2144:
+							triggerEventNote('Apple Filter', 'off', 'white');
+							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
+							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'off', '1');
@@ -4991,6 +5008,23 @@ class PlayState extends MusicBeatState
             });
         }
 	}
+
+	public function changeChannel(number:Int)
+		{
+			channelBG = new FlxSprite();
+			addBehindGF(channelBG);
+			channelTxt = new FlxText(-300, 90, FlxG.width, "", 20);
+			channelTxt.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.LIME, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			channelTxt.scrollFactor.set();
+			channelTxt.borderSize = 1.25;
+			channelTxt.cameras = [camHUD];
+			add(channelTxt);
+			switch (number)
+				{
+					case 0:
+						channelTxt.text = "AV";
+				}
+			}
 
 	override function sectionHit()
 	{
