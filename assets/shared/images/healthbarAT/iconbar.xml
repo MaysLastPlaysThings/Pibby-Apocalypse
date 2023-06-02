@@ -1,117 +1,173 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="iconbar.png">
-	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- Created with Adobe Animate version 21.0.4.39603 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Icons Bar0000" x="0" y="0" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0001" x="893" y="0" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0002" x="1786" y="0" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0003" x="2679" y="0" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0004" x="0" y="145" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0005" x="893" y="145" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0006" x="1786" y="145" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0007" x="2679" y="145" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0008" x="0" y="291" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0009" x="893" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0010" x="1786" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0011" x="1786" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0012" x="2679" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0013" x="2679" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0014" x="0" y="0" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0015" x="893" y="0" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0016" x="1786" y="0" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0017" x="2679" y="0" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0018" x="0" y="145" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0019" x="893" y="145" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0020" x="1786" y="145" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0021" x="2679" y="145" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0022" x="0" y="291" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0023" x="893" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0024" x="1786" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0025" x="1786" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0026" x="2679" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar0027" x="2679" y="291" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10000" x="0" y="424" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10001" x="893" y="424" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10002" x="1786" y="424" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10003" x="2679" y="424" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10004" x="0" y="569" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10005" x="893" y="569" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10006" x="1786" y="569" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10007" x="2679" y="569" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10008" x="0" y="715" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10009" x="893" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10010" x="1786" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10011" x="1786" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10012" x="2679" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10013" x="2679" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10014" x="0" y="424" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10015" x="893" y="424" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10016" x="1786" y="424" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10017" x="2679" y="424" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10018" x="0" y="569" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10019" x="893" y="569" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10020" x="1786" y="569" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10021" x="2679" y="569" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10022" x="0" y="715" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10023" x="893" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10024" x="1786" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10025" x="1786" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10026" x="2679" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 10027" x="2679" y="715" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20000" x="0" y="848" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20001" x="893" y="848" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20002" x="1786" y="848" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20003" x="2679" y="848" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20004" x="0" y="993" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20005" x="893" y="993" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20006" x="1786" y="993" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20007" x="2679" y="993" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20008" x="0" y="1139" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20009" x="893" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20010" x="1786" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20011" x="1786" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20012" x="2679" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20013" x="2679" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20014" x="0" y="848" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20015" x="893" y="848" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20016" x="1786" y="848" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20017" x="2679" y="848" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20018" x="0" y="993" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20019" x="893" y="993" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20020" x="1786" y="993" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20021" x="2679" y="993" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20022" x="0" y="1139" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20023" x="893" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20024" x="1786" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20025" x="1786" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20026" x="2679" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 20027" x="2679" y="1139" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30000" x="0" y="1272" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30001" x="893" y="1272" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30002" x="1786" y="1272" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30003" x="2679" y="1272" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30004" x="0" y="1417" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30005" x="893" y="1417" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30006" x="1786" y="1417" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30007" x="2679" y="1417" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30008" x="0" y="1563" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30009" x="893" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30010" x="1786" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30011" x="1786" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30012" x="2679" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30013" x="2679" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30014" x="0" y="1272" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30015" x="893" y="1272" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30016" x="1786" y="1272" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30017" x="2679" y="1272" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30018" x="0" y="1417" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30019" x="893" y="1417" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30020" x="1786" y="1417" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30021" x="2679" y="1417" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30022" x="0" y="1563" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30023" x="893" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30024" x="1786" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30025" x="1786" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30026" x="2679" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
-	<SubTexture name="Icons Bar 30027" x="2679" y="1563" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icon Bar 1 Lost0000" x="55" y="55" width="893" height="113" frameX="-62" frameY="-21" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0001" x="1003" y="55" width="893" height="134" frameX="0" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0002" x="1951" y="55" width="893" height="145" frameX="-64" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0003" x="2899" y="55" width="893" height="143" frameX="-30" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0004" x="3847" y="55" width="893" height="134" frameX="-49" frameY="-1" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0005" x="4795" y="55" width="893" height="135" frameX="-49" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0006" x="5743" y="55" width="901" height="147" frameX="-36" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0007" x="6699" y="55" width="915" height="184" frameX="-36" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0008" x="55" y="294" width="941" height="240" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0009" x="1051" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0010" x="1999" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0011" x="1999" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0012" x="2947" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0013" x="2947" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0014" x="3895" y="294" width="893" height="113" frameX="-38" frameY="-21" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0015" x="4843" y="294" width="893" height="134" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0016" x="5791" y="294" width="893" height="145" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0017" x="6739" y="294" width="893" height="143" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0018" x="55" y="589" width="893" height="134" frameX="-38" frameY="-1" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0019" x="1003" y="589" width="893" height="135" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0020" x="1951" y="589" width="893" height="147" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0021" x="2899" y="589" width="893" height="147" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0022" x="3847" y="589" width="893" height="134" frameX="-38" frameY="0" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0023" x="1051" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0024" x="1999" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0025" x="1999" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0026" x="2947" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon Bar 1 Lost0027" x="2947" y="294" width="893" height="109" frameX="-38" frameY="-25" frameWidth="979" frameHeight="240"/>
+	<SubTexture name="Icon bar 2 Lost0000" x="4795" y="589" width="893" height="113" frameX="0" frameY="-30" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0001" x="5743" y="589" width="893" height="137" frameX="-21" frameY="-6" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0002" x="6691" y="589" width="936" height="154" frameX="-2" frameY="0" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0003" x="55" y="798" width="955" height="144" frameX="-17" frameY="-8" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0004" x="1065" y="798" width="976" height="134" frameX="-8" frameY="-10" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0005" x="2096" y="798" width="987" height="135" frameX="-8" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0006" x="3138" y="798" width="995" height="147" frameX="-12" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0007" x="4188" y="798" width="1009" height="159" frameX="-12" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0008" x="5252" y="798" width="1039" height="215" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0009" x="6346" y="798" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0010" x="55" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0011" x="55" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0012" x="1003" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0013" x="1003" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0014" x="1951" y="1068" width="893" height="113" frameX="-10" frameY="-30" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0015" x="2899" y="1068" width="893" height="134" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0016" x="3847" y="1068" width="893" height="146" frameX="-10" frameY="-8" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0017" x="4795" y="1068" width="893" height="144" frameX="-10" frameY="-8" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0018" x="5743" y="1068" width="893" height="134" frameX="-10" frameY="-10" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0019" x="6691" y="1068" width="893" height="135" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0020" x="55" y="1269" width="893" height="147" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0021" x="1003" y="1269" width="893" height="147" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0022" x="1951" y="1269" width="893" height="134" frameX="-10" frameY="-9" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0023" x="6346" y="798" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0024" x="55" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0025" x="55" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0026" x="1003" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icon bar 2 Lost0027" x="1003" y="1068" width="893" height="109" frameX="-10" frameY="-34" frameWidth="1049" frameHeight="224"/>
+	<SubTexture name="Icons Bar0000" x="2899" y="1269" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0001" x="3847" y="1269" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0002" x="4795" y="1269" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0003" x="5743" y="1269" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0004" x="6691" y="1269" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0005" x="55" y="1471" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0006" x="1003" y="1471" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0007" x="1951" y="1471" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0008" x="2899" y="1471" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0009" x="3847" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0010" x="4795" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0011" x="4795" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0012" x="5743" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0013" x="5743" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0014" x="2899" y="1269" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0015" x="3847" y="1269" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0016" x="4795" y="1269" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0017" x="5743" y="1269" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0018" x="6691" y="1269" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0019" x="55" y="1471" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0020" x="1003" y="1471" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0021" x="1951" y="1471" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0022" x="2899" y="1471" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0023" x="3847" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0024" x="4795" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0025" x="4795" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0026" x="5743" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar0027" x="5743" y="1471" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10000" x="6691" y="1471" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10001" x="55" y="1672" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10002" x="1003" y="1672" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10003" x="1951" y="1672" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10004" x="2899" y="1672" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10005" x="3847" y="1672" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10006" x="4795" y="1672" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10007" x="5743" y="1672" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10008" x="6691" y="1672" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10009" x="55" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10010" x="1003" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10011" x="1003" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10012" x="1951" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10013" x="1951" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10014" x="6691" y="1471" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10015" x="55" y="1672" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10016" x="1003" y="1672" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10017" x="1951" y="1672" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10018" x="2899" y="1672" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10019" x="3847" y="1672" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10020" x="4795" y="1672" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10021" x="5743" y="1672" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10022" x="6691" y="1672" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10023" x="55" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10024" x="1003" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10025" x="1003" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10026" x="1951" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 10027" x="1951" y="1873" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20000" x="2899" y="1873" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20001" x="3847" y="1873" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20002" x="4795" y="1873" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20003" x="5743" y="1873" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20004" x="6691" y="1873" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20005" x="55" y="2073" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20006" x="1003" y="2073" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20007" x="1951" y="2073" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20008" x="2899" y="2073" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20009" x="3847" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20010" x="4795" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20011" x="4795" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20012" x="5743" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20013" x="5743" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20014" x="2899" y="1873" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20015" x="3847" y="1873" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20016" x="4795" y="1873" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20017" x="5743" y="1873" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20018" x="6691" y="1873" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20019" x="55" y="2073" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20020" x="1003" y="2073" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20021" x="1951" y="2073" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20022" x="2899" y="2073" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20023" x="3847" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20024" x="4795" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20025" x="4795" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20026" x="5743" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 20027" x="5743" y="2073" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30000" x="6691" y="2073" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30001" x="55" y="2274" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30002" x="1003" y="2274" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30003" x="1951" y="2274" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30004" x="2899" y="2274" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30005" x="3847" y="2274" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30006" x="4795" y="2274" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30007" x="5743" y="2274" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30008" x="6691" y="2274" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30009" x="55" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30010" x="1003" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30011" x="1003" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30012" x="1951" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30013" x="1951" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30014" x="6691" y="2073" width="893" height="112" frameX="0" frameY="-22" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30015" x="55" y="2274" width="893" height="134" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30016" x="1003" y="2274" width="893" height="145" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30017" x="1951" y="2274" width="893" height="143" frameX="0" frameY="0" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30018" x="2899" y="2274" width="893" height="133" frameX="0" frameY="-2" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30019" x="3847" y="2274" width="893" height="134" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30020" x="4795" y="2274" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30021" x="5743" y="2274" width="893" height="146" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30022" x="6691" y="2274" width="893" height="133" frameX="0" frameY="-1" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30023" x="55" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30024" x="1003" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30025" x="1003" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30026" x="1951" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
+	<SubTexture name="Icons Bar 30027" x="1951" y="2475" width="893" height="109" frameX="0" frameY="-25" frameWidth="893" frameHeight="147"/>
 </TextureAtlas>

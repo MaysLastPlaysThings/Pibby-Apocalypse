@@ -1,0 +1,36 @@
+{
+	"song": {
+		"events": [
+			[
+				0,
+				[
+					[
+						"Play Animation",
+						"still",
+						"Dad"
+					]
+				]
+			],
+			[
+				20000,
+				[
+					[
+						"Play Animation",
+						"Transition",
+						"Dad"
+					]
+				]
+			],
+			[
+				65739.1304347826,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"gumball"
+					]
+				]
+			]
+		]
+	}
+}
