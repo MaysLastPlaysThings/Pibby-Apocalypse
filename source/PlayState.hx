@@ -826,8 +826,10 @@ class PlayState extends MusicBeatState
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
 		finnBarThing.frames = Paths.getSparrowAtlas('healthbarAT/iconbar');
-		finnBarThing.animation.addByPrefix('idle0', 'Icons Bar 1', 24, true);
-		finnBarThing.animation.play('idle0');
+		finnBarThing.animation.addByPrefix('idle50', 'Icons Bar 2', 24, true);
+		finnBarThing.animation.addByPrefix('idle100', 'Icons Bar 1', 24, true);
+		finnBarThing.animation.addByPrefix('idle30', 'Icons Bar 3', 24, true);
+		finnBarThing.animation.play('idle50');
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
@@ -1430,13 +1432,15 @@ class PlayState extends MusicBeatState
 			pibbyIntro = new Boyfriend(-68.55, -76.15, 'pibby_intro');
 			startCharacterPos(pibbyIntro);
 			boyfriendGroup.add(pibbyIntro);
-			gf.alpha = 0;
+			if (gf != null)
+				gf.alpha = 0;
 			
 			pibbyIntro.playAnim('Go', true);
 			pibbyIntro.specialAnim = true;
 		}
 
-		boyfriendGroup.add(bfIntro);
+		if (SONG.player1 == 'newbf')
+			boyfriendGroup.add(bfIntro);
 
 		var numberIntro:FlxSprite = new FlxSprite(
 			(gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
@@ -4892,7 +4896,12 @@ class PlayState extends MusicBeatState
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
-		finnBarThing.animation.play('idle0');
+		if (healthBar.percent >= 20 && healthBar.percent <= 80)
+			finnBarThing.animation.play('idle50');
+		else if (healthBar.percent >= 80 && healthBar.percent <= 100)
+			finnBarThing.animation.play('idle100');
+		else if (healthBar.percent <= 20)
+			finnBarThing.animation.play('idle30');
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
