@@ -662,7 +662,7 @@ class PlayState extends MusicBeatState
 		}
 
         if(SONG.song == 'Suffering Siblings'){
-			jake = new Character(0,0, "jake");
+			jake = new Character(120, -18, "jake");
 			startCharacterPos(jake, true);
 		    dadGroup.add(jake);
 		}
@@ -1422,9 +1422,10 @@ class PlayState extends MusicBeatState
 		}
 
 		if (gf != null && gf.curCharacter.startsWith('pibby')) {
-			pibbyIntro = new Boyfriend(0, 0, 'pibby_intro');
+			pibbyIntro = new Boyfriend(2120, 720, 'pibby_intro');
 			startCharacterPos(pibbyIntro);
 			boyfriendGroup.add(pibbyIntro);
+			gf.alpha = 0;
 			
 			pibbyIntro.playAnim('Go', true);
 			pibbyIntro.specialAnim = true;
@@ -1596,6 +1597,7 @@ class PlayState extends MusicBeatState
 							bfIntro.alpha = 0;
 						}
 						if (gf != null && gf.curCharacter.startsWith('pibby')) {
+							gf.alpha = 1;
 							pibbyIntro.alpha = 0;
 						}
 						numberIntro.alpha = 0;
@@ -2207,12 +2209,6 @@ class PlayState extends MusicBeatState
 			distortDadFNF.binaryIntensity.value[0] = dadGlitchIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
-		}
-
-		switch (curStage)
-		{
-			case 'lab':
-				if (gf != null)	gf.alpha = 0;
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
@@ -3894,6 +3890,11 @@ class PlayState extends MusicBeatState
 
 						char.mostRecentRow = note.row;
 					}
+					else if (note.bothCharSing)
+						{
+							dad.playAnim(animToPlay, true);
+							jake.playAnim(animToPlay, true);
+						}
 					else
 						char.playAnim(animToPlay, true);
 			}
