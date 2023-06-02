@@ -216,6 +216,9 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
+	//finn week shit
+	var finnBarThing:FlxSprite;
+
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
 	public var boyfriendColor : FlxColor;
@@ -811,6 +814,15 @@ class PlayState extends MusicBeatState
 		healthBar.alpha = 0.0001;
 		add(healthBar);
 
+		finnBarThing = new FlxSprite();
+		finnBarThing.y = 565;
+		finnBarThing.x = 197;
+		finnBarThing.frames = Paths.getSparrowAtlas('healthbarAT/iconbar');
+		finnBarThing.animation.addByPrefix('idle0', 'Icons Bar 1', 24, true);
+		finnBarThing.scrollFactor.set();
+		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
+		add(finnBarThing);
+
 		if (gf != null)
 		{
 			iconP3 = new HealthIcon(gf.healthIcon, true);
@@ -884,6 +896,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		lyricTxt.cameras = [camOther];
+		finnBarThing.cameras = [camHUD];
 
 
 		// if (SONG.song == 'South')
@@ -4785,6 +4798,8 @@ class PlayState extends MusicBeatState
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
+
+		finnBarThing.animation.play('idle0');
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
