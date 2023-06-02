@@ -178,6 +178,7 @@ class PlayState extends MusicBeatState
 
 	public var vocals:FlxSound;
 
+    var jake:Character;
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
@@ -660,6 +661,12 @@ class PlayState extends MusicBeatState
             gfColor = FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]);
 		}
 
+        if(SONG.song == 'Suffering Siblings'){
+			jake = new Character(0,0, "jake");
+			startCharacterPos(jake, true);
+		    dadGroup.add(jake);
+		}
+
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
@@ -821,6 +828,7 @@ class PlayState extends MusicBeatState
 		finnBarThing.animation.addByPrefix('idle0', 'Icons Bar 1', 24, true);
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
+		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		add(finnBarThing);
 
 		if (gf != null)
@@ -3841,6 +3849,10 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 			if(note.gfNote) {
 				char = gf;
+			}else if(note.char2note){
+				char = jake;
+			}else if(note.bothCharSing){
+				char = jake;
 			}
 
 			if(char != null)
@@ -4815,6 +4827,10 @@ class PlayState extends MusicBeatState
 		{
 			dad.dance();
 		}
+		if (curBeat % jake.danceEveryNumBeats == 0 && jake.animation.curAnim != null && !jake.animation.curAnim.name.startsWith('sing') && !jake.stunned)
+			{
+				jake.dance();
+			}
 
 		lastBeatHit = curBeat;
 

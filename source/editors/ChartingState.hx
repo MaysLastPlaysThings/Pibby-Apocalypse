@@ -72,7 +72,9 @@ class ChartingState extends MusicBeatState
 		'Change Strum Line',
 		'Glitch Note',
 		'Dodge Note',
-		'Attack Note'
+		'Attack Note',
+		'Second Char Sing',
+		'Both Char Sing'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
