@@ -1,0 +1,210 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
+		},
+		{
+			"offsets": [
+				316,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left"
+		},
+		{
+			"offsets": [
+				277,
+				-1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
+		},
+		{
+			"offsets": [
+				39,
+				280
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
+		},
+		{
+			"offsets": [
+				31,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right"
+		},
+		{
+			"offsets": [
+				45,
+				69
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hey",
+			"indices": [],
+			"name": "HEY Pose"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				183,
+				76
+			],
+			"anim": "one",
+			"fps": 24,
+			"name": "onep",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				181,
+				193
+			],
+			"anim": "two",
+			"fps": 24,
+			"name": "twop",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				172,
+				75
+			],
+			"anim": "go",
+			"fps": 24,
+			"name": "gop",
+			"indices": []
+		},
+		{
+			"offsets": [
+				193,
+				76
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "three",
+			"indices": [],
+			"name": "threep"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				303,
+				-1
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "missl",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				239,
+				13
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "missd",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				56,
+				274
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "missu",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				34,
+				1
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "missr",
+			"indices": []
+		},
+		{
+			"offsets": [
+				204,
+				74
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "death"
+		},
+		{
+			"offsets": [
+				50,
+				-60
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "deathConfirm",
+			"loop": false,
+			"name": "loopdeath"
+		},
+		{
+			"offsets": [
+				50,
+				-60
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "deathLoop",
+			"loop": false,
+			"name": "loopdeath"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/pibby",
+	"position": [
+		10,
+		340
+	],
+	"healthicon": "bf",
+	"flip_x": false,
+	"healthbar_colors": [
+		110,
+		193,
+		221
+	],
+	"camera_position": [
+		-420,
+		-20
+	],
+	"sing_duration": 5,
+	"scale": 1
+}
