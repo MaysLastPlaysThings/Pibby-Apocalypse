@@ -4730,6 +4730,8 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Camera Follow Pos', '1950', '1100');
 							triggerEventNote('Apple Filter', 'on', 'black');
 							defaultCamZoom = 0.65;
+						case 2140:
+							triggerEventNote('Play Animation', 'reload', 'bf');
 						case 2336:
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing) {
