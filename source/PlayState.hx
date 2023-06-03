@@ -3864,13 +3864,34 @@ class PlayState extends MusicBeatState
 
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
-			if(note.gfNote) {
+			if (note.gfNote) {
 				char = gf;
-			}else if(note.char2note){
-				char = jake;
-			}else if(note.bothCharSing){
+			}
+			else if(note.char2note) {
 				char = jake;
 			}
+			else if(note.bothCharSing) {
+				char = jake;
+			}
+			else if (note.noteType == 'Second Char Glitch') {
+				char = jake;
+				for (i in 0...opponentStrums.length) {
+					opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+					opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+	
+					playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+					
+					//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
+					dadGlitchIntensity = FlxG.random.float(12, 25);
+					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
+					for (i in 0...shaderArray.length)
+					jake.shader = shaderArray[i];
+					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+					jake.shader = null;
+				});
+			}
+		}
 
 			if(char != null)
 			{
@@ -4168,6 +4189,7 @@ class PlayState extends MusicBeatState
 		blackFNF.alpha = 0;
 		blackFNF.cameras = [camOverlay];
 		add(blackFNF);
+
 		super.stepHit();
 		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
 			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
@@ -4313,7 +4335,7 @@ class PlayState extends MusicBeatState
 						case 1198:
                             triggerEventNote('Cinematics', 'on', '3');
                             FlxTween.tween(this, {fakeSongLength: 198390}, 3);
-							FlxTween.tween(camGame, {zoom: 1.2}, 3, {
+							FlxTween.tween(camGame, {zoom: 1.5}, 3, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
@@ -4325,7 +4347,7 @@ class PlayState extends MusicBeatState
                                             health = 0.1;
                                         }
                                         triggerEventNote('Apple Filter', 'on', 'black');
-										defaultCamZoom = 1.1;
+										defaultCamZoom = 1.4;
 									}
 							});
 
@@ -4341,6 +4363,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 1984:
+							triggerEventNote('Cinematics', 'off', '2');
 						case 2192:
 							FlxTween.tween(camGame, {zoom: 1.4}, 6.63, {
 								ease: FlxEase.quadInOut,
@@ -4458,18 +4482,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2);
 							}
-							#if VIDEOS_ALLOWED
-							var cutscene:VideoHandler = new VideoHandler();
-							canPause = false;
-							cutscene.playVideo(Paths.video('forgottenscene'));
-							cutscene.resume();
-							trace(cutscene.isPlaying);
-							cutscene.finishCallback = function()
-								{
-									canPause = true;
-									return;
-								}
-							#end
+							startVideo('forgottenscene');
+							
 					}
 				case 'My Amazing World':
 					switch (curStep)
@@ -4754,13 +4768,13 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 240:
-							defaultCamZoom = 1.2;
+							camGame.zoom = 1.2;
 						case 244:
-							defaultCamZoom = 1.3;
+							camGame.zoom = 1.3;
 						case 248:
-							defaultCamZoom = 1.4;
+							camGame.zoom = 1.4;
 						case 252:
-							defaultCamZoom = 1.3;
+							camGame.zoom = 1.3;
 						case 256:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4840,6 +4854,36 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							defaultCamZoom = 0.9;
+						case 1137:
+							defaultCamZoom = 1.15;
+						case 1144:
+							defaultCamZoom = 1.2;
+						case 1146:
+							defaultCamZoom = 1.3;
+						case 1149:
+							defaultCamZoom = 1.25;
+						case 1152:
+							defaultCamZoom = 0.9;
+						case 1270:
+							defaultCamZoom = 1.15;
+						case 1273:
+							defaultCamZoom = 1.2;
+						case 1276:
+							defaultCamZoom = 1.3;
+						case 1280:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							defaultCamZoom = 0.9;
+						case 1408:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							triggerEventNote('Cinematics', 'on', '1.25');
+						case 1536:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
 						case 2080:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4999,6 +5043,24 @@ class PlayState extends MusicBeatState
 					if (curStep >= 1024 && curStep <= 1136)
 						{
 							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1280 && curStep <= 1392)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1408 && curStep <= 1664)
+						{
+							if (curBeat % 1 == 0)
 								{
                                     abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
