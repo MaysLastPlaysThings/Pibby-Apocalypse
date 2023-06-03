@@ -4834,6 +4834,19 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Apple Filter', 'off', 'black');
 							gf.alpha = 1;
 							jake.alpha = 1;
+						case 3360:
+							blackFNF.alpha = 1;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							dad.alpha = 0.0001;
+							jake.alpha = 0.0001;
+						case 3392:
+							defaultCamZoom = 0.8;
+							if (ClientPrefs.flashing){
+								camOverlay.flash(FlxColor.WHITE, 0.4);
+							}
+							triggerEventNote('Apple Filter', 'on', 'black');
 					}
 			}
 
