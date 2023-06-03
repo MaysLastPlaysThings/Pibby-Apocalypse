@@ -299,9 +299,11 @@ class MainMenuState extends MusicBeatState
 								case 'FREEPLAY':
                                 MusicBeatState.switchState(new FreeplayState());
 									FlxG.sound.playMusic(Paths.music('fpmenu'));
+									FlxG.sound.music.fadeIn(2, 0, 0.5);
 								case 'CREDITS':
 									MusicBeatState.switchState(new CreditsState());
 									FlxG.sound.playMusic(Paths.music('creditsmenu'));
+									FlxG.sound.music.fadeIn(2, 0, 0.5);
 							}
 						});
 					}

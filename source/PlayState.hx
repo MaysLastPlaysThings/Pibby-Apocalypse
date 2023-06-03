@@ -2328,6 +2328,16 @@ class PlayState extends MusicBeatState
 		iconP1.x = 614;
 		defaultIconP2x = 513;
 
+		if (healthBar.percent >= 20 && healthBar.percent <= 65) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle50'); }
+		else if (healthBar.percent >= 65 && healthBar.percent <= 100) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle100'); }
+		else if (healthBar.percent <= 20) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle30'); }
+
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
@@ -4302,7 +4312,7 @@ class PlayState extends MusicBeatState
 							}
 						case 1198:
                             triggerEventNote('Cinematics', 'on', '3');
-                            FlxTween.tween(this, {fakeSongLength: songLength}, 3);
+                            FlxTween.tween(this, {fakeSongLength: 198390}, 3);
 							FlxTween.tween(camGame, {zoom: 1.2}, 3, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4319,12 +4329,29 @@ class PlayState extends MusicBeatState
 									}
 							});
 
-                        case 1470:
-                            defaultCamZoom = 0.8;
+                        case 1456:
+							FlxTween.tween(this, {fakeSongLength: songLength}, 1.92);
+						case 1472:
+							defaultCamZoom = 1.2;
                             if (ClientPrefs.flashing) {
-                                camOverlay.flash(FlxColor.WHITE, 1);
+                                camOverlay.flash(FlxColor.WHITE, 1.5);
                             }
                             triggerEventNote('Apple Filter', 'off', 'black');
+						case 1728:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 2192:
+							FlxTween.tween(camGame, {zoom: 1.4}, 6.63, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+										camGame.alpha = 0;
+										camHUD.alpha = 0;
+									}
+							});
                     }
 				case 'Forgotten World':
 					switch (curStep)
@@ -4909,13 +4936,6 @@ class PlayState extends MusicBeatState
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
-		if (healthBar.percent >= 20 && healthBar.percent <= 80)
-			finnBarThing.animation.play('idle50');
-		else if (healthBar.percent >= 80 && healthBar.percent <= 100)
-			finnBarThing.animation.play('idle100');
-		else if (healthBar.percent <= 20)
-			finnBarThing.animation.play('idle30');
-
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
 			gf.dance();
@@ -4997,6 +5017,15 @@ class PlayState extends MusicBeatState
 						}
 				case "Child's Play":
 					if (curStep >= 672 && curStep <= 1183)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1472 && curStep <= 1984)
 						{
 							if (curBeat % 1 == 0)
 								{
