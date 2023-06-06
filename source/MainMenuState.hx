@@ -132,6 +132,7 @@ class MainMenuState extends MusicBeatState
 		add(cinematicup);
 
 		var options = new FlxSprite().loadGraphic(Paths.image('pibymenu/Options'));
+		options.alpha = 0.4;
 		options.scale.set(0.3, 0.3);
 		options.updateHitbox();
 		options.setPosition(FlxG.width - 97, FlxG.height - 63);
@@ -151,7 +152,11 @@ class MainMenuState extends MusicBeatState
 						});
 					});
 					MusicBeatState.switchState(new options.OptionsState());
-			 });
+			 },
+			 null,
+			 function( s : FlxSprite ) { options.alpha = 1; },
+			 function( s : FlxSprite ) { options.alpha = 0.4; }
+			 );
 
 
 		var discord = new FlxSprite().loadGraphic(Paths.image('pibymenu/discord'));
@@ -163,7 +168,10 @@ class MainMenuState extends MusicBeatState
 		add(discord);
 
 		FlxMouseEvent.add(discord,
-			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/wTc9JHpWkU')); }
+			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/wTc9JHpWkU')); },
+			null,
+			function( s : FlxSprite ) { discord.alpha = 1; },
+			function( s : FlxSprite ) { discord.alpha = 0.4; }
 		);
 
 
@@ -222,11 +230,6 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		//temporary options keybind
-	/** if (FlxG.keys.justPressed.SHIFT)
-			{
-				LoadingState.loadAndSwitchState(new options.OptionsState());
-			} **/
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
@@ -318,6 +321,11 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 	}
+
+	private function tweenObject ( object : FlxSprite, value : Float )
+		{
+			FlxTween.tween(object, { alpha: value }, 0.25);
+		}
 
 	function changeItem(huh:Int = 0)
 	{
