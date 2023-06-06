@@ -1,6 +1,8 @@
 var background;
 var wall;
 var vignette;
+var vignette2;
+var light;
 
 function onCreate()
 {
@@ -11,12 +13,19 @@ function onCreate()
     background.scrollFactor.set(1, 1);
     background.updateHitbox();
 
-    wall = new flixel.FlxSprite(0, 200);
+    wall = new flixel.FlxSprite(-200, 200);
     wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
     wall.setGraphicSize(Std.int(wall.width * 1.1));
     wall.antialiasing = true;
     wall.scrollFactor.set(1, 1);
     wall.updateHitbox();
+
+    light = new flixel.FlxSprite(-500, 50);
+    light.loadGraphic(retrieveAsset('images/light.png', 'image'));
+    light.setGraphicSize(Std.int(light.width * 1));
+    light.antialiasing = true;
+    light.scrollFactor.set(1, 1);
+    light.updateHitbox();
 
     vignette = new flixel.FlxSprite(0, 0);
     vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
@@ -25,9 +34,18 @@ function onCreate()
     vignette.scrollFactor.set(1, 1);
     vignette.updateHitbox();
 
+    vignette2 = new flixel.FlxSprite(0, 0);
+    vignette2.loadGraphic(retrieveAsset('images/188_sin_titulo11_20230523094718.png', 'image'));
+    vignette2.setGraphicSize(Std.int(vignette2.width * 1.3));
+    vignette2.antialiasing = true;
+    vignette2.scrollFactor.set(1, 1);
+    vignette2.updateHitbox();
+
     add(background);
     foreground.add(wall);
     foreground.add(vignette);
+    foreground.add(vignette2);
+    foreground.add(light);
 
 }
 
@@ -51,12 +69,16 @@ function onEvent(event:String, value1:String, value2:String)
              if (value1 == 'on') 
             {
                 wall.alpha = 0.0001;
+                vignette2.alpha = 0.0001; 
                 vignette.alpha = 0.0001; 
+                light.alpha = 0.0001; 
             }
              else if (value1 == 'off')
             {
                 wall.alpha = 1;
+                vignette2.alpha = 1;
                 vignette.alpha = 1;
+                light.alpha = 1;
             }
         }
     }

@@ -826,7 +826,7 @@ class PlayState extends MusicBeatState
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
-		finnBarThing.frames = Paths.getSparrowAtlas('healthbarAT/iconbar');
+		finnBarThing.frames = Paths.getSparrowAtlas('healthbar/iconbar');
 		finnBarThing.animation.addByPrefix('idle2', 'Icons Bar 2', 24, true);
 		finnBarThing.animation.addByPrefix('idle3', 'Icons Bar 1', 24, true);
 		finnBarThing.animation.addByPrefix('idle1', 'Icons Bar 3', 24, true);
