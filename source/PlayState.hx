@@ -278,6 +278,7 @@ class PlayState extends MusicBeatState
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
 
+	public var dodgeMisses:Int = 0;
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -2213,6 +2214,22 @@ class PlayState extends MusicBeatState
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
+		if (dodgeMisses == 0) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle3');
+		}
+
+		else if (dodgeMisses == 1) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle2');
+		}
+
+		else if (dodgeMisses == 2) {
+			if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle1');
+		}
+
+
 		if(ClientPrefs.shaders) {
             chromFNF.aberration.value[0] = abberationShaderIntensity;
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
@@ -2428,6 +2445,12 @@ class PlayState extends MusicBeatState
 			trace("RESET = True");
 		}
 		doDeathCheck();
+
+		if (dodgeMisses == 3)
+			{
+				health = 0;
+				doDeathCheck(true);
+			}
 
 		if (unspawnNotes[0] != null)
 		{
@@ -3736,6 +3759,11 @@ class PlayState extends MusicBeatState
 			vocals.volume = 0;
 			doDeathCheck(true);
 		}
+
+		if (daNote.dodgeNote)
+			{
+				dodgeMisses++;
+			}
 
 		//For testing purposes
 		//trace(daNote.missHealth);
@@ -5052,7 +5080,57 @@ class PlayState extends MusicBeatState
 									}});
 							gf.playAnim('cmon', true);
 							gf.specialAnim = true;
+						case 2374:
+							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										lyricTxt.alpha = 1;
+									}
+							});
+							lyricTxt.text = "COME ON";
+							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
+								lyricTxt.text = "W";
+								new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+									lyricTxt.text = "WO";
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOOOOOO";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WOOOOOOOOOOR";
+									});
+									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
+										lyricTxt.text = "WORK!";
+									});
+								});
+							});
 						case 2400:
+							lyricTxt.text = "";
 							defaultCamZoom = 1.1;
 							triggerEventNote('Camera Follow Pos', '', '');
 							moveCamera(false);

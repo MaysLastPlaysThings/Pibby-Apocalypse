@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="parry.png">
+	<!-- Created with Adobe Animate version 22.0.3.179 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Parry0000" x="30" y="30" width="870" height="571" frameX="-62" frameY="0" frameWidth="994" frameHeight="571"/>
+	<SubTexture name="Parry0001" x="930" y="30" width="939" height="571" frameX="-27" frameY="0" frameWidth="994" frameHeight="571"/>
+	<SubTexture name="Parry0002" x="1899" y="30" width="994" height="571"/>
+	<SubTexture name="Parry0003" x="2923" y="30" width="994" height="571"/>
+	<SubTexture name="Parry0004" x="30" y="631" width="994" height="571"/>
+	<SubTexture name="Parry0005" x="1054" y="631" width="994" height="571"/>
+	<SubTexture name="Parry0006" x="2078" y="631" width="994" height="571"/>
+	<SubTexture name="Parry0007" x="30" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0008" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0009" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0010" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0011" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0012" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0013" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0014" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0015" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0016" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0017" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0018" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0019" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0020" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0021" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0022" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0023" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0024" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0025" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0026" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0027" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0028" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0029" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0030" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0031" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0032" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0033" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0034" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0035" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0036" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0037" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0038" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0039" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0040" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0041" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0042" x="1054" y="1232" width="994" height="571"/>
+	<SubTexture name="Parry0043" x="1054" y="1232" width="994" height="571"/>
+</TextureAtlas>
