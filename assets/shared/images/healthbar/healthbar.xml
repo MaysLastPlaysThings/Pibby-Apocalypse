@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="healthbar.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="health bar0000" x="0" y="0" width="473" height="49"/>
+	<SubTexture name="health bar0001" x="473" y="0" width="473" height="49"/>
+	<SubTexture name="health bar0002" x="0" y="49" width="473" height="49"/>
+	<SubTexture name="health bar0003" x="473" y="49" width="473" height="49"/>
+	<SubTexture name="health bar0004" x="0" y="98" width="473" height="49"/>
+	<SubTexture name="health bar0005" x="473" y="98" width="473" height="49"/>
+	<SubTexture name="health bar0006" x="0" y="147" width="473" height="49"/>
+	<SubTexture name="health bar0007" x="473" y="147" width="473" height="49"/>
+	<SubTexture name="health bar0008" x="0" y="196" width="473" height="49"/>
+	<SubTexture name="health bar0009" x="473" y="196" width="473" height="49"/>
+	<SubTexture name="health bar0010" x="0" y="245" width="473" height="49"/>
+	<SubTexture name="health bar0011" x="473" y="245" width="473" height="49"/>
+	<SubTexture name="health bar0012" x="0" y="294" width="473" height="49"/>
+	<SubTexture name="health bar0013" x="473" y="294" width="473" height="49"/>
+	<SubTexture name="health bar0014" x="0" y="343" width="473" height="49"/>
+	<SubTexture name="health bar0015" x="473" y="343" width="473" height="49"/>
+	<SubTexture name="health bar0016" x="0" y="392" width="473" height="49"/>
+	<SubTexture name="health bar0017" x="473" y="392" width="473" height="49"/>
+	<SubTexture name="health bar0018" x="473" y="343" width="473" height="49"/>
+	<SubTexture name="health bar0019" x="0" y="392" width="473" height="49"/>
+	<SubTexture name="health bar0020" x="0" y="441" width="473" height="49"/>
+	<SubTexture name="health bar0021" x="473" y="441" width="473" height="49"/>
+	<SubTexture name="health bar0022" x="0" y="490" width="473" height="49"/>
+	<SubTexture name="health bar0023" x="473" y="490" width="473" height="49"/>
+	<SubTexture name="health bar0024" x="0" y="539" width="473" height="49"/>
+	<SubTexture name="health bar0025" x="473" y="539" width="473" height="49"/>
+	<SubTexture name="health bar0026" x="473" y="490" width="473" height="49"/>
+	<SubTexture name="health bar0027" x="0" y="539" width="473" height="49"/>
+</TextureAtlas>

@@ -55,7 +55,11 @@ class Note extends FlxSprite
 
 	public var animSuffix:String = '';
 	public var gfNote:Bool = false;
+	public var dodgeNote:Bool = false;
+	public var attackNote:Bool = false;
 	public var glitchNote:Bool = false;
+	public var char2note:Bool = false;
+	public var bothCharSing:Bool = false;
 	public var earlyHitMult:Float = 0.5;
 	public var lateHitMult:Float = 1;
 	public var lowPriority:Bool = false;
@@ -157,6 +161,14 @@ class Note extends FlxSprite
 					gfNote = true;
 				case 'Glitch Note':
 					glitchNote = true;
+				case 'Dodge Note':
+					dodgeNote = true;
+				case 'Attack Note':
+					attackNote = true;
+				case 'Second Char Sing':
+				    char2note = true;
+				case 'Both Char Sing':
+				    bothCharSing = true;
 			}
 			noteType = value;
 		}

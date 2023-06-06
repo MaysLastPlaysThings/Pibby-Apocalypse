@@ -1,81 +1,81 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				20,
 				0
 			],
-			"anim": "",
+			"loop": false,
 			"fps": 20,
-			"name": "",
-			"indices": []
+			"anim": "",
+			"indices": [],
+			"name": ""
 		},
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 20,
-			"name": "Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				55,
 				1
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-21,
 				-30
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				39,
 				-11
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				33,
 				-1
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				4
 			],
-			"anim": "Transition",
+			"loop": false,
 			"fps": 24,
-			"name": "Yourmom",
-			"indices": []
+			"anim": "Transition",
+			"indices": [],
+			"name": "Yourmom"
 		},
 		{
 			"offsets": [
@@ -88,7 +88,7 @@
 			],
 			"fps": 24,
 			"anim": "still",
-			"loop": false,
+			"loop": true,
 			"name": "Yourmom"
 		}
 	],
@@ -98,7 +98,7 @@
 		-50,
 		150
 	],
-	"healthicon": "gumball",
+	"healthicon": "gumball_fake",
 	"flip_x": false,
 	"healthbar_colors": [
 		82,
