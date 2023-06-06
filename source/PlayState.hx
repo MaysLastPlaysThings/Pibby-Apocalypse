@@ -5093,39 +5093,39 @@ class PlayState extends MusicBeatState
 							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
 								lyricTxt.text = "W";
 								new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-									lyricTxt.text = "WO";
+									lyricTxt.text = "WA";
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOO";
+										lyricTxt.text = "WA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOO";
+										lyricTxt.text = "WAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOO";
+										lyricTxt.text = "WAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOO";
+										lyricTxt.text = "WAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOO";
+										lyricTxt.text = "WAAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOOO";
+										lyricTxt.text = "WAAAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOOOO";
+										lyricTxt.text = "WAAAAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOOOOO";
+										lyricTxt.text = "WAAAAAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOOOOOO";
+										lyricTxt.text = "WAAAAAAAAAA";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WOOOOOOOOOOR";
+										lyricTxt.text = "WAAAAAAAAAAH";
 									});
 									new FlxTimer().start(0.083, function(tmr:FlxTimer) {
-										lyricTxt.text = "WORK!";
+										lyricTxt.text = "WAAAAAAAAAAH!";
 									});
 								});
 							});
