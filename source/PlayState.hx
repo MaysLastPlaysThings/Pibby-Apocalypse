@@ -5008,7 +5008,14 @@ class PlayState extends MusicBeatState
 							});
 						case 2080:
 							for (i in 0...4) {
-								FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x + STRUM_X_MIDDLESCROLL - 40}, 1, {ease: FlxEase.quadInOut});
+								FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x + STRUM_X_MIDDLESCROLL - 40}, 1, {
+									ease: FlxEase.quadInOut,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											playerStrums.members[i].x + STRUM_X_MIDDLESCROLL - 40;
+										}
+								});
 							}
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -5023,7 +5030,14 @@ class PlayState extends MusicBeatState
 							boyfriend.specialAnim = true;
 						case 2328:
 							for (i in 0...4) {
-								FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x +- STRUM_X_MIDDLESCROLL + 40}, 1, {ease: FlxEase.quadInOut});
+								FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x - STRUM_X_MIDDLESCROLL + 40}, 1, {
+									ease: FlxEase.quadInOut,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											playerStrums.members[i].x - STRUM_X_MIDDLESCROLL + 40;
+										}
+								});
 							}
 						case 2336:
 							for (i in 0...opponentStrums.length) {
@@ -5044,7 +5058,7 @@ class PlayState extends MusicBeatState
 							gf.alpha = 1;
 							jake.alpha = 1;
 						case 2368:
-							FlxTween.tween(this, {abberationShaderIntensity: 0.6}, 2.67, {
+							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
