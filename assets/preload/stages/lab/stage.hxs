@@ -4,6 +4,7 @@ var light;
 var bulb;
 var stageCurtains;
 var flickerTween;
+var flickerTween2;
 
 function onCreate()
 {	
@@ -42,21 +43,23 @@ function onCreate()
 	// add to the final array
 	foreground.add(light);
 
-	bulb = new FlxSprite(900, 405);
+	bulb = new FlxSprite(0, 0);
 	bulb.loadGraphic(retrieveAsset('images/bulb.png', 'image'));
 	bulb.setGraphicSize(Std.int(bulb.width * 1.3));
 	bulb.updateHitbox();
 	bulb.antialiasing = true;
 	bulb.active = false;
 	bulb.origin.set(800, 0);
+	flickerTween2 = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
+	flickerTween2.active = true;
 
 	// add to the final array
 	foreground.add(dark);
+	foreground.add(bulb);
 }
 
 function onSongStart()
 	{
-		PlayState.camZooming = true;
 		if (PlayState.curSong == 'Mindless')
 			{
 				bg.visible = false;

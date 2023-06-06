@@ -8317,7 +8317,7 @@
 					[
 						156500,
 						3,
-						166.666666666667,
+						83.3333333333337,
 						"GF Sing"
 					],
 					[
@@ -9616,37 +9616,12 @@
 					],
 					[
 						180666.666666667,
-						3,
-						0
-					],
-					[
-						180666.666666667,
 						2,
-						333.333333333333
-					],
-					[
-						180666.666666667,
-						0,
-						0
+						250
 					],
 					[
 						180583.333333334,
 						1,
-						0
-					],
-					[
-						181083.333333334,
-						1,
-						166.666666666667
-					],
-					[
-						181083.333333334,
-						0,
-						0
-					],
-					[
-						181083.333333334,
-						3,
 						0
 					],
 					[
@@ -9672,6 +9647,16 @@
 						4,
 						0,
 						"Dodge Note"
+					],
+					[
+						180833.333333334,
+						0,
+						83.3333333333333
+					],
+					[
+						181000,
+						1,
+						250
 					]
 				],
 				"typeOfSection": 0,
@@ -10081,42 +10066,17 @@
 					],
 					[
 						186000,
-						0,
-						333.333333333333
-					],
-					[
-						186000,
 						2,
 						333.333333333333
 					],
 					[
-						186000,
-						3,
-						333.333333333333
-					],
-					[
-						186416.666666667,
-						1,
-						166.666666666667
-					],
-					[
 						186416.666666667,
 						0,
-						166.666666666667
-					],
-					[
-						186416.666666667,
-						3,
 						166.666666666667
 					],
 					[
 						186083.333333334,
 						1,
-						0
-					],
-					[
-						186166.666666667,
-						2,
 						0
 					],
 					[
@@ -10127,11 +10087,6 @@
 					[
 						186333.333333334,
 						1,
-						0
-					],
-					[
-						186416.666666667,
-						2,
 						0
 					],
 					[
@@ -10227,6 +10182,16 @@
 						5,
 						0,
 						"Dodge Note"
+					],
+					[
+						186083.333333334,
+						3,
+						250
+					],
+					[
+						186166.666666667,
+						2,
+						0
 					]
 				],
 				"typeOfSection": 0,
@@ -10365,33 +10330,8 @@
 					],
 					[
 						188666.666666667,
-						2,
-						333.333333333333
-					],
-					[
-						188666.666666667,
 						3,
 						333.333333333333
-					],
-					[
-						188666.666666667,
-						0,
-						333.333333333333
-					],
-					[
-						189083.333333334,
-						1,
-						166.666666666667
-					],
-					[
-						189083.333333334,
-						2,
-						166.666666666667
-					],
-					[
-						189083.333333334,
-						3,
-						166.666666666667
 					],
 					[
 						188833.333333334,
@@ -10432,6 +10372,36 @@
 						5,
 						0,
 						"Dodge Note"
+					],
+					[
+						189125,
+						0,
+						0
+					],
+					[
+						189166.666666667,
+						2,
+						0
+					],
+					[
+						189208.333333334,
+						3,
+						0
+					],
+					[
+						189250,
+						1,
+						0
+					],
+					[
+						189291.666666667,
+						0,
+						0
+					],
+					[
+						189083.333333334,
+						1,
+						0
 					]
 				],
 				"typeOfSection": 0,
@@ -11594,50 +11564,8 @@
 						"Second Char Sing"
 					],
 					[
-						206500,
-						1,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206291.666666667,
-						1,
-						0,
-						"Second Char Sing"
-					],
-					[
 						206000,
 						1,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206208.333333334,
-						2,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206333.333333334,
-						2,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206458.333333334,
-						2,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206416.666666667,
-						0,
-						0,
-						"Second Char Sing"
-					],
-					[
-						206250,
-						0,
 						0,
 						"Second Char Sing"
 					],
@@ -11645,13 +11573,7 @@
 						206166.666666667,
 						3,
 						0,
-						"Second Char Sing"
-					],
-					[
-						206375,
-						3,
-						0,
-						"Second Char Sing"
+						"Second Char Glitch"
 					],
 					[
 						205333.333333334,
@@ -11724,6 +11646,54 @@
 						7,
 						0,
 						"GF Sing"
+					],
+					[
+						206375,
+						3,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206458.333333334,
+						2,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206333.333333334,
+						2,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206208.333333334,
+						2,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206291.666666667,
+						1,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206500,
+						1,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206416.666666667,
+						0,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						206250,
+						0,
+						0,
+						"Second Char Glitch"
 					]
 				],
 				"typeOfSection": 0,
@@ -11755,12 +11725,6 @@
 						"Second Char Sing"
 					],
 					[
-						207375,
-						0,
-						0,
-						"Second Char Sing"
-					],
-					[
 						207666.666666667,
 						0,
 						0,
@@ -11773,26 +11737,8 @@
 						"Second Char Sing"
 					],
 					[
-						207458.333333334,
-						1,
-						0,
-						"Second Char Sing"
-					],
-					[
 						207166.666666667,
 						1,
-						0,
-						"Second Char Sing"
-					],
-					[
-						207416.666666667,
-						3,
-						0,
-						"Second Char Sing"
-					],
-					[
-						207333.333333334,
-						3,
 						0,
 						"Second Char Sing"
 					],
@@ -11837,6 +11783,30 @@
 						5,
 						0,
 						"GF Sing"
+					],
+					[
+						207458.333333334,
+						1,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						207416.666666667,
+						3,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						207333.333333334,
+						3,
+						0,
+						"Second Char Glitch"
+					],
+					[
+						207375,
+						0,
+						0,
+						"Second Char Glitch"
 					]
 				],
 				"typeOfSection": 0,
@@ -13818,13 +13788,13 @@
 						241166.666666667,
 						0,
 						333.333333333333,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						241166.666666667,
 						1,
 						333.333333333333,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						241166.666666667,
@@ -13876,37 +13846,37 @@
 						241666.666666667,
 						1,
 						166.666666666667,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						241666.666666667,
 						3,
 						166.666666666667,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						242000.000000001,
 						2,
 						166.666666666667,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						242000.000000001,
 						0,
 						166.666666666667,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						242333.333333334,
 						3,
 						250,
-						"No Animation"
+						"GF Sing"
 					],
 					[
 						242333.333333334,
 						0,
 						250,
-						"No Animation"
+						"GF Sing"
 					]
 				],
 				"typeOfSection": 0,
@@ -15585,7 +15555,8 @@
 					[
 						271666.666666667,
 						0,
-						250
+						250,
+						"GF Sing"
 					]
 				],
 				"typeOfSection": 0,
@@ -18255,14 +18226,154 @@
 				"bpm": 180
 			},
 			{
-				"gfSection": false,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 180,
 				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 180
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 180
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 180,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 180
 			},
 			{
 				"gfSection": false,
@@ -18287,6 +18398,46 @@
 		],
 		"events": [
 			[
+				9916.66666666667,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				10000,
+				[
+					[
+						"Add Camera Zoom",
+						"0.02",
+						"0.035"
+					]
+				]
+			],
+			[
+				10208.3333333333,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				10333.3333333333,
+				[
+					[
+						"Add Camera Zoom",
+						"0.04",
+						"0.055"
+					]
+				]
+			],
+			[
 				172583.333333333,
 				[
 					[
@@ -18303,6 +18454,116 @@
 						"Change Character",
 						"Dad",
 						"finn-sword"
+					]
+				]
+			],
+			[
+				241166.666666667,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				241666.666666667,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				242000.000000001,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				242333.333333334,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				250333.333333334,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				250666.666666667,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				252000.000000001,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				252333.333333334,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				252666.666666667,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				253000.000000001,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
+					]
+				]
+			],
+			[
+				253333.333333334,
+				[
+					[
+						"Add Camera Zoom",
+						"",
+						""
 					]
 				]
 			],

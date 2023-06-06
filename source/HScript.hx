@@ -16,7 +16,7 @@ import flixel.FlxSprite;
 import flixel.FlxBasic;
 import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
-import flash.display.BlendMode;
+import openfl.display.BlendMode;
 
 using StringTools;
 
