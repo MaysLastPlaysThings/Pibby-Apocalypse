@@ -98,7 +98,7 @@
 		-50,
 		150
 	],
-	"healthicon": "gumball",
+	"healthicon": "gumball_fake",
 	"flip_x": false,
 	"healthbar_colors": [
 		82,

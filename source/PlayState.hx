@@ -871,6 +871,9 @@ class PlayState extends MusicBeatState
 		lyricTxt.scrollFactor.set();
 		lyricTxt.borderSize = 1.25;
 		lyricTxt.alpha = 0;
+		if(ClientPrefs.downScroll) {
+			lyricTxt.y = healthBarBG.y + 72;
+		}
 		add(lyricTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
