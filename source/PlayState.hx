@@ -218,7 +218,10 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
+	var healthbar:FlxSprite;
+
 	//finn week shit
+	var finnT:FlxSprite;
 	var finnBarThing:FlxSprite;
 
 	private var healthBarBG:AttachedSprite;
@@ -711,6 +714,15 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.3;
 			}
 
+		finnT = new FlxSprite();
+		finnT.x = -260;
+		finnT.y = -180;
+		finnT.frames = Paths.getSparrowAtlas('characters/Finn_Transformation');
+		finnT.animation.addByPrefix('cutscene', 'FINN-CUTSCENE', 24, false);
+		finnT.alpha = 0.0001;
+		finnT.scrollFactor.set();
+		add(finnT);
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -823,6 +835,11 @@ class PlayState extends MusicBeatState
 		healthBar.alpha = 0.0001;
 		add(healthBar);
 
+		healthbar = new FlxSprite();
+		healthbar.x = 197;
+		healthbar.y = 465;
+		healthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
@@ -835,6 +852,9 @@ class PlayState extends MusicBeatState
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		add(finnBarThing);
+
+		if (storyWeekName == "gumball")
+			finnBarThing.visible = false;
 
 		if (gf != null)
 		{
@@ -913,6 +933,7 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
+		finnT.cameras = [camHUD];
 
 
 		// if (SONG.song == 'South')
@@ -1103,7 +1124,10 @@ class PlayState extends MusicBeatState
 				case "Child's Play":
 					blackie.alpha = 1;
 				case 'Mindless':
+					addCharacterToList('finn-sword', 1);
+					addCharacterToList('finn-slash', 1);
 					camGame.alpha = 0;
+					finnBarThing.alpha = 0.0001;
 					dad.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
 					iconP2.visible = false;
@@ -4229,7 +4253,7 @@ class PlayState extends MusicBeatState
 					{
 						case 1:
 							camGame.alpha = 1;
-							camGame.fade(FlxColor.BLACK, 2.5, true);
+							camGame.fade(FlxColor.BLACK, 4.42, true);
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].alpha = 0;
 							}
@@ -4282,6 +4306,14 @@ class PlayState extends MusicBeatState
 						case 320:
 							iconP2.visible = true;
 							iconP2.alpha = 0.0001;
+							FlxTween.tween(finnBarThing, {alpha: 1}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										finnBarThing.alpha = 1;
+									}
+							});
 							FlxTween.tween(iconP2, {alpha: 1}, 0.75, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4306,6 +4338,26 @@ class PlayState extends MusicBeatState
 										scoreTxt.alpha = 1;
 									}
 							});
+						case 1568:
+							FlxTween.tween(blackFNF, {alpha: 1}, 0.4, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										blackFNF.alpha = 1;
+										new FlxTimer().start(3.1, function(tmr:FlxTimer)
+										{
+											blackFNF.alpha = 0;
+										});
+									}
+							});
+						case 1577:
+							finnT.alpha = 1;
+							finnT.animation.play('cutscene');
+						case 1616:
+							blackFNF.alpha = 0;
+							camOther.flash(FlxColor.WHITE, 1);
+							finnT.alpha = 0.0001;
 						case 3712:
 							camOther.fade(FlxColor.BLACK, 2.5, false);
 					}
@@ -4780,6 +4832,44 @@ class PlayState extends MusicBeatState
                             }
 							fakeSongLength = songLength;
 							triggerEventNote('Apple Filter', 'on', 'white');
+					}
+				case 'Brotherly Love':
+					switch (curStep)
+					{
+						case 1:
+							defaultCamZoom = 1.2;
+						case 497:
+							camHUD.y = 0;
+							camHUD.angle = 0;
+						case 881:
+							camHUD.y = 0;
+							camHUD.angle = 0;
+						case 1520:
+							camGame.alpha = 0;
+						case 1536:
+							camGame.alpha = 1;
+						case 1921:
+							camHUD.y = 0;
+							camHUD.angle = 0;
+						case 3328:
+							camHUD.y = 0;
+							camHUD.angle = 0;
+							FlxTween.tween(camHUD, {alpha: 0}, 1, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.alpha = 0;
+									}
+							});
+							FlxTween.tween(camGame, {alpha: 0}, 1, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camGame.alpha = 0;
+									}
+							});
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
@@ -5310,18 +5400,18 @@ class PlayState extends MusicBeatState
 
         if (ClientPrefs.killyourself && camZooming) {
             if (curStep % 4 == 0) {
-                FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet*0.002, {
+                FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
                     ease: FlxEase.circOut,
                 });
-                FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet*0.002, {
+                FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {
                     ease: FlxEase.sineIn,
                 });
             }
             if (curStep % 4 == 2) {
-                FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet*0.002, {
+                FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {
                     ease: FlxEase.sineIn,
                 });
-                FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet*0.002, {
+                FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {
                     ease: FlxEase.sineIn,
                 });
             }
@@ -5381,6 +5471,183 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'Brotherly Love':
+					if (curStep >= 256 && curStep <= 496)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+									if (curStep % 4 == 0) {
+										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.circOut,
+										});
+										FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curStep % 4 == 2) {
+										FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+										FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curBeat % 2 == 0) {
+										angleshit = anglevar;
+									}else {
+										angleshit = -anglevar;
+									}
+									camHUD.angle = angleshit * 3;
+									camGame.angle = angleshit * 3;
+									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+								}
+						}
+						if (curStep >= 512 && curStep <= 880)
+							{
+								if (curBeat % 1 == 0)
+									{
+										abberationShaderIntensity = beatShaderAmount;
+										FlxG.camera.zoom += 0.015 * camZoomingMult;
+										camHUD.zoom += 0.03 * camZoomingMult;
+										if (curStep % 4 == 0) {
+											FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
+												ease: FlxEase.circOut,
+											});
+											FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {
+												ease: FlxEase.sineIn,
+											});
+										}
+										if (curStep % 4 == 2) {
+											FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {
+												ease: FlxEase.sineIn,
+											});
+											FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {
+												ease: FlxEase.sineIn,
+											});
+										}
+										if (curBeat % 2 == 0) {
+											angleshit = anglevar;
+										}else {
+											angleshit = -anglevar;
+										}
+										camHUD.angle = angleshit * 3;
+										camGame.angle = angleshit * 3;
+										FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.circOut,
+										});
+										FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.circOut,
+										});
+										FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+											ease: FlxEase.linear,
+										});
+										FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+											ease: FlxEase.linear,
+										});
+									}
+							}	
+						if (curStep >= 1536 && curStep <= 1920)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+									if (curStep % 4 == 0) {
+										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.circOut,
+										});
+										FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curStep % 4 == 2) {
+										FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+										FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curBeat % 2 == 0) {
+										angleshit = anglevar;
+									}else {
+										angleshit = -anglevar;
+									}
+									camHUD.angle = angleshit * 3;
+									camGame.angle = angleshit * 3;
+									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+								}
+						}
+					if (curStep >= 2304 && curStep <= 3327)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+									if (curStep % 4 == 0) {
+										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.circOut,
+										});
+										FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curStep % 4 == 2) {
+										FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+										FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {
+											ease: FlxEase.sineIn,
+										});
+									}
+									if (curBeat % 2 == 0) {
+										angleshit = anglevar;
+									}else {
+										angleshit = -anglevar;
+									}
+									camHUD.angle = angleshit * 3;
+									camGame.angle = angleshit * 3;
+									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
+										ease: FlxEase.circOut,
+									});
+									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										ease: FlxEase.linear,
+									});
+								}
+						}
 				case 'Suffering Siblings':
 					if (curStep >= 256 && curStep <= 508)
 						{
@@ -5656,21 +5923,21 @@ class PlayState extends MusicBeatState
         if(ClientPrefs.killyourself && camZooming) { //FOR THE FUNNY
             if (curBeat % 2 == 0) {
                 angleshit = anglevar;
-            }else{
+            }else {
                 angleshit = -anglevar;
             }
-            camHUD.angle = angleshit*3;
-            camGame.angle = angleshit*3;
-            FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet*0.002, {
+            camHUD.angle = angleshit * 3;
+            camGame.angle = angleshit * 3;
+            FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
                 ease: FlxEase.circOut,
             });
-            FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet*0.002, {
+            FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
                 ease: FlxEase.circOut,
             });
-            FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet*0.001, {
+            FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
                 ease: FlxEase.linear,
             });
-            FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet*0.001, {
+            FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
                 ease: FlxEase.linear,
             });
         }

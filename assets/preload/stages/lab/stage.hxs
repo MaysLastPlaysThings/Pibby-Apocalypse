@@ -71,8 +71,13 @@ function onSongStart()
 
 function onMoveCamera(focus:String)
     {
-        if (focus == 'dad')
+        if (focus == 'dad') {
+			if (PlayState.dad.curCharacter != 'jake')
             PlayState.defaultCamZoom = 0.9;
+			else
+			PlayState.defaultCamZoom = 1.2;
+
+        }
         else
             PlayState.defaultCamZoom = 1.1;
     }
