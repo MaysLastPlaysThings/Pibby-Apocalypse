@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				37,
+				12
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "deathloop"
+		},
+		{
+			"offsets": [
+				37,
+				11
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "retry"
+		},
+		{
+			"offsets": [
+				37,
+				11
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "firstDeath",
+			"loop": false,
+			"name": "BF dies"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/bfjakedeath",
+	"position": [
+		-520,
+		-250
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		-400,
+		600
+	],
+	"sing_duration": 4,
+	"scale": 1
+}
