@@ -54,6 +54,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		#if desktop
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
+
+		openfl.Lib.application.window.title = "Pibby: Apocalypse - Options Menu";
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;

@@ -30,6 +30,37 @@ class CoolUtil
 		trace(snap);
 		return (m / snap);
 	}
+
+	public static function getSongArtist(song:String) //song should be in uppercase, like the songName var
+		{
+			var artist:String = 'Kawai Sprite';
+
+			switch (song)
+			{
+				case "Mindless":
+					artist = 'Sevc_Ext_277';
+				case "Blessed By Swords":
+					artist = 'Lettush';
+				case "Brotherly Love":
+					artist = 'Kylevi';
+				case "Suffering Siblings":
+					artist = 'Awe ft. Saster';
+				case "Come Along With Me":
+					artist = 'Awe';
+				case "Child's Play":
+					artist = 'Yoosuf Meekail';
+				case "My Amazing World":
+					artist = 'Corn';
+				case "Retcon":
+					artist = 'Rareblin ft. Pattydecaffy';
+				case "Forgotten World":
+					artist = 'Awe';
+				case "No Hero Remix":
+					artist = 'Rundown';
+			}
+
+			return artist;
+		}
 	
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{

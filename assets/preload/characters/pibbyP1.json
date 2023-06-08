@@ -129,14 +129,14 @@
 		340
 	],
 	"healthicon": "pibby",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
-		238,
-		97,
-		170
+		110,
+		193,
+		221
 	],
 	"camera_position": [
-		-420,
+		140,
 		-20
 	],
 	"sing_duration": 5,

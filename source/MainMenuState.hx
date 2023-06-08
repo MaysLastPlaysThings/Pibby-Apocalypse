@@ -69,6 +69,8 @@ class MainMenuState extends MusicBeatState
 		#end
 		WeekData.loadTheFirstEnabledMod();
 
+		openfl.Lib.application.window.title = "Pibby: Apocalypse - Main Menu";
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);

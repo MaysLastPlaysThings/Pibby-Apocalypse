@@ -269,11 +269,14 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
     public var iconP3:HealthIcon;
+	public var iconPibby:HealthIcon;
+	public var iconJake:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camOverlay:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camVoid:FlxCamera;
 	public var camOther:FlxCamera;
+	public var camCard:FlxCamera;
 	public var cameraSpeed:Float = 1;
 	public var cameraBumpTween : FlxTween;
 	public var cameraHUDBumpTween : FlxTween;
@@ -308,6 +311,9 @@ class PlayState extends MusicBeatState
 	public var skipCountdown:Bool = false;
 	var songLength:Float = 0;
 	var fakeSongLength:Float = 0;
+
+	//title card
+	public var card:TitleCard;
 
 	public var cinematicdown:FlxSprite;
 	public var cinematicup:FlxSprite;
@@ -448,16 +454,19 @@ class PlayState extends MusicBeatState
 		camOverlay = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
+		camCard = new FlxCamera();
 		camOverlay.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 		camHUD.alpha = 0;
 		camOther.bgColor.alpha = 0;
+		camCard.bgColor.alpha = 0;
 
 		FlxG.cameras.add(camVoid, false);
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camOverlay, false);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
+		FlxG.cameras.add(camCard, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
@@ -814,6 +823,14 @@ class PlayState extends MusicBeatState
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
+		if (Assets.exists(Paths.txt(SONG.song.replace(' ', '-') + "/info")))
+			{
+				trace('woo');
+				card = new TitleCard(0, 200, SONG.song.replace(' ', '-'));
+				card.cameras = [camOther];
+				add(card);
+			}
+
 		FlxG.fixedTimestep = false;
 
 		healthBarBG = new AttachedSprite('healthBar');
@@ -863,6 +880,21 @@ class PlayState extends MusicBeatState
 			iconP3.visible = !ClientPrefs.hideHud;
 			iconP3.alpha = ClientPrefs.healthBarAlpha;
 			add(iconP3);
+		}
+
+		if (SONG.song == "Suffering Siblings")
+		{
+			iconPibby = new HealthIcon(gf.healthIcon, true);
+			iconPibby.y = healthBar.y - 77;
+			iconPibby.visible = !ClientPrefs.hideHud;
+			iconPibby.alpha = ClientPrefs.healthBarAlpha;
+			add(iconPibby);
+
+			iconJake = new HealthIcon("jake", false);
+			iconJake.y = healthBar.y - 77;
+			iconJake.visible = !ClientPrefs.hideHud;
+			iconJake.alpha = ClientPrefs.healthBarAlpha;
+			add(iconJake);
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
@@ -925,7 +957,11 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
-        if ( gf != null ) iconP3.cameras = [camHUD];
+        if (gf != null) iconP3.cameras = [camHUD];
+		if (SONG.song == "Suffering Siblings") {
+			iconJake.cameras = [camHUD];
+			iconPibby.cameras = [camHUD];
+		}
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
@@ -1066,6 +1102,7 @@ class PlayState extends MusicBeatState
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
 		#end
+
 
 		if(!ClientPrefs.controllerMode)
 		{
@@ -1760,6 +1797,11 @@ class PlayState extends MusicBeatState
 	{
 		startingSong = false;
 
+		if (card != null)
+			{
+				card.start();
+			}
+
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
@@ -1823,6 +1865,10 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(songData.bpm);
 
 		curSong = songData.song;
+
+		var sognArtist:String = CoolUtil.getSongArtist(curSong);
+
+		openfl.Lib.application.window.title = "Pibby: Apocalypse - " + curSong + " - composed by " + sognArtist;
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
@@ -2369,6 +2415,19 @@ class PlayState extends MusicBeatState
 			iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		}
 
+		if (SONG.song == "Suffering Siblings")
+		{
+			var mult:Float = FlxMath.lerp(0.8, iconPibby.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconPibby.scale.set(mult, mult);
+			iconPibby.updateHitbox();
+			iconPibby.x = 964;
+			
+			var mult2:Float = FlxMath.lerp(0.8, iconJake.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconJake.scale.set(mult2, mult2);
+			iconJake.updateHitbox();
+			iconJake.x = 163;
+		}
+
 		iconP1.x = 614;
 		defaultIconP2x = 513;
 
@@ -2381,7 +2440,11 @@ class PlayState extends MusicBeatState
 				iconP3.shader = distortFNF;
 				iconP3.playAnim(iconP3.char + 'losing', false, false);
 			}
-
+			if (SONG.song == "Suffering Siblings")
+				{
+					iconPibby.shader = distortFNF;
+					iconPibby.playAnim(iconPibby.char + 'losing', false, false);
+				}
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
         } else {
 			if (gf != null)
@@ -2389,14 +2452,29 @@ class PlayState extends MusicBeatState
 				iconP3.shader = null;
 				iconP3.playAnim(iconP3.char + 'neutral', false, false);
 			}
+			if (SONG.song == "Suffering Siblings")
+				{
+					iconPibby.shader = null;
+					iconPibby.playAnim(iconPibby.char + 'neutral', false, false);
+				}
             iconP1.shader = null;
 			iconP1.playAnim(iconP1.char + 'neutral', false, false);
         }
 
         if (healthBar.percent > 80){
+			if (SONG.song == "Suffering Siblings")
+				{
+					iconJake.shader = distortFNF;
+					iconJake.playAnim(iconJake.char + 'losing', false, false);
+				}
             iconP2.shader = distortFNF;
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
         }else{
+			if (SONG.song == "Suffering Siblings")
+				{
+					iconJake.shader = null;
+					iconJake.playAnim(iconJake.char + 'neutral', false, false);
+				}
             iconP2.shader = null;
 			iconP2.playAnim(iconP2.char + 'neutral', false, false);
         }
@@ -3961,9 +4039,9 @@ class PlayState extends MusicBeatState
 								}
                                 if (ClientPrefs.screenGlitch) {
                                     if (FlxG.random.float(0, 1) < 0.5) {
-                                        camGame.shake(FlxG.random.float(0.025, 0.04), FlxG.random.float(0.075, 0.125));
+                                        camGame.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
                                     } else{
-                                        camHUD.shake(FlxG.random.float(0.025, 0.04), FlxG.random.float(0.075, 0.125));
+                                        camHUD.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
                                         for (i in 0...opponentStrums.length) {
                                             opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
                                             opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
@@ -4080,8 +4158,9 @@ class PlayState extends MusicBeatState
                     healthBar.createFilledBar(dadColor, gfColor);
                     healthBar.updateBar();
                     scoreTxt.color = gfColor;
+					if (storyWeekName != "finn") {
                     if (gf != null) iconP1.changeIcon(gf.healthIcon);
-                    if (iconP3 != null) iconP3.changeIcon(boyfriend.healthIcon);
+                    if (iconP3 != null) iconP3.changeIcon(boyfriend.healthIcon); }
                 }
             }
 
@@ -4386,6 +4465,7 @@ class PlayState extends MusicBeatState
 									{
 										defaultCamZoom = defaultCamZoom;
 										camGame.alpha = 0;
+										camHUD.alpha = 0;
 									}
 							});
 						case 400:
@@ -4394,6 +4474,7 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.2;
 						case 416:
 							camGame.alpha = 1;
+							camHUD.alpha = 1;
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
@@ -4812,7 +4893,33 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 						case 1792:
 							defaultCamZoom = 1.2;
+						case 1816:
+							camHUD.alpha = 0;
+							FlxTween.tween(camGame, {zoom: 1.25}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.25;
+									}});
+						case 1818:
+							FlxTween.tween(camGame, {zoom: 1.4}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.3;
+									}});
+						case 1820:
+							FlxTween.tween(camGame, {zoom: 1.4}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.4;
+									}});
 						case 1824:
+							camHUD.alpha = 1;
 							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4839,21 +4946,69 @@ class PlayState extends MusicBeatState
 						case 1:
 							defaultCamZoom = 1.2;
 						case 497:
-							camHUD.y = 0;
-							camHUD.angle = 0;
+							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.y = 0;
+									}});
+							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.angle = 0;
+									}});
 						case 881:
-							camHUD.y = 0;
-							camHUD.angle = 0;
+							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.y = 0;
+									}});
+							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.angle = 0;
+									}});
 						case 1520:
 							camGame.alpha = 0;
 						case 1536:
 							camGame.alpha = 1;
 						case 1921:
-							camHUD.y = 0;
-							camHUD.angle = 0;
+							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.y = 0;
+									}});
+							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.angle = 0;
+									}});
 						case 3328:
-							camHUD.y = 0;
-							camHUD.angle = 0;
+							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camHUD.y = 0;
+									}});
+							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0;
+									}});
 							FlxTween.tween(camHUD, {alpha: 0}, 1, {
 								ease: FlxEase.linear,
 								onComplete: 
@@ -5444,6 +5599,14 @@ class PlayState extends MusicBeatState
 				iconP3.scale.set(1, 1);
 				iconP3.updateHitbox();
 			}
+		
+		if (SONG.song == "Suffering Siblings")
+			{
+				iconPibby.scale.set(1, 1);
+				iconPibby.updateHitbox();
+				iconJake.scale.set(1, 1);
+				iconJake.updateHitbox();
+			}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -5888,7 +6051,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1344 && curStep <= 1520)
+					if (curStep >= 1280 && curStep <= 1520)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -5897,7 +6060,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1547 && curStep <= 1791)
+					if (curStep >= 1536 && curStep <= 1791)
 						{
 							if (curBeat % 1 == 0)
 								{

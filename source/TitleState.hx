@@ -218,6 +218,8 @@ class TitleState extends MusicBeatState
 			}
 			#end
 
+			openfl.Lib.application.window.title = "Pibby: Apocalypse - Title Screen";
+
 			if (initialized)
 				startIntro();
 			else
