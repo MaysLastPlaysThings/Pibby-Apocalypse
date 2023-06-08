@@ -1,37 +1,37 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				37,
 				11
 			],
-			"anim": "firstDeath",
+			"loop": false,
 			"fps": 24,
-			"name": "bfdies",
-			"indices": []
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "bfdies"
 		},
 		{
-			"loop": true,
 			"offsets": [
 				-117,
 				-320
 			],
-			"anim": "deathLoop",
+			"loop": true,
 			"fps": 24,
-			"name": "deathloop",
-			"indices": []
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "deathloop"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				717,
 				-20
 			],
-			"anim": "deathConfirm",
+			"loop": false,
 			"fps": 24,
-			"name": "retry",
-			"indices": []
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "retry"
 		}
 	],
 	"no_antialiasing": false,
@@ -48,8 +48,8 @@
 		209
 	],
 	"camera_position": [
-		-400,
-		890
+		-250,
+		580
 	],
 	"sing_duration": 4,
 	"scale": 1
