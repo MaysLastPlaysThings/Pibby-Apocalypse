@@ -156,8 +156,8 @@ class MainMenuState extends MusicBeatState
 					MusicBeatState.switchState(new options.OptionsState());
 			 },
 			 null,
-			 function( s : FlxSprite ) { options.alpha = 1; },
-			 function( s : FlxSprite ) { options.alpha = 0.4; }
+			 function( s : FlxSprite ) { FlxTween.tween(options, {alpha: 1}, 0.25, { ease: FlxEase.quadOut}); },
+			 function( s : FlxSprite ) { FlxTween.tween(options, {alpha: 0.4}, 0.25, { ease: FlxEase.quadOut}); }
 			 );
 
 
@@ -172,8 +172,8 @@ class MainMenuState extends MusicBeatState
 		FlxMouseEvent.add(discord,
 			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/wTc9JHpWkU')); },
 			null,
-			function( s : FlxSprite ) { discord.alpha = 1; },
-			function( s : FlxSprite ) { discord.alpha = 0.4; }
+			function( s : FlxSprite ) { FlxTween.tween(discord, {alpha: 1}, 0.25, { ease: FlxEase.quadOut}); },
+			function( s : FlxSprite ) { FlxTween.tween(discord, {alpha: 0.4}, 0.25, { ease: FlxEase.quadOut}); }
 		);
 
 

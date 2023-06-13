@@ -1868,7 +1868,7 @@ class PlayState extends MusicBeatState
 
 		var sognArtist:String = CoolUtil.getSongArtist(curSong);
 
-		openfl.Lib.application.window.title = "Pibby: Apocalypse - " + curSong + " - composed by " + sognArtist;
+		openfl.Lib.application.window.title = "Pibby: Apocalypse - " + curSong + " - Composed by " + sognArtist;
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));

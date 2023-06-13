@@ -54,4 +54,19 @@ class StoryMenuState extends MusicBeatState
 		PlayState.isStoryMode = true;
 
 	}
+
+	var selectedSomethin:Bool = false;
+
+	override function update( elapsed : Float )
+		{
+			if (!selectedSomethin)
+				{
+					if (controls.BACK)
+						{
+							selectedSomethin = true;
+							FlxG.sound.play(Paths.sound('cancelMenu'));
+							MusicBeatState.switchState(new MainMenuState());
+						}
+				}
+		}
 }
