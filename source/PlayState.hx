@@ -4945,70 +4945,35 @@ class PlayState extends MusicBeatState
 					{
 						case 1:
 							defaultCamZoom = 1.2;
-						case 497:
-							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.y = 0;
-									}});
-							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.angle = 0;
-									}});
-						case 881:
-							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.y = 0;
-									}});
-							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.angle = 0;
-									}});
+						case 506:
+							camHUD.angle = 0;
+							camGame.angle = 0;
+							camHUD.x = 0;
+							camGame.x = 0;
+							camGame.scroll.y = 0;
+						case 890:
+							camHUD.angle = 0;
+							camGame.angle = 0;
+							camHUD.x = 0;
+							camGame.x = 0;
+							camGame.scroll.y = 0;
 						case 1520:
 							camGame.alpha = 0;
 						case 1536:
 							camGame.alpha = 1;
-						case 1921:
-							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.y = 0;
-									}});
-							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.angle = 0;
-									}});
+						case 1930:
+							camHUD.angle = 0;
+							camGame.angle = 0;
+							camHUD.x = 0;
+							camGame.x = 0;
+							camGame.scroll.y = 0;
+						case 3337:
+							camHUD.angle = 0;
+							camGame.angle = 0;
+							camHUD.x = 0;
+							camGame.x = 0;
+							camGame.scroll.y = 0;
 						case 3328:
-							FlxTween.tween(camHUD, {y: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camHUD.y = 0;
-									}});
-							FlxTween.tween(camHUD, {angle: 0}, 0.00075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										defaultCamZoom = 0;
-									}});
 							FlxTween.tween(camHUD, {alpha: 0}, 1, {
 								ease: FlxEase.linear,
 								onComplete: 
