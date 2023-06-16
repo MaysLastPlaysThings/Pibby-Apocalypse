@@ -4639,7 +4639,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1184:
+						case 1180:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2);
 							}
