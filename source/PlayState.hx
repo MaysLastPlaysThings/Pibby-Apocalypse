@@ -1151,7 +1151,10 @@ class PlayState extends MusicBeatState
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
 				case 'Forgotten World':
-					Paths.video('forgottenscene');
+					var video:VideoHandler = new VideoHandler();
+					video.playVideo(Paths.video('forgottenscene'));
+					video.finishCallback = null;
+					video.stop();
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -4560,6 +4563,10 @@ class PlayState extends MusicBeatState
 							}
 							defaultCamZoom = 0.7;
 						case 515:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1.5);
+							}
+							camHUD.shake(0.01, 0.01);
 							triggerEventNote('Apple Filter', 'off', 'white');
 						case 563:
 							defaultCamZoom = 0.85;
