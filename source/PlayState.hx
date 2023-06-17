@@ -2087,7 +2087,7 @@ class PlayState extends MusicBeatState
 		for (i in 0...4)
 		{
 			// FlxG.log.add(i);
-			var targetAlpha:Float = 1;
+			var targetAlpha:Float = 0.8;
 			if (player < 1)
 			{
 				if(!ClientPrefs.opponentStrums) targetAlpha = 0;
@@ -2104,7 +2104,7 @@ class PlayState extends MusicBeatState
 					onComplete: 
 					function (twn:FlxTween)
 						{
-							babyArrow.alpha = 1;
+							babyArrow.alpha = 0.8;
 						}});
 			}
 			else
@@ -2625,7 +2625,7 @@ class PlayState extends MusicBeatState
 					if(daNote.copyAlpha) {
 						if(!daNote.mustPress) {
 							if(!daNote.gfNote) {
-								daNote.alpha = strumAlpha;
+								daNote.alpha = strumAlpha + 0.2;
 							}else{
 								daNote.alpha = 0;
 							}
@@ -4639,11 +4639,13 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1180:
+						case 1176:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2);
 							}
-							startVideo('forgottenscene');
+							var video:VideoHandler = new VideoHandler();
+							video.playVideo(Paths.video('forgottenscene'));
+							video.finishCallback = null;
 							
 					}
 				case 'My Amazing World':
