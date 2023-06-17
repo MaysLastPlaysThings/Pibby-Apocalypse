@@ -199,7 +199,7 @@ class MainMenuState extends MusicBeatState
 					menuItem.x = -100;
 					menuItem.y = -75;
 				case 'GB PAGE':
-					menuItem.x = 800;
+					menuItem.x = 790;
 					menuItem.y = -75;
 			}
 			menuItems.add(menuItem);
