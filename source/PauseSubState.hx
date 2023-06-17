@@ -38,17 +38,7 @@ class PauseSubState extends MusicBeatSubstate
 		super();
 		if(CoolUtil.difficulties.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
 
-		menuItemsOG.insert(2, 'Leave Charting Mode');
-		
 		var num:Int = 0;
-		if(!PlayState.instance.startingSong)
-		{
-			num = 1;
-			menuItemsOG.insert(3, 'Skip Time');
-		}
-		menuItemsOG.insert(3 + num, 'End Song');
-		menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
-		menuItemsOG.insert(5 + num, 'Toggle Botplay');
 		
 		menuItems = menuItemsOG;
 
@@ -103,15 +93,6 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
 		add(practiceText);
-
-		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
-		chartingText.scrollFactor.set();
-		chartingText.setFormat(Paths.font('vcr.ttf'), 32);
-		chartingText.x = FlxG.width - (chartingText.width + 20);
-		chartingText.y = FlxG.height - (chartingText.height + 20);
-		chartingText.updateHitbox();
-		chartingText.visible = PlayState.chartingMode;
-		add(chartingText);
 
 		blueballedTxt.alpha = 0;
 		levelDifficulty.alpha = 0;
@@ -240,9 +221,6 @@ class PauseSubState extends MusicBeatSubstate
 						}
 						close();
 					}
-				case "End Song":
-					close();
-					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;

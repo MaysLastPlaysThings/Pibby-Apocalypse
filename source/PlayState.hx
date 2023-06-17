@@ -392,6 +392,8 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
+		FlxG.game.filtersEnabled = true;
+
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null; //Reset to default
@@ -1169,9 +1171,16 @@ class PlayState extends MusicBeatState
 					camGame.alpha = 0;
 					finnBarThing.alpha = 0.0001;
 					dad.alpha = 0.0001;
-					iconP1.alpha = 0.0001;
+					iconP1.visible = false;
 					iconP2.visible = false;
 					scoreTxt.alpha = 0.0001;
+				case 'Come Along With Me':
+					finnBarThing.alpha = 0.0001;
+					iconP1.visible = false;
+					iconP2.visible = false;
+					scoreTxt.alpha = 0.0001;
+					addCharacterToList('finn-sword', 1);
+					addCharacterToList('finn-open2', 1);
 			}
 
 		cacheCountdown();
@@ -4330,6 +4339,85 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song)
 			{
+				case 'Come Along With Me':
+					switch (curStep)
+					{
+						case 1:
+							FlxTween.tween(camHUD, {alpha: 0}, 1, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										camHUD.alpha = 0;
+									}
+							});
+						case 18:
+							for (i in 0...opponentStrums.length) {
+								opponentStrums.members[i].visible = false;
+								opponentStrums.members[i].alpha = 0;
+							}
+							for (i in 0...playerStrums.length) {
+								playerStrums.members[i].visible = false;
+								playerStrums.members[i].alpha = 0;
+							}
+						case 128:
+							camHUD.alpha = 1;
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 1);
+							}
+							for (i in 0...opponentStrums.length) {
+								opponentStrums.members[i].visible =	true;
+								opponentStrums.members[i].alpha = 1;
+							}
+						case 186:
+							for (i in 0...playerStrums.length) {
+								playerStrums.members[i].visible = true;
+								playerStrums.members[i].alpha =	0.0001;
+								FlxTween.tween(playerStrums.members[i], {alpha: 1}, 0.5, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											playerStrums.members[i].alpha = 1;
+										}
+								});
+							}
+						case 378:
+							FlxTween.tween(camHUD, {alpha: 0}, 0.25, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										camHUD.alpha = 0;
+									}
+							});
+							defaultCamZoom = 1.35;
+						case 384:
+							defaultCamZoom = 0.9;
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 1);
+							}
+								FlxTween.tween(camHUD, {alpha: 1}, 0.25, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											camHUD.alpha = 1;
+										}
+								});
+						case 640:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 0.33);
+							}
+						case 896:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 1);
+							}
+						case 1040:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 1);
+							}
+					}
 				case 'Mindless':
 					switch (curStep)
 					{
@@ -4388,6 +4476,8 @@ class PlayState extends MusicBeatState
 						case 320:
 							iconP2.visible = true;
 							iconP2.alpha = 0.0001;
+							iconP1.visible = true;
+							iconP1.alpha = 0.0001;
 							FlxTween.tween(finnBarThing, {alpha: 1}, 0.75, {
 								ease: FlxEase.quadInOut,
 								onComplete: 

@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "PibbyFinn Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				67,
+				16
+			],
+			"anim": "transition",
+			"fps": 24,
+			"name": "Glitch Transition",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				65,
+				17
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "PibbyFinn Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				18,
+				-3
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "PibbyFinn Right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				30,
+				-9
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "PibbyFinn Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				12,
+				34
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "PibbyFinn Up",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/CAWM_Opening_Finn_2",
+	"position": [
+		0,
+		50
+	],
+	"healthicon": "finn",
+	"flip_x": false,
+	"healthbar_colors": [
+		168,
+		160,
+		179
+	],
+	"camera_position": [
+		20,
+		-120
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

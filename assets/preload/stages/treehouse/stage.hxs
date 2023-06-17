@@ -1,0 +1,31 @@
+var bg;
+var treehouse;
+
+function onCreate()
+{
+    bg = new flixel.FlxSprite(0, 0);
+    bg.loadGraphic(retrieveAsset('images/back.png', 'image'));
+    bg.scale.set(1.5, 1.5);
+    bg.antialiasing = ClientPrefs.globalAntialiasing;
+    bg.updateHitbox();
+
+    treehouse = new flixel.FlxSprite(0, 0);
+    treehouse.loadGraphic(retrieveAsset('images/tree.png', 'image'));
+    treehouse.scale.set(1.5, 1.5);
+    treehouse.antialiasing = ClientPrefs.globalAntialiasing;
+    treehouse.updateHitbox();
+
+    add(bg);
+    add(treehouse);
+
+}
+
+function onMoveCamera(focus:String)
+    {
+        if (focus == 'dad') {
+			PlayState.defaultCamZoom = 0.9;
+
+        }
+        else
+            PlayState.defaultCamZoom = 1.2;
+    }

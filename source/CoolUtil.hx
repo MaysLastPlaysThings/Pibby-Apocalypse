@@ -39,7 +39,7 @@ class CoolUtil
 			{
 				case "Mindless":
 					artist = 'Sevc_Ext_277';
-				case "Blessed By Swords":
+				case "Blessed by Swords":
 					artist = 'Lettush';
 				case "Brotherly Love":
 					artist = 'Kylevi';
