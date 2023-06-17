@@ -71,6 +71,8 @@ class MainMenuState extends MusicBeatState
 
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Main Menu";
 
+		FlxG.game.filtersEnabled = false;
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);

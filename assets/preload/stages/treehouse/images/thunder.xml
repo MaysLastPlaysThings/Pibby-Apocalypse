@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="thunder.png">
+	<!-- Created with Adobe Animate version 22.0.3.179 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="thunder10000" x="30" y="30" width="769" height="490" frameX="-857" frameY="-34" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10001" x="30" y="30" width="769" height="490" frameX="-857" frameY="-34" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10002" x="829" y="30" width="1285" height="1384" frameX="-256" frameY="-8" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10003" x="2144" y="30" width="1116" height="1288" frameX="-614" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10004" x="3290" y="30" width="1007" height="1283" frameX="-723" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10005" x="3290" y="30" width="1007" height="1283" frameX="-723" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10006" x="4327" y="30" width="1730" height="1304" frameX="0" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10007" x="4327" y="30" width="1730" height="1304" frameX="0" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10008" x="6087" y="30" width="1560" height="1304" frameX="-179" frameY="0" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10009" x="30" y="1444" width="1560" height="1273" frameX="-179" frameY="-31" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10010" x="30" y="1444" width="1560" height="1273" frameX="-179" frameY="-31" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder10011" x="1620" y="1444" width="0" height="0" frameX="-979" frameY="895" frameWidth="1739" frameHeight="1392"/>
+	<SubTexture name="thunder20000" x="1650" y="1444" width="2028" height="1580" frameX="-12" frameY="0" frameWidth="2040" frameHeight="1583"/>
+	<SubTexture name="thunder20001" x="1650" y="1444" width="2028" height="1580" frameX="-12" frameY="0" frameWidth="2040" frameHeight="1583"/>
+	<SubTexture name="thunder20002" x="3708" y="1444" width="1821" height="1580" frameX="-1" frameY="0" frameWidth="2040" frameHeight="1583"/>
+	<SubTexture name="thunder20003" x="5559" y="1444" width="1821" height="1542" frameX="0" frameY="-41" frameWidth="2040" frameHeight="1583"/>
+	<SubTexture name="thunder20004" x="5559" y="1444" width="1821" height="1542" frameX="0" frameY="-41" frameWidth="2040" frameHeight="1583"/>
+</TextureAtlas>

@@ -15,63 +15,63 @@ function onCreate()
     void = new flixel.FlxSprite(0, -200);
     void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
     void.setGraphicSize(Std.int(void.width * 2.5));
-    void.antialiasing = true;
+    void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
 
     sheer = new flixel.FlxSprite(0, -200);
     sheer.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
     sheer.setGraphicSize(Std.int(sheer.width * 2.5));
-    sheer.antialiasing = true;
+    sheer.antialiasing = ClientPrefs.globalAntialiasing;
     sheer.scrollFactor.set(0.6, 0.6);
     sheer.updateHitbox();
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
     house.setGraphicSize(Std.int(house.width * 2.5));
-    house.antialiasing = true;
+    house.antialiasing = ClientPrefs.globalAntialiasing;
     house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
 
     rock = new flixel.FlxSprite(0, -200);
     rock.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-4.png', 'image'));
     rock.setGraphicSize(Std.int(rock.width * 2.5));
-    rock.antialiasing = true;
+    rock.antialiasing = ClientPrefs.globalAntialiasing;
     rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
 
     rock2 = new flixel.FlxSprite(0, -200);
     rock2.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-5.png', 'image'));
     rock2.setGraphicSize(Std.int(rock2.width * 2.5));
-    rock2.antialiasing = true;
+    rock2.antialiasing = ClientPrefs.globalAntialiasing;
     rock2.scrollFactor.set(1.1, 1.1);
     rock2.updateHitbox();
 
     rock3 = new flixel.FlxSprite(0, -200);
     rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
     rock3.setGraphicSize(Std.int(rock3.width * 2.5));
-    rock3.antialiasing = true;
+    rock3.antialiasing = ClientPrefs.globalAntialiasing;
     rock3.scrollFactor.set(0.9, 0.9);
     rock3.updateHitbox();
 
     rock4 = new flixel.FlxSprite(0, -200);
     rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
     rock4.setGraphicSize(Std.int(rock4.width * 2.5));
-    rock4.antialiasing = true;
+    rock4.antialiasing = ClientPrefs.globalAntialiasing;
     rock4.scrollFactor.set(0.85, 0.85);
     rock4.updateHitbox();
 
     wtf = new flixel.FlxSprite(0, -200);
     wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-8.png', 'image'));
     wtf.setGraphicSize(Std.int(wtf.width * 2.5));
-    wtf.antialiasing = true;
+    wtf.antialiasing = ClientPrefs.globalAntialiasing;
     wtf.scrollFactor.set(1, 1);
     wtf.updateHitbox();
 
     vignette = new flixel.FlxSprite(0, -200);
     vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-9.png', 'image'));
     vignette.setGraphicSize(Std.int(vignette.width * 2.5));
-    vignette.antialiasing = true;
+    vignette.antialiasing = ClientPrefs.globalAntialiasing;
     vignette.scrollFactor.set(1, 1);
     vignette.updateHitbox();
 
