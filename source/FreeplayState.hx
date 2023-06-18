@@ -605,9 +605,7 @@ class FreeplayState extends MusicBeatState
 			case "Come Along With Me":
 				threatPercent = 75;
 		}
-
-		levelBar.createFilledBar(0x00000000, FlxColor.WHITE, true);
-
+		levelBar.updateBar();
 	}
 
 	private function positionHighscore() {
