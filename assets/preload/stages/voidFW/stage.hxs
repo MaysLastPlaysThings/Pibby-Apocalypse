@@ -1,5 +1,4 @@
 var void;
-var sheer;
 var house;
 var rock;
 var rock2;
@@ -7,7 +6,6 @@ var rock3;
 var rock4;
 var wtf;
 var glitch;
-var vignette;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
 
 function onCreate()
@@ -18,13 +16,6 @@ function onCreate()
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
-
-    sheer = new flixel.FlxSprite(0, -200);
-    sheer.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
-    sheer.setGraphicSize(Std.int(sheer.width * 2.5));
-    sheer.antialiasing = ClientPrefs.globalAntialiasing;
-    sheer.scrollFactor.set(0.6, 0.6);
-    sheer.updateHitbox();
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
@@ -68,12 +59,12 @@ function onCreate()
     wtf.scrollFactor.set(1, 1);
     wtf.updateHitbox();
 
-    vignette = new flixel.FlxSprite(0, -200);
-    vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-9.png', 'image'));
-    vignette.setGraphicSize(Std.int(vignette.width * 2.5));
-    vignette.antialiasing = ClientPrefs.globalAntialiasing;
-    vignette.scrollFactor.set(1, 1);
-    vignette.updateHitbox();
+    glitch = new flixel.FlxSprite(0, -200);
+    glitch.frames = retrieveAsset('images/gumballglitchbg', 'ATLAS');
+    glitch.animation.addByPrefix('spin', 'spin', 24, true);
+    glitch.setGraphicSize(Std.int(glitch.width * 2.5));
+    glitch.scrollFactor.set(1, 1);
+    glitch.updateHitbox();
 
     tweenLoopAngle(house, 4, -4, 6, 6);
     tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
@@ -91,10 +82,9 @@ function onCreate()
     add(rock3);
     add(rock2);
     add(house);
-    add(sheer);
     add(rock);
     add(wtf);
-    foreground.add(vignette);
+    add(glitch);
 }
 
 function onStepHit(curStep) {
@@ -128,34 +118,3 @@ function onPause() {
 function onResume() {
     stupidFix.active = true;
 }
-
-function onEvent(event:String, value1:String, value2:String)
-    {
-     if (event == 'Apple Filter')
-        {
-             if (value1 == 'on') 
-            {
-                vignette.alpha = 0.0001;
-                void.alpha = 0.0001; 
-                rock.alpha = 0.0001; 
-                rock2.alpha = 0.0001; 
-                rock3.alpha = 0.0001; 
-                rock4.alpha = 0.0001; 
-                sheer.alpha = 0.0001;
-                house.alpha = 0.0001; 
-                wtf.alpha = 0.0001; 
-            }
-             else if (value1 == 'off')
-            {
-                vignette.alpha = 1;
-                void.alpha = 1; 
-                rock.alpha = 1; 
-                rock2.alpha = 1;
-                rock3.alpha = 1; 
-                rock4.alpha = 1; 
-                sheer.alpha = 1;
-                house.alpha = 1; 
-                wtf.alpha = 1; 
-            }
-        }
-    }
