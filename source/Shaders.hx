@@ -1251,7 +1251,7 @@ class GlitchMissingNo extends FlxShader
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        gl_FragColor = texture2D(bitmap, vec2(rx, ry));
+        gl_FragColor = flixel_texture2D(bitmap, vec2(rx, ry));
     }
     ')
 

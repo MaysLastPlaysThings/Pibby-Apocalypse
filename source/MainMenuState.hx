@@ -51,8 +51,7 @@ class MainMenuState extends MusicBeatState
 	
 	var optionShit:Array<String> = [
 		'FREEPLAY',
-		'STORY MODE',
-		#if !swtich 'GB PAGE', #end
+		'GB PAGE',
 	];
 
 	var magenta:FlxSprite;
@@ -194,9 +193,6 @@ class MainMenuState extends MusicBeatState
 			menuItem.ID = i;
 			switch (optionShit[i])
 			{
-				case 'STORY MODE':
-					menuItem.x = 240;
-					menuItem.y = -75;
 				case 'FREEPLAY':
 					menuItem.x = -100;
 					menuItem.y = -75;
@@ -308,8 +304,6 @@ class MainMenuState extends MusicBeatState
 	
 								switch (daChoice)
 								{
-									case 'STORY MODE':
-										MusicBeatState.switchState(new StoryMenuState());
 									case 'FREEPLAY':
 									MusicBeatState.switchState(new FreeplayState());
 										FlxG.sound.playMusic(Paths.music('fpmenu'));
