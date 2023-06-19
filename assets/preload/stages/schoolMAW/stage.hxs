@@ -267,12 +267,27 @@ function onStepHit(curStep:Int)
                 ch2.visible = false;
                 ch3.visible = true;
             }
-        if (curStep == 2624)
+        if (curStep == 2604)
             {
                 ch3.visible = false;
                 ch1.visible = true;
             }
+        if (curStep == 2624)
+            {
+                ch1.visible = false;
+                ch2.visible = true;
+            }
+        if (curStep == 2632)
+            {
+                ch2.visible = false;
+                ch3.visible = true;
+            }
         if (curStep == 2640)
+            {
+                ch3.visible = false;
+                ch1.visible = true;
+            }
+        if (curStep == 2648)
             {
                 ch1.visible = false;
                 ch2.visible = true;
@@ -297,6 +312,8 @@ function onStepHit(curStep:Int)
                 PlayState.gf.y = 900;
                 PlayState.dad.x = 900;
                 PlayState.dad.y = 740;
+                PlayState.boyfriend.x = 1570;
+                PlayState.boyfriend.y = 800;
             }
     }
 

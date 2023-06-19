@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="pibbylookingahh.png">
+<SubTexture name="pibbylookingahh rotate0000" x="0" y="0" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0001" x="653" y="0" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0002" x="0" y="382" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0003" x="653" y="382" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0004" x="0" y="764" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0005" x="653" y="764" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0006" x="1306" y="0" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0007" x="1306" y="382" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0008" x="1306" y="764" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0009" x="0" y="1146" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0010" x="653" y="1146" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0011" x="1306" y="1146" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+<SubTexture name="pibbylookingahh rotate0012" x="0" y="1528" width="653" height="382" frameX="0" frameY="0" frameWidth="653" frameHeight="382" />
+</TextureAtlas>
