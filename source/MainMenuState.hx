@@ -51,7 +51,8 @@ class MainMenuState extends MusicBeatState
 	
 	var optionShit:Array<String> = [
 		'FREEPLAY',
-		'GB PAGE',
+		'STORY MODE',
+		'CREDITS',
 	];
 
 	var magenta:FlxSprite;
@@ -69,8 +70,6 @@ class MainMenuState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Main Menu";
-
-		FlxG.game.filtersEnabled = false;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -193,11 +192,14 @@ class MainMenuState extends MusicBeatState
 			menuItem.ID = i;
 			switch (optionShit[i])
 			{
+				case 'STORY MODE':
+					menuItem.x = 240;
+					menuItem.y = -75;
 				case 'FREEPLAY':
 					menuItem.x = -100;
 					menuItem.y = -75;
-				case 'GB PAGE':
-					menuItem.x = 790;
+				case 'CREDITS':
+					menuItem.x = 820;
 					menuItem.y = -75;
 			}
 			menuItems.add(menuItem);
@@ -274,46 +276,42 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-                
-				if (optionShit[curSelected] == 'GB PAGE')
+				selectedSomethin = true;
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+
+				menuItems.forEach(function(spr:FlxSprite)
 				{
-					CoolUtil.browserLoad('https://gamebanana.com/wips/73842');
-				}
-                else	
-                {
-				    selectedSomethin = true;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-	
-					menuItems.forEach(function(spr:FlxSprite)
+					if (curSelected != spr.ID)
 					{
-						if (curSelected != spr.ID)
-						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
-						}
-						else
-						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
 							{
-								var daChoice:String = optionShit[curSelected];
-	
-								switch (daChoice)
-								{
-									case 'FREEPLAY':
-									MusicBeatState.switchState(new FreeplayState());
-										FlxG.sound.playMusic(Paths.music('fpmenu'));
-										FlxG.sound.music.fadeIn(2, 0, 0.5);
-								}
-							});
-						}
-					});
-				}
-		    }
+								spr.kill();
+							}
+						});
+					}
+					else
+					{
+						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+						{
+							var daChoice:String = optionShit[curSelected];
+
+							switch (daChoice)
+							{
+								case 'STORY MODE':
+									MusicBeatState.switchState(new StoryMenuState());
+								case 'FREEPLAY':
+                                MusicBeatState.switchState(new FreeplayState());
+									FlxG.sound.playMusic(Paths.music('fpmenu'));
+								case 'CREDITS':
+									MusicBeatState.switchState(new CreditsState());
+									FlxG.sound.playMusic(Paths.music('creditsmenu'));
+							}
+						});
+					}
+				});
+			}
 			#if desktop
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
