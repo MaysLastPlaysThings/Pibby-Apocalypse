@@ -2125,7 +2125,7 @@ class PlayState extends MusicBeatState
 					onComplete: 
 					function (twn:FlxTween)
 						{
-							babyArrow.alpha = 0.8;
+							babyArrow.alpha = 1;
 						}});
 			}
 			else
@@ -2631,7 +2631,7 @@ class PlayState extends MusicBeatState
 
 					if (strumScroll) //Downscroll
 					{
-						//daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * songSpeed);
+						//daNote.y = (strumY + 0.45 * (Conductor.so.2ngPosition - daNote.strumTime) * songSpeed);
 						daNote.distance = (0.45 * (Conductor.songPosition - daNote.strumTime) * songSpeed * daNote.multSpeed);
 					}
 					else //Upscroll
@@ -2647,7 +2647,7 @@ class PlayState extends MusicBeatState
 					if(daNote.copyAlpha) {
 						if(!daNote.mustPress) {
 							if(!daNote.gfNote) {
-								daNote.alpha = strumAlpha + 0.2;
+								daNote.alpha = strumAlpha;
 							}else{
 								daNote.alpha = 0;
 							}
