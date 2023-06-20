@@ -197,6 +197,7 @@ class PlayState extends MusicBeatState
 
 	private var strumLine:FlxSprite;
 	var blackie:FlxSprite;
+	var white:FlxSprite;
 	var warning:FlxSprite;
 
 	//Handles the new epic mega sexy cam code that i've done
@@ -573,6 +574,13 @@ class PlayState extends MusicBeatState
 				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
 				lockersnshit.updateHitbox();
 				add(lockersnshit);
+
+			case 'treehouse':					
+				white = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+				white.scrollFactor.set();
+				white.scale.set(1.5, 1.5);
+				white.alpha = 1;
+				add(white);
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -1195,7 +1203,8 @@ class PlayState extends MusicBeatState
 					iconP2.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
 					finnBarThing.alpha = 0.0001;
-					scoreTxt.alpha = 0.0001;
+					scoreTxt.alpha = 1;
+					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
 			}
@@ -4436,7 +4445,15 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
+						case 624:
+							FlxTween.tween(camGame, {alpha: 0},0.0000001);
 						case 640:
+							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+							vig.scrollFactor.set();
+							vig.cameras = [camOther];
+							vig.screenCenter();
+							add(vig);
+							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
@@ -4448,10 +4465,17 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.45;
 						case 736:
 							defaultCamZoom = 1.2;
+						case 864:
+							FlxTween.tween(camGame, {alpha: 0},2.02);
 						case 896:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+							FlxTween.tween(camGame, {alpha: 1},0.0000001);
+							white.alpha = 0;
+							boyfriendGroup.visible = true;
+							DAD_X -= 250;
+							DAD_Y -= 250;
 						case 1040:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);

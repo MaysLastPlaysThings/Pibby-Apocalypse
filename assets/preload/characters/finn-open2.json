@@ -1,70 +1,70 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "PibbyFinn Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "PibbyFinn Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				67,
 				16
 			],
-			"anim": "transition",
+			"loop": false,
 			"fps": 24,
-			"name": "Glitch Transition",
-			"indices": []
+			"anim": "transition",
+			"indices": [],
+			"name": "Glitch Transition"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				65,
 				17
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "PibbyFinn Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "PibbyFinn Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				18,
 				-3
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "PibbyFinn Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "PibbyFinn Right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				30,
 				-9
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "PibbyFinn Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "PibbyFinn Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				12,
 				34
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "PibbyFinn Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "PibbyFinn Up"
 		}
 	],
 	"no_antialiasing": true,
@@ -78,10 +78,10 @@
 	"healthbar_colors": [
 		168,
 		160,
-		179
+		199
 	],
 	"camera_position": [
-		20,
+		-130,
 		-120
 	],
 	"sing_duration": 6.1,

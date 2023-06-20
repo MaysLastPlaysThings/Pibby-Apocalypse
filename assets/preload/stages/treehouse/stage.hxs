@@ -1,5 +1,6 @@
 var bg;
 var treehouse;
+var whiteshit;
 
 function onCreate()
 {
