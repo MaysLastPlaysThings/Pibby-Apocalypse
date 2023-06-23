@@ -4388,8 +4388,8 @@ class PlayState extends MusicBeatState
 										camHUD.alpha = 0;
 									}
 							});
-						case 18:
-							FlxTween.tween(blackie, {alpha: 0}, 1);
+						case 36:
+							FlxTween.tween(blackie, {alpha: 0}, 5);
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].visible = false;
 								opponentStrums.members[i].alpha = 0;
