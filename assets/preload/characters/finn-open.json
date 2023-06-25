@@ -1,58 +1,113 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "Finn Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Finn Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				65,
 				-33
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Finn Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Finn Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				30,
 				-5
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Finn Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Finn Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				12,
 				4
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Finn Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Finn Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				18,
 				-3
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Finn Right",
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Finn Right"
+		},
+		{
+			"offsets": [
+				123,
+				-32
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "Finn L ALT0"
+		},
+		{
+			"offsets": [
+				47,
+				-2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "Finn R ALT0"
+		},
+		{
+			"offsets": [
+				67,
+				6
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "Finn U ALT0"
+		},
+		{
+			"offsets": [
+				71,
+				-5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "Finn D ALT0"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				57,
+				0
+			],
+			"anim": "idle-alt",
+			"fps": 24,
+			"name": "Finn GlitchIdle0",
 			"indices": []
 		}
 	],

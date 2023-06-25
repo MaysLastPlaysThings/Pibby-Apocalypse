@@ -4431,6 +4431,7 @@ class PlayState extends MusicBeatState
 							});
 							defaultCamZoom = 1.35;
 						case 384:
+							triggerEventNote('Alt Idle Animation', 'dad', '-alt');
 							if (ClientPrefs.shaders) {
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].shader = distortFNF;
@@ -4450,6 +4451,7 @@ class PlayState extends MusicBeatState
 								});
 						case 624:
 							FlxTween.tween(camGame, {alpha: 0},0.0000001);
+							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 640:
 							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
 							vig.scrollFactor.set();
@@ -4483,6 +4485,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 2432:
+							blackie.alpha = 1;
 					}
 				case 'Mindless':
 					switch (curStep)
