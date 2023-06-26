@@ -1,5 +1,8 @@
 var bg;
 var treehouse;
+var thunder;
+
+var dadCamZoom = 0.8;
 
 function onCreate()
 {
@@ -15,17 +18,31 @@ function onCreate()
     treehouse.antialiasing = ClientPrefs.globalAntialiasing;
     treehouse.updateHitbox();
 
+
+    thunder = new flixel.FlxSprite();
+    thunder.x = 1000;
+    thunder.y = 1000;
+    thunder.frames = retrieveAsset('images/thunder', 'atlas');
+    thunder.animation.addByPrefix('thunder', 'thunder1', 24, false);
+    thunder.scrollFactor.set();
+
     add(bg);
     add(treehouse);
+    add(thunder);
 
 }
 
 function onMoveCamera(focus:String)
     {
-        if (focus == 'dad') {
-			PlayState.defaultCamZoom = 0.9;
-
-        }
+        if (focus == 'dad') 
+			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = 1.2;
+            PlayState.defaultCamZoom = 0.45;
+    }
+
+function onStepHit(curStep:Int)
+    {
+        thunder.animation.play('thunder');
+        if (curStep == 896)
+            dadCamZoom = 0.3;
     }

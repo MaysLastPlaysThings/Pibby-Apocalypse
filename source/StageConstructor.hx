@@ -39,25 +39,19 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState.instance);
-        additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType) {
+        additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType):Dynamic {
             switch (assetType) {
                 case IMAGE:
-                    var newGraphic : FlxGraphic = FlxG.bitmap.add(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
+                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
                     newGraphic.persist = true;
                     return newGraphic;
                 case ATLAS:
-                    var newGraphic : FlxGraphic = FlxG.bitmap.add(
-                        BitmapData.fromBytes(
-                            File.getBytes('assets/stages/${currentStage}/${path}.png')
-                        ), 
-                        false, 
-                        'assets/stages/${currentStage}/${path}.png'
-                    );
-                    var newSparrow = FlxAtlasFrames.fromSparrow(
-                        newGraphic, 
-                        File.getContent('assets/stages/${currentStage}/${path}.xml')
-                    );
-                    return cast newSparrow;
+                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}.png')), false, 'assets/stages/${currentStage}/${path}.png');
+                    newGraphic.persist = true;
+
+                    var newSparrow = FlxAtlasFrames.fromSparrow(newGraphic, File.getContent('assets/stages/${currentStage}/${path}.xml'));
+                    trace(newSparrow);
+                    return newSparrow;
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
