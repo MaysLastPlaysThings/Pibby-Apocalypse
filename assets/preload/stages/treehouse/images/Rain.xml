@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Rain.png">
+	<!-- Created with Adobe Animate version 21.0.4.39603 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Rain0000" x="55" y="55" width="2363" height="1391" frameX="-936" frameY="-389" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0001" x="55" y="55" width="2363" height="1391" frameX="-936" frameY="-389" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0002" x="2473" y="55" width="3385" height="1434" frameX="0" frameY="-366" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0003" x="2473" y="55" width="3385" height="1434" frameX="0" frameY="-366" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0004" x="5913" y="55" width="1345" height="979" frameX="-1339" frameY="-631" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0005" x="5913" y="55" width="1345" height="979" frameX="-1339" frameY="-631" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0006" x="55" y="1544" width="1968" height="2017" frameX="-843" frameY="-155" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0007" x="55" y="1544" width="1968" height="2017" frameX="-843" frameY="-155" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0008" x="2078" y="1544" width="2130" height="1227" frameX="-977" frameY="-652" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0009" x="2078" y="1544" width="2130" height="1227" frameX="-977" frameY="-652" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0010" x="4263" y="1544" width="3533" height="2073" frameX="-344" frameY="0" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0011" x="4263" y="1544" width="3533" height="2073" frameX="-344" frameY="0" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0012" x="55" y="3672" width="3181" height="1812" frameX="-856" frameY="-470" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0013" x="55" y="3672" width="3181" height="1812" frameX="-856" frameY="-470" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0014" x="3291" y="3672" width="1640" height="1418" frameX="-1225" frameY="-498" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0015" x="3291" y="3672" width="1640" height="1418" frameX="-1225" frameY="-498" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0016" x="4986" y="3672" width="2602" height="1321" frameX="-618" frameY="-361" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0017" x="4986" y="3672" width="2602" height="1321" frameX="-618" frameY="-361" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0018" x="55" y="5539" width="3184" height="1714" frameX="-452" frameY="-328" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0019" x="55" y="5539" width="3184" height="1714" frameX="-452" frameY="-328" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0020" x="55" y="1544" width="1968" height="2017" frameX="-843" frameY="-155" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0021" x="55" y="1544" width="1968" height="2017" frameX="-843" frameY="-155" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0022" x="2078" y="1544" width="2130" height="1227" frameX="-977" frameY="-652" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0023" x="2078" y="1544" width="2130" height="1227" frameX="-977" frameY="-652" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0024" x="4263" y="1544" width="3533" height="2073" frameX="-344" frameY="0" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0025" x="4263" y="1544" width="3533" height="2073" frameX="-344" frameY="0" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0026" x="55" y="3672" width="3181" height="1812" frameX="-856" frameY="-470" frameWidth="4037" frameHeight="2282"/>
+	<SubTexture name="Rain0027" x="55" y="3672" width="3181" height="1812" frameX="-856" frameY="-470" frameWidth="4037" frameHeight="2282"/>
+</TextureAtlas>

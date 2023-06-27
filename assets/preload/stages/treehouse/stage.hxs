@@ -22,8 +22,8 @@ function onCreate()
     thunder = new flixel.FlxSprite();
     thunder.x = 1000;
     thunder.y = 1000;
-    thunder.frames = retrieveAsset('images/thunder', 'atlas');
-    thunder.animation.addByPrefix('thunder', 'thunder1', 24, false);
+    thunder.frames = retrieveAsset('images/Lighting', 'atlas');
+    thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
     thunder.scrollFactor.set();
 
     add(bg);
