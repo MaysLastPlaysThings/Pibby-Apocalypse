@@ -20,8 +20,9 @@ function onCreate()
 
 
     thunder = new flixel.FlxSprite();
-    thunder.x = 1000;
-    thunder.y = 1000;
+    thunder.x = -550;
+    thunder.y = -800;
+    thunder.scale.set(1.2, 1,2);
     thunder.frames = retrieveAsset('images/Lighting', 'atlas');
     thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
     thunder.scrollFactor.set();
@@ -37,12 +38,16 @@ function onMoveCamera(focus:String)
         if (focus == 'dad') 
 			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = 0.45;
+            PlayState.defaultCamZoom = 1;
     }
 
 function onStepHit(curStep:Int)
     {
         thunder.animation.play('thunder');
         if (curStep == 896)
-            dadCamZoom = 0.3;
+            dadCamZoom = 0.6;
+        if (curStep == 1536)
+            dadCamZoom = 1;
+        if (curStep == 1664)
+            dadCamZoom = 0.6;
     }

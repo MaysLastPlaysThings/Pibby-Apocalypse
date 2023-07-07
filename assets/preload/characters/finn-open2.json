@@ -70,8 +70,8 @@
 	"no_antialiasing": true,
 	"image": "characters/CAWM_Opening_Finn_2",
 	"position": [
-		0,
-		50
+		140,
+		30
 	],
 	"healthicon": "finn",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		199
 	],
 	"camera_position": [
-		-130,
-		-120
+		-110,
+		-150
 	],
 	"sing_duration": 6.1,
 	"scale": 1

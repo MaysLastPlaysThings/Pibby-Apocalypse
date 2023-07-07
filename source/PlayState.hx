@@ -945,7 +945,7 @@ class PlayState extends MusicBeatState
 		}
 		add(lyricTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "Skill Issue Detected", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -4485,6 +4485,27 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 1500:
+							defaultCamZoom = 1.3;
+						case 1536:
+							white.alpha = 1;
+						    if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-open');
+							boyfriendGroup.visible = false;
+						case 1648:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1.5);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-open2');
+						case 1664:
+							white.alpha = 0;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
+							boyfriendGroup.visible = true;
 						case 2432:
 							blackie.alpha = 1;
 					}
