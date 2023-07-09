@@ -4485,24 +4485,24 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1500:
-							defaultCamZoom = 1.3;
+						case 1520:
+							defaultCamZoom = 1.2;
 						case 1536:
 							white.alpha = 1;
 						    if (ClientPrefs.flashing) {
-							    camOverlay.flash(FlxColor.WHITE, 0.5);
+							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open');
 							boyfriendGroup.visible = false;
 						case 1648:
 							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1.5);
+								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 1664:
 							white.alpha = 0;
 							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 0.5);
+								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							boyfriendGroup.visible = true;
@@ -5637,8 +5637,16 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.2;
 						case 2006:
 							defaultCamZoom = 0.9;
+						case 2049:
+							FlxTween.tween(camGame, {zoom: 1.4}, 1.8, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
 						case 2062:
-							defaultCamZoom = 1.55;
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1, {
 									ease: FlxEase.linear,
@@ -5650,6 +5658,10 @@ class PlayState extends MusicBeatState
 								});
 							}
 						case 2071:
+							defaultCamZoom = 0.8;
+							if (ClientPrefs.flashing){
+								camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
 							FlxTween.tween(boyfriend, {alpha: 1}, 0.25, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5917,6 +5929,20 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 0.4);
 							}
 							triggerEventNote('Apple Filter', 'on', 'black');
+						case 3776:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 0.8);
+							}
+							blackFNF.alpha = 1;
+						case 3791:
+							FlxTween.tween(camHUD, {alpha: 0}, 1, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										camHUD.alpha = 0;
+									}
+							});
 					}
 			}
 

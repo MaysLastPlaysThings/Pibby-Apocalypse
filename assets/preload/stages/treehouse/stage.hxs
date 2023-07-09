@@ -47,7 +47,7 @@ function onStepHit(curStep:Int)
         if (curStep == 896)
             dadCamZoom = 0.6;
         if (curStep == 1536)
-            dadCamZoom = 1;
+            dadCamZoom = 0.8;
         if (curStep == 1664)
             dadCamZoom = 0.6;
     }
