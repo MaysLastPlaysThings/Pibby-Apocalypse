@@ -5714,8 +5714,6 @@ class PlayState extends MusicBeatState
 													abberationShaderIntensity = beatShaderAmount;
 												}});
 									}});
-							gf.playAnim('cmon', true);
-							gf.specialAnim = true;
 						case 2374:
 							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
 								ease: FlxEase.linear,
@@ -5725,6 +5723,8 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
+							gf.playAnim('cmon', true);
+							gf.specialAnim = true;
 							lyricTxt.text = "COME ON";
 							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
 								lyricTxt.text = "W";
@@ -5931,11 +5931,11 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Apple Filter', 'on', 'black');
 						case 3776:
 							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 0.8);
+								camOverlay.flash(FlxColor.WHITE, 0.5);
 							}
 							blackFNF.alpha = 1;
 						case 3791:
-							FlxTween.tween(camHUD, {alpha: 0}, 1, {
+							FlxTween.tween(camHUD, {alpha: 0}, 3, {
 								ease: FlxEase.linear,
 								onComplete:
 								function (twn:FlxTween)
