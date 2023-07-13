@@ -98,13 +98,57 @@
 			"fps": 24,
 			"name": "right miss0",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				62,
+				-8
+			],
+			"anim": "dodgeDOWN",
+			"fps": 24,
+			"name": "down dodge0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				121,
+				20
+			],
+			"anim": "dodgeLEFT",
+			"fps": 24,
+			"name": "dodge left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-15,
+				97
+			],
+			"anim": "dodgeUP",
+			"fps": 24,
+			"name": "up dodge0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-14,
+				32
+			],
+			"anim": "dodgeRIGHT",
+			"fps": 24,
+			"name": "right dodge0",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/zero",
 	"position": [
-		50,
-		320
+		90,
+		330
 	],
 	"healthicon": "zero",
 	"flip_x": true,
@@ -114,8 +158,8 @@
 		28
 	],
 	"camera_position": [
-		160,
-		-20
+		100,
+		-50
 	],
 	"sing_duration": 5.1,
 	"scale": 1
