@@ -305,7 +305,7 @@ class MainMenuState extends MusicBeatState
                                 MusicBeatState.switchState(new FreeplayState());
 									FlxG.sound.playMusic(Paths.music('fpmenu'));
 								case 'CREDITS':
-									MusicBeatState.switchState(new CreditsState());
+									MusicBeatState.switchState(new PACreditsState());
 									FlxG.sound.playMusic(Paths.music('creditsmenu'));
 							}
 						});
