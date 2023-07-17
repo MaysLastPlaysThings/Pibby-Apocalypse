@@ -72,6 +72,7 @@ class FreeplayState extends MusicBeatState
 	var threat:FlxSprite;
 	var levelBarBG:FlxSprite;
 	var levelBar:FlxBar;
+	var gradient:FlxSprite;
 
 	override function create()
 	{
@@ -175,6 +176,12 @@ class FreeplayState extends MusicBeatState
 		levelBar.createFilledBar(0x00000000, FlxColor.WHITE, true);
 		add(levelBar);
 
+		gradient = new FlxSprite(0, 0, Paths.image('gradient', 'shared'));
+		gradient.screenCenter();
+		gradient.setGraphicSize(Std.int(gradient.width * 0.75));
+		gradient.alpha = 0;
+		add(gradient);
+
 		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Freeplay Theme - By Doge ♪", 8);
 		dogeTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		dogeTxt.alpha = 0;
@@ -217,7 +224,6 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
-
 
 		if(curSelected >= songs.length) curSelected = 0;
 
@@ -295,6 +301,7 @@ class FreeplayState extends MusicBeatState
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
 	var holdTime:Float = 0;
+	var gradientSineThing:Float = 0;
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music.volume < 0.7)
@@ -311,6 +318,12 @@ class FreeplayState extends MusicBeatState
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 		}
+
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
+		gradientSineThing += 180 * elapsed;
+		gradient.alpha = 1 - Math.sin((Math.PI * gradientSineThing) / 250);
 
 		bg.animation.play('idle');
 
@@ -403,6 +416,8 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+
 		if (controls.BACK)
 		{
 			persistentUpdate = false;
@@ -453,6 +468,12 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		super.update(elapsed);
+	}
+
+	override function beatHit() {
+		super.beatHit();
+
+		FlxG.camera.zoom += .035;
 	}
 
 	public static function destroyFreeplayVocals() {
