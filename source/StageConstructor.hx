@@ -14,7 +14,7 @@ import flixel.FlxG;
 import sys.io.File;
 import flixel.util.FlxColor;
 
-@:enum abstract AssetType(String) to String {
+enum abstract AssetType(String) to String {
     var IMAGE = 'image';
     var ATLAS = 'atlas';
     var SOUND = 'sound';

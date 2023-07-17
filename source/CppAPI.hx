@@ -14,7 +14,7 @@ class CppAPI
 	{
 		WindowsData.setWindowColorMode(DARK);
 
-		// this piece of code fixes that bug about that weridly the window doesn't go dark idk why that happends lmao
+		// this piece of code fixes that bug about that weridly the window doesn't go dark idk why that happends lmao.
 		flixel.FlxG.stage.window.borderless = true;
 		flixel.FlxG.stage.window.borderless = false;
 	}
