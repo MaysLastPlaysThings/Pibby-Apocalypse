@@ -4816,9 +4816,10 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1181:
+							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
 							var video:VideoHandler = new VideoHandler();
 							video.playVideo(Paths.video('forgottenscene'));
-							video.finishCallback = null;
+							video.finishCallback = () -> canPause = true;
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1445:
@@ -4881,7 +4882,13 @@ class PlayState extends MusicBeatState
 								function (twn:FlxTween)
 									{
 										camHUD.alpha = 1;
-									}
+									},
+								onStart: daTween -> {
+									timeBar.alpha = 0;
+									timeTxt.alpha = 0;
+									timeBarBG.alpha = 0;
+									playerStrums.forEach(playerNotes -> playerNotes.alpha = 0);
+								}
 							});
 						case 2701:
 							if (ClientPrefs.flashing) {

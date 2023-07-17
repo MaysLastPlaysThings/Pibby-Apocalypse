@@ -88,6 +88,8 @@ class FreeplayState extends MusicBeatState
 
 		FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
+		Conductor.changeBPM(100); // using this for good mesaure after playing a song lmao
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
