@@ -176,17 +176,22 @@ class FreeplayState extends MusicBeatState
 			'threatPercent', 0, 100);
 		levelBar.scrollFactor.set();
 		levelBar.createFilledBar(0x00000000, FlxColor.WHITE, true);
+		levelBar.antialiasing = ClientPrefs.globalAntialiasing;
 		add(levelBar);
 
-		gradient = new FlxSprite(0, 0, Paths.image('gradient', 'shared'));
-		gradient.screenCenter();
-		gradient.setGraphicSize(Std.int(gradient.width * 0.75));
-		gradient.alpha = 0;
-		add(gradient);
+		if (!ClientPrefs.lowQuality) {
+			gradient = new FlxSprite(0, 0, Paths.image('gradient', 'shared'));
+			gradient.screenCenter();
+			gradient.setGraphicSize(Std.int(gradient.width * 0.75));
+			gradient.alpha = 0;
+			gradient.antialiasing = ClientPrefs.globalAntialiasing;
+			add(gradient);
+		}
 
 		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Freeplay Theme - By Doge ♪", 8);
 		dogeTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		dogeTxt.alpha = 0;
+		dogeTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(dogeTxt);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -197,6 +202,7 @@ class FreeplayState extends MusicBeatState
 			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
 			songText.isMenuItem = true;
 			songText.targetY = i - curSelected;
+			songText.antialiasing = ClientPrefs.globalAntialiasing;
 
 			var maxWidth = 980;
 			if (songText.width > maxWidth)
@@ -208,6 +214,7 @@ class FreeplayState extends MusicBeatState
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
 			icon.sprTracker = songText;
+			icon.antialiasing = ClientPrefs.globalAntialiasing;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
@@ -325,7 +332,7 @@ class FreeplayState extends MusicBeatState
 			Conductor.songPosition = FlxG.sound.music.time;
 
 		gradientSineThing += 180 * elapsed;
-		gradient.alpha = 1 - Math.sin((Math.PI * gradientSineThing) / 250);
+		if (!ClientPrefs.lowQuality && gradient != null) gradient.alpha = 1 - Math.sin((Math.PI * gradientSineThing) / 250);
 
 		bg.animation.play('idle');
 

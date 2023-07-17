@@ -1515,7 +1515,7 @@ class PlayState extends MusicBeatState
 		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 
 		if (isFinal) {
-			camHUD.alpha = 1;
+			camHUD.alpha = (SONG.song == 'Suffering Siblings' ? 0 : 1);
             if (ClientPrefs.flashing) {
 			    camHUD.flash(FlxColor.WHITE, 0.25);
             }

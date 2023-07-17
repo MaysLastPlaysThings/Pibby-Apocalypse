@@ -121,6 +121,7 @@ class Main extends Sprite
 
 		ScriptManager.init();
 		InputFormatter.loadKeys();
+		FlxSprite.defaultAntialiasing = ClientPrefs.globalAntialiasing;
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);

@@ -127,10 +127,12 @@ class MainMenuState extends MusicBeatState
 		cinematicdown = new FlxSprite().makeGraphic(FlxG.width, 70, FlxColor.BLACK);
 		cinematicdown.scrollFactor.set();
 		cinematicdown.setPosition(0, FlxG.height - 70);
+		cinematicdown.antialiasing = ClientPrefs.globalAntialiasing;
 		add(cinematicdown);
 
 		cinematicup = new FlxSprite().makeGraphic(FlxG.width, 100, FlxColor.BLACK);
 		cinematicup.scrollFactor.set();
+		cinematicup.antialiasing = ClientPrefs.globalAntialiasing;
 		add(cinematicup);
 
 		var options = new FlxSprite().loadGraphic(Paths.image('pibymenu/Options'));
@@ -180,6 +182,7 @@ class MainMenuState extends MusicBeatState
 		aweTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Menu Theme - By GoddessAwe ♪", 8);
 		aweTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		aweTxt.alpha = 0;
+		aweTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(aweTxt);
 
 		menuItems = new FlxTypedGroup<AlphabetTyped>();
@@ -349,6 +352,7 @@ class MainMenuState extends MusicBeatState
 				(menuItems.members[curSelected].actualText.textField.textWidth / 2) - 5, 
 			menuItems.members[curSelected].y + 160
 		);
+		barTab.antialiasing = ClientPrefs.globalAntialiasing;
 		add(barTab);
 
 		menuItems.forEach(function(spr:FlxSprite)
