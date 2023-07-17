@@ -2470,15 +2470,15 @@ class PlayState extends MusicBeatState
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
-            iconP1.shader = distortFNF;
+            if (ClientPrefs.shaders) iconP1.shader = distortFNF;
 			if (gf != null)
 			{
-				iconP3.shader = distortFNF;
+				if (ClientPrefs.shaders) iconP3.shader = distortFNF;
 				iconP3.playAnim(iconP3.char + 'losing', false, false);
 			}
 			if (SONG.song == "Suffering Siblings")
 				{
-					iconPibby.shader = distortFNF;
+					if (ClientPrefs.shaders) iconPibby.shader = distortFNF;
 					iconPibby.playAnim(iconPibby.char + 'losing', false, false);
 				}
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
@@ -2500,10 +2500,10 @@ class PlayState extends MusicBeatState
         if (healthBar.percent > 80){
 			if (SONG.song == "Suffering Siblings")
 				{
-					iconJake.shader = distortFNF;
+					if (ClientPrefs.shaders) iconJake.shader = distortFNF;
 					iconJake.playAnim(iconJake.char + 'losing', false, false);
 				}
-            iconP2.shader = distortFNF;
+				if (ClientPrefs.shaders) iconP2.shader = distortFNF;
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
         }else{
 			if (SONG.song == "Suffering Siblings")
@@ -3986,15 +3986,17 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-			dadGlitchIntensity = FlxG.random.float(12, 25);
-			var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-			for (i in 0...shaderArray.length)
-			dad.shader = shaderArray[i];
-			new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-			dad.shader = null;
-		});
-	
-	}
+			if (ClientPrefs.shaders)
+				{
+					dadGlitchIntensity = FlxG.random.float(12, 25);
+					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
+					for (i in 0...shaderArray.length)
+					dad.shader = shaderArray[i];
+					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+					dad.shader = null;
+				});
+				}
+		}
 
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
@@ -4042,14 +4044,17 @@ class PlayState extends MusicBeatState
 					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 					
 					//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-					dadGlitchIntensity = FlxG.random.float(12, 25);
-					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-					for (i in 0...shaderArray.length)
-					jake.shader = shaderArray[i];
-					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-					jake.shader = null;
-				});
-			}
+					if (ClientPrefs.shaders)
+						{
+							dadGlitchIntensity = FlxG.random.float(12, 25);
+							var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
+							for (i in 0...shaderArray.length)
+							jake.shader = shaderArray[i];
+							new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+							jake.shader = null;
+							});
+						}
+				}
 		}
 
 			if(char != null)
@@ -4359,7 +4364,8 @@ class PlayState extends MusicBeatState
 
 		newStage.onStepHit(curStep);
 
-        distortIntensity = FlxG.random.float(4, 6);
+		if (ClientPrefs.shaders)
+        	distortIntensity = FlxG.random.float(4, 6);
 
 		switch (SONG.song)
 			{
@@ -4434,7 +4440,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Alt Idle Animation', 'dad', '-alt');
 							if (ClientPrefs.shaders) {
 							for (i in 0...opponentStrums.length) {
-								opponentStrums.members[i].shader = distortFNF;
+								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
 							}
 						}
 							defaultCamZoom = 0.9;
