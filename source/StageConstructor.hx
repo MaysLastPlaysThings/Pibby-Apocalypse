@@ -39,6 +39,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState.instance);
+        additionalParams.set('song', PlayState.SONG.song);
         additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType):Dynamic {
             switch (assetType) {
                 case IMAGE:

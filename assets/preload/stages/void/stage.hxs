@@ -1,3 +1,4 @@
+// default stuff
 var void;
 var house;
 var rock;
@@ -7,6 +8,17 @@ var rock4;
 var wtf;
 var glitch;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
+
+// fw stuff 
+var void_fw;
+var house_fw;
+var rock_fw;
+var rock2_fw;
+var rock3_fw;
+var rock4_fw;
+var wtf_fw;
+var glitch_fw;
+var stupidFix_fw;
 
 function onCreate()
 {
@@ -91,11 +103,120 @@ function onCreate()
     add(rock);
     if (!ClientPrefs.lowQuality) add(wtf);
     add(glitch);
+
+    // Forgotten World stuff because we can't do change stage shit lmao i think the memory is going to explote
+    void_fw = new flixel.FlxSprite(0, -200);
+    void_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-1.png', 'image'));
+    void_fw.setGraphicSize(Std.int(void.width * 2.5));
+    void_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    void_fw.scrollFactor.set(0.6, 0.6);
+    void_fw.updateHitbox();
+    void_fw.alpha = 0;
+
+    house_fw = new flixel.FlxSprite(0, -200);
+    house_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-3.png', 'image'));
+    house_fw.setGraphicSize(Std.int(house.width * 2.5));
+    house_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    house_fw.scrollFactor.set(0.85, 0.85);
+    house_fw.updateHitbox();
+    house_fw.alpha = 0;
+
+    rock_fw = new flixel.FlxSprite(0, -200);
+    rock_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-4.png', 'image'));
+    rock_fw.setGraphicSize(Std.int(rock.width * 2.5));
+    rock_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    rock_fw.scrollFactor.set(1, 1);
+    rock_fw.updateHitbox();
+    rock_fw.alpha = 0;
+
+    rock2_fw = new flixel.FlxSprite(0, -200);
+    rock2_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-5.png', 'image'));
+    rock2_fw.setGraphicSize(Std.int(rock2.width * 2.5));
+    rock2_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    rock2_fw.scrollFactor.set(1.1, 1.1);
+    rock2_fw.updateHitbox();
+    rock2_fw.alpha = 0;
+
+    rock3_fw = new flixel.FlxSprite(0, -200);
+    rock3_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-6.png', 'image'));
+    rock3_fw.setGraphicSize(Std.int(rock3.width * 2.5));
+    rock3_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    rock3_fw.scrollFactor.set(0.9, 0.9);
+    rock3_fw.updateHitbox();
+    rock3_fw.alpha = 0;
+
+    rock4_fw = new flixel.FlxSprite(0, -200);
+    rock4_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-7.png', 'image'));
+    rock4_fw.setGraphicSize(Std.int(rock4.width * 2.5));
+    rock4_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    rock4_fw.scrollFactor.set(0.85, 0.85);
+    rock4_fw.updateHitbox();
+    rock4_fw.alpha = 0;
+
+    wtf_fw = new flixel.FlxSprite(0, -200);
+    wtf_fw.loadGraphic(retrieveAsset('images/fw/Ilustracion_sin_titulo-8.png', 'image'));
+    wtf_fw.setGraphicSize(Std.int(wtf.width * 2.5));
+    wtf_fw.antialiasing = ClientPrefs.globalAntialiasing;
+    wtf_fw.scrollFactor.set(1, 1);
+    wtf_fw.updateHitbox();
+    wtf_fw.alpha = 0;
+
+    glitch_fw = new flixel.FlxSprite(0, -200);
+    glitch_fw.frames = retrieveAsset('images/fw/gumballglitchbg', 'ATLAS');
+    glitch_fw.animation.addByPrefix('spin', 'spin', 24, true);
+    glitch_fw.setGraphicSize(Std.int(glitch.width * 2.5));
+    glitch_fw.scrollFactor.set(1, 1);
+    glitch_fw.updateHitbox();
+    glitch_fw.alpha = 0;
+
+    tweenLoopAngle(house_fw, 4, -4, 6, 6);
+    tweenLoopAngle(rock_fw, -0.5, 0.5, 2.5, 2.5);
+    tweenLoopAngle(rock2_fw, -2, 1.2, 2.5, 2.5);
+    tweenLoopAngle(rock3_fw, 360, 0, 30, 30);
+    tweenLoopAngle(wtf_fw, 2, -2, 5, 5);
+
+    FlxTween.tween(rock4_fw, {angle: 360}, 30, {
+        ease: FlxEase.sineInOut
+    });
+
+    stupidFix = FlxTween.tween(wtf_fw, {y: wtf_fw.y}, 1);
+    add(void_fw);
+    add(rock4_fw);
+    add(rock3_fw);
+    add(rock2_fw);
+    add(house_fw);
+    add(rock_fw);
+    add(wtf_fw);
+    add(glitch_fw);
 }
 
 function onStepHit(curStep) {
     if (glitch != null) {
         glitch.animation.play('spin');
+    }
+
+    if (song == 'Forgotten World')
+    {
+        // hiding stuff for the ''''''''''''Stage change''''''''''''
+        if (curStep == 1181)
+        {
+            void.alpha = 0;
+            wtf.alpha = 0;
+            rock.alpha = 0;
+            rock2.alpha = 0;
+            rock3.alpha = 0;
+            rock4.alpha = 0;
+            house.alpha = 0;
+            glitch.alpha = 0;
+
+            void_fw.alpha = 1;
+            wtf_fw.alpha = 1;
+            rock_fw.alpha = 1;
+            rock2_fw.alpha = 1;
+            rock3_fw.alpha = 1;
+            rock4_fw.alpha = 1;
+            glitch_fw.alpha = 1;
+        }
     }
 }
 
