@@ -617,23 +617,23 @@ class FreeplayState extends MusicBeatState
 		switch (songs[curSelected].songName)
 		{
 			case "Child's Play":
-				threatPercent = 20;
+				FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
 			case "My Amazing World":
-				threatPercent = 45;
+				FlxTween.tween(this, {threatPercent: 45}, 0.7, {ease: FlxEase.quadInOut});
 			case "Retcon":
-				threatPercent = 55;
+				FlxTween.tween(this, {threatPercent: 55}, 0.7, {ease: FlxEase.quadInOut});
 			case "Forgotten World":
-				threatPercent = 65;
+				FlxTween.tween(this, {threatPercent: 65}, 0.7, {ease: FlxEase.quadInOut});
 			case "Mindless":
-				threatPercent = 85;
+				FlxTween.tween(this, {threatPercent: 85}, 0.7, {ease: FlxEase.quadInOut});
 			case "Blessed by Swords":
-				threatPercent = 90;
+				FlxTween.tween(this, {threatPercent: 90}, 0.7, {ease: FlxEase.quadInOut});
 			case "Brotherly Love":
-				threatPercent = 80;
+				FlxTween.tween(this, {threatPercent: 80}, 0.7, {ease: FlxEase.quadInOut});
 			case "Suffering Siblings":
-				threatPercent = 95;
+				FlxTween.tween(this, {threatPercent: 95}, 0.7, {ease: FlxEase.quadInOut});
 			case "Come Along With Me":
-				threatPercent = 75;
+				FlxTween.tween(this, {threatPercent: 75}, 0.7, {ease: FlxEase.quadInOut});
 		}
 		levelBar.updateBar();
 	}
