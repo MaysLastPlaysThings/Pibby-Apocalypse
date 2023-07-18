@@ -4824,6 +4824,7 @@ class PlayState extends MusicBeatState
 						case 1181:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
 							var video:VideoHandler = new VideoHandler();
+							video.canSkip = false;
 							video.playVideo(Paths.video('forgottenscene'));
 							video.finishCallback = () -> canPause = true;
 						case 1190:
