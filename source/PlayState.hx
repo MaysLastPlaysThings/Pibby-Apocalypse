@@ -4459,11 +4459,14 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camGame, {alpha: 0},0.0000001);
 							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 640:
-							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-							vig.scrollFactor.set();
-							vig.cameras = [camOther];
-							vig.screenCenter();
-							add(vig);
+							if (!ClientPrefs.lowQuality)
+								{
+									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+									vig.scrollFactor.set();
+									vig.cameras = [camOther];
+									vig.screenCenter();
+									add(vig);
+								}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
@@ -4877,11 +4880,14 @@ class PlayState extends MusicBeatState
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
 						case 2420:
-							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-							vig.scrollFactor.set();
-							vig.cameras = [camOther];
-							vig.screenCenter();
-							add(vig);
+							if (!ClientPrefs.lowQuality)
+								{
+									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+									vig.scrollFactor.set();
+									vig.cameras = [camOther];
+									vig.screenCenter();
+									add(vig);
+								}
 						case 2620:
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {
 								ease: FlxEase.linear,
