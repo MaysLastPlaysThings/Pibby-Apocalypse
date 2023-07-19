@@ -121,17 +121,4 @@ class WindowsSystem
 	{
 		return res;
 	}
-
-    #if windows
-    @:functionCode('
-        std::string p(getenv("APPDATA"));
-        p.append("\\\\Microsoft\\\\Windows\\\\Themes\\\\TranscodedWallpaper");
-
-        SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (PVOID)p.c_str(), SPIF_UPDATEINIFILE);
-    ')
-    #end
-   /* static public function updateWallpaper() {  // Only works on windows, otherwise returns 0!
-        return null;
-    }*/
-    //fuck gamebanana rules, i wanted to make malfunction better *cries (jason)
 }
