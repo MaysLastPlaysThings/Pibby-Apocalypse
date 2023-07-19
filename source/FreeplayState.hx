@@ -69,10 +69,14 @@ class FreeplayState extends MusicBeatState
     var arrows:FlxSprite;
 	var image:FlxSprite;
     var stagebox:FlxSprite;
+	var stagebox_L:FlxSprite;
+	var stagebox_R:FlxSprite;
 	var threat:FlxSprite;
 	var levelBarBG:FlxSprite;
 	var levelBar:FlxBar;
 	var gradient:FlxSprite;
+
+	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null, 120);
 
 	override function create()
 	{
@@ -86,7 +90,7 @@ class FreeplayState extends MusicBeatState
 		FlxG.game.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
-		FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
 		Conductor.changeBPM(100); // using this for good mesaure after playing a song lmao
 
@@ -146,26 +150,49 @@ class FreeplayState extends MusicBeatState
         add(stagebox);
         stagebox.screenCenter();
 
-        arrowL = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowL'));
-		arrowL.antialiasing = ClientPrefs.globalAntialiasing;
-        add(arrowL);
-        arrowL.scale.set(4, 4);
-        arrowL.screenCenter();
+		if (!ClientPrefs.lowQuality)
+			{
+				stagebox_L = new FlxSprite().loadGraphicFromSprite(stagebox);
+				stagebox_L.alpha = 0.6;
+				add(stagebox_L);
+				stagebox_L.x = stagebox.x - 500;
+				stagebox_L.setGraphicSize(Std.int(stagebox_L.width * 0.45));
 
-        arrowR = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowR'));
-		arrowR.antialiasing = ClientPrefs.globalAntialiasing;
-        add(arrowR);
-        arrowR.scale.set(4, 4);
-        arrowR.screenCenter();
+				stagebox_R = new FlxSprite().loadGraphicFromSprite(stagebox);
+				stagebox_R.alpha = 0.6;
+				add(stagebox_R);
+				stagebox_R.x = stagebox.x + 500;
+				stagebox_R.setGraphicSize(Std.int(stagebox_R.width * 0.45));
+
+				arrowL = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowL'));
+				arrowL.antialiasing = ClientPrefs.globalAntialiasing;
+				add(arrowL);
+				arrowL.scale.set(4, 4);
+				arrowL.blend = ADD;
+				if (ClientPrefs.shaders) arrowL.shader = bloomFNF;
+				arrowL.screenCenter();
+
+				arrowR = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowR'));
+				arrowR.antialiasing = ClientPrefs.globalAntialiasing;
+				add(arrowR);
+				arrowR.scale.set(4, 4);
+				arrowR.blend = ADD;
+				if (ClientPrefs.shaders) arrowR.shader = bloomFNF;
+				arrowR.screenCenter();
+			}
 
 		songText = new FlxTypeText(image.x, image.y + 35, Std.int(FlxG.width * 1), "");
 		songText.antialiasing = ClientPrefs.globalAntialiasing;
 		songText.setFormat(Paths.font("menuBUTTONS.ttf"), 64, FlxColor.WHITE, CENTER);
+		if (!ClientPrefs.lowQuality) songText.blend = ADD;
+		if (ClientPrefs.shaders) songText.shader = bloomFNF;
 		add(songText);
 
 		artistText = new FlxTypeText(songText.x, songText.y + 80, Std.int(FlxG.width * 1), "");
 		artistText.antialiasing = ClientPrefs.globalAntialiasing;
 		artistText.setFormat(Paths.font("menuBUTTONS.ttf"), 36, FlxColor.WHITE, CENTER);
+		if (!ClientPrefs.lowQuality) artistText.blend = ADD;
+		if (ClientPrefs.shaders) artistText.shader = bloomFNF;
 		add(artistText);
 
 		levelBarBG = new FlxSprite(threat.x + 630, threat.y + 510).loadGraphic(Paths.image('fpmenu/threatBarBG'));
@@ -369,7 +396,7 @@ class FreeplayState extends MusicBeatState
 		{
 			if (leftP)
 			{
-				FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
+				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -387,7 +414,7 @@ class FreeplayState extends MusicBeatState
 			}
 			if (rightP)
 			{
-				FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
+				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -491,6 +518,12 @@ class FreeplayState extends MusicBeatState
 			vocals.destroy();
 		}
 		vocals = null;
+	}
+
+	override function destroy() {
+		super.destroy();
+
+		FlxG.game.setFilters([]);
 	}
 
 	function changeDiff(change:Int = 0)

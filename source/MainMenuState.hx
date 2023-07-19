@@ -327,11 +327,6 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	private function tweenObject ( object : FlxSprite, value : Float )
-		{
-			FlxTween.tween(object, { alpha: value }, 0.25);
-		}
-
 	function changeItem(huh:Int = 0)
 	{
 		curSelected += huh;
