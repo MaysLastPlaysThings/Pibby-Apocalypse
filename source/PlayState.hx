@@ -95,7 +95,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
-	var crtFNF:Shaders.CRTDistorsion;
+	var crtFNF:FlxRuntimeShader;
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
     var distortFNF:FlxRuntimeShader;
@@ -1140,7 +1140,7 @@ class PlayState extends MusicBeatState
 		pibbyFNF = new Shaders.Pibbified();
 		ntscFNF = new Shaders.NtscShader();
 		mawFNF = new Shaders.MAWVHS();
-		crtFNF = new Shaders.CRTDistorsion();
+		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
 		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
