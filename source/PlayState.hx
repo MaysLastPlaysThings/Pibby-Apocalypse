@@ -98,11 +98,11 @@ class PlayState extends MusicBeatState
 	var crtFNF:Shaders.CRTDistorsion;
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
-    var distortFNF:Shaders.GlitchMissingNo;
-	var distortDadFNF:Shaders.GlitchMissingNo;
+    var distortFNF:FlxRuntimeShader;
+	var distortDadFNF:FlxRuntimeShader;
 	var invertFNF:Shaders.InvertShader;
 	var pibbyFNF:Shaders.Pibbified;
-	var chromFNF:Shaders.ChromShader;
+	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
 
@@ -1141,10 +1141,10 @@ class PlayState extends MusicBeatState
 		ntscFNF = new Shaders.NtscShader();
 		mawFNF = new Shaders.MAWVHS();
 		crtFNF = new Shaders.CRTDistorsion();
-        distortFNF = new Shaders.GlitchMissingNo();
-		distortDadFNF = new Shaders.GlitchMissingNo();
+		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
-		chromFNF = new Shaders.ChromShader();
+		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
@@ -1156,7 +1156,7 @@ class PlayState extends MusicBeatState
             }
 		}
 		if(ClientPrefs.shaders) {
-			chromFNF.aberration.value[0] = -0.5;
+			chromFNF.setFloat('aberration', -0.5);
 		}
 
 		super.create();
@@ -2339,10 +2339,10 @@ class PlayState extends MusicBeatState
 
 
 		if(ClientPrefs.shaders) {
-            chromFNF.aberration.value[0] = abberationShaderIntensity;
+            chromFNF.setFloat('aberration', abberationShaderIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
-            distortFNF.binaryIntensity.value[0] = distortIntensity;
-			distortDadFNF.binaryIntensity.value[0] = dadGlitchIntensity;
+            distortFNF.setFloat('binaryIntensity', distortIntensity);
+			distortDadFNF.setFloat('binaryIntensity', dadGlitchIntensity);
 			pibbyFNF.uTime.value[0] += elapsed;
 			mawFNF.iTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
@@ -2936,7 +2936,7 @@ class PlayState extends MusicBeatState
 			case 'Set Chromatic Amount':
 				if(ClientPrefs.shaders) {
 					var val1:Int = Std.parseInt(value1);
-					chromFNF.aberration.value[0] = val1;
+					chromFNF.setFloat('aberration', val1);
 				}
 
             case 'Cinematics':
