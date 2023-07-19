@@ -7,7 +7,7 @@ var rock4;
 var wtf;
 var glitch;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk, hscript is fucking weird man) (Another grammatical fix by Zero :trol:)
- 
+
 function onCreate()
 {
     void = new flixel.FlxSprite(0, -200);
