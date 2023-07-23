@@ -95,14 +95,14 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
-	var crtFNF:Shaders.CRTDistorsion;
+	var crtFNF:FlxRuntimeShader;
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
-    var distortFNF:Shaders.GlitchMissingNo;
-	var distortDadFNF:Shaders.GlitchMissingNo;
+    var distortFNF:FlxRuntimeShader;
+	var distortDadFNF:FlxRuntimeShader;
 	var invertFNF:Shaders.InvertShader;
 	var pibbyFNF:Shaders.Pibbified;
-	var chromFNF:Shaders.ChromShader;
+	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
 
@@ -945,7 +945,7 @@ class PlayState extends MusicBeatState
 		}
 		add(lyricTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "Skill Issue Detected", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1140,11 +1140,11 @@ class PlayState extends MusicBeatState
 		pibbyFNF = new Shaders.Pibbified();
 		ntscFNF = new Shaders.NtscShader();
 		mawFNF = new Shaders.MAWVHS();
-		crtFNF = new Shaders.CRTDistorsion();
-        distortFNF = new Shaders.GlitchMissingNo();
-		distortDadFNF = new Shaders.GlitchMissingNo();
+		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
+		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
-		chromFNF = new Shaders.ChromShader();
+		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
@@ -1156,7 +1156,7 @@ class PlayState extends MusicBeatState
             }
 		}
 		if(ClientPrefs.shaders) {
-			chromFNF.aberration.value[0] = -0.5;
+			chromFNF.setFloat('aberration', -0.5);
 		}
 
 		super.create();
@@ -1515,7 +1515,7 @@ class PlayState extends MusicBeatState
 		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 
 		if (isFinal) {
-			camHUD.alpha = 1;
+			camHUD.alpha = (SONG.song == 'Suffering Siblings' ? 0 : 1);
             if (ClientPrefs.flashing) {
 			    camHUD.flash(FlxColor.WHITE, 0.25);
             }
@@ -2339,10 +2339,10 @@ class PlayState extends MusicBeatState
 
 
 		if(ClientPrefs.shaders) {
-            chromFNF.aberration.value[0] = abberationShaderIntensity;
+            chromFNF.setFloat('aberration', abberationShaderIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
-            distortFNF.binaryIntensity.value[0] = distortIntensity;
-			distortDadFNF.binaryIntensity.value[0] = dadGlitchIntensity;
+            distortFNF.setFloat('binaryIntensity', distortIntensity);
+			distortDadFNF.setFloat('binaryIntensity', dadGlitchIntensity);
 			pibbyFNF.uTime.value[0] += elapsed;
 			mawFNF.iTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
@@ -2470,15 +2470,15 @@ class PlayState extends MusicBeatState
 		if (health > 2) {
             health = 2;
         }else if (healthBar.percent < 20){
-            iconP1.shader = distortFNF;
+            if (ClientPrefs.shaders) iconP1.shader = distortFNF;
 			if (gf != null)
 			{
-				iconP3.shader = distortFNF;
+				if (ClientPrefs.shaders) iconP3.shader = distortFNF;
 				iconP3.playAnim(iconP3.char + 'losing', false, false);
 			}
 			if (SONG.song == "Suffering Siblings")
 				{
-					iconPibby.shader = distortFNF;
+					if (ClientPrefs.shaders) iconPibby.shader = distortFNF;
 					iconPibby.playAnim(iconPibby.char + 'losing', false, false);
 				}
 			iconP1.playAnim(iconP1.char + 'losing', false, false);
@@ -2500,10 +2500,10 @@ class PlayState extends MusicBeatState
         if (healthBar.percent > 80){
 			if (SONG.song == "Suffering Siblings")
 				{
-					iconJake.shader = distortFNF;
+					if (ClientPrefs.shaders) iconJake.shader = distortFNF;
 					iconJake.playAnim(iconJake.char + 'losing', false, false);
 				}
-            iconP2.shader = distortFNF;
+				if (ClientPrefs.shaders) iconP2.shader = distortFNF;
 			iconP2.playAnim(iconP2.char + 'losing', false, false);
         }else{
 			if (SONG.song == "Suffering Siblings")
@@ -2936,7 +2936,7 @@ class PlayState extends MusicBeatState
 			case 'Set Chromatic Amount':
 				if(ClientPrefs.shaders) {
 					var val1:Int = Std.parseInt(value1);
-					chromFNF.aberration.value[0] = val1;
+					chromFNF.setFloat('aberration', val1);
 				}
 
             case 'Cinematics':
@@ -3986,15 +3986,17 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-			dadGlitchIntensity = FlxG.random.float(12, 25);
-			var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-			for (i in 0...shaderArray.length)
-			dad.shader = shaderArray[i];
-			new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-			dad.shader = null;
-		});
-	
-	}
+			if (ClientPrefs.shaders)
+				{
+					dadGlitchIntensity = FlxG.random.float(12, 25);
+					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
+					for (i in 0...shaderArray.length)
+					dad.shader = shaderArray[i];
+					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+					dad.shader = null;
+				});
+				}
+		}
 
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
@@ -4042,14 +4044,17 @@ class PlayState extends MusicBeatState
 					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 					
 					//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-					dadGlitchIntensity = FlxG.random.float(12, 25);
-					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-					for (i in 0...shaderArray.length)
-					jake.shader = shaderArray[i];
-					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-					jake.shader = null;
-				});
-			}
+					if (ClientPrefs.shaders)
+						{
+							dadGlitchIntensity = FlxG.random.float(12, 25);
+							var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
+							for (i in 0...shaderArray.length)
+							jake.shader = shaderArray[i];
+							new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+							jake.shader = null;
+							});
+						}
+				}
 		}
 
 			if(char != null)
@@ -4359,7 +4364,8 @@ class PlayState extends MusicBeatState
 
 		newStage.onStepHit(curStep);
 
-        distortIntensity = FlxG.random.float(4, 6);
+		if (ClientPrefs.shaders)
+        	distortIntensity = FlxG.random.float(4, 6);
 
 		switch (SONG.song)
 			{
@@ -4434,7 +4440,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Alt Idle Animation', 'dad', '-alt');
 							if (ClientPrefs.shaders) {
 							for (i in 0...opponentStrums.length) {
-								opponentStrums.members[i].shader = distortFNF;
+								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
 							}
 						}
 							defaultCamZoom = 0.9;
@@ -4453,11 +4459,14 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camGame, {alpha: 0},0.0000001);
 							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 640:
-							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-							vig.scrollFactor.set();
-							vig.cameras = [camOther];
-							vig.screenCenter();
-							add(vig);
+							if (!ClientPrefs.lowQuality)
+								{
+									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+									vig.scrollFactor.set();
+									vig.cameras = [camOther];
+									vig.screenCenter();
+									add(vig);
+								}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
@@ -4485,6 +4494,27 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 1520:
+							defaultCamZoom = 1.2;
+						case 1536:
+							white.alpha = 1;
+						    if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 2.5);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-open');
+							boyfriendGroup.visible = false;
+						case 1648:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-open2');
+						case 1664:
+							white.alpha = 0;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1.5);
+							}
+							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
+							boyfriendGroup.visible = true;
 						case 2432:
 							blackie.alpha = 1;
 					}
@@ -4795,9 +4825,11 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1181:
+							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
 							var video:VideoHandler = new VideoHandler();
+							video.canSkip = false;
 							video.playVideo(Paths.video('forgottenscene'));
-							video.finishCallback = null;
+							video.finishCallback = () -> canPause = true;
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1445:
@@ -4848,11 +4880,14 @@ class PlayState extends MusicBeatState
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
 						case 2420:
-							var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-							vig.scrollFactor.set();
-							vig.cameras = [camOther];
-							vig.screenCenter();
-							add(vig);
+							if (!ClientPrefs.lowQuality)
+								{
+									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+									vig.scrollFactor.set();
+									vig.cameras = [camOther];
+									vig.screenCenter();
+									add(vig);
+								}
 						case 2620:
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {
 								ease: FlxEase.linear,
@@ -4860,7 +4895,13 @@ class PlayState extends MusicBeatState
 								function (twn:FlxTween)
 									{
 										camHUD.alpha = 1;
-									}
+									},
+								onStart: daTween -> {
+									timeBar.alpha = 0;
+									timeTxt.alpha = 0;
+									timeBarBG.alpha = 0;
+									playerStrums.forEach(playerNotes -> playerNotes.alpha = 0);
+								}
 							});
 						case 2701:
 							if (ClientPrefs.flashing) {
@@ -5616,8 +5657,16 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.2;
 						case 2006:
 							defaultCamZoom = 0.9;
+						case 2049:
+							FlxTween.tween(camGame, {zoom: 1.4}, 1.8, {
+								ease: FlxEase.linear,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = defaultCamZoom;
+									}
+							});
 						case 2062:
-							defaultCamZoom = 1.55;
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1, {
 									ease: FlxEase.linear,
@@ -5629,6 +5678,10 @@ class PlayState extends MusicBeatState
 								});
 							}
 						case 2071:
+							defaultCamZoom = 0.8;
+							if (ClientPrefs.flashing){
+								camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
 							FlxTween.tween(boyfriend, {alpha: 1}, 0.25, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5681,8 +5734,6 @@ class PlayState extends MusicBeatState
 													abberationShaderIntensity = beatShaderAmount;
 												}});
 									}});
-							gf.playAnim('cmon', true);
-							gf.specialAnim = true;
 						case 2374:
 							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
 								ease: FlxEase.linear,
@@ -5692,6 +5743,8 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
+							gf.playAnim('cmon', true);
+							gf.specialAnim = true;
 							lyricTxt.text = "COME ON";
 							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
 								lyricTxt.text = "W";
@@ -5896,6 +5949,20 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 0.4);
 							}
 							triggerEventNote('Apple Filter', 'on', 'black');
+						case 3776:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
+							blackFNF.alpha = 1;
+						case 3791:
+							FlxTween.tween(camHUD, {alpha: 0}, 3, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										camHUD.alpha = 0;
+									}
+							});
 					}
 			}
 

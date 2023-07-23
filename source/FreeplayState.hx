@@ -69,9 +69,14 @@ class FreeplayState extends MusicBeatState
     var arrows:FlxSprite;
 	var image:FlxSprite;
     var stagebox:FlxSprite;
+	var stagebox_L:FlxSprite;
+	var stagebox_R:FlxSprite;
 	var threat:FlxSprite;
 	var levelBarBG:FlxSprite;
 	var levelBar:FlxBar;
+	var gradient:FlxSprite;
+
+	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null, 120);
 
 	override function create()
 	{
@@ -85,7 +90,9 @@ class FreeplayState extends MusicBeatState
 		FlxG.game.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
-		FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+
+		Conductor.changeBPM(100); // using this for good mesaure after playing a song lmao
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -143,26 +150,49 @@ class FreeplayState extends MusicBeatState
         add(stagebox);
         stagebox.screenCenter();
 
-        arrowL = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowL'));
-		arrowL.antialiasing = ClientPrefs.globalAntialiasing;
-        add(arrowL);
-        arrowL.scale.set(4, 4);
-        arrowL.screenCenter();
+		if (!ClientPrefs.lowQuality)
+			{
+				stagebox_L = new FlxSprite().loadGraphicFromSprite(stagebox);
+				stagebox_L.alpha = 0.6;
+				add(stagebox_L);
+				stagebox_L.x = stagebox.x - 500;
+				stagebox_L.setGraphicSize(Std.int(stagebox_L.width * 0.45));
 
-        arrowR = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowR'));
-		arrowR.antialiasing = ClientPrefs.globalAntialiasing;
-        add(arrowR);
-        arrowR.scale.set(4, 4);
-        arrowR.screenCenter();
+				stagebox_R = new FlxSprite().loadGraphicFromSprite(stagebox);
+				stagebox_R.alpha = 0.6;
+				add(stagebox_R);
+				stagebox_R.x = stagebox.x + 500;
+				stagebox_R.setGraphicSize(Std.int(stagebox_R.width * 0.45));
+
+				arrowL = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowL'));
+				arrowL.antialiasing = ClientPrefs.globalAntialiasing;
+				add(arrowL);
+				arrowL.scale.set(4, 4);
+				arrowL.blend = ADD;
+				if (ClientPrefs.shaders) arrowL.shader = bloomFNF;
+				arrowL.screenCenter();
+
+				arrowR = new FlxSprite().loadGraphic(Paths.image('fpmenu/arrowR'));
+				arrowR.antialiasing = ClientPrefs.globalAntialiasing;
+				add(arrowR);
+				arrowR.scale.set(4, 4);
+				arrowR.blend = ADD;
+				if (ClientPrefs.shaders) arrowR.shader = bloomFNF;
+				arrowR.screenCenter();
+			}
 
 		songText = new FlxTypeText(image.x, image.y + 35, Std.int(FlxG.width * 1), "");
 		songText.antialiasing = ClientPrefs.globalAntialiasing;
 		songText.setFormat(Paths.font("menuBUTTONS.ttf"), 64, FlxColor.WHITE, CENTER);
+		if (!ClientPrefs.lowQuality) songText.blend = ADD;
+		if (ClientPrefs.shaders) songText.shader = bloomFNF;
 		add(songText);
 
 		artistText = new FlxTypeText(songText.x, songText.y + 80, Std.int(FlxG.width * 1), "");
 		artistText.antialiasing = ClientPrefs.globalAntialiasing;
 		artistText.setFormat(Paths.font("menuBUTTONS.ttf"), 36, FlxColor.WHITE, CENTER);
+		if (!ClientPrefs.lowQuality) artistText.blend = ADD;
+		if (ClientPrefs.shaders) artistText.shader = bloomFNF;
 		add(artistText);
 
 		levelBarBG = new FlxSprite(threat.x + 630, threat.y + 510).loadGraphic(Paths.image('fpmenu/threatBarBG'));
@@ -173,11 +203,22 @@ class FreeplayState extends MusicBeatState
 			'threatPercent', 0, 100);
 		levelBar.scrollFactor.set();
 		levelBar.createFilledBar(0x00000000, FlxColor.WHITE, true);
+		levelBar.antialiasing = ClientPrefs.globalAntialiasing;
 		add(levelBar);
+
+		if (!ClientPrefs.lowQuality) {
+			gradient = new FlxSprite(0, 0, Paths.image('gradient', 'shared'));
+			gradient.screenCenter();
+			gradient.setGraphicSize(Std.int(gradient.width * 0.75));
+			gradient.alpha = 0;
+			gradient.antialiasing = ClientPrefs.globalAntialiasing;
+			add(gradient);
+		}
 
 		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Freeplay Theme - By Doge ♪", 8);
 		dogeTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		dogeTxt.alpha = 0;
+		dogeTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(dogeTxt);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -188,6 +229,7 @@ class FreeplayState extends MusicBeatState
 			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
 			songText.isMenuItem = true;
 			songText.targetY = i - curSelected;
+			songText.antialiasing = ClientPrefs.globalAntialiasing;
 
 			var maxWidth = 980;
 			if (songText.width > maxWidth)
@@ -199,6 +241,7 @@ class FreeplayState extends MusicBeatState
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
 			icon.sprTracker = songText;
+			icon.antialiasing = ClientPrefs.globalAntialiasing;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
@@ -217,7 +260,6 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
-
 
 		if(curSelected >= songs.length) curSelected = 0;
 
@@ -295,6 +337,7 @@ class FreeplayState extends MusicBeatState
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
 	var holdTime:Float = 0;
+	var gradientSineThing:Float = 0;
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music.volume < 0.7)
@@ -311,6 +354,12 @@ class FreeplayState extends MusicBeatState
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 		}
+
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
+		gradientSineThing += 180 * elapsed;
+		if (!ClientPrefs.lowQuality && gradient != null) gradient.alpha = 1 - Math.sin((Math.PI * gradientSineThing) / 250);
 
 		bg.animation.play('idle');
 
@@ -347,7 +396,7 @@ class FreeplayState extends MusicBeatState
 		{
 			if (leftP)
 			{
-				FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
+				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -365,7 +414,7 @@ class FreeplayState extends MusicBeatState
 			}
 			if (rightP)
 			{
-				FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
+				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -402,6 +451,8 @@ class FreeplayState extends MusicBeatState
 				changeDiff();
 			}
 		}
+
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 
 		if (controls.BACK)
 		{
@@ -455,12 +506,24 @@ class FreeplayState extends MusicBeatState
 		super.update(elapsed);
 	}
 
+	override function beatHit() {
+		super.beatHit();
+
+		FlxG.camera.zoom += .035;
+	}
+
 	public static function destroyFreeplayVocals() {
 		if(vocals != null) {
 			vocals.stop();
 			vocals.destroy();
 		}
 		vocals = null;
+	}
+
+	override function destroy() {
+		super.destroy();
+
+		FlxG.game.setFilters([]);
 	}
 
 	function changeDiff(change:Int = 0)
@@ -587,23 +650,23 @@ class FreeplayState extends MusicBeatState
 		switch (songs[curSelected].songName)
 		{
 			case "Child's Play":
-				threatPercent = 20;
+				FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
 			case "My Amazing World":
-				threatPercent = 45;
+				FlxTween.tween(this, {threatPercent: 45}, 0.7, {ease: FlxEase.quadInOut});
 			case "Retcon":
-				threatPercent = 55;
+				FlxTween.tween(this, {threatPercent: 55}, 0.7, {ease: FlxEase.quadInOut});
 			case "Forgotten World":
-				threatPercent = 65;
+				FlxTween.tween(this, {threatPercent: 65}, 0.7, {ease: FlxEase.quadInOut});
 			case "Mindless":
-				threatPercent = 85;
+				FlxTween.tween(this, {threatPercent: 85}, 0.7, {ease: FlxEase.quadInOut});
 			case "Blessed by Swords":
-				threatPercent = 90;
+				FlxTween.tween(this, {threatPercent: 90}, 0.7, {ease: FlxEase.quadInOut});
 			case "Brotherly Love":
-				threatPercent = 80;
+				FlxTween.tween(this, {threatPercent: 80}, 0.7, {ease: FlxEase.quadInOut});
 			case "Suffering Siblings":
-				threatPercent = 95;
+				FlxTween.tween(this, {threatPercent: 95}, 0.7, {ease: FlxEase.quadInOut});
 			case "Come Along With Me":
-				threatPercent = 75;
+				FlxTween.tween(this, {threatPercent: 75}, 0.7, {ease: FlxEase.quadInOut});
 		}
 		levelBar.updateBar();
 	}

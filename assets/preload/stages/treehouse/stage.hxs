@@ -19,29 +19,22 @@ function onCreate()
     treehouse.antialiasing = ClientPrefs.globalAntialiasing;
     treehouse.updateHitbox();
 
-
-    thunder = new flixel.FlxSprite();
-    thunder.x = 1500;
-    thunder.y = 200;
-    thunder.frames = retrieveAsset('images/Lighting', 'atlas');
-    thunder.scale.set(1.25, 1.25);
-    thunder.updateHitbox();
-    thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
-
-    rain = new flixel.FlxSprite();
-    rain.x = -750;
-    rain.y = 0;
-    rain.frames = retrieveAsset('images/Rain', 'atlas');
-    rain.scale.set(2, 2);
-    rain.updateHitbox();
-    rain.animation.addByPrefix('rain', 'Rain', 24, true);
-    rain.animation.play('rain');
-
+    if (!ClientPrefs.lowQuality)
+    {
+        thunder = new flixel.FlxSprite();
+        thunder.x = -550;
+        thunder.y = -800;
+        thunder.scale.set(1.2, 1,2);
+        thunder.frames = retrieveAsset('images/Lighting', 'atlas');
+        thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
+        thunder.scrollFactor.set();
+    }
 
     add(bg);
     add(thunder);
     add(treehouse);
-    foreground.add(rain);
+    add(thunder);
+
 }
 
 function onMoveCamera(focus:String)
@@ -49,13 +42,18 @@ function onMoveCamera(focus:String)
         if (focus == 'dad') 
 			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = 0.45;
+            PlayState.defaultCamZoom = 1;
     }
 
 function onStepHit(curStep:Int)
     {
+        thunder.animation.play('thunder');
         if (curStep == 896)
-            dadCamZoom = 0.3;
+            dadCamZoom = 0.6;
+        if (curStep == 1536)
+            dadCamZoom = 0.8;
+        if (curStep == 1664)
+            dadCamZoom = 0.6;
     }
 
 function onBeatHit(curBeat:Int)

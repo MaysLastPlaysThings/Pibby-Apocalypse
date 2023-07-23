@@ -15,7 +15,7 @@ var rock3;
 var rock4;
 var wtf;
 var glitch;
-var stupidFix;
+var stupidFix; 
 
 function onCreate()
 {
@@ -47,33 +47,36 @@ function onCreate()
     ch3.scrollFactor.set(1, 1);
     ch3.updateHitbox();
 
-    wall = new flixel.FlxSprite(-200, 200);
-    wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
-    wall.setGraphicSize(Std.int(wall.width * 1.1));
-    wall.antialiasing = ClientPrefs.globalAntialiasing;
-    wall.scrollFactor.set(1, 1);
-    wall.updateHitbox();
+    if (!ClientPrefs.lowQuality)
+    {
+        wall = new flixel.FlxSprite(-200, 200);
+        wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
+        wall.setGraphicSize(Std.int(wall.width * 1.1));
+        wall.antialiasing = ClientPrefs.globalAntialiasing;
+        wall.scrollFactor.set(1, 1);
+        wall.updateHitbox();
 
-    light = new flixel.FlxSprite(-500, 50);
-    light.loadGraphic(retrieveAsset('images/light.png', 'image'));
-    light.setGraphicSize(Std.int(light.width * 1));
-    light.antialiasing = ClientPrefs.globalAntialiasing;
-    light.scrollFactor.set(1, 1);
-    light.updateHitbox();
+        light = new flixel.FlxSprite(-500, 50);
+        light.loadGraphic(retrieveAsset('images/light.png', 'image'));
+        light.setGraphicSize(Std.int(light.width * 1));
+        light.antialiasing = ClientPrefs.globalAntialiasing;
+        light.scrollFactor.set(1, 1);
+        light.updateHitbox();
 
-    vignette = new flixel.FlxSprite(0, 0);
-    vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
-    vignette.setGraphicSize(Std.int(vignette.width * 1.3));
-    vignette.antialiasing = ClientPrefs.globalAntialiasing;
-    vignette.scrollFactor.set(1, 1);
-    vignette.updateHitbox();
+        vignette = new flixel.FlxSprite(0, 0);
+        vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
+        vignette.setGraphicSize(Std.int(vignette.width * 1.3));
+        vignette.antialiasing = ClientPrefs.globalAntialiasing;
+        vignette.scrollFactor.set(1, 1);
+        vignette.updateHitbox();
 
-    vignette2 = new flixel.FlxSprite(0, 0);
-    vignette2.loadGraphic(retrieveAsset('images/188_sin_titulo11_20230523094718.png', 'image'));
-    vignette2.setGraphicSize(Std.int(vignette2.width * 1.3));
-    vignette2.antialiasing = ClientPrefs.globalAntialiasing;
-    vignette2.scrollFactor.set(1, 1);
-    vignette2.updateHitbox();
+        vignette2 = new flixel.FlxSprite(0, 0);
+        vignette2.loadGraphic(retrieveAsset('images/188_sin_titulo11_20230523094718.png', 'image'));
+        vignette2.setGraphicSize(Std.int(vignette2.width * 1.3));
+        vignette2.antialiasing = ClientPrefs.globalAntialiasing;
+        vignette2.scrollFactor.set(1, 1);
+        vignette2.updateHitbox();
+    }
 
     void = new flixel.FlxSprite(0, -200);
     void.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-1.png', 'image'));
@@ -144,10 +147,10 @@ function onCreate()
     stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
 
     add(background);
-    foreground.add(wall);
-    foreground.add(vignette);
-    foreground.add(vignette2);
-    foreground.add(light);
+    if (!ClientPrefs.lowQuality) foreground.add(wall);
+    if (!ClientPrefs.lowQuality) foreground.add(vignette);
+    if (!ClientPrefs.lowQuality) foreground.add(vignette2);
+    if (!ClientPrefs.lowQuality) foreground.add(light);
 
 }
 
@@ -170,17 +173,17 @@ function onEvent(event:String, value1:String, value2:String)
         {
              if (value1 == 'on') 
             {
-                wall.alpha = 0.0001;
-                vignette2.alpha = 0.0001; 
-                vignette.alpha = 0.0001; 
-                light.alpha = 0.0001; 
+                if (!ClientPrefs.lowQuality) wall.alpha = 0.0001;
+                if (!ClientPrefs.lowQuality) vignette2.alpha = 0.0001; 
+                if (!ClientPrefs.lowQuality) vignette.alpha = 0.0001; 
+                if (!ClientPrefs.lowQuality) light.alpha = 0.0001; 
             }
              else if (value1 == 'off')
             {
-                wall.alpha = 1;
-                vignette2.alpha = 1;
-                vignette.alpha = 1;
-                light.alpha = 1;
+                if (!ClientPrefs.lowQuality) wall.alpha = 1;
+                if (!ClientPrefs.lowQuality) vignette2.alpha = 1;
+                if (!ClientPrefs.lowQuality) vignette.alpha = 1;
+                if (!ClientPrefs.lowQuality) light.alpha = 1;
             }
         }
     }
@@ -204,11 +207,11 @@ function onStepHit(curStep:Int)
         if (curStep == 2144)
             {
                 PlayState.triggerEventNote('Camera Follow Pos', '940', '720');
-                wall.visible = false;
-                vignette2.visible = false; 
-                vignette.visible = false;
+                if (!ClientPrefs.lowQuality) wall.visible = false;
+                if (!ClientPrefs.lowQuality) vignette2.visible = false; 
+                if (!ClientPrefs.lowQuality) vignette.visible = false;
                 background.visible = false;
-                light.visible = false;
+                if (!ClientPrefs.lowQuality) light.visible = false;
                 add(ch1);
                 PlayState.gf.y = 720;
             }
@@ -336,9 +339,9 @@ function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
 }
 
 function onPause() {
-    stupidFix.active = false;
+    if (!ClientPrefs.lowQuality) stupidFix.active = false;
 }
 
 function onResume() {
-    stupidFix.active = true;
+    if (!ClientPrefs.lowQuality) stupidFix.active = true;
 }

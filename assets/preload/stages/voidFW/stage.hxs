@@ -6,7 +6,7 @@ var rock3;
 var rock4;
 var wtf;
 var glitch;
-var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
+var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk, hscript is fucking weird man) (Another grammatical fix by Zero :trol:)
 
 function onCreate()
 {
