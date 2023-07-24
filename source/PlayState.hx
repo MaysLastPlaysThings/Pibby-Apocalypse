@@ -1204,7 +1204,8 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
-					FlxG.game.setFilters([new ShaderFilter(blurFNFZoomEdition)]);
+					@:privateAccess FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
+					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEdition));
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
 					blurFNFZoomEdition.setFloat('focusPower', 6);
@@ -4467,7 +4468,8 @@ class PlayState extends MusicBeatState
 									add(vig);
 								}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
-							FlxG.game.setFilters([]);
+							// im pretty sure i could just use camera._filters.remove(filter) but just in case
+							blurFNFZoomEdition.setFloat('focusPower', 0);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
