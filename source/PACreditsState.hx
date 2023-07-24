@@ -92,4 +92,8 @@ class PACreditsState extends MusicBeatState
 			super.update(elapsed);
 	}
 
+	override function destroy() {
+		super.destroy();
+		FlxG.game.setFilters([]);
+	}
 }
