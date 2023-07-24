@@ -4437,7 +4437,6 @@ class PlayState extends MusicBeatState
 							});
 							defaultCamZoom = 1.35;
 						case 384:
-							triggerEventNote('Alt Idle Animation', 'dad', '-alt');
 							if (ClientPrefs.shaders) {
 							for (i in 0...opponentStrums.length) {
 								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
