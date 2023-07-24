@@ -3,17 +3,6 @@
 		{
 			"loop": false,
 			"offsets": [
-				-5,
-				32
-			],
-			"anim": "idle",
-			"fps": 24,
-			"name": "idle0",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
 				6,
 				62
 			],
@@ -47,7 +36,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-5,
+				-20,
 				85
 			],
 			"anim": "singRIGHT",
@@ -69,7 +58,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-3,
+				1,
 				-25
 			],
 			"anim": "singDOWNmiss",
@@ -80,8 +69,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-23,
-				97
+				-18,
+				91
 			],
 			"anim": "singUPmiss",
 			"fps": 24,
@@ -91,7 +80,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-13,
+				-3,
 				25
 			],
 			"anim": "singRIGHTmiss",
@@ -102,7 +91,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				62,
+				66,
 				-8
 			],
 			"anim": "dodgeDOWN",
@@ -113,8 +102,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				121,
-				20
+				119,
+				25
 			],
 			"anim": "dodgeLEFT",
 			"fps": 24,
@@ -124,7 +113,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-15,
+				-8,
 				97
 			],
 			"anim": "dodgeUP",
@@ -135,19 +124,74 @@
 		{
 			"loop": false,
 			"offsets": [
-				-14,
-				32
+				-3,
+				33
 			],
 			"anim": "dodgeRIGHT",
 			"fps": 24,
 			"name": "right dodge0",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				256,
+				105
+			],
+			"anim": "two",
+			"fps": 24,
+			"name": "20",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				256,
+				26
+			],
+			"anim": "one",
+			"fps": 24,
+			"name": "10",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				256,
+				33
+			],
+			"anim": "go",
+			"fps": 24,
+			"name": "Go0",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-5,
+				32
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "idle0"
+		},
+		{
+			"offsets": [
+				-18,
+				32
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "three",
+			"loop": false,
+			"name": "3"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/zero",
 	"position": [
-		90,
+		100,
 		330
 	],
 	"healthicon": "zero",
@@ -158,9 +202,9 @@
 		28
 	],
 	"camera_position": [
-		100,
-		-50
+		400,
+		-30
 	],
-	"sing_duration": 5.1,
+	"sing_duration": 6,
 	"scale": 1
 }

@@ -5654,7 +5654,7 @@ class PlayState extends MusicBeatState
 						case 2006:
 							defaultCamZoom = 0.9;
 						case 2049:
-							FlxTween.tween(camGame, {zoom: 1.4}, 1.8, {
+							FlxTween.tween(camGame, {zoom: 1.4}, 1.65, {
 								ease: FlxEase.linear,
 								onComplete: 
 								function (twn:FlxTween)
@@ -5730,6 +5730,9 @@ class PlayState extends MusicBeatState
 													abberationShaderIntensity = beatShaderAmount;
 												}});
 									}});
+					    case 2372:
+							gf.playAnim('cmon', true);
+							gf.specialAnim = true;
 						case 2374:
 							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
 								ease: FlxEase.linear,
@@ -5739,8 +5742,6 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
-							gf.playAnim('cmon', true);
-							gf.specialAnim = true;
 							lyricTxt.text = "COME ON";
 							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
 								lyricTxt.text = "W";
