@@ -4471,6 +4471,10 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
+							if (ClientPrefs.flashing) 
+								camOverlay.flash(FlxColor.WHITE, 1);
+							white.alpha = 0;
+
 						case 656:
 							defaultCamZoom = 1.15;
 						case 672:
@@ -4482,11 +4486,7 @@ class PlayState extends MusicBeatState
 						case 848:
 							FlxTween.tween(camGame, {alpha: 0},3.52);
 						case 896:
-							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1);
-							}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
-							white.alpha = 0;
 							boyfriendGroup.visible = true;
 							dad.x = DAD_X - 260;
 							dad.y = DAD_Y - 250;

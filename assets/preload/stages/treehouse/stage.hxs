@@ -1,6 +1,7 @@
 var bg;
 var treehouse;
 var thunder;
+var rain;
 
 var dadCamZoom = 0.8;
 
@@ -30,8 +31,9 @@ function onCreate()
     }
 
     add(bg);
+    add(thunder);
     add(treehouse);
-    if (!ClientPrefs.lowQuality && thunder != null) add(thunder);
+    add(thunder);
 
 }
 
@@ -45,11 +47,27 @@ function onMoveCamera(focus:String)
 
 function onStepHit(curStep:Int)
     {
-        if (!ClientPrefs.lowQuality) thunder.animation.play('thunder');
+        thunder.animation.play('thunder');
         if (curStep == 896)
             dadCamZoom = 0.6;
         if (curStep == 1536)
             dadCamZoom = 0.8;
         if (curStep == 1664)
             dadCamZoom = 0.6;
+    }
+
+function onBeatHit(curBeat:Int)
+    {
+        if (curBeat % 8 == 0)
+            lightningStrike();
+    }
+
+
+function lightningStrike()
+    {
+        thunder.alpha = 1;
+        thunder.animation.play('thunder');
+        thunder.animation.finishCallback = function()
+            thunder.alpha = 0.0001;
+        
     }
