@@ -105,6 +105,7 @@ class PlayState extends MusicBeatState
 	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
+	var blurFNFZoomEdition:FlxRuntimeShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -574,13 +575,6 @@ class PlayState extends MusicBeatState
 				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
 				lockersnshit.updateHitbox();
 				add(lockersnshit);
-
-			case 'treehouse':					
-				white = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
-				white.scrollFactor.set();
-				white.scale.set(1.5, 1.5);
-				white.alpha = 1;
-				add(white);
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -1147,6 +1141,7 @@ class PlayState extends MusicBeatState
 		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
+		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1209,6 +1204,10 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
+					FlxG.game.setFilters([new ShaderFilter(blurFNFZoomEdition)]);
+					blurFNFZoomEdition.setFloat('posX', 0.5);
+					blurFNFZoomEdition.setFloat('posY', 0.5);
+					blurFNFZoomEdition.setFloat('focusPower', 6);
 			}
 
 		cacheCountdown();
@@ -4468,13 +4467,12 @@ class PlayState extends MusicBeatState
 									add(vig);
 								}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
+							FlxG.game.setFilters([]);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
 							if (ClientPrefs.flashing) 
 								camOverlay.flash(FlxColor.WHITE, 1);
-							white.alpha = 0;
-
 						case 656:
 							defaultCamZoom = 1.15;
 						case 672:
@@ -4497,7 +4495,6 @@ class PlayState extends MusicBeatState
 						case 1520:
 							defaultCamZoom = 1.2;
 						case 1536:
-							white.alpha = 1;
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
@@ -4509,7 +4506,6 @@ class PlayState extends MusicBeatState
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 1664:
-							white.alpha = 0;
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}

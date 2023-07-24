@@ -3,7 +3,14 @@ var treehouse;
 var thunder;
 var rain;
 
+// intro stuff
+var outside;
+var idkWhatAreThatThings;
+var coolGradient;
+var outside2;
+
 var dadCamZoom = 0.8;
+var coolStep = 0; // rare ass fix
 
 function onCreate()
 {
@@ -12,12 +19,14 @@ function onCreate()
     bg.scale.set(1.5, 1.5);
     bg.antialiasing = ClientPrefs.globalAntialiasing;
     bg.updateHitbox();
+    bg.alpha = 0.0001;
 
     treehouse = new flixel.FlxSprite(0, 0);
     treehouse.loadGraphic(retrieveAsset('images/tree.png', 'image'));
     treehouse.scale.set(1.5, 1.5);
     treehouse.antialiasing = ClientPrefs.globalAntialiasing;
     treehouse.updateHitbox();
+    treehouse.alpha = 0.0001;
 
     if (!ClientPrefs.lowQuality)
     {
@@ -27,14 +36,37 @@ function onCreate()
         thunder.scale.set(1.2, 1,2);
         thunder.frames = retrieveAsset('images/Lighting', 'atlas');
         thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
+        thunder.alpha = 0.0001;
         thunder.scrollFactor.set();
     }
+
+    outside = new flixel.FlxSprite(1150, 1450);
+    outside.loadGraphic(retrieveAsset('images/intro/IMG_8337.png', 'image'));
+    outside.updateHitbox();
+    outside.scale.set(0.7, 0.7);
+
+    outside2 = new flixel.FlxSprite(1150, 1450);
+    outside2.loadGraphic(retrieveAsset('images/intro/IMG_8337.png', 'image'));
+    outside2.updateHitbox();
+    outside2.scale.set(0.65, 0.65);
+
+    idkWhatAreThatThings = new flixel.FlxSprite(1090, 1500);
+    idkWhatAreThatThings.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-2.png', 'image'));
+    idkWhatAreThatThings.updateHitbox();
+    idkWhatAreThatThings.scale.set(0.6, 0.6);
+
+    coolGradient = new flixel.FlxSprite(1150, 1450);
+    coolGradient.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-3.png', 'image'));
+    coolGradient.updateHitbox();
 
     add(bg);
     add(thunder);
     add(treehouse);
     add(thunder);
-
+    add(outside);
+    add(outside2);
+    add(coolGradient);
+    add(idkWhatAreThatThings);
 }
 
 function onMoveCamera(focus:String)
@@ -48,6 +80,19 @@ function onMoveCamera(focus:String)
 function onStepHit(curStep:Int)
     {
         thunder.animation.play('thunder');
+
+        coolStep = curStep;
+
+        if (curStep == 640)
+        {
+            outside.alpha = 0;
+            outside2.alpha = 0;
+            coolGradient.alpha = 0;
+            idkWhatAreThatThings.alpha = 0;
+            thunder.alpha = 1;
+            treehouse.alpha = 1;
+            bg.alpha = 1;
+        }
         if (curStep == 896)
             dadCamZoom = 0.6;
         if (curStep == 1536)
@@ -58,7 +103,7 @@ function onStepHit(curStep:Int)
 
 function onBeatHit(curBeat:Int)
     {
-        if (curBeat % 8 == 0)
+        if (curBeat % 8 == 0 && coolStep >= 640) // dumb fix
             lightningStrike();
     }
 
@@ -69,5 +114,5 @@ function lightningStrike()
         thunder.animation.play('thunder');
         thunder.animation.finishCallback = function()
             thunder.alpha = 0.0001;
-        
+
     }
