@@ -86,7 +86,7 @@ class PACreditsState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));
 				quitting = true;
 			}
 			super.update(elapsed);
