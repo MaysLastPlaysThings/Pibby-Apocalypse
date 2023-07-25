@@ -84,21 +84,23 @@ class StoryMenuState extends MusicBeatState
 					case 0:
 						characters.setPosition(-55, 150);
 					case 1:
-						characters.setPosition(515, 150);
+						characters.setPosition(625, 150);
 				}
 				//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 				characters.updateHitbox();
 			}
 
-		logoFinn = new FlxSprite().loadGraphic(Paths.image('storymenu/corruptiontime'));
-		logoFinn.scale.set(0.5, 0.5);
+		logoFinn = new FlxSprite(-150, -80).loadGraphic(Paths.image('storymenu/corruptiontime'));
+		logoFinn.scale.set(0.45, 0.45);
 		add(logoFinn);
 
 		logoGumball = new FlxSprite();
-		logoGumball.scale.set(0.5, 0.5);
+		logoGumball.scale.set(0.29, 0.29);
 		logoGumball.frames = Paths.getSparrowAtlas('storymenu/theGlitch');
 		logoGumball.animation.addByPrefix('idle', 'theGlitch glitching', 24, true);
 		logoGumball.animation.play('idle');
+		logoGumball.screenCenter().x += 340; // got throughts.......
+		logoGumball.y -= 140;
 		add(logoGumball);
 
 		changeItem();
