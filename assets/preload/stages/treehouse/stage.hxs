@@ -12,6 +12,8 @@ var outside2;
 var dadCamZoom = 0.8;
 var coolStep = 0; // rare ass fix
 
+var doThunder:Bool = false;
+
 function onCreate()
 {
     bg = new flixel.FlxSprite(0, 0);
@@ -79,9 +81,31 @@ function onMoveCamera(focus:String)
 
 function onStepHit(curStep:Int)
     {
-        thunder.animation.play('thunder');
-
         coolStep = curStep;
+
+        if (curStep == 1535) {
+            outside.alpha = 1;
+            outside2.alpha = 1;
+            coolGradient.alpha = 1;
+            idkWhatAreThatThings.alpha = 1;
+            thunder.alpha = 0;
+            treehouse.alpha = 0;
+            bg.alpha = 0;
+            doThunder = false;
+            dadCamZoom = 0.9;
+        }
+        if (curStep == 1647)
+        {
+            outside.alpha = 0;
+            outside2.alpha = 0;
+            coolGradient.alpha = 0;
+            idkWhatAreThatThings.alpha = 0;
+            thunder.alpha = 1;
+            treehouse.alpha = 1;
+            bg.alpha = 1;
+            doThunder = true;
+            dadCamZoom = 0.7;
+        }
 
         if (curStep == 640)
         {
@@ -92,6 +116,7 @@ function onStepHit(curStep:Int)
             thunder.alpha = 1;
             treehouse.alpha = 1;
             bg.alpha = 1;
+            doThunder = true;
         }
         if (curStep == 896)
             dadCamZoom = 0.6;
@@ -103,7 +128,7 @@ function onStepHit(curStep:Int)
 
 function onBeatHit(curBeat:Int)
     {
-        if (curBeat % 8 == 0 && coolStep >= 640) // dumb fix
+        if (curBeat % 8 == 0 && doThunder) // dumb fix
             lightningStrike();
     }
 

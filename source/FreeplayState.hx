@@ -642,12 +642,12 @@ class FreeplayState extends MusicBeatState
 			artistText.alpha = 1;
 			artistText.revive();
 			artistText.resetText(CoolUtil.getSongArtist(songs[curSelected].songName).toUpperCase());
-			artistText.start(0.1, true);
+			artistText.start(0.05, true);
 		};
 
 		image.loadGraphic(Paths.image('fpmenu/stage/' + songs[curSelected].songName));
 
-		switch (songs[curSelected].songName)
+		switch (songs[curSelected].songName) // Note to self: make the threat level week file dependent. ~ADA
 		{
 			case "Child's Play":
 				FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
