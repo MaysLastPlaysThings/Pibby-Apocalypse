@@ -105,6 +105,7 @@ class PlayState extends MusicBeatState
 	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
+	var blurFNFZoomEdition:FlxRuntimeShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -574,13 +575,6 @@ class PlayState extends MusicBeatState
 				lockersnshit.setGraphicSize(Std.int(lockersnshit.width * 1.3));
 				lockersnshit.updateHitbox();
 				add(lockersnshit);
-
-			case 'treehouse':					
-				white = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
-				white.scrollFactor.set();
-				white.scale.set(1.5, 1.5);
-				white.alpha = 1;
-				add(white);
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -1147,6 +1141,7 @@ class PlayState extends MusicBeatState
 		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
+		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1209,6 +1204,11 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
+					@:privateAccess FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
+					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEdition));
+					blurFNFZoomEdition.setFloat('posX', 0.5);
+					blurFNFZoomEdition.setFloat('posY', 0.5);
+					blurFNFZoomEdition.setFloat('focusPower', 6);
 			}
 
 		cacheCountdown();
@@ -3344,7 +3344,7 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -4336,6 +4336,7 @@ class PlayState extends MusicBeatState
 		}
 		FlxAnimationController.globalSpeed = 1;
 		FlxG.sound.music.pitch = 1;
+		FlxG.game.setFilters([]);
 		super.destroy();
 	}
 
@@ -4437,7 +4438,6 @@ class PlayState extends MusicBeatState
 							});
 							defaultCamZoom = 1.35;
 						case 384:
-							triggerEventNote('Alt Idle Animation', 'dad', '-alt');
 							if (ClientPrefs.shaders) {
 							for (i in 0...opponentStrums.length) {
 								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
@@ -4468,13 +4468,13 @@ class PlayState extends MusicBeatState
 									add(vig);
 								}
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
+							// im pretty sure i could just use camera._filters.remove(filter) but just in case
+							blurFNFZoomEdition.setFloat('focusPower', 0);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
 							if (ClientPrefs.flashing) 
 								camOverlay.flash(FlxColor.WHITE, 1);
-							white.alpha = 0;
-
 						case 656:
 							defaultCamZoom = 1.15;
 						case 672:
@@ -4497,24 +4497,34 @@ class PlayState extends MusicBeatState
 						case 1520:
 							defaultCamZoom = 1.2;
 						case 1536:
-							white.alpha = 1;
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open');
 							boyfriendGroup.visible = false;
+							blurFNFZoomEdition.setFloat('focusPower', 1);
 						case 1648:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 1664:
-							white.alpha = 0;
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							boyfriendGroup.visible = true;
+							blurFNFZoomEdition.setFloat('focusPower', 0);
+						case 1775:
+							FlxTween.tween(blackie, {alpha: 1}, 1);
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
+							}
+						case 1791:
+							FlxTween.tween(blackie, {alpha: 1}, 0.25);
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 0.25);
+							}
 						case 2432:
 							blackie.alpha = 1;
 					}
@@ -5658,7 +5668,7 @@ class PlayState extends MusicBeatState
 						case 2006:
 							defaultCamZoom = 0.9;
 						case 2049:
-							FlxTween.tween(camGame, {zoom: 1.4}, 1.8, {
+							FlxTween.tween(camGame, {zoom: 1.4}, 1.65, {
 								ease: FlxEase.linear,
 								onComplete: 
 								function (twn:FlxTween)
@@ -5734,6 +5744,9 @@ class PlayState extends MusicBeatState
 													abberationShaderIntensity = beatShaderAmount;
 												}});
 									}});
+					    case 2372:
+							gf.playAnim('cmon', true);
+							gf.specialAnim = true;
 						case 2374:
 							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
 								ease: FlxEase.linear,
@@ -5743,8 +5756,6 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
-							gf.playAnim('cmon', true);
-							gf.specialAnim = true;
 							lyricTxt.text = "COME ON";
 							new FlxTimer().start(0.917, function(tmr:FlxTimer) {
 								lyricTxt.text = "W";

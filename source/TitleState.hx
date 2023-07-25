@@ -258,12 +258,12 @@ class TitleState extends MusicBeatState
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
 			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
+			// music.loadStream(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));
 			// FlxG.sound.list.add(music);
 			// music.play();
 
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'), 0);
 			}
 		}
 
@@ -533,7 +533,7 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+					FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.5);
 				case 2:
 					#if PSYCH_WATERMARKS

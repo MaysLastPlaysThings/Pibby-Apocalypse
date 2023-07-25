@@ -459,7 +459,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));
 		}
 
 		if (accepted)
@@ -642,12 +642,12 @@ class FreeplayState extends MusicBeatState
 			artistText.alpha = 1;
 			artistText.revive();
 			artistText.resetText(CoolUtil.getSongArtist(songs[curSelected].songName).toUpperCase());
-			artistText.start(0.1, true);
+			artistText.start(0.05, true);
 		};
 
 		image.loadGraphic(Paths.image('fpmenu/stage/' + songs[curSelected].songName));
 
-		switch (songs[curSelected].songName)
+		switch (songs[curSelected].songName) // Note to self: make the threat level week file dependent. ~ADA
 		{
 			case "Child's Play":
 				FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
