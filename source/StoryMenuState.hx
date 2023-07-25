@@ -35,6 +35,9 @@ class StoryMenuState extends MusicBeatState
 
 	var grpWeekCharacters:FlxTypedGroup<FlxSprite>;
 
+	var shaderIntensity:Float;
+	var pibbyFNF:Shaders.Pibbified;
+
 	var optionShit:Array<String> = [
 		'finn',
 		'gumball'
@@ -112,12 +115,12 @@ class StoryMenuState extends MusicBeatState
 
 			if (controls.UI_LEFT_P)
 			{
-				changeSelection(-1);
+				changeItem(-1);
 			}
 	
 			if (controls.UI_RIGHT_P)
 			{
-				changeSelection(1);
+				changeItem(1);
 			}
 
 			if (!selectedSomethin)
