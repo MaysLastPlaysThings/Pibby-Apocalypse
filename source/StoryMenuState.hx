@@ -19,6 +19,11 @@ import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import WeekData;
 
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+
 using StringTools;
 
 class StoryMenuState extends MusicBeatState
@@ -32,6 +37,8 @@ class StoryMenuState extends MusicBeatState
 	var logoGumball:FlxSprite;
 
 	private static var curWeek:Int = 0;
+
+	var curSelected:Int = -1;
 
 	var grpWeekCharacters:FlxTypedGroup<FlxSprite>;
 
@@ -59,15 +66,6 @@ class StoryMenuState extends MusicBeatState
 		add(bgSprite);
 		bgSprite.screenCenter();
 
-		logoFinn = new FlxSprite(25, FlxG.height - 95).loadGraphic(Paths.image('storymenu/corruptiontime'));
-		add(logoFinn);
-
-		logoGumball = new FlxSprite(475, FlxG.height - 95);
-		logoGumball.frames = Paths.getSparrowAtlas('storymenu/theGlitch');
-		logoGumball.animation.addByPrefix('idle', 'theGlitch glitching', 24, true);
-		logoGumball.animation.play('idle');
-		add(logoGumball);
-
 		storyModeText = new FlxText(0, 0, 0, "STORY MODE");
 		storyModeText.setFormat(Paths.font("menuBUTTONS.ttf"), 65);
 		storyModeText.y -= storyModeText.size;
@@ -84,13 +82,24 @@ class StoryMenuState extends MusicBeatState
 				characters.antialiasing = ClientPrefs.globalAntialiasing;
 				switch(i) {
 					case 0:
-						characters.setPosition(0, 150);
+						characters.setPosition(-55, 150);
 					case 1:
-						characters.setPosition(440, 150);
+						characters.setPosition(515, 150);
 				}
 				//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 				characters.updateHitbox();
 			}
+
+		logoFinn = new FlxSprite().loadGraphic(Paths.image('storymenu/corruptiontime'));
+		logoFinn.scale.set(0.5, 0.5);
+		add(logoFinn);
+
+		logoGumball = new FlxSprite();
+		logoGumball.scale.set(0.5, 0.5);
+		logoGumball.frames = Paths.getSparrowAtlas('storymenu/theGlitch');
+		logoGumball.animation.addByPrefix('idle', 'theGlitch glitching', 24, true);
+		logoGumball.animation.play('idle');
+		add(logoGumball);
 
 		changeItem();
 
@@ -138,12 +147,12 @@ class StoryMenuState extends MusicBeatState
 			{
 				curSelected += huh;
 		
-				if (curSelected >= optionShit.length)
+				if (curSelected >= grpWeekCharacters.length)
 					curSelected = 0;
 				if (curSelected < 0)
-					curSelected = optionShit.length - 1;
+					curSelected = grpWeekCharacters.length - 1;
 		
-				optionShit.forEach(function(spr:FlxSprite)
+				grpWeekCharacters.forEach(function(spr:FlxSprite)
 				{
 					spr.alpha = 1;
 
