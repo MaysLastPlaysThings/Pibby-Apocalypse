@@ -2,6 +2,16 @@
 	"song": {
 		"events": [
 			[
+				32000,
+				[
+					[
+						"Alt Idle Animation",
+						"Dad",
+						"-alt"
+					]
+				]
+			],
+			[
 				53833.3333333334,
 				[
 					[
@@ -178,6 +188,26 @@
 						"Change Character",
 						"Dad",
 						"finn-sword-sha"
+					]
+				]
+			],
+			[
+				128000,
+				[
+					[
+						"Cinematics",
+						"on",
+						"0.35"
+					]
+				]
+			],
+			[
+				133333.333333333,
+				[
+					[
+						"Cinematics",
+						"off",
+						"0.35"
 					]
 				]
 			]
