@@ -4502,7 +4502,6 @@ class PlayState extends MusicBeatState
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-open');
 							boyfriendGroup.visible = false;
-							blurFNFZoomEdition.setFloat('focusPower', 1);
 						case 1648:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4514,7 +4513,6 @@ class PlayState extends MusicBeatState
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							boyfriendGroup.visible = true;
-							blurFNFZoomEdition.setFloat('focusPower', 0);
 						case 1775:
 							FlxTween.tween(blackie, {alpha: 1}, 1);
 							for (i in 0...opponentStrums.length) {
