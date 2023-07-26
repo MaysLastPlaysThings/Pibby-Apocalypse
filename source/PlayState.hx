@@ -1144,6 +1144,8 @@ class PlayState extends MusicBeatState
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
 		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
+		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
+		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
