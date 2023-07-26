@@ -106,6 +106,7 @@ class PlayState extends MusicBeatState
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
 	var blurFNFZoomEdition:FlxRuntimeShader;
+	var blurFNFZoomEditionHUD: FlxRuntimeShader;
 	var glitchFWFNF:FlxRuntimeShader; // here's where i follow scissor's concept n stuff
 
 	public static var ratingStuff:Array<Dynamic> = [
@@ -1143,7 +1144,6 @@ class PlayState extends MusicBeatState
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
 		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
-		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1207,10 +1207,14 @@ class PlayState extends MusicBeatState
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
 					@:privateAccess FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
-					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEdition));
+					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
 					blurFNFZoomEdition.setFloat('focusPower', 6);
+
+					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
+					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
+					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
 			}
 
 		cacheCountdown();
