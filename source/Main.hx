@@ -91,7 +91,7 @@ class Main extends Sprite
 			});
 			FlxG.signals.focusLost.add(()->gc()); // they don't know
 			
-			FlxG.signals.preGameStart.add(() -> funnyMenuMusic = FlxG.random.int(1, 2));
+			FlxG.signals.preGameStart.add(() -> funnyMenuMusic = FlxG.random.bool(5) ? 2 : 1);
 		}
 	}
 
