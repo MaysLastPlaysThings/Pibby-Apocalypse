@@ -106,6 +106,7 @@ class PlayState extends MusicBeatState
 	var pincFNF:Shaders.PincushionShader;
 	var blurFNF:Shaders.BlurShader;
 	var blurFNFZoomEdition:FlxRuntimeShader;
+	var blurFNFZoomEditionHUD: FlxRuntimeShader;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -1142,6 +1143,7 @@ class PlayState extends MusicBeatState
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
 		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
+		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1205,10 +1207,14 @@ class PlayState extends MusicBeatState
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
 					@:privateAccess FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
-					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEdition));
+					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
 					blurFNFZoomEdition.setFloat('focusPower', 6);
+
+					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
+					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
+					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
 			}
 
 		cacheCountdown();
