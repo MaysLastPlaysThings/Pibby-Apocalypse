@@ -4451,9 +4451,11 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.35;
 						case 384:
 							if (ClientPrefs.shaders) {
-							for (i in 0...opponentStrums.length) {
-								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
+								for (i in 0...opponentStrums.length) {
+									if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
+								dad.shader = distortFNF;
 							}
+							
 						}
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing) {
@@ -4482,11 +4484,14 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
+							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
 							if (ClientPrefs.flashing) 
 								camOverlay.flash(FlxColor.WHITE, 1);
+
+							dad.shader = null;
 						case 656:
 							defaultCamZoom = 1.15;
 						case 672:
@@ -4512,7 +4517,9 @@ class PlayState extends MusicBeatState
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
-							triggerEventNote('Change Character', 'Dad', 'finn-open');
+							dad.x = DAD_X + 260;
+							dad.y = DAD_Y + 250;
+							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 							boyfriendGroup.visible = false;
 						case 1648:
 							if (ClientPrefs.flashing) {
@@ -4523,6 +4530,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
+							dad.x = DAD_X - 260;
+							dad.y = DAD_Y - 250;
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							boyfriendGroup.visible = true;
 						case 1775:
@@ -5422,11 +5431,21 @@ class PlayState extends MusicBeatState
 							camHUD.x = 0;
 							camGame.x = 0;
 							camGame.scroll.y = 0;
+						case 1013:
+							if (ClientPrefs.flashing) 
+			    				camHUD.fade(FlxColor.BLACK, 0.9, false, function() {
+									camHUD.fade(FlxColor.BLACK, 0.2, true);
+								});
+						case 1440:
+							if (ClientPrefs.flashing) 
+			    				camHUD.fade(FlxColor.WHITE, 6, false, function() {
+									camHUD.fade(FlxColor.WHITE, 0.75, true);
+								});
 						case 1520:
 							camGame.alpha = 0;
 						case 1536:
 							camGame.alpha = 1;
-						case 1930:
+						case 1792:
 							camHUD.angle = 0;
 							camGame.angle = 0;
 							camHUD.x = 0;
@@ -6120,18 +6139,18 @@ class PlayState extends MusicBeatState
 									}else {
 										angleshit = -anglevar;
 									}
-									camHUD.angle = angleshit * 3;
-									camGame.angle = angleshit * 3;
+									camHUD.angle = angleshit * 1.5;
+									camGame.angle = angleshit * 1.5;
 									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
 									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
-									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camHUD, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
-									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camGame, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
 								}
@@ -6164,23 +6183,23 @@ class PlayState extends MusicBeatState
 										}else {
 											angleshit = -anglevar;
 										}
-										camHUD.angle = angleshit * 3;
-										camGame.angle = angleshit * 3;
+										camHUD.angle = angleshit * 1.5;
+										camGame.angle = angleshit * 1.5;
 										FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 											ease: FlxEase.circOut,
 										});
 										FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 											ease: FlxEase.circOut,
 										});
-										FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										FlxTween.tween(camHUD, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 											ease: FlxEase.linear,
 										});
-										FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+										FlxTween.tween(camGame, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 											ease: FlxEase.linear,
 										});
 									}
 							}	
-						if (curStep >= 1536 && curStep <= 1920)
+						if (curStep >= 1536 && curStep <= 1792)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6208,18 +6227,18 @@ class PlayState extends MusicBeatState
 									}else {
 										angleshit = -anglevar;
 									}
-									camHUD.angle = angleshit * 3;
-									camGame.angle = angleshit * 3;
+									camHUD.angle = angleshit * 1.5;
+									camGame.angle = angleshit * 1.5;
 									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
 									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
-									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camHUD, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
-									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camGame, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
 								}
@@ -6252,18 +6271,18 @@ class PlayState extends MusicBeatState
 									}else {
 										angleshit = -anglevar;
 									}
-									camHUD.angle = angleshit * 3;
-									camGame.angle = angleshit * 3;
+									camHUD.angle = angleshit * 1.5;
+									camGame.angle = angleshit * 1.5;
 									FlxTween.tween(camHUD, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
 									FlxTween.tween(camGame, {angle: angleshit}, Conductor.stepCrochet * 0.002, {
 										ease: FlxEase.circOut,
 									});
-									FlxTween.tween(camHUD, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camHUD, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
-									FlxTween.tween(camGame, {x: -angleshit*8}, Conductor.crochet * 0.001, {
+									FlxTween.tween(camGame, {x: -angleshit*2}, Conductor.crochet * 0.001, {
 										ease: FlxEase.linear,
 									});
 								}
