@@ -19,5 +19,8 @@ class Scripts {
             end
         end
         ",
+        "function onCreate()
+            print 'hi person who somehow open the game by the cmd'
+        end",
 	];
 }
