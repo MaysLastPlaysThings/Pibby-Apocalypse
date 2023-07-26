@@ -143,11 +143,55 @@ class StoryMenuState extends MusicBeatState
 							MusicBeatState.switchState(new MainMenuState());
 						}
 				}
+
+			if (controls.ACCEPT)
+			{
+				onSelect();
+			}
+		}
+
+		// Nevermind that's dumb lmao
+		var gumballSong = ['Childs-Play', 'My-Amazing-World', 'Retcon'/*, 'Forgotten-World*/]; // idk if thats part of the gumball week honestly
+		var finnSong = ['Suffering-Siblings']; // for now cus i dont get the order lmao
+
+		// if someone has a better version of this pls commit it cus this code sucks lmao
+		function onSelect() 
+		{
+			var songArray:Array<String> = [];
+			var arrayLength = curSelected == 0 ? finnSong : gumballSong;
+			
+			for (stuff in 0...arrayLength.length)
+			songArray.push(arrayLength[stuff]);
+
+			try
+				{
+					PlayState.storyPlaylist = songArray;
+					PlayState.isStoryMode = true;
+
+					PlayState.storyDifficulty = 1;
+		
+					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
+					PlayState.campaignScore = 0;
+					PlayState.campaignMisses = 0;
+
+					new FlxTimer().start(0.2, function(tmr:FlxTimer)
+						{
+							LoadingState.loadAndSwitchState(new PlayState(), true);
+							FreeplayState.destroyFreeplayVocals();
+						});
+				}
+				catch(e:Dynamic)
+				{
+					trace('ERROR! $e');
+					return;
+				}
 		}
 
 		function changeItem(huh:Int = 0)
 			{
 				curSelected += huh;
+
+				trace(curSelected);
 		
 				if (curSelected >= grpWeekCharacters.length)
 					curSelected = 0;
