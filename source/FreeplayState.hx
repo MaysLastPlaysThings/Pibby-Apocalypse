@@ -122,7 +122,7 @@ class FreeplayState extends MusicBeatState
 				{
 					colors = [146, 113, 253];
 				}
-				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
+				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
 			}
 		}
 		WeekData.loadTheFirstEnabledMod();
@@ -324,9 +324,9 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
+	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int, threatLevel:Int)
 	{
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, threatLevel));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -647,26 +647,28 @@ class FreeplayState extends MusicBeatState
 
 		image.loadGraphic(Paths.image('fpmenu/stage/' + songs[curSelected].songName));
 
-		switch (songs[curSelected].songName) // Note to self: make the threat level week file dependent. ~ADA
+		FlxTween.tween(this, {threatPercent: songs[curSelected].threatLevel}, 0.7, {ease: FlxEase.quadInOut});
+
+		switch (songs[curSelected].songName)
 		{
 			case "Child's Play":
-				FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
 			case "My Amazing World":
-				FlxTween.tween(this, {threatPercent: 45}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 45}, 0.7, {ease: FlxEase.quadInOut});
 			case "Retcon":
-				FlxTween.tween(this, {threatPercent: 55}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 55}, 0.7, {ease: FlxEase.quadInOut});
 			case "Forgotten World":
-				FlxTween.tween(this, {threatPercent: 65}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 65}, 0.7, {ease: FlxEase.quadInOut});
 			case "Mindless":
-				FlxTween.tween(this, {threatPercent: 85}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 85}, 0.7, {ease: FlxEase.quadInOut});
 			case "Blessed by Swords":
-				FlxTween.tween(this, {threatPercent: 90}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 90}, 0.7, {ease: FlxEase.quadInOut});
 			case "Brotherly Love":
-				FlxTween.tween(this, {threatPercent: 80}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 80}, 0.7, {ease: FlxEase.quadInOut});
 			case "Suffering Siblings":
-				FlxTween.tween(this, {threatPercent: 95}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 95}, 0.7, {ease: FlxEase.quadInOut});
 			case "Come Along With Me":
-				FlxTween.tween(this, {threatPercent: 75}, 0.7, {ease: FlxEase.quadInOut});
+				//FlxTween.tween(this, {threatPercent: 75}, 0.7, {ease: FlxEase.quadInOut});
 		}
 		levelBar.updateBar();
 	}
@@ -688,8 +690,9 @@ class SongMetadata
 	public var songCharacter:String = "";
 	public var color:Int = -7179779;
 	public var folder:String = "";
+	public var threatLevel:Int = 0;
 
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
+	public function new(song:String, week:Int, songCharacter:String, color:Int, threatLevel:Int)
 	{
 		this.songName = song;
 		this.week = week;
@@ -697,5 +700,6 @@ class SongMetadata
 		this.color = color;
 		this.folder = Paths.currentModDirectory;
 		if(this.folder == null) this.folder = '';
+		this.threatLevel = threatLevel;
 	}
 }
