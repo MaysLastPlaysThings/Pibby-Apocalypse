@@ -107,6 +107,7 @@ class PlayState extends MusicBeatState
 	var blurFNF:Shaders.BlurShader;
 	var blurFNFZoomEdition:FlxRuntimeShader;
 	var blurFNFZoomEditionHUD: FlxRuntimeShader;
+	var glitchFWFNF:FlxRuntimeShader; // here's where i follow scissor's concept n stuff
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -1144,6 +1145,7 @@ class PlayState extends MusicBeatState
 		blurFNF = new Shaders.BlurShader();
 		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
+		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -2319,6 +2321,7 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
+	var shaderStuff:Float = 0;
 
 	override public function update(elapsed:Float)
 	{
@@ -2345,6 +2348,8 @@ class PlayState extends MusicBeatState
 
 
 		if(ClientPrefs.shaders) {
+			shaderStuff += elapsed;
+
             chromFNF.setFloat('aberration', abberationShaderIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
@@ -2352,6 +2357,7 @@ class PlayState extends MusicBeatState
 			pibbyFNF.uTime.value[0] += elapsed;
 			mawFNF.iTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
+			glitchFWFNF.setFloat('iTime', shaderStuff);
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
@@ -4843,7 +4849,13 @@ class PlayState extends MusicBeatState
 							var video:VideoHandler = new VideoHandler();
 							video.canSkip = false;
 							video.playVideo(Paths.video('forgottenscene'));
-							video.finishCallback = () -> canPause = true;
+							video.finishCallback = () -> { 
+								canPause = true;
+								if (ClientPrefs.shaders) 
+									{
+										playerStrums.forEach(strum -> strum.shader = distortFNF);
+									}
+							};
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1445:
@@ -4874,6 +4886,14 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+
+							if (ClientPrefs.shaders)
+								{
+									@:privateAccess
+									{
+										camGame._filters.push(new ShaderFilter(glitchFWFNF));
+									}
+								}
 						case 2043:
 							defaultCamZoom = 0.85;
 						case 2060:
