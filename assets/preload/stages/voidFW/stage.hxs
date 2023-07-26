@@ -8,6 +8,17 @@ var wtf;
 var glitch;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk, hscript is fucking weird man) (Another grammatical fix by Zero :trol:)
 
+// darwin start to get consumed by the darkness (tragedy)
+var voidb;
+var scaryGlitchAhh;
+var houseb;
+var rockb;
+var rock2b;
+var rock3b;
+var rock4b;
+var wtfb;
+var stupidFix2electricboogaloo;
+
 function onCreate()
 {
     void = new flixel.FlxSprite(0, -200);
@@ -66,11 +77,81 @@ function onCreate()
     glitch.scrollFactor.set(1, 1);
     glitch.updateHitbox();
 
+    voidb = new flixel.FlxSprite(0, -200);
+    voidb.loadGraphic(retrieveAsset('images/void3/1b.png', 'image'));
+    voidb.scale.set(1.2, 1.2);
+    voidb.antialiasing = ClientPrefs.globalAntialiasing;
+    voidb.scrollFactor.set(0.6, 0.6);
+    voidb.updateHitbox();
+    voidb.visible = false;
+
+    scaryGlitchAhh = new flixel.FlxSprite(0, -200);
+    scaryGlitchAhh.loadGraphic(retrieveAsset('images/void3/2b.png', 'image'));
+    scaryGlitchAhh.scale.set(1.2, 1.2);
+    scaryGlitchAhh.antialiasing = ClientPrefs.globalAntialiasing;
+    scaryGlitchAhh.scrollFactor.set(0.6, 0.6);
+    scaryGlitchAhh.updateHitbox();
+    scaryGlitchAhh.visible = false;
+
+    houseb = new flixel.FlxSprite(0, -200);
+    houseb.loadGraphic(retrieveAsset('images/void3/3b.png', 'image'));
+    houseb.scale.set(1.2, 1.2);
+    houseb.antialiasing = ClientPrefs.globalAntialiasing;
+    houseb.scrollFactor.set(0.85, 0.85);
+    houseb.updateHitbox();
+    houseb.visible = false;
+
+    rockb = new flixel.FlxSprite(0, -200);
+    rockb.loadGraphic(retrieveAsset('images/void3/5b.png', 'image'));
+    rockb.scale.set(1.2, 1.2);
+    rockb.antialiasing = ClientPrefs.globalAntialiasing;
+    rockb.scrollFactor.set(1, 1);
+    rockb.updateHitbox();
+    rockb.visible = false;
+
+    rock2b = new flixel.FlxSprite(0, -200);
+    rock2b.loadGraphic(retrieveAsset('images/void3/11.png', 'image'));
+    rock2b.scale.set(1.2, 1.2);
+    rock2b.antialiasing = ClientPrefs.globalAntialiasing;
+    rock2b.scrollFactor.set(1.1, 1.1);
+    rock2b.updateHitbox();
+    rock2b.visible = false;
+
+    rock3b = new flixel.FlxSprite(0, -200);
+    rock3b.loadGraphic(retrieveAsset('images/void3/11.png', 'image'));
+    rock3b.scale.set(1.2, 1.2);
+    rock3b.antialiasing = ClientPrefs.globalAntialiasing;
+    rock3b.scrollFactor.set(0.9, 0.9);
+    rock3b.updateHitbox();
+    rock3b.visible = false;
+
+    rock4b = new flixel.FlxSprite(0, -200);
+    rock4b.loadGraphic(retrieveAsset('images/void3/4.png', 'image'));
+    rock4b.scale.set(1.2, 1.2);
+    rock4b.antialiasing = ClientPrefs.globalAntialiasing;
+    rock4b.scrollFactor.set(0.85, 0.85);
+    rock4b.updateHitbox();
+    rock4b.visible = false;
+
+    wtfb = new flixel.FlxSprite(0, -200);
+    wtfb.loadGraphic(retrieveAsset('images/void3/6.png', 'image'));
+    wtfb.scale.set(1.2, 1.2);
+    wtfb.antialiasing = ClientPrefs.globalAntialiasing;
+    wtfb.scrollFactor.set(1, 1);
+    wtfb.updateHitbox();
+    wtfb.visible = false;
+
     tweenLoopAngle(house, 4, -4, 6, 6);
     tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
     tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
     tweenLoopAngle(rock3, 360, 0, 30, 30);
     tweenLoopAngle(wtf, 2, -2, 5, 5);
+
+    tweenLoopAngle(houseb, 4, -4, 6, 6);
+    tweenLoopAngle(rockb, -0.5, 0.5, 2.5, 2.5);
+    tweenLoopAngle(rock2b, -2, 1.2, 2.5, 2.5);
+    tweenLoopAngle(rock3b, 360, 0, 30, 30);
+    tweenLoopAngle(wtfb, 2, -2, 5, 5);
 
     FlxTween.tween(rock4, {angle: 360}, 30, {
         ease: FlxEase.sineInOut
@@ -84,6 +165,17 @@ function onCreate()
     add(house);
     add(rock);
     add(wtf);
+
+    stupidFix2electricboogaloo = FlxTween.tween(wtfb, {y: wtfb.y}, 1);
+    add(voidb);
+    add(scaryGlitchAhh);
+    add(rock4b);
+    add(rock3b);
+    add(rock2b);
+    add(houseb);
+    add(rockb);
+    add(wtfb);
+
     add(glitch);
 }
 
@@ -109,6 +201,29 @@ function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
                 });
             }
     });
+}
+
+function onStepHit(curStep)
+{
+    if (curStep == 1445)
+    {
+        void.visible = false;
+        wtf.visible = false;
+        rock.visible = false;
+        rock2.visible = false;
+        rock3.visible = false;
+        rock4.visible = false;
+        house.visible = false;
+
+        voidb.visible = true;
+        rockb.visible = true;
+        rock2b.visible = true;
+        rock3b.visible = true;
+        rock4b.visible = true;
+        houseb.visible = true;
+        wtfb.visible = true;
+        scaryGlitchAhh.visible = true;
+    }
 }
 
 function onPause() {

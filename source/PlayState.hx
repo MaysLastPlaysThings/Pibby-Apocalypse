@@ -4864,6 +4864,9 @@ class PlayState extends MusicBeatState
 									{
 										playerStrums.forEach(strum -> strum.shader = distortFNF);
 									}
+									// pizza tower scoutdigo reference
+									boyfriend.color = 0xbababa;
+									dad.color = 0xbababa;
 							};
 						case 1190:
 							defaultCamZoom = 0.7;
