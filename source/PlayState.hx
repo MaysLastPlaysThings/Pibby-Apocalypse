@@ -4451,9 +4451,11 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.35;
 						case 384:
 							if (ClientPrefs.shaders) {
-							for (i in 0...opponentStrums.length) {
-								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
+								for (i in 0...opponentStrums.length) {
+									if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
+								dad.shader = distortFNF;
 							}
+							
 						}
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing) {
@@ -4482,11 +4484,14 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
+							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.33);
 							}
 							if (ClientPrefs.flashing) 
 								camOverlay.flash(FlxColor.WHITE, 1);
+
+							dad.shader = null;
 						case 656:
 							defaultCamZoom = 1.15;
 						case 672:
@@ -4512,7 +4517,9 @@ class PlayState extends MusicBeatState
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
-							triggerEventNote('Change Character', 'Dad', 'finn-open');
+							dad.x = DAD_X + 260;
+							dad.y = DAD_Y + 250;
+							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 							boyfriendGroup.visible = false;
 						case 1648:
 							if (ClientPrefs.flashing) {
@@ -4523,6 +4530,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
+							dad.x = DAD_X - 260;
+							dad.y = DAD_Y - 250;
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							boyfriendGroup.visible = true;
 						case 1775:
