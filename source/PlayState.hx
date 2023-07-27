@@ -6065,7 +6065,15 @@ class PlayState extends MusicBeatState
 						case 32: 
 							blackie.alpha = 0;
 							remove(noHeroIntro);
-							camGame.flash (FlxColor.WHITE, 1);
+							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
+							triggerEventNote('Cinematics', 'on', '1.3');
+
+						case 96: 
+							FlxTween.tween(camGame, {zoom: 1.24}, 6.7, {ease: FlxEase.sineInOut});
+
+						case 192:
+							triggerEventNote('Cinematics', 'off', '1');
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 					}
 			}
 

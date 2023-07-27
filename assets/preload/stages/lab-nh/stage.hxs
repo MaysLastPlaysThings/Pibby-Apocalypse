@@ -16,3 +16,18 @@ function onCreate()
     placeog.visible = false;
     add(placeog);
 }
+
+function onStepHit(curStep)
+{
+    if (curStep == 464)
+    {
+        place.visible = false;
+        placeog.visible = true;
+    }
+
+    if (curStep == 592)
+    {
+        placeog.visible = false;
+        place.visible = true;
+    }
+}
