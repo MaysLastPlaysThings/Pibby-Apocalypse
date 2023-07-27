@@ -2372,7 +2372,12 @@ class PlayState extends MusicBeatState
 				if (gf != null)	gf.alpha = 0;
 			case "Forgotten World":
 				if (gf != null)	gf.alpha = 0;
+			case "No Hero": 
+				if (gf != null)	gf.alpha = 0;
 		}
+
+		if (SONG.song.toLowerCase().replace('-', ' ') == 'no hero')
+			iconP2.shake(0.11, 8, 1);
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
         abberationShaderIntensity = FlxMath.lerp(abberationShaderIntensity, 0, CoolUtil.boundTo(elapsed * 6, 0, 1));
