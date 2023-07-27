@@ -229,6 +229,9 @@ class PlayState extends MusicBeatState
 	var finnT:FlxSprite;
 	var finnBarThing:FlxSprite;
 
+	// for no hero
+	var noHeroIntro:FlxSprite;
+
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
 	public var boyfriendColor : FlxColor;
@@ -621,6 +624,13 @@ class PlayState extends MusicBeatState
 				add(wall);
 		}
 		
+		if (SONG.song == "No Hero")
+		{
+			noHeroIntro = new FlxSprite(-200, -400);
+			noHeroIntro.frames = Paths.getSparrowAtlas('noherocutscenefirst', 'shared');
+			noHeroIntro.animation.addByPrefix('finnJumpscareMomento', 'play', 24, true);
+			noHeroIntro.cameras = [camOther];
+		}
 
 		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
@@ -1223,6 +1233,14 @@ class PlayState extends MusicBeatState
 					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
 					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
 					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
+				case 'No Hero': 
+					blackie.alpha = 1;
+					healthBar.visible = false;
+					healthBarBG.visible = false;
+					iconP1.visible = false;
+					iconP2.visible = false;
+					scoreTxt.visible = false;
+					finnBarThing.alpha = 0.001;
 			}
 
 		cacheCountdown();
@@ -6035,6 +6053,19 @@ class PlayState extends MusicBeatState
 										camHUD.alpha = 0;
 									}
 							});
+					}
+
+				case 'No Hero':
+					switch (curStep)
+					{
+						case 1:
+							add(noHeroIntro);
+							noHeroIntro.animation.play('finnJumpscareMomento');
+
+						case 32: 
+							blackie.alpha = 0;
+							remove(noHeroIntro);
+							camGame.flash (FlxColor.WHITE, 1);
 					}
 			}
 
