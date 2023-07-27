@@ -30,6 +30,10 @@ class PACreditsState extends MusicBeatState
 {
 	var curSelected:Int = -1;
 
+	var creditsStuff:Array<Dynamic> = [ // name:String, iconName:String, description:String, color:FlxColor, link:String
+		['Forteni', 'Forteni', '', FlxColor.WHITE, '']
+	];
+
 	var shaderIntensity:Float;
 
 	var bg:FlxSprite;
@@ -59,6 +63,10 @@ class PACreditsState extends MusicBeatState
 		creditsText = new FlxText(20, 20, 0, "CREDITS", 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
+
+		for (i in 0... creditsStuff.length) {
+			var creditSpr:FlxSprite = new FlxSprite(0, 0);
+		}
 
 		super.create();
 	}
@@ -90,6 +98,18 @@ class PACreditsState extends MusicBeatState
 				quitting = true;
 			}
 			super.update(elapsed);
+	}
+
+	override function beatHit() {
+		super.beatHit();
+		if (curBeat % 4 == 0) {
+			switch(FlxG.random.int(0, 10)) {
+				case 10:
+					creditsText.text = 'CREDITS (Forteni = Fortnite)';
+				case 1:
+					creditsText.text = 'CREDITS';
+			}
+		}
 	}
 
 	override function destroy() {

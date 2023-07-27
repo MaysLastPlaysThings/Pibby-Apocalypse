@@ -634,6 +634,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 	function addEditorBox() {
 		var tabs = [
 			{name: 'Freeplay', label: 'Freeplay'},
+			{name: 'Pibby Apocalypse', label: 'Pibby Apocalypse'},
 		];
 		UI_box = new FlxUITabMenu(null, tabs, true);
 		UI_box.resize(250, 200);
@@ -643,6 +644,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		
 		UI_box.selected_tab_id = 'Week';
 		addFreeplayUI();
+		addPAUI();
 		add(UI_box);
 
 		var blackBlack:FlxSprite = new FlxSprite(0, 670).makeGraphic(FlxG.width, 50, FlxColor.BLACK);
@@ -740,10 +742,24 @@ class WeekEditorFreeplayState extends MusicBeatState
 		UI_box.addGroup(tab_group);
 	}
 
+	var threatInput:FlxUINumericStepper;
+
+	function addPAUI() {
+		var tab_group = new FlxUI(null, UI_box);
+		tab_group.name = "Pibby Apocalypse";
+
+		threatInput = new FlxUINumericStepper(10, 40, 20, 255, 0, 255, 0);
+
+		tab_group.add(new FlxText(10, threatInput.y - 18, 0, "Song's threat level:"));
+		tab_group.add(threatInput);
+		UI_box.addGroup(tab_group);
+	}
+
 	function updateBG() {
 		weekFile.songs[curSelected][2][0] = Math.round(bgColorStepperR.value);
 		weekFile.songs[curSelected][2][1] = Math.round(bgColorStepperG.value);
 		weekFile.songs[curSelected][2][2] = Math.round(bgColorStepperB.value);
+		weekFile.songs[curSelected][3] = threatInput.value;
 		bg.color = FlxColor.fromRGB(weekFile.songs[curSelected][2][0], weekFile.songs[curSelected][2][1], weekFile.songs[curSelected][2][2]);
 	}
 
@@ -784,6 +800,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		bgColorStepperR.value = Math.round(weekFile.songs[curSelected][2][0]);
 		bgColorStepperG.value = Math.round(weekFile.songs[curSelected][2][1]);
 		bgColorStepperB.value = Math.round(weekFile.songs[curSelected][2][2]);
+		threatInput.value = weekFile.songs[curSelected][3];
 		updateBG();
 	}
 
