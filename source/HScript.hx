@@ -1,3 +1,4 @@
+import flixel.addons.display.FlxRuntimeShader;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -39,6 +40,8 @@ class ScriptManager {
 		expressions.set("FlxBasic", FlxBasic);
 		expressions.set("FlxTimer", FlxTimer);
         expressions.set("ClientPrefs", ClientPrefs);
+		expressions.set("FlxRuntimeShader", FlxRuntimeShader);
+		expressions.set("RuntimeShaders", _Shaders);
 		
 		/**
 		expressions.set("importClass", Reflect.makeVarArgs(function(classes:Array<Dynamic>):Void {
@@ -116,3 +119,14 @@ class FakeClasses {
     public static var map  : Map<String, Dynamic> = [];
 }
 **/
+
+// i hate haxe sometimes
+@:noCompletion
+class _Shaders {	
+	public static var fwGlitch = RuntimeShaders.fwGlitch;
+	public static var file = RuntimeShaders.file;
+	public static var blurZoom = RuntimeShaders.blurZoom;
+	public static var dayybloomshader = RuntimeShaders.dayybloomshader;
+	public static var distort = RuntimeShaders.distort;
+	public static var monitor = RuntimeShaders.monitor;
+}

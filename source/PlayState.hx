@@ -1,20 +1,23 @@
 package;
 
-import flixel.math.FlxRandom;
-import flixel.graphics.FlxGraphic;
-#if desktop
-import Discord.DiscordClient;
-#end
+import Achievements;
+import Conductor.Rating;
+import DialogueBoxPsych;
+import FunkinLua;
+import Note.EventNote;
+import Scripts;
 import Section.SwagSection;
-import Song.SwagSong;
 import Shaders.WiggleEffectType;
+import Song.SwagSong;
+import StageData;
+import animateatlas.AtlasFrameMaker;
+import editors.CharacterEditorState;
+import editors.ChartingState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
-import flixel.effects.FlxFlicker;
-import openfl.system.System;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
@@ -24,12 +27,21 @@ import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.animation.FlxAnimationController;
+import flixel.effects.FlxFlicker;
+import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.math.FlxRandom;
 import flixel.math.FlxRect;
+import flixel.system.FlxAssets.FlxShader;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -38,6 +50,7 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxAxes;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
@@ -47,27 +60,15 @@ import lime.utils.Assets;
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
-import openfl.filters.BitmapFilter;
-import openfl.utils.Assets as OpenFlAssets;
-import editors.ChartingState;
-import editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import Note.EventNote;
 import openfl.events.KeyboardEvent;
-import flixel.effects.particles.FlxEmitter;
-import flixel.effects.particles.FlxParticle;
-import flixel.util.FlxSave;
-import flixel.animation.FlxAnimationController;
-import animateatlas.AtlasFrameMaker;
-import Achievements;
-import StageData;
-import FunkinLua;
-import Scripts;
-import DialogueBoxPsych;
-import Conductor.Rating;
-import flixel.system.FlxAssets.FlxShader;
+import openfl.filters.BitmapFilter;
+import openfl.system.System;
+import openfl.utils.Assets as OpenFlAssets;
 
+using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -83,7 +84,6 @@ import hxcodec.VideoHandler;
 #end
 
 
-using StringTools;
 
 class PlayState extends MusicBeatState
 {
@@ -2405,12 +2405,12 @@ class PlayState extends MusicBeatState
                 x: camFollow.x + charAnimOffsetX, 
                 y: camFollow.y + charAnimOffsetY,
                 angle: camGame.angle + charAnimOffsetX}, 
-                0.3 / cameraSpeed / playbackRate, {
+                0.4 / cameraSpeed / playbackRate, {
                 ease: FlxEase.linear
             });
             camTween2 = FlxTween.tween(camGame, {
                 angle: 0 - charAnimOffsetX / 16}, 
-                0.4 / cameraSpeed / playbackRate, {
+                0.5 / cameraSpeed / playbackRate, {
                 ease: FlxEase.linear
             });
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
