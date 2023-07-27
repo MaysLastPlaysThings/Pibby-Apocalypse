@@ -1,0 +1,133 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "bi",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-138,
+				-99
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "bd",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-122,
+				30
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "bu",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-106,
+				-14
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "br",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-188,
+				3
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "bl",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-84,
+				153
+			],
+			"anim": "hurt",
+			"fps": 24,
+			"name": "hurt",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-160,
+				10
+			],
+			"anim": "dodge",
+			"fps": 24,
+			"name": "dodge",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-116,
+				151
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "death"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				54,
+				142
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "loopdeath",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-45,
+				144
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "retrydeath",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/assbf",
+	"position": [
+		-150,
+		400
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		-160,
+		30
+	],
+	"sing_duration": 6,
+	"scale": 1
+}
