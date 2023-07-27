@@ -4867,6 +4867,15 @@ class PlayState extends MusicBeatState
 									// pizza tower scoutdigo reference
 									boyfriend.color = 0xbababa;
 									dad.color = 0xbababa;
+
+									if (!ClientPrefs.lowQuality)
+										{
+											var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+											vig.scrollFactor.set();
+											vig.cameras = [camOther];
+											vig.screenCenter();
+											add(vig);
+										}
 							};
 						case 1190:
 							defaultCamZoom = 0.7;
@@ -4925,15 +4934,6 @@ class PlayState extends MusicBeatState
 							}
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
-						case 2420:
-							if (!ClientPrefs.lowQuality)
-								{
-									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-									vig.scrollFactor.set();
-									vig.cameras = [camOther];
-									vig.screenCenter();
-									add(vig);
-								}
 						case 2620:
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {
 								ease: FlxEase.linear,
