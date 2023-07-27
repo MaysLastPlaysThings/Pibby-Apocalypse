@@ -62,6 +62,12 @@ class StoryMenuState extends MusicBeatState
 
 		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("🏠 | In the Story Menu", null);
+		#end
+
+
 		bgSprite = new FlxSprite().loadGraphic(Paths.image('storymenu/thing'));
 		add(bgSprite);
 		bgSprite.screenCenter();

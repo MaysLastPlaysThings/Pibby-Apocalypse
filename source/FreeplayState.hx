@@ -96,7 +96,7 @@ class FreeplayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("🗺️ | In Freeplay", null);
 		#end
 
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Freeplay";

@@ -42,7 +42,7 @@ class DiscordClient
 	static function onReady()
 	{
 		DiscordRpc.presence({
-			details: "In the Menus",
+			details: "📱 | In the Menus",
 			state: null,
 			largeImageKey: 'https://i.imgur.com/j1NOFU9.gif',
 			largeImageText: "Pibby: Apocalypse"
