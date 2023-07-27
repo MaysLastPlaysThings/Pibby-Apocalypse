@@ -42,6 +42,13 @@ class PauseSubState extends MusicBeatSubstate
 		
 		menuItems = menuItemsOG;
 
+		#if CAN_CHEAT
+		menuItems.push('Skip Time');
+		menuItems.push('Toggle Botplay');
+		menuItems.push('Leave Charting Mode');
+		menuItems.push('Toggle Practice Mode');
+		#end
+
 		for (i in 0...CoolUtil.difficulties.length) {
 			var diff:String = '' + CoolUtil.difficulties[i];
 			difficultyChoices.push(diff);

@@ -4380,6 +4380,8 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.shaders)
         	distortIntensity = FlxG.random.float(4, 6);
 
+		var video:VideoHandler = new VideoHandler();
+
 		switch (SONG.song)
 			{
 				case 'Blessed by Swords':
@@ -4853,9 +4855,8 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1181:
+						case 1183:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
-							var video:VideoHandler = new VideoHandler();
 							video.canSkip = false;
 							video.playVideo(Paths.video('forgottenscene'));
 							video.finishCallback = () -> { 
@@ -4879,6 +4880,9 @@ class PlayState extends MusicBeatState
 							};
 						case 1190:
 							defaultCamZoom = 0.7;
+						case 1440:
+							video.dispose();
+							FlxG.removeChild(video);
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
