@@ -1208,8 +1208,14 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-open2', 1);
-					@:privateAccess FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
-					@:privateAccess camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
+					@:privateAccess
+					{
+						if (ClientPrefs.shaders)
+						{
+							FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
+							camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
+						}
+					}
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
 					blurFNFZoomEdition.setFloat('focusPower', 6);
