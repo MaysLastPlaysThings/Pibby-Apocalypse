@@ -624,7 +624,7 @@ class PlayState extends MusicBeatState
 				add(wall);
 		}
 		
-		if (SONG.song == "No Hero")
+		if (SONG.song == "No Hero Remix")
 		{
 			noHeroIntro = new FlxSprite(-200, -400);
 			noHeroIntro.frames = Paths.getSparrowAtlas('noherocutscenefirst', 'shared');
@@ -1233,7 +1233,7 @@ class PlayState extends MusicBeatState
 					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
 					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
 					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
-				case 'No Hero': 
+				case 'No Hero Remix': 
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -2390,11 +2390,11 @@ class PlayState extends MusicBeatState
 				if (gf != null)	gf.alpha = 0;
 			case "Forgotten World":
 				if (gf != null)	gf.alpha = 0;
-			case "No Hero": 
+			case "No Hero Remix": 
 				if (gf != null)	gf.alpha = 0;
 		}
 
-		if (SONG.song.toLowerCase().replace('-', ' ') == 'no hero')
+		if (SONG.song.toLowerCase().replace('-', ' ') == 'No Hero Remix')
 			iconP2.shake(0.11, 8, 1);
 
 		glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, CoolUtil.boundTo(elapsed * 7, 0, 1));
@@ -3967,6 +3967,34 @@ class PlayState extends MusicBeatState
 			char.playAnim(animToPlay, true);
 		}
 
+		// am i even doing this well??? idk man
+		if(!daNote.noMissAnimation)
+			{
+				switch(daNote.noteType) {
+					case 'Sword': 
+						if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
+							boyfriend.playAnim('hurt', true);
+							boyfriend.specialAnim = true;
+
+							dad.playAnim('attack', true);
+							dad.specialAnim = true;
+
+							health -= 0.3;
+
+							trace('skill issue');
+
+							FlxG.sound.play(Paths.sound('slice', 'shared'));
+
+							FlxG.camera.shake(0.01, 0.2);
+						}
+
+					case 'Glitch': 
+						health += 0.0475;
+						FlxG.camera.shake(0.01, 0.2);
+						if (songMisses > 0) songMisses--;
+				}
+			}
+
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
 
@@ -4202,6 +4230,32 @@ class PlayState extends MusicBeatState
 							if(boyfriend.animation.getByName('hurt') != null) {
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
+							}
+
+						case 'Sword': 
+							if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
+								boyfriend.playAnim('dodge', true);
+								boyfriend.specialAnim = true;
+
+								dad.playAnim('attack', true);
+								dad.specialAnim = true;
+
+								FlxG.sound.play(Paths.sound('slice', 'shared'), 0.3);
+
+								trace('no skill issue');
+
+								health += 0.3; // i had to for fix bugs that made the song impossible /SRS
+
+								FlxG.camera.shake(0.01, 0.2);
+							}
+
+						case 'Glitch': 
+							if(boyfriend.animation.getByName('hurt') != null) {
+								boyfriend.playAnim('dodge', true);
+								boyfriend.specialAnim = true;
+								FlxG.sound.play(Paths.sound('glitchhit', 'shared'), 1);
+
+								trace('skill issue glitch edition');
 							}
 					}
 				}
@@ -6055,7 +6109,7 @@ class PlayState extends MusicBeatState
 							});
 					}
 
-				case 'No Hero':
+				case 'No Hero Remix':
 					switch (curStep)
 					{
 						case 1:
@@ -6065,6 +6119,7 @@ class PlayState extends MusicBeatState
 						case 32: 
 							blackie.alpha = 0;
 							remove(noHeroIntro);
+							noHeroIntro.destroy();
 							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1.3');
 
@@ -6657,6 +6712,17 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
+
+				case 'No Hero Remix': 
+					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648))
+					{
+						if (curBeat % 1 == 0)
+						{
+							abberationShaderIntensity = beatShaderAmount;
+							FlxG.camera.zoom += .035 * camZoomingMult;
+							camHUD.zoom += .053 * camZoomingMult;
+						}
+					}
 			}
 
 		setOnLuas('curBeat', curBeat); //DAWGG?????

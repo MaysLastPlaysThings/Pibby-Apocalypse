@@ -169,6 +169,35 @@ class Note extends FlxSprite
 				    char2note = true;
 				case 'Both Char Sing':
 				    bothCharSing = true;
+				case 'Sword': 
+					mustPress = true;
+					reloadNote('Sword');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					lowPriority = true;
+					missHealth = 0.3;
+					hitCausesMiss = true;
+				case 'Glitch':
+					ignoreNote = mustPress;
+					reloadNote('Glitch');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					lowPriority = true;
+					missHealth = 0.3;
+					hitCausesMiss = true;
+					noteSplashTexture = 'GlitchnoteSplashes';
+				// idk why this one exist honestly lmao, basically like Glitch but as a alt anim
+				case 'GlitchAltSing':
+					ignoreNote = mustPress;
+					reloadNote('Glitch');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					lowPriority = true;
+					noteSplashTexture = 'GlitchnoteSplashes';
+					animSuffix = '-alt';
 			}
 			noteType = value;
 		}

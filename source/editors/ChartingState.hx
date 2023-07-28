@@ -76,7 +76,11 @@ class ChartingState extends MusicBeatState
 		'Second Char Sing',
 		'Both Char Sing',
 		'Second Char Glitch',
-		'Both Char Glitch'
+		'Both Char Glitch',
+		// these are for the no hero remix
+		'Sword',
+		'Glitch',
+		'GlitchAltSing'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();

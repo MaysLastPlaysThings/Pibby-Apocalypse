@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-16"?>
+<TextureAtlas imagePath="GlitchNOTE_assets.png">
+	<!-- Created with Adobe Flash CS6 version 12.0.0.481 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="blue0000" x="100" y="100" width="159" height="154"/>
+	<SubTexture name="blue0001" x="359" y="100" width="159" height="154"/>
+	<SubTexture name="blue0002" x="618" y="100" width="159" height="154"/>
+	<SubTexture name="blue0003" x="877" y="100" width="159" height="154"/>
+	<SubTexture name="blue hold end0000" x="1136" y="100" width="69" height="64"/>
+	<SubTexture name="blue hold end0001" x="1305" y="100" width="69" height="64"/>
+	<SubTexture name="blue hold end0002" x="1474" y="100" width="69" height="64"/>
+	<SubTexture name="blue hold end0003" x="1643" y="100" width="69" height="64"/>
+	<SubTexture name="blue hold piece0000" x="1812" y="100" width="52" height="44"/>
+	<SubTexture name="blue hold piece0001" x="100" y="354" width="52" height="44"/>
+	<SubTexture name="blue hold piece0002" x="252" y="354" width="52" height="44"/>
+	<SubTexture name="blue hold piece0003" x="404" y="354" width="52" height="44"/>
+	<SubTexture name="green0000" x="556" y="354" width="157" height="154"/>
+	<SubTexture name="green0001" x="813" y="354" width="157" height="154"/>
+	<SubTexture name="green0002" x="1070" y="354" width="157" height="154"/>
+	<SubTexture name="green0003" x="1327" y="354" width="157" height="154"/>
+	<SubTexture name="green hold end0000" x="1584" y="354" width="59" height="64"/>
+	<SubTexture name="green hold end0001" x="1743" y="354" width="59" height="64"/>
+	<SubTexture name="green hold end0002" x="100" y="608" width="59" height="64"/>
+	<SubTexture name="green hold end0003" x="259" y="608" width="59" height="64"/>
+	<SubTexture name="green hold piece0000" x="1812" y="100" width="52" height="44"/>
+	<SubTexture name="green hold piece0001" x="100" y="354" width="52" height="44"/>
+	<SubTexture name="green hold piece0002" x="252" y="354" width="52" height="44"/>
+	<SubTexture name="green hold piece0003" x="404" y="354" width="52" height="44"/>
+	<SubTexture name="pruple end hold0000" x="418" y="608" width="64" height="64"/>
+	<SubTexture name="pruple end hold0001" x="582" y="608" width="64" height="64"/>
+	<SubTexture name="pruple end hold0002" x="746" y="608" width="64" height="64"/>
+	<SubTexture name="pruple end hold0003" x="910" y="608" width="64" height="64"/>
+	<SubTexture name="purple0000" x="1074" y="608" width="160" height="157"/>
+	<SubTexture name="purple0001" x="1334" y="608" width="160" height="157"/>
+	<SubTexture name="purple0002" x="1594" y="608" width="160" height="157"/>
+	<SubTexture name="purple0003" x="100" y="865" width="160" height="157"/>
+	<SubTexture name="purple hold piece0000" x="1812" y="100" width="52" height="44"/>
+	<SubTexture name="purple hold piece0001" x="100" y="354" width="52" height="44"/>
+	<SubTexture name="purple hold piece0002" x="252" y="354" width="52" height="44"/>
+	<SubTexture name="purple hold piece0003" x="404" y="354" width="52" height="44"/>
+	<SubTexture name="red0000" x="360" y="865" width="158" height="157"/>
+	<SubTexture name="red0001" x="618" y="865" width="158" height="157"/>
+	<SubTexture name="red0002" x="876" y="865" width="158" height="157"/>
+	<SubTexture name="red0003" x="1134" y="865" width="158" height="157"/>
+	<SubTexture name="red hold end0000" x="1392" y="865" width="65" height="64"/>
+	<SubTexture name="red hold end0001" x="1557" y="865" width="65" height="64"/>
+	<SubTexture name="red hold end0002" x="1722" y="865" width="65" height="64"/>
+	<SubTexture name="red hold end0003" x="100" y="1122" width="65" height="64"/>
+	<SubTexture name="red hold piece0000" x="1812" y="100" width="52" height="44"/>
+	<SubTexture name="red hold piece0001" x="100" y="354" width="52" height="44"/>
+	<SubTexture name="red hold piece0002" x="252" y="354" width="52" height="44"/>
+	<SubTexture name="red hold piece0003" x="404" y="354" width="52" height="44"/>
+</TextureAtlas>
