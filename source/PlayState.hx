@@ -81,6 +81,7 @@ import sys.io.File;
 
 #if VIDEOS_ALLOWED
 import hxcodec.VideoHandler;
+import hxcodec.VideoSprite;
 #end
 
 
@@ -91,6 +92,8 @@ class PlayState extends MusicBeatState
 
 	var channelBG:FlxSprite;
 	var channelTxt:FlxText;
+
+	public var midSongVideo:VideoSprite;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -973,6 +976,7 @@ class PlayState extends MusicBeatState
 		warning.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
+		midSongVideo.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1181,10 +1185,9 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.7;
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
-					var video:VideoHandler = new VideoHandler();
-					video.playVideo(Paths.video('forgottenscene'));
-					video.finishCallback = null;
-					video.stop();
+					midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
+					midSongVideo.bitmap.finishCallback = null;
+					midSongVideo.bitmap.stop();
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -1945,6 +1948,9 @@ class PlayState extends MusicBeatState
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
+
+		midSongVideo = new VideoSprite();
+		add(midSongVideo);
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -4463,8 +4469,6 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.shaders)
         	distortIntensity = FlxG.random.float(4, 6);
 
-		var video:VideoHandler = new VideoHandler();
-
 		switch (SONG.song)
 			{
 				case 'Blessed by Swords':
@@ -4940,9 +4944,9 @@ class PlayState extends MusicBeatState
 							}
 						case 1183:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
-							video.canSkip = false;
-							video.playVideo(Paths.video('forgottenscene'));
-							video.finishCallback = () -> { 
+							midSongVideo.bitmap.canSkip = false;
+							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
+							midSongVideo.bitmap.finishCallback = () -> { 
 								canPause = true;
 								if (ClientPrefs.shaders) 
 									{
@@ -4964,8 +4968,7 @@ class PlayState extends MusicBeatState
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1440:
-							video.dispose();
-							FlxG.removeChild(video);
+							midSongVideo.destroy();
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {

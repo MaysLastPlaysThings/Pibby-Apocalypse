@@ -15,7 +15,7 @@ class Achievements {
 	//	["A Forgotten World...",		"Beat Gumball's week on Hard with no Misses.",		'gumball_nomiss',		false],
 	//	["Final Adventure",				"Beat Finn's week on Hard with no Misses.",			'finn_nomiss',			false],
 	//	["Treehouse Throwdown",			"Beat Come Along With Me on Hard with no Misses.",	'cawm_nomiss',			false],
-	//	['Requiem Zero', 				"You unlocked Requiem Zero, oh my God-",			'zero',					true],
+	//	['Crimson Skirmisher', 				"You unlocked Requiem Zero, oh my God-",			'zero',			     true],
 
 		// FNF Achievements
 		["Freaky on a Friday Night",	"Play on a Friday... Night.",						'friday_night_play',	 true],
