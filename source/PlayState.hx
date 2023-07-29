@@ -3986,8 +3986,6 @@ class PlayState extends MusicBeatState
 
 					trace('skill issue');
 
-					FlxG.sound.play(Paths.sound('slice', 'shared'));
-
 					FlxG.camera.shake(0.01, 0.2);
 				}
 
@@ -4276,8 +4274,6 @@ class PlayState extends MusicBeatState
 								dad.playAnim('attack', true);
 								dad.specialAnim = true;
 
-								FlxG.sound.play(Paths.sound('slice', 'shared'), 0.3);
-
 								trace('no skill issue');
 
 								health += 0.3; // i had to for fix bugs that made the song impossible /SRS
@@ -4289,7 +4285,7 @@ class PlayState extends MusicBeatState
 							if(boyfriend.animation.getByName('hurt') != null) {
 								boyfriend.playAnim('dodge', true);
 								boyfriend.specialAnim = true;
-								FlxG.sound.play(Paths.sound('glitchhit', 'shared'), 1);
+								FlxG.sound.play(Paths.sound('glitchhit', 'shared'), 0.3);
 
 								trace('skill issue glitch edition');
 							}
