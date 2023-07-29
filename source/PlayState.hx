@@ -1248,6 +1248,7 @@ class PlayState extends MusicBeatState
 					iconP2.visible = false;
 					scoreTxt.visible = false;
 					finnBarThing.alpha = 0.001;
+					GameOverSubstate.characterName = 'assbf';
 			}
 
 		cacheCountdown();
@@ -3972,29 +3973,6 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		// am i even doing this well??? idk man
-		switch(daNote.noteType) {
-			case 'Sword': 
-				if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
-					boyfriend.playAnim('hurt', true);
-					boyfriend.specialAnim = true;
-
-					dad.playAnim('attack', true);
-					dad.specialAnim = true;
-
-					health -= 0.3;
-
-					trace('skill issue');
-
-					FlxG.camera.shake(0.01, 0.2);
-				}
-
-			case 'Glitch': 
-				health += 0.0475;
-				FlxG.camera.shake(0.01, 0.2);
-				if (songMisses > 0) songMisses--;
-		}
-
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
 		
@@ -4030,6 +4008,29 @@ class PlayState extends MusicBeatState
 		}
 
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
+
+		// am i even doing this well??? idk man
+		switch(daNote.noteType) {
+			case 'Sword': 
+				if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
+					health -= 0.3;
+
+					trace('skill issue');
+
+					FlxG.camera.shake(0.01, 0.2);
+
+					boyfriend.playAnim('hurt', true);
+					boyfriend.specialAnim = true;
+
+					dad.playAnim('attack', true);
+					dad.specialAnim = true;
+				}
+
+			case 'Glitch': 
+				health += 0.0475;
+				FlxG.camera.shake(0.01, 0.2);
+				if (songMisses > 0) songMisses--;
+		}
 	}
 
 	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
