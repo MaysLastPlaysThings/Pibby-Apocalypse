@@ -108,7 +108,8 @@ class ChartingState extends MusicBeatState
 		['Apple Filter', "Value 1: on/off\nValue 2: black/white\nMust be off to change to a different color."],
         ['Cinematics', "Value 1: on/off\nValue 2: time it takes."],
 		['Set Chromatic Amount', "Value 1: Set Chromatic Amount (0.2 is default)"],
-		['Toggle Beat Bop', "It toggles when you use the event,\nso there's no need to type anything in."]
+		['Toggle Beat Bop', "It toggles when you use the event,\nso there's no need to type anything in."],
+		["Goofy Ahh Blammed Lights", 'toggles the badass blammed lights for no hero\nValue 1: on/off\nyeah thats it lol.']
 	];
 
 	var _file:FileReference;

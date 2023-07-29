@@ -263,6 +263,7 @@ class PlayState extends MusicBeatState
 	var dadGlitchIntensity:Float;
     var abberationShaderIntensity:Float;
 	var blurIntensity:Float;
+	var chromEffectTimeIntensity:Float;
 
     var animOffsetValue:Float = 20;
 
@@ -304,6 +305,9 @@ class PlayState extends MusicBeatState
 	var scoreTxtTween:FlxTween;
 
 	var flickerTween:FlxTween;
+
+	// for da blammed lights
+	var theBlackness:FlxSprite;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1264,6 +1268,12 @@ class PlayState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		
 		CustomFadeTransition.nextCamera = camOther;
+
+		theBlackness = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+			-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+			theBlackness.alpha = 0;
+			theBlackness.scrollFactor.set();
+		addBehindGF(theBlackness);
 	}
 						
 	#if (!flash && sys)
@@ -2381,6 +2391,7 @@ class PlayState extends MusicBeatState
 			shaderStuff += elapsed;
 
             chromFNF.setFloat('aberration', abberationShaderIntensity);
+			chromFNF.setFloat('effectTime', chromEffectTimeIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
 			distortDadFNF.setFloat('binaryIntensity', dadGlitchIntensity);
@@ -3018,7 +3029,7 @@ class PlayState extends MusicBeatState
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
-						gf.color = FlxColor.BLACK;
+						if (gf != null) gf.color = FlxColor.BLACK;
 
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
@@ -3040,6 +3051,27 @@ class PlayState extends MusicBeatState
 					dad.color = FlxColor.WHITE;
 					if (gf != null) {
 					gf.color = FlxColor.WHITE; }
+				}
+
+			case 'Goofy Ahh Blammed Lights':
+				var chars:Array<Character> = [boyfriend, gf, dad];
+
+				if (value1 == 'on')
+				{
+					FlxTween.tween(theBlackness, {alpha: 1}, 0.7);
+				
+					for (i in 0...chars.length) {
+						FlxTween.color(chars[i], 0.7, FlxColor.WHITE, 0xff31a2fd, {ease: FlxEase.quadInOut});
+					}
+				} 
+				
+				if (value1 == 'off') {
+					FlxTween.tween(theBlackness, {alpha: 0}, 0.7);
+					theBlackness.kill();
+
+					for (i in 0...chars.length) {
+						FlxTween.color(chars[i], 0.7, 0xff31a2fd, FlxColor.WHITE, {ease: FlxEase.quadInOut});
+					}
 				}
 
 			case 'Play Animation':
@@ -3939,6 +3971,32 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 		});
+
+		// am i even doing this well??? idk man
+		switch(daNote.noteType) {
+			case 'Sword': 
+				if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
+					boyfriend.playAnim('hurt', true);
+					boyfriend.specialAnim = true;
+
+					dad.playAnim('attack', true);
+					dad.specialAnim = true;
+
+					health -= 0.3;
+
+					trace('skill issue');
+
+					FlxG.sound.play(Paths.sound('slice', 'shared'));
+
+					FlxG.camera.shake(0.01, 0.2);
+				}
+
+			case 'Glitch': 
+				health += 0.0475;
+				FlxG.camera.shake(0.01, 0.2);
+				if (songMisses > 0) songMisses--;
+		}
+
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
 		
@@ -3972,34 +4030,6 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daNote.animSuffix;
 			char.playAnim(animToPlay, true);
 		}
-
-		// am i even doing this well??? idk man
-		if(!daNote.noMissAnimation)
-			{
-				switch(daNote.noteType) {
-					case 'Sword': 
-						if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
-							boyfriend.playAnim('hurt', true);
-							boyfriend.specialAnim = true;
-
-							dad.playAnim('attack', true);
-							dad.specialAnim = true;
-
-							health -= 0.3;
-
-							trace('skill issue');
-
-							FlxG.sound.play(Paths.sound('slice', 'shared'));
-
-							FlxG.camera.shake(0.01, 0.2);
-						}
-
-					case 'Glitch': 
-						health += 0.0475;
-						FlxG.camera.shake(0.01, 0.2);
-						if (songMisses > 0) songMisses--;
-				}
-			}
 
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
@@ -6125,13 +6155,107 @@ class PlayState extends MusicBeatState
 							noHeroIntro.destroy();
 							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1.3');
+							triggerEventNote('Apple Filter', 'on', 'white');
 
 						case 96: 
-							FlxTween.tween(camGame, {zoom: 1.24}, 6.7, {ease: FlxEase.sineInOut});
+							FlxTween.tween(camGame, {zoom: 1.24}, 6.7, {ease: FlxEase.sineInOut, onComplete: _->
+								FlxTween.tween(camHUD, {alpha: 0}, 1, {ease: FlxEase.sineInOut})
+							});
 
 						case 192:
 							triggerEventNote('Cinematics', 'off', '1');
+							triggerEventNote('Apple Filter', 'off', 'white');
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.sineInOut});
+
+						case 294 | 422 | 645 | 774 | 1110: 
+							defaultCamZoom = 1;
+
+						case 298 | 426 | 649 | 778 | 1114: 
+							defaultCamZoom = 1.1;
+
+						case 302 | 430 | 656 | 784 | 1118: 
+							defaultCamZoom = 0.8;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 306 | 434: 
+							defaultCamZoom = 1;
+
+						case 310 | 438: 
+							defaultCamZoom = 1.1;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 320 | 724: 
+							defaultCamZoom = 0.85;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 448: 
+							defaultCamZoom = 0.85;
+							FlxTween.tween(camHUD, {alpha: 0}, 1, {ease: FlxEase.sineInOut});
+
+						case 460:
+							defaultCamZoom = 1.45;
+
+						case 464: 
+							defaultCamZoom = 0.9;
+							FlxTween.tween(camHUD, {alpha: 1}, 1.5, {ease: FlxEase.sineInOut});
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							FlxG.camera.filtersEnabled = false;
+							camHUD.filtersEnabled = false;
+							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = null);
+
+						case 592: 
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							FlxG.camera.filtersEnabled = true;
+							camHUD.filtersEnabled = true;
+							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = distortFNF);
+
+						case 720: 
+							defaultCamZoom = 1.05;
+
+						case 848:
+							FlxTween.tween(camHUD, {alpha: 0}, 0.7, {ease: FlxEase.sineInOut});
+							triggerEventNote('Goofy Ahh Blammed Lights', 'on', '');
+
+						case 869: 
+							camHUD.alpha = 1;
+							camHUD.zoom += 1;
+
+						case 880: 
+							defaultCamZoom = 1.25;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							triggerEventNote('Goofy Ahh Blammed Lights', 'off', '');
+
+						case 982: 
+							defaultCamZoom = 1.35;
+
+						case 986: 
+							defaultCamZoom = 1.45;
+
+						case 990: 
+							defaultCamZoom = 1.55;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 994: 
+							defaultCamZoom = 1.25;
+							
+						case 998: 
+							defaultCamZoom = 1.35;
+
+						case 1008: 
+							defaultCamZoom = 0.86;
+							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 1126: 
+							defaultCamZoom = 1;
+
+						case 1136: 
+							FlxTween.tween(camGame, {zoom: 0.84}, 4, {ease: FlxEase.sineInOut, onComplete: woo -> defaultCamZoom = 0.84});
+
+						case 1264: 
+							camGame.fade(FlxColor.BLACK, 0.55);
+							FlxTween.tween(camHUD, {alpha: 0.001}, 0.5, {ease: FlxEase.sineInOut});
+
 					}
 			}
 
@@ -6716,8 +6840,10 @@ class PlayState extends MusicBeatState
 								}
 						}
 
-				case 'No Hero Remix': 
-					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648))
+				case 'No Hero Remix':
+					// rest of the zoom events are on the song json because haxe hates me
+					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648) ||
+						(curStep >= 592 && curStep < 645) || (curStep >= 656 && curStep < 719) || (curStep >= 725 && curStep < 773))
 					{
 						if (curBeat % 1 == 0)
 						{
