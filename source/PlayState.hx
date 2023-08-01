@@ -4013,8 +4013,6 @@ class PlayState extends MusicBeatState
 		switch(daNote.noteType) {
 			case 'Sword': 
 				if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
-					health -= 0.3;
-
 					trace('skill issue');
 
 					FlxG.camera.shake(0.01, 0.2);
@@ -4276,8 +4274,6 @@ class PlayState extends MusicBeatState
 								dad.specialAnim = true;
 
 								trace('no skill issue');
-
-								health += 0.3; // i had to for fix bugs that made the song impossible /SRS
 
 								FlxG.camera.shake(0.01, 0.2);
 							}

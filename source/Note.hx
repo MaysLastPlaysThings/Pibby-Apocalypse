@@ -171,13 +171,13 @@ class Note extends FlxSprite
 				    bothCharSing = true;
 				case 'Sword': 
 					mustPress = true;
+					ignoreNote = false;
 					reloadNote('Sword');
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
-					lowPriority = true;
 					missHealth = 0.3;
-					hitCausesMiss = true;
+					hitCausesMiss = false;
 				case 'Glitch':
 					ignoreNote = mustPress;
 					reloadNote('Glitch');
