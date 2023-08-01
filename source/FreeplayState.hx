@@ -509,7 +509,7 @@ class FreeplayState extends MusicBeatState
 	override function beatHit() {
 		super.beatHit();
 
-		FlxG.camera.zoom += .035;
+		if (ClientPrefs.camZooms) FlxG.camera.zoom += .035;
 	}
 
 	public static function destroyFreeplayVocals() {

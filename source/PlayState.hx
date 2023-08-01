@@ -1555,8 +1555,8 @@ class PlayState extends MusicBeatState
 	private function cameraBump( isFinal : Bool = false ) : Void
 	{
 
-		FlxG.camera.zoom += 0.1;
-		camHUD.zoom += 0.1;
+		if (ClientPrefs.camZooms) FlxG.camera.zoom += 0.1;
+		if (ClientPrefs.camZooms) camHUD.zoom += 0.1;
 		cameraBumpTween = FlxTween.tween(FlxG.camera, {zoom : isFinal ? defaultCamZoom : FlxG.camera.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 
@@ -6351,9 +6351,12 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
-                                    abberationShaderIntensity = beatShaderAmount;
-									FlxG.camera.zoom += 0.015 * camZoomingMult;
-									camHUD.zoom += 0.03 * camZoomingMult;
+                                    if (ClientPrefs.camZooms)
+									{
+										abberationShaderIntensity = beatShaderAmount;
+										FlxG.camera.zoom += 0.015 * camZoomingMult;
+										camHUD.zoom += 0.03 * camZoomingMult;
+									}
 									if (curStep % 4 == 0) {
 										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
 											ease: FlxEase.circOut,
@@ -6395,9 +6398,12 @@ class PlayState extends MusicBeatState
 							{
 								if (curBeat % 1 == 0)
 									{
-										abberationShaderIntensity = beatShaderAmount;
-										FlxG.camera.zoom += 0.015 * camZoomingMult;
-										camHUD.zoom += 0.03 * camZoomingMult;
+										if (ClientPrefs.camZooms)
+											{
+												abberationShaderIntensity = beatShaderAmount;
+												FlxG.camera.zoom += 0.015 * camZoomingMult;
+												camHUD.zoom += 0.03 * camZoomingMult;
+											}
 										if (curStep % 4 == 0) {
 											FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
 												ease: FlxEase.circOut,
@@ -6439,9 +6445,12 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
-                                    abberationShaderIntensity = beatShaderAmount;
-									FlxG.camera.zoom += 0.015 * camZoomingMult;
-									camHUD.zoom += 0.03 * camZoomingMult;
+                                    if (ClientPrefs.camZooms)
+										{
+											abberationShaderIntensity = beatShaderAmount;
+											FlxG.camera.zoom += 0.015 * camZoomingMult;
+											camHUD.zoom += 0.03 * camZoomingMult;
+										}
 									if (curStep % 4 == 0) {
 										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
 											ease: FlxEase.circOut,
@@ -6483,9 +6492,12 @@ class PlayState extends MusicBeatState
 						{
 							if (curBeat % 1 == 0)
 								{
-                                    abberationShaderIntensity = beatShaderAmount;
-									FlxG.camera.zoom += 0.015 * camZoomingMult;
-									camHUD.zoom += 0.03 * camZoomingMult;
+                                    if (ClientPrefs.camZooms)
+									{
+										abberationShaderIntensity = beatShaderAmount;
+										FlxG.camera.zoom += 0.015 * camZoomingMult;
+										camHUD.zoom += 0.03 * camZoomingMult;
+									}
 									if (curStep % 4 == 0) {
 										FlxTween.tween(camHUD, {y: -12}, Conductor.stepCrochet * 0.002, {
 											ease: FlxEase.circOut,
@@ -6526,14 +6538,14 @@ class PlayState extends MusicBeatState
 				case 'Suffering Siblings':
 					if (curStep >= 256 && curStep <= 508)
 						{
-							if (curBeat % 1 == 0)
+							if (curBeat % 1 == 0 && ClientPrefs.camZooms)
 								{
                                     abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 512 && curStep <= 639)
+					if (curStep >= 512 && curStep <= 639 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6542,7 +6554,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 640 && curStep <= 767)
+					if (curStep >= 640 && curStep <= 767 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6551,7 +6563,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 768 && curStep <= 1023)
+					if (curStep >= 768 && curStep <= 1023 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6560,7 +6572,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1024 && curStep <= 1136)
+					if (curStep >= 1024 && curStep <= 1136 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6569,7 +6581,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1280 && curStep <= 1392)
+					if (curStep >= 1280 && curStep <= 1392 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6578,7 +6590,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1408 && curStep <= 1664)
+					if (curStep >= 1408 && curStep <= 1664 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6587,7 +6599,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1952 && curStep <= 2324)
+					if (curStep >= 1952 && curStep <= 2324 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6596,7 +6608,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 2464 && curStep <= 2968)
+					if (curStep >= 2464 && curStep <= 2968 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6605,7 +6617,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 3104 && curStep <= 3223)
+					if (curStep >= 3104 && curStep <= 3223 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6614,7 +6626,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 3232 && curStep <= 3360)
+					if (curStep >= 3232 && curStep <= 3360 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6624,7 +6636,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'Mindless':
-					if (curStep >= 320 && curStep <= 3712)
+					if (curStep >= 320 && curStep <= 3712 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6634,7 +6646,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'Come Along With Me':
-					if (curStep >= 832 && curStep <= 888)
+					if (curStep >= 832 && curStep <= 888 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6643,7 +6655,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 896 && curStep <= 1024)
+					if (curStep >= 896 && curStep <= 1024 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6653,7 +6665,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case "Child's Play":
-					if (curStep >= 672 && curStep <= 1183)
+					if (curStep >= 672 && curStep <= 1183 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6662,7 +6674,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1472 && curStep <= 1984)
+					if (curStep >= 1472 && curStep <= 1984 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6672,7 +6684,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'Forgotten World':
-					if (curStep >= 514 && curStep <= 774)
+					if (curStep >= 514 && curStep <= 774 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6681,7 +6693,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 904 && curStep <= 1166)
+					if (curStep >= 904 && curStep <= 1166 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6690,7 +6702,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1445 && curStep <= 1826)
+					if (curStep >= 1445 && curStep <= 1826 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6699,7 +6711,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1843 && curStep <= 1976)
+					if (curStep >= 1843 && curStep <= 1976 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6708,7 +6720,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1993 && curStep <= 2260)
+					if (curStep >= 1993 && curStep <= 2260 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6718,7 +6730,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'My Amazing World':
-					if (curStep >= 1 && curStep <= 256)
+					if (curStep >= 1 && curStep <= 256 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6727,7 +6739,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 256 && curStep <= 495)
+					if (curStep >= 256 && curStep <= 495 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6736,7 +6748,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 512 && curStep <= 1079)
+					if (curStep >= 512 && curStep <= 1079 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6745,16 +6757,16 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1080 && curStep <= 1280)
+					if (curStep >= 1080 && curStep <= 1280 && ClientPrefs.camZooms)
 						{
-							if (curBeat % 1 == 0)
+							if (curBeat % 1 == 0 && ClientPrefs.camZooms)
 								{
                                     abberationShaderIntensity = beatShaderAmount;
 									FlxG.camera.zoom += 0.015 * camZoomingMult;
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >=1824 && curStep <= 2080)
+					if (curStep >=1824 && curStep <= 2080 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6763,7 +6775,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 2144 && curStep <= 2400)
+					if (curStep >= 2144 && curStep <= 2400 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6772,7 +6784,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 2464 && curStep <= 2656)
+					if (curStep >= 2464 && curStep <= 2656 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6782,7 +6794,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'Retcon':
-					if (curStep >= 256 && curStep <= 512)
+					if (curStep >= 256 && curStep <= 512 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6791,7 +6803,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 512 && curStep <= 752)
+					if (curStep >= 512 && curStep <= 752 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6800,7 +6812,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1024 && curStep <= 1271)
+					if (curStep >= 1024 && curStep <= 1271 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6809,7 +6821,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1280 && curStep <= 1520)
+					if (curStep >= 1280 && curStep <= 1520 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -6818,7 +6830,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1536 && curStep <= 1791)
+					if (curStep >= 1536 && curStep <= 1791 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6827,7 +6839,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1816 && curStep <= 2048)
+					if (curStep >= 1816 && curStep <= 2048 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -6842,7 +6854,7 @@ class PlayState extends MusicBeatState
 					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648) ||
 						(curStep >= 592 && curStep < 645) || (curStep >= 656 && curStep < 719) || (curStep >= 725 && curStep < 773))
 					{
-						if (curBeat % 1 == 0)
+						if (curBeat % 1 == 0 && ClientPrefs.camZooms)
 						{
 							abberationShaderIntensity = beatShaderAmount;
 							FlxG.camera.zoom += .035 * camZoomingMult;
