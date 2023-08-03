@@ -4658,8 +4658,17 @@ class PlayState extends MusicBeatState
 						case 1791:
 							FlxTween.tween(blackie, {alpha: 1}, 0.25);
 							for (i in 0...opponentStrums.length) {
-								FlxTween.tween(opponentStrums.members[i], {alpha: 1}, 0.25);
+								FlxTween.tween(playerStrums.members[i], {alpha: 1}, 1.15, {onStart: goofyAhh -> {
+									timeBar.alpha = 0;
+									timeBarBG.alpha = 0;
+									timeTxt.alpha = 1;
+									scoreTxt.alpha = 0;
+									playerStrums.forEach(yeah -> {
+										FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
+									});
+								}});
 							}
+							blackie.cameras = [camHUD];
 						case 2432:
 							blackie.alpha = 1;
 					}
