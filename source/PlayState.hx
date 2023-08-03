@@ -1206,12 +1206,16 @@ class PlayState extends MusicBeatState
 				case 'Mindless':
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-slash', 1);
-					camGame.alpha = 0;
+					camGame.fade(FlxColor.BLACK, 0.0001);
 					finnBarThing.alpha = 0.0001;
 					dad.alpha = 0.0001;
 					iconP2.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
 					scoreTxt.alpha = 0.0001;
+
+					for (i in 0...opponentStrums.length) {
+						opponentStrums.members[i].alpha = 0;
+					}
 				case 'Come Along With Me':
 					for (i in 0...opponentStrums.length) {
 						opponentStrums.members[i].shader = null;
@@ -4663,11 +4667,7 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
-							camGame.alpha = 1;
 							camGame.fade(FlxColor.BLACK, 4.42, true);
-							for (i in 0...opponentStrums.length) {
-								opponentStrums.members[i].alpha = 0;
-							}
 						case 256:
 							FlxTween.tween(camGame, {zoom: 1.8}, 2.83, {
 								ease: FlxEase.quadInOut,
