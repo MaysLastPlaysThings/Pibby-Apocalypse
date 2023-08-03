@@ -92,7 +92,7 @@ class FreeplayState extends MusicBeatState
 
 		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
-		Conductor.changeBPM(100); // using this for good mesaure after playing a song lmao
+		Conductor.bpm = 100;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -382,6 +382,8 @@ class FreeplayState extends MusicBeatState
 
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
+		
+		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
 
 		var leftP = controls.UI_LEFT_P;
 		var rightP = controls.UI_RIGHT_P;

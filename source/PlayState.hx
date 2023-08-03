@@ -4583,7 +4583,7 @@ class PlayState extends MusicBeatState
 								});
 						case 624:
 							FlxTween.tween(camGame, {alpha: 0},0.0000001);
-							triggerEventNote('Change Character', 'Dad', 'finn-open2');
+							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 						case 640:
 							if (!ClientPrefs.lowQuality)
 								{
