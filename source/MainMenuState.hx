@@ -172,7 +172,7 @@ class MainMenuState extends MusicBeatState
 		add(discord);
 
 		FlxMouseEvent.add(discord,
-			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/tcrjJF5gda')); },
+			function(s : FlxSprite) { Lib.getURL(new URLRequest('https://discord.gg/dtnpa')); },
 			null,
 			function( s : FlxSprite ) { FlxTween.tween(discord, {alpha: 1}, 0.25, { ease: FlxEase.quadOut}); },
 			function( s : FlxSprite ) { FlxTween.tween(discord, {alpha: 0.4}, 0.25, { ease: FlxEase.quadOut}); }
