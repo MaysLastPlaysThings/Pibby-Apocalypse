@@ -1722,7 +1722,6 @@ class PlayState extends MusicBeatState
 									bfIntro.playAnim('1', true);
 									bfIntro.specialAnim = true;
 								}
-								
 								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('1', true);
 									pibbyIntro.specialAnim = true;

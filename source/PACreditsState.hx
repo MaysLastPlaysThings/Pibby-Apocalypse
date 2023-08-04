@@ -31,7 +31,7 @@ class PACreditsState extends MusicBeatState
 	var curSelected:Int = -1;
 
 	var creditsStuff:Array<Dynamic> = [ // name:String, iconName:String, description:String, color:FlxColor, link:String
-		['Forteni', 'Forteni', '', FlxColor.WHITE, '']
+		['Forteni', 'Forteni', 'Director, owner', FlxColor.WHITE, '']
 	];
 
 	var shaderIntensity:Float;

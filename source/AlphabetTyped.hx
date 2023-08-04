@@ -28,9 +28,10 @@ class AlphabetTyped extends FlxSpriteGroup
 
 	public var text:String = "";
 
+	public var pibbyFNF = new Shaders.Pibbified();
+
 	public function new(x:Float, y:Float, text:String = "", isFancy:Bool = false)
 	{
-
 		super(x, y);
 
 		this.text = text;
@@ -39,6 +40,10 @@ class AlphabetTyped extends FlxSpriteGroup
 		actualText.setFormat(Paths.font("menuBUTTONS.ttf"), 65);
 		actualText.y -= actualText.size;
 		add(actualText);
+
+		if (isFancy) {
+			shader = pibbyFNF;
+		}
 	}
 
 	override function update(elapsed:Float)
@@ -50,6 +55,8 @@ class AlphabetTyped extends FlxSpriteGroup
 			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.30);
 			x = FlxMath.lerp(x, (targetY * 20) + 90, 0.30);
 		}
+
+		pibbyFNF.uTime.value[0] += elapsed;
 
 		super.update(elapsed);
 	}
