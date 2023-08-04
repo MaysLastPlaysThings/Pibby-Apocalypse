@@ -1588,6 +1588,13 @@ class PlayState extends MusicBeatState
 
 			bfIntro.playAnim('Go', true);
 			bfIntro.specialAnim = true;
+		} else if (SONG.player1 == 'zero') {
+            bfIntro = new Boyfriend(0, 0, 'zero_intro');
+			startCharacterPos(bfIntro);
+			boyfriend.alpha = 0;
+			
+			bfIntro.playAnim('3', true);
+			bfIntro.specialAnim = true;
 		}
 
 		if (gf != null && gf.curCharacter.startsWith('pibby')) {
@@ -1683,7 +1690,10 @@ class PlayState extends MusicBeatState
 						numberIntro.alpha = 1;
 						if (bfIntro != null)
 							{
-								if (SONG.player1 == 'newbf' || 'zero') {
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('3', true);
+									bfIntro.specialAnim = true;
+								} else if (SONG.player1 == 'zero') {
 									bfIntro.playAnim('3', true);
 									bfIntro.specialAnim = true;
 								}
@@ -1705,7 +1715,7 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						if (bfIntro != null)
 							{
-								if (SONG.player1 == 'newbf' || 'zero') {
+								if (SONG.player1 == 'newbf') {
 									bfIntro.playAnim('2', true);
 									bfIntro.specialAnim = true;
 								}
@@ -1728,11 +1738,13 @@ class PlayState extends MusicBeatState
 						cameraBump();
 						if (bfIntro != null)
 							{
-								if (SONG.player1 == 'newbf' || 'zero') {
+								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('1', true);
+									bfIntro.specialAnim = true;
+								} else if (SONG.player1 == 'zero') {
 									bfIntro.playAnim('1', true);
 									bfIntro.specialAnim = true;
 								}
-								
 								if (gf != null && gf.curCharacter.startsWith('pibby')) {
 									pibbyIntro.playAnim('1', true);
 									pibbyIntro.specialAnim = true;
@@ -1756,6 +1768,9 @@ class PlayState extends MusicBeatState
 								if (SONG.player1 == 'newbf') {
 									bfIntro.playAnim('Go', true);
 									bfIntro.specialAnim = true;
+								} else if (SONG.player1 == 'zero') {
+									bfIntro.playAnim('Go', true);
+									bfIntro.specialAnim = true;
 								}
 
 								if (gf != null && gf.curCharacter.startsWith('pibby')) {
@@ -1768,7 +1783,10 @@ class PlayState extends MusicBeatState
 							}
 						FlxG.sound.play(Paths.sound('go'), 0.6);
 					case 4:
-						if (SONG.player1 == 'newbf' || 'zero') {
+						if (SONG.player1 == 'newbf') {
+							boyfriend.alpha = 1;
+							bfIntro.alpha = 0;
+						} else if (SONG.player1 == 'zero') {
 							boyfriend.alpha = 1;
 							bfIntro.alpha = 0;
 						}
