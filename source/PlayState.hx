@@ -1582,13 +1582,6 @@ class PlayState extends MusicBeatState
 			bfIntro.playAnim('Go', true);
 			bfIntro.specialAnim = true;
 		} else if (SONG.player1 == 'zero') {
-			bfIntro = new Boyfriend(0, 0, 'zero');
-			startCharacterPos(bfIntro);
-			boyfriend.alpha = 0;
-
-			bfIntro.playAnim('Go', true);
-			bfIntro.specialAnim = true;
-		} else if (SONG.player1 == 'zero') {
             bfIntro = new Boyfriend(0, 0, 'zero_intro');
 			startCharacterPos(bfIntro);
 			boyfriend.alpha = 0;
@@ -1611,7 +1604,7 @@ class PlayState extends MusicBeatState
 		if (SONG.player1 == 'newbf')
 			boyfriendGroup.add(bfIntro);
 
-		if (SONG.player1 == 'zero')
+		else if (SONG.player1 == 'zero')
 			boyfriendGroup.add(bfIntro);
 
 		var numberIntro:FlxSprite = new FlxSprite(
@@ -1716,6 +1709,10 @@ class PlayState extends MusicBeatState
 						if (bfIntro != null)
 							{
 								if (SONG.player1 == 'newbf') {
+									bfIntro.playAnim('2', true);
+									bfIntro.specialAnim = true;
+								}
+								if (SONG.player1 == 'zero') {
 									bfIntro.playAnim('2', true);
 									bfIntro.specialAnim = true;
 								}
