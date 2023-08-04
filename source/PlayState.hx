@@ -5328,7 +5328,7 @@ class PlayState extends MusicBeatState
 							changeChannel(1);
 							camGame.zoom = 1.7;
 							triggerEventNote('Cinematics', 'on', '4.8');
-							camOther.fade(FlxColor.BLACK, 4.8, true);
+							camGame.fade(FlxColor.BLACK, 4.8, true); // so player can see the hud
 							FlxTween.tween(camGame, {zoom: 1.1}, 4.8, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5407,7 +5407,7 @@ class PlayState extends MusicBeatState
 						case 2656:
 							newStage.onMoveCamera('boyfriend');
 							changeChannel(3);
-							defaultCamZoom = 1.2;
+							defaultCamZoom = 1.3; // black jumpscare on shaders off so here's a fix
 						case 2672:
 							defaultCamZoom = 1.4;
 						case 2678:
@@ -5420,6 +5420,10 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+
+							camHUD.setFilters([]);
+							camOverlay.setFilters([]);
+							camGame.setFilters([]);
 					}
 				case 'Retcon':
 					switch (curStep)
