@@ -22,5 +22,5 @@ class Scripts {
         "function onCreate()
             print 'hi person who somehow open the game by the cmd'
         end",
-	];
+	]; // we dont use lua though - ADA
 }

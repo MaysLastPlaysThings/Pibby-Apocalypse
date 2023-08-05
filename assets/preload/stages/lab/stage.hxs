@@ -122,3 +122,15 @@ function onEvent(event:String, value1:String, value2:String)
             }
         }
     }
+
+function onPause()
+{
+	flickerTween.active = false;
+	flickerTween2.active = false;
+}
+
+function onResume()
+{
+	flickerTween.active = false;
+	flickerTween2.active = false;
+}

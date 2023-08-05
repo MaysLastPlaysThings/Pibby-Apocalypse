@@ -11,22 +11,30 @@ var stupidFix; //cuz apparently there needs to be a defined tween to pause the o
 // darwin start to get consumed by the darkness (tragedy)
 var voidb;
 var scaryGlitchAhh;
+var moreGlitchWaaa;
+var moreGlitchWaaaButBehindTheRock;
 var houseb;
 var rockb;
 var rock2b;
 var rock3b;
 var rock4b;
 var wtfb;
+var timerShit = 7;
+var shaderTime = 0;
 var stupidFix2electricboogaloo;
+var coolShader;
 
 function onCreate()
 {
+    coolShader = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.file, null, 120);
+
     void = new flixel.FlxSprite(0, -200);
     void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
     void.setGraphicSize(Std.int(void.width * 2.5));
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
+    if (ClientPrefs.shaders) void.shader = coolShader;
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
@@ -49,26 +57,28 @@ function onCreate()
     rock2.scrollFactor.set(1.1, 1.1);
     rock2.updateHitbox();
 
-    rock3 = new flixel.FlxSprite(0, -200);
-    rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
-    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
-    rock3.antialiasing = ClientPrefs.globalAntialiasing;
-    rock3.scrollFactor.set(0.9, 0.9);
-    rock3.updateHitbox();
+    if (!ClientPrefs.lowQuality) {
+        rock3 = new flixel.FlxSprite(0, -200);
+        rock3.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6.png', 'image'));
+        rock3.setGraphicSize(Std.int(rock3.width * 2.5));
+        rock3.antialiasing = ClientPrefs.globalAntialiasing;
+        rock3.scrollFactor.set(0.9, 0.9);
+        rock3.updateHitbox();
 
-    rock4 = new flixel.FlxSprite(0, -200);
-    rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
-    rock4.setGraphicSize(Std.int(rock4.width * 2.5));
-    rock4.antialiasing = ClientPrefs.globalAntialiasing;
-    rock4.scrollFactor.set(0.85, 0.85);
-    rock4.updateHitbox();
+        rock4 = new flixel.FlxSprite(0, -200);
+        rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7.png', 'image'));
+        rock4.setGraphicSize(Std.int(rock4.width * 2.5));
+        rock4.antialiasing = ClientPrefs.globalAntialiasing;
+        rock4.scrollFactor.set(0.85, 0.85);
+        rock4.updateHitbox();
 
-    wtf = new flixel.FlxSprite(0, -200);
-    wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-8.png', 'image'));
-    wtf.setGraphicSize(Std.int(wtf.width * 2.5));
-    wtf.antialiasing = ClientPrefs.globalAntialiasing;
-    wtf.scrollFactor.set(1, 1);
-    wtf.updateHitbox();
+        wtf = new flixel.FlxSprite(0, -200);
+        wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-8.png', 'image'));
+        wtf.setGraphicSize(Std.int(wtf.width * 2.5));
+        wtf.antialiasing = ClientPrefs.globalAntialiasing;
+        wtf.scrollFactor.set(1, 1);
+        wtf.updateHitbox();
+    }
 
     glitch = new flixel.FlxSprite(0, -200);
     glitch.frames = retrieveAsset('images/gumballglitchbg', 'ATLAS');
@@ -84,14 +94,26 @@ function onCreate()
     voidb.scrollFactor.set(0.6, 0.6);
     voidb.updateHitbox();
     voidb.visible = false;
+    if (ClientPrefs.shaders) voidb.shader = coolShader;
 
-    scaryGlitchAhh = new flixel.FlxSprite(0, -200);
-    scaryGlitchAhh.loadGraphic(retrieveAsset('images/void3/2b.png', 'image'));
-    scaryGlitchAhh.scale.set(1.2, 1.2);
-    scaryGlitchAhh.antialiasing = ClientPrefs.globalAntialiasing;
-    scaryGlitchAhh.scrollFactor.set(0.6, 0.6);
-    scaryGlitchAhh.updateHitbox();
-    scaryGlitchAhh.visible = false;
+    if (!ClientPrefs.lowQuality)
+    {
+        scaryGlitchAhh = new flixel.FlxSprite(0, -200);
+        scaryGlitchAhh.loadGraphic(retrieveAsset('images/void3/2b.png', 'image'));
+        scaryGlitchAhh.scale.set(1.2, 1.2);
+        scaryGlitchAhh.antialiasing = ClientPrefs.globalAntialiasing;
+        scaryGlitchAhh.scrollFactor.set(0.6, 0.6);
+        scaryGlitchAhh.updateHitbox();
+        scaryGlitchAhh.visible = false;
+
+        moreGlitchWaaaButBehindTheRock = new flixel.FlxSprite(0, -200);
+        moreGlitchWaaaButBehindTheRock.loadGraphic(retrieveAsset('images/void3/2b.png', 'image'));
+        moreGlitchWaaaButBehindTheRock.scale.set(1.2, 1.2);
+        moreGlitchWaaaButBehindTheRock.antialiasing = ClientPrefs.globalAntialiasing;
+        moreGlitchWaaaButBehindTheRock.scrollFactor.set(0.6, 0.6);
+        moreGlitchWaaaButBehindTheRock.updateHitbox();
+        moreGlitchWaaaButBehindTheRock.visible = false;
+    }
 
     houseb = new flixel.FlxSprite(0, -200);
     houseb.loadGraphic(retrieveAsset('images/void3/3b.png', 'image'));
@@ -116,65 +138,80 @@ function onCreate()
     rock2b.scrollFactor.set(1.1, 1.1);
     rock2b.updateHitbox();
     rock2b.visible = false;
+    
+    if (!ClientPrefs.lowQuality) {
+        rock3b = new flixel.FlxSprite(0, -200);
+        rock3b.loadGraphic(retrieveAsset('images/void3/11.png', 'image'));
+        rock3b.scale.set(1.2, 1.2);
+        rock3b.antialiasing = ClientPrefs.globalAntialiasing;
+        rock3b.scrollFactor.set(0.9, 0.9);
+        rock3b.updateHitbox();
+        rock3b.visible = false;
 
-    rock3b = new flixel.FlxSprite(0, -200);
-    rock3b.loadGraphic(retrieveAsset('images/void3/11.png', 'image'));
-    rock3b.scale.set(1.2, 1.2);
-    rock3b.antialiasing = ClientPrefs.globalAntialiasing;
-    rock3b.scrollFactor.set(0.9, 0.9);
-    rock3b.updateHitbox();
-    rock3b.visible = false;
+        rock4b = new flixel.FlxSprite(0, -200);
+        rock4b.loadGraphic(retrieveAsset('images/void3/4.png', 'image'));
+        rock4b.scale.set(1.2, 1.2);
+        rock4b.antialiasing = ClientPrefs.globalAntialiasing;
+        rock4b.scrollFactor.set(0.85, 0.85);
+        rock4b.updateHitbox();
+        rock4b.visible = false;
 
-    rock4b = new flixel.FlxSprite(0, -200);
-    rock4b.loadGraphic(retrieveAsset('images/void3/4.png', 'image'));
-    rock4b.scale.set(1.2, 1.2);
-    rock4b.antialiasing = ClientPrefs.globalAntialiasing;
-    rock4b.scrollFactor.set(0.85, 0.85);
-    rock4b.updateHitbox();
-    rock4b.visible = false;
+        wtfb = new flixel.FlxSprite(0, -200);
+        wtfb.loadGraphic(retrieveAsset('images/void3/6.png', 'image'));
+        wtfb.scale.set(1.2, 1.2);
+        wtfb.antialiasing = ClientPrefs.globalAntialiasing;
+        wtfb.scrollFactor.set(1, 1);
+        wtfb.updateHitbox();
+        wtfb.visible = false;
 
-    wtfb = new flixel.FlxSprite(0, -200);
-    wtfb.loadGraphic(retrieveAsset('images/void3/6.png', 'image'));
-    wtfb.scale.set(1.2, 1.2);
-    wtfb.antialiasing = ClientPrefs.globalAntialiasing;
-    wtfb.scrollFactor.set(1, 1);
-    wtfb.updateHitbox();
-    wtfb.visible = false;
+        moreGlitchWaaa = new flixel.FlxSprite(0, 210);
+        moreGlitchWaaa.loadGraphic(retrieveAsset('images/void3/2b.png', 'image'));
+        moreGlitchWaaa.scale.set(1.2, 1.2);
+        moreGlitchWaaa.antialiasing = ClientPrefs.globalAntialiasing;
+        moreGlitchWaaa.scrollFactor.set(1.1, 1.1);
+        moreGlitchWaaa.updateHitbox();
+        moreGlitchWaaa.visible = false;
+    }
 
     tweenLoopAngle(house, 4, -4, 6, 6);
     tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
     tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
-    tweenLoopAngle(rock3, 360, 0, 30, 30);
-    tweenLoopAngle(wtf, 2, -2, 5, 5);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock3, 360, 0, 30, 30);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(wtf, 2, -2, 5, 5);
 
-    tweenLoopAngle(houseb, 4, -4, 6, 6);
+    tweenLoopAngle(houseb, 16, -12, 6, 6);
     tweenLoopAngle(rockb, -0.5, 0.5, 2.5, 2.5);
     tweenLoopAngle(rock2b, -2, 1.2, 2.5, 2.5);
-    tweenLoopAngle(rock3b, 360, 0, 30, 30);
-    tweenLoopAngle(wtfb, 2, -2, 5, 5);
+    if (!ClientPrefs.lowQuality && rock3b != null) tweenLoopAngle(rock3b, 360, 0, 30, 30);
+    if (!ClientPrefs.lowQuality && wtfb != null) tweenLoopAngle(wtfb, 5, -5, 3, 3);
 
-    FlxTween.tween(rock4, {angle: 360}, 30, {
+    makeShitInsane(houseb, 2000, 4, 9);
+    if (!ClientPrefs.lowQuality) makeShitInsane(rock4b, 2500, 3, 7); // dumb fix
+
+    if (!ClientPrefs.lowQuality) FlxTween.tween(rock4, {angle: 360}, 30, {
         ease: FlxEase.sineInOut
     });
 
-    stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
+    if (!ClientPrefs.lowQuality) stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
     add(void);
-    add(rock4);
-    add(rock3);
+    if (!ClientPrefs.lowQuality) add(rock4);
+    if (!ClientPrefs.lowQuality) add(rock3);
     add(rock2);
     add(house);
     add(rock);
-    add(wtf);
+    if (!ClientPrefs.lowQuality) add(wtf);
 
-    stupidFix2electricboogaloo = FlxTween.tween(wtfb, {y: wtfb.y}, 1);
+    if (!ClientPrefs.lowQuality) stupidFix2electricboogaloo = FlxTween.tween(wtfb, {y: wtfb.y}, 1);
     add(voidb);
-    add(scaryGlitchAhh);
-    add(rock4b);
-    add(rock3b);
+    if (!ClientPrefs.lowQuality) add(scaryGlitchAhh);
+    if (!ClientPrefs.lowQuality) add(moreGlitchWaaaButBehindTheRock);
+    if (!ClientPrefs.lowQuality) add(rock4b);
+    if (!ClientPrefs.lowQuality) add(rock3b);
     add(rock2b);
     add(houseb);
     add(rockb);
-    add(wtfb);
+    if (!ClientPrefs.lowQuality) add(wtfb);
+    if (!ClientPrefs.lowQuality) foreground.add(moreGlitchWaaa);
 
     add(glitch);
 }
@@ -203,33 +240,54 @@ function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
     });
 }
 
+function makeShitInsane(object, xThing, timerRandom1, timerRandom2)
+{
+    FlxTween.tween(object, {x: xThing}, timerShit, {
+        ease: FlxEase.sineInOut,
+        onComplete: 
+        function(e)
+        {
+            timerShit = FlxG.random.float(timerRandom1, timerRandom2);
+            object.x = -1800;
+            makeShitInsane(object, xThing, timerRandom1, timerRandom2);
+        }
+    });
+}
+
 function onStepHit(curStep)
 {
     if (curStep == 1445)
     {
         void.visible = false;
-        wtf.visible = false;
+        if (!ClientPrefs.lowQuality) wtf.visible = false;
         rock.visible = false;
         rock2.visible = false;
-        rock3.visible = false;
-        rock4.visible = false;
+        if (!ClientPrefs.lowQuality) rock3.visible = false;
+        if (!ClientPrefs.lowQuality) rock4.visible = false;
         house.visible = false;
 
         voidb.visible = true;
         rockb.visible = true;
         rock2b.visible = true;
-        rock3b.visible = true;
-        rock4b.visible = true;
+        if (!ClientPrefs.lowQuality) rock3b.visible = true;
+        if (!ClientPrefs.lowQuality) rock4b.visible = true;
         houseb.visible = true;
-        wtfb.visible = true;
-        scaryGlitchAhh.visible = true;
+        if (!ClientPrefs.lowQuality) wtfb.visible = true;
+        if (!ClientPrefs.lowQuality) scaryGlitchAhh.visible = true;
+        if (!ClientPrefs.lowQuality) moreGlitchWaaa.visible = true;
+        if (!ClientPrefs.lowQuality) moreGlitchWaaaButBehindTheRock.visible = true;
     }
 }
 
 function onPause() {
-    stupidFix.active = false;
+    if (!ClientPrefs.lowQuality) stupidFix.active = false;
 }
 
 function onResume() {
-    stupidFix.active = true;
+    if (!ClientPrefs.lowQuality) stupidFix.active = true;
+}
+
+function onUpdate(elapsed) {
+    shaderTime += elapsed;
+    coolShader.setFloat('iTime', shaderTime);
 }

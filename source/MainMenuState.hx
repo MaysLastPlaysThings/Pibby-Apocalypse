@@ -103,7 +103,7 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter(X);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.shader = VCR;
+		if (ClientPrefs.shaders) bg.shader = VCR;
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -247,10 +247,10 @@ class MainMenuState extends MusicBeatState
 		if(ClientPrefs.shaders) {
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
-		}
-		
 			VCR.iTime.value[0] += elapsed;
 
+		}
+	
 		Conductor.changeBPM(100);
 
 		if (FlxG.sound.music.volume < 0.8)

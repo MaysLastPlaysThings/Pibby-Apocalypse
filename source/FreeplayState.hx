@@ -92,7 +92,7 @@ class FreeplayState extends MusicBeatState
 
 		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
-		Conductor.changeBPM(100); // using this for good mesaure after playing a song lmao
+		Conductor.bpm = 100;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -382,6 +382,8 @@ class FreeplayState extends MusicBeatState
 
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
+		
+		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
 
 		var leftP = controls.UI_LEFT_P;
 		var rightP = controls.UI_RIGHT_P;
@@ -509,7 +511,7 @@ class FreeplayState extends MusicBeatState
 	override function beatHit() {
 		super.beatHit();
 
-		FlxG.camera.zoom += .035;
+		if (ClientPrefs.camZooms) FlxG.camera.zoom += .035;
 	}
 
 	public static function destroyFreeplayVocals() {
@@ -648,28 +650,6 @@ class FreeplayState extends MusicBeatState
 		image.loadGraphic(Paths.image('fpmenu/stage/' + songs[curSelected].songName));
 
 		FlxTween.tween(this, {threatPercent: songs[curSelected].threatLevel}, 0.7, {ease: FlxEase.quadInOut});
-
-		switch (songs[curSelected].songName)
-		{
-			case "Child's Play":
-				//FlxTween.tween(this, {threatPercent: 20}, 0.7, {ease: FlxEase.quadInOut});
-			case "My Amazing World":
-				//FlxTween.tween(this, {threatPercent: 45}, 0.7, {ease: FlxEase.quadInOut});
-			case "Retcon":
-				//FlxTween.tween(this, {threatPercent: 55}, 0.7, {ease: FlxEase.quadInOut});
-			case "Forgotten World":
-				//FlxTween.tween(this, {threatPercent: 65}, 0.7, {ease: FlxEase.quadInOut});
-			case "Mindless":
-				//FlxTween.tween(this, {threatPercent: 85}, 0.7, {ease: FlxEase.quadInOut});
-			case "Blessed by Swords":
-				//FlxTween.tween(this, {threatPercent: 90}, 0.7, {ease: FlxEase.quadInOut});
-			case "Brotherly Love":
-				//FlxTween.tween(this, {threatPercent: 80}, 0.7, {ease: FlxEase.quadInOut});
-			case "Suffering Siblings":
-				//FlxTween.tween(this, {threatPercent: 95}, 0.7, {ease: FlxEase.quadInOut});
-			case "Come Along With Me":
-				//FlxTween.tween(this, {threatPercent: 75}, 0.7, {ease: FlxEase.quadInOut});
-		}
 		levelBar.updateBar();
 	}
 

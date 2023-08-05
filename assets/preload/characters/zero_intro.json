@@ -1,0 +1,67 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				256,
+				105
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "2",
+			"indices": [],
+			"name": "20"
+		},
+		{
+			"offsets": [
+				256,
+				26
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "1",
+			"indices": [],
+			"name": "10"
+		},
+		{
+			"offsets": [
+				256,
+				33
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "Go",
+			"indices": [],
+			"name": "Go0"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-18,
+				32
+			],
+			"anim": "3",
+			"fps": 24,
+			"name": "3",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/zero_intro",
+	"position": [
+		100,
+		330
+	],
+	"healthicon": "zero",
+	"flip_x": true,
+	"healthbar_colors": [
+		136,
+		28,
+		28
+	],
+	"camera_position": [
+		400,
+		-30
+	],
+	"sing_duration": 6,
+	"scale": 1
+}
