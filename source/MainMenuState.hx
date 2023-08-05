@@ -50,9 +50,9 @@ class MainMenuState extends MusicBeatState
 	var shaderIntensity:Float;
 	
 	var optionShit:Array<String> = [
-		'FREEPLAY',
-		'STORY MODE',
-		'CREDITS',
+		'FREEPLAY'
+		//'STORY MODE',
+		//'CREDITS',
 	];
 
 	var magenta:FlxSprite;
@@ -194,15 +194,16 @@ class MainMenuState extends MusicBeatState
 			menuItem.alpha = 0.4;
 			menuItem.ID = i;
 			switch (optionShit[i])
-			{
-				case 'STORY MODE':
+			{/**
+					case 'CREDITS':
+					menuItem.x = 820;
+					menuItem.y = -75;
+
+					case 'STORY MODE':
 					menuItem.x = 240;
 					menuItem.y = -75;
+				**/
 				case 'FREEPLAY':
-					menuItem.x = -100;
-					menuItem.y = -75;
-				case 'CREDITS':
-					menuItem.x = 820;
 					menuItem.y = -75;
 			}
 			menuItems.add(menuItem);
@@ -212,6 +213,8 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+			menuItem.screenCenter(X);
+			menuItem.x -= 125;
 		}
 
 		// NG.core.calls.event.logEvent('swag').send();

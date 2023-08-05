@@ -4546,6 +4546,15 @@ class PlayState extends MusicBeatState
 							}
 						case 2432:
 							blackie.alpha = 1;
+							addBehindBF(blackie);
+							addBehindDad(blackie);
+							triggerEventNote('Change Character', 'Dad', 'finncawm');
+							triggerEventNote('Change Character', 'BF', 'bfcawn');
+							dad.cameras = [camHUD];
+							boyfriend.cameras = [camHUD];
+							boyfriend.angle = 180;
+							dad.setPosition(400, FlxG.height - 730);
+							boyfriend.setPosition(800, 640);
 					}
 				case 'Mindless':
 					switch (curStep)
@@ -4781,7 +4790,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
-							triggerEventNote('Apple Filter', 'off', 'white');
+							triggerEventNote('Apple Filter', 'off', '');
 						case 563:
 							defaultCamZoom = 0.85;
 						case 576:
