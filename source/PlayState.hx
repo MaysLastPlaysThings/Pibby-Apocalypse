@@ -4693,15 +4693,16 @@ class PlayState extends MusicBeatState
 							blackie.cameras = [camHUD];
 						case 2432:
 							blackie.alpha = 1;
-							addBehindBF(blackie);
-							addBehindDad(blackie);
-							triggerEventNote('Change Character', 'Dad', 'finncawm');
-							triggerEventNote('Change Character', 'BF', 'bfcawn');
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
+							triggerEventNote('Change Character', 'Dad', 'finncawn');
+							triggerEventNote('Change Character', 'BF', 'bfcawn');
 							boyfriend.angle = 180;
-							dad.setPosition(400, FlxG.height - 730);
+							dad.setPosition(400, 730);
 							boyfriend.setPosition(800, 640);
+
+							addBehindBF(blackie);
+							addBehindDad(blackie);
 					}
 				case 'Mindless':
 					switch (curStep)

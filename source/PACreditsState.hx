@@ -28,14 +28,14 @@ using StringTools;
 
 class PACreditsState extends MusicBeatState
 {
-	var curSelected:Int = -1;
+	var curSelected: Int = -1;
 
-	var shaderIntensity:Float;
+	var shaderIntensity: Float;
 
-	var bg:FlxSprite;
-	var creditsText:FlxText;
+	var bg: FlxSprite;
+	var creditsText: FlxText;
 
-	var pibbyFNF:Shaders.Pibbified;
+	var pibbyFNF: Shaders.Pibbified;
 
 	override function create()
 	{
