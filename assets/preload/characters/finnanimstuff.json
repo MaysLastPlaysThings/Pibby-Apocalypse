@@ -1,15 +1,15 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				-300,
-				-54
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-294,
+				-101
+			],
 			"anim": "lesgo",
-			"indices": [],
-			"name": "Finn Animation yez"
+			"fps": 24,
+			"name": "Finn Animation yez",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -26,9 +26,9 @@
 		161
 	],
 	"camera_position": [
-		-150,
-		-170
+		-170,
+		30
 	],
 	"sing_duration": 6.1,
-	"scale": 1.65
+	"scale": 1.5
 }

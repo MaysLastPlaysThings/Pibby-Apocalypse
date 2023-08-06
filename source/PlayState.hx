@@ -4614,6 +4614,11 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
+						// I love timing shit.
+						case 628:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 0.3);
+							}
 						case 640:
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 
@@ -4628,13 +4633,6 @@ class PlayState extends MusicBeatState
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
-							if (ClientPrefs.flashing) {
-								camOther.flash(FlxColor.WHITE, 0.33);
-							}
-							if (ClientPrefs.flashing) 
-								camOverlay.flash(FlxColor.WHITE, 1);
-
-							dad.shader = null;
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:
@@ -4644,9 +4642,9 @@ class PlayState extends MusicBeatState
 						case 736:
 							defaultCamZoom = 0.85;
 						case 848:
-							FlxTween.tween(camGame, {alpha: 0},3.52);
+							FlxG.camera.fade(FlxColor.BLACK, 3.52);
 						case 896:
-							FlxTween.tween(camGame, {alpha: 1},0.0000001);
+							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
 							dad.x = DAD_X - 260;
 							dad.y = DAD_Y - 250;
@@ -5625,14 +5623,7 @@ class PlayState extends MusicBeatState
 										camHUD.alpha = 0;
 									}
 							});
-							FlxTween.tween(camGame, {alpha: 0}, 1, {
-								ease: FlxEase.linear,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camGame.alpha = 0;
-									}
-							});
+							FlxG.camera.fade();
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
