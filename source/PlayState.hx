@@ -1224,7 +1224,7 @@ class PlayState extends MusicBeatState
 					// I cant be bothered, so I threw it in preload, if you have an issue with it kiss my ass k thx :3
 					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
 					camShitforReveal.screenCenter(XY);
-					camShitforReveal.cameras = [camHUD];
+					camShitforReveal.cameras = [camOther]; //aaron the hud fades for the love of god use camother sometimes *sobs
 					add(camShitforReveal);
 
 					blackie.alpha = 1;
@@ -4614,6 +4614,10 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
+
+						case 608: 
+							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
+							
 						case 640:
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 
@@ -4635,6 +4639,7 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 
 							dad.shader = null;
+							theBlackness.alpha = 0;
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:
