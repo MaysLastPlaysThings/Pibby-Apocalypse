@@ -53,7 +53,7 @@ class PACreditsState extends MusicBeatState
 		FlxG.game.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
-		FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
 		#if desktop
 		// Updating Discord Rich Presence
