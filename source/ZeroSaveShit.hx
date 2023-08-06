@@ -9,6 +9,7 @@ class ZeroSaveShit {
     // Zero unlocked variable
     public static var zeroUnlocked:Bool;
 
+    // Imagine trying to fucking FC this shit just to unlock something stupid. (Me) - Zero
     public static function loadSaveData() {
         if (finnBeaten && gumballBeaten && cawmBeaten) {
             zeroUnlocked = true;

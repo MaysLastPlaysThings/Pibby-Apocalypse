@@ -4614,6 +4614,11 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
+						// I love timing shit.
+						case 628:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 0.3);
+							}
 						case 640:
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 
@@ -4628,13 +4633,6 @@ class PlayState extends MusicBeatState
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
-							if (ClientPrefs.flashing) {
-								camOther.flash(FlxColor.WHITE, 0.33);
-							}
-							if (ClientPrefs.flashing) 
-								camOverlay.flash(FlxColor.WHITE, 1);
-
-							dad.shader = null;
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:

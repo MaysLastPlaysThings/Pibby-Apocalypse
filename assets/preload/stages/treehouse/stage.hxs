@@ -165,7 +165,7 @@ function onStepHit(curStep:Int)
             dadCamZoom = 0.7;
         }
 
-        if (curStep == 640)
+        if (curStep == 628)
         {
             outside.alpha = 0;
             outside2.alpha = 0;
