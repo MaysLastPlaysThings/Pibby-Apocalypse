@@ -1224,7 +1224,7 @@ class PlayState extends MusicBeatState
 					// I cant be bothered, so I threw it in preload, if you have an issue with it kiss my ass k thx :3
 					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
 					camShitforReveal.screenCenter(XY);
-					camShitforReveal.cameras = [camHUD];
+					camShitforReveal.cameras = [camOther];
 					add(camShitforReveal);
 
 					blackie.alpha = 1;
@@ -4614,6 +4614,9 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
+
+						case 608: 
+							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
 						case 628:
 							if (ClientPrefs.flashing) {
@@ -4633,6 +4636,7 @@ class PlayState extends MusicBeatState
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
+							theBlackness.alpha = 0;
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:
