@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -78,6 +79,8 @@ class FreeplayState extends MusicBeatState
 
 	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null, 120);
 
+	var canPress = false;
+
 	override function create()
 	{
 		//Paths.clearStoredMemory();
@@ -126,6 +129,9 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 		WeekData.loadTheFirstEnabledMod();
+
+		// fuck you nulls
+		new FlxTimer().start(0.5, grah -> canPress = true);
 
 		bg = new FlxSprite();
         bg.frames = Paths.getSparrowAtlas('fpmenu/background');
@@ -464,7 +470,7 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));
 		}
 
-		if (accepted)
+		if (accepted && canPress)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
