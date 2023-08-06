@@ -30,10 +30,21 @@ class PACreditsState extends MusicBeatState
 {
 	var curSelected: Int = -1;
 
-	var shaderIntensity: Float;
+	private var shaderIntensity: Float;
+
+	private var roleSections: Array<String> = [
+		"DIRECTORS",
+		"COMPOSERS",
+		"CODERS",
+		"ARTISTS",
+		"CHARTERS",
+		"ANIMATORS",
+		"MISCELLANEOUS"
+	];
 
 	var bg: FlxSprite;
 	var creditsText: FlxText;
+	var currentGroup: FlxText;
 
 	var pibbyFNF: Shaders.Pibbified;
 
@@ -42,7 +53,7 @@ class PACreditsState extends MusicBeatState
 		FlxG.game.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
-		FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -56,9 +67,14 @@ class PACreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		creditsText = new FlxText(20, 20, 0, "CREDITS", 30);
+		creditsText = new FlxText(20, 20, 0, "< CREDITS", 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
+
+		currentGroup = new FlxText(0, 60, 0, "DIRECTORS", 70);
+		currentGroup.setFormat(Paths.font("menuBUTTONS.ttf"), 70, FlxColor.WHITE, LEFT);
+		currentGroup.screenCenter(X);
+		add(currentGroup);
 		
 		super.create();
 	}
