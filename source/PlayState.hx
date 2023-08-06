@@ -4642,9 +4642,9 @@ class PlayState extends MusicBeatState
 						case 736:
 							defaultCamZoom = 0.85;
 						case 848:
-							FlxTween.tween(camGame, {alpha: 0},3.52);
+							FlxG.camera.fade(FlxColor.BLACK, 3.52);
 						case 896:
-							FlxTween.tween(camGame, {alpha: 1},0.0000001);
+							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
 							dad.x = DAD_X - 260;
 							dad.y = DAD_Y - 250;
@@ -5622,14 +5622,7 @@ class PlayState extends MusicBeatState
 										camHUD.alpha = 0;
 									}
 							});
-							FlxTween.tween(camGame, {alpha: 0}, 1, {
-								ease: FlxEase.linear,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camGame.alpha = 0;
-									}
-							});
+							FlxG.camera.fade();
 					}
 				case 'Suffering Siblings':
 					switch (curStep)
