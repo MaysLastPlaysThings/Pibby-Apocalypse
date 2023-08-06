@@ -9,6 +9,16 @@ var idkWhatAreThatThings;
 var coolGradient;
 var outside2;
 
+//faker stuff
+var backGlitch;
+var aboveGlitch;
+var hillShit;
+var particles;
+var dangling;
+var corruption;
+var cameraShit;
+
+
 var dadCamZoom = 0.8;
 var coolStep = 0; // rare ass fix
 
@@ -42,6 +52,37 @@ function onCreate()
         thunder.scrollFactor.set();
     }
 
+    
+    backGlitch = new flixel.FlxSprite(750, 1500);
+    backGlitch.loadGraphic(retrieveAsset('images/reveal/BackGlitch.png', 'image'));
+    backGlitch.updateHitbox();
+    backGlitch.scale.set(0.7, 0.7);
+
+    aboveGlitch = new flixel.FlxSprite(750, 1500);
+    aboveGlitch.loadGraphic(retrieveAsset('images/reveal/AboveGlitch.png', 'image'));
+    aboveGlitch.updateHitbox();
+    aboveGlitch.scale.set(0.7, 0.7);
+
+    hillShit = new flixel.FlxSprite(750, 1500);
+    hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff.png', 'image'));
+    hillShit.updateHitbox();
+    hillShit.scale.set(0.7, 0.7);
+
+    particles = new flixel.FlxSprite(750, 1500);
+    particles.loadGraphic(retrieveAsset('images/reveal/Particles.png', 'image'));
+    particles.updateHitbox();
+    particles.scale.set(0.5, 0.5);
+
+    dangling = new flixel.FlxSprite(750, 1500);
+    dangling.loadGraphic(retrieveAsset('images/reveal/Dangling.png', 'image'));
+    dangling.updateHitbox();
+    dangling.scale.set(0.7, 0.7);
+
+    corruption = new flixel.FlxSprite(750, 1500);
+    corruption.loadGraphic(retrieveAsset('images/reveal/Corruption.png', 'image'));
+    corruption.updateHitbox();
+    corruption.scale.set(0.7, 0.7);
+
     outside = new flixel.FlxSprite(1150, 1450);
     outside.loadGraphic(retrieveAsset('images/intro/IMG_8337.png', 'image'));
     outside.updateHitbox();
@@ -65,6 +106,16 @@ function onCreate()
     add(thunder);
     add(treehouse);
     add(thunder);
+
+    // reveal shit cuz yes
+
+    add(backGlitch);
+    add(aboveGlitch);
+    add(hillShit);
+    add(particles);
+    add(dangling);
+    add(corruption);
+
     add(outside);
     add(outside2);
     add(coolGradient);
@@ -92,7 +143,8 @@ function onStepHit(curStep:Int)
             treehouse.alpha = 0;
             bg.alpha = 0;
             doThunder = false;
-            dadCamZoom = 0.9;
+            dadCamZoom = 0.75;
+
         }
         if (curStep == 1647)
         {
@@ -100,6 +152,12 @@ function onStepHit(curStep:Int)
             outside2.alpha = 0;
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
+            backGlitch.alpha = 0;
+            aboveGlitch.alpha = 0;
+            hillShit.alpha = 0;
+            particles.alpha = 0;
+            dangling.alpha = 0;
+            corruption.alpha = 0;
             thunder.alpha = 1;
             treehouse.alpha = 1;
             bg.alpha = 1;

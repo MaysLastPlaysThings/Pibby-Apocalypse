@@ -51,8 +51,7 @@ class MainMenuState extends MusicBeatState
 	
 	var optionShit:Array<String> = [
 		'FREEPLAY',
-		'STORY MODE',
-		'CREDITS',
+		'CREDITS'
 	];
 
 	var magenta:FlxSprite;
@@ -195,15 +194,13 @@ class MainMenuState extends MusicBeatState
 			menuItem.ID = i;
 			switch (optionShit[i])
 			{
-				case 'STORY MODE':
-					menuItem.x = 240;
-					menuItem.y = -75;
-				case 'FREEPLAY':
-					menuItem.x = -100;
-					menuItem.y = -75;
 				case 'CREDITS':
-					menuItem.x = 820;
+					menuItem.x = 795;
 					menuItem.y = -75;
+
+				case 'FREEPLAY':
+					menuItem.y = -75;
+					menuItem.x = 170;
 			}
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
@@ -212,6 +209,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+			menuItem.x -= 125;
 		}
 
 		// NG.core.calls.event.logEvent('swag').send();
@@ -245,7 +243,6 @@ class MainMenuState extends MusicBeatState
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
 			VCR.iTime.value[0] += elapsed;
-
 		}
 	
 		Conductor.changeBPM(100);

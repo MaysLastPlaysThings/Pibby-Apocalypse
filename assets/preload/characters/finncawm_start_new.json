@@ -9,55 +9,55 @@
 			"fps": 24,
 			"anim": "idle",
 			"indices": [],
-			"name": "Finn Idle"
+			"name": "Idle"
 		},
 		{
 			"offsets": [
-				-100,
-				-27
+				-99,
+				-2
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "Finn Left"
+			"name": "Left"
 		},
 		{
 			"offsets": [
-				-60,
-				-20
+				-101,
+				3
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "Finn Down"
+			"name": "Down"
 		},
 		{
 			"offsets": [
-				-10,
-				0
+				-102,
+				33
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
-			"name": "Finn Up"
+			"name": "Up"
 		},
 		{
 			"offsets": [
-				-80,
-				0
+				-91,
+				-14
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "Finn Right"
+			"name": "Right"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/Finn_CAWM_startV2",
+	"image": "characters/Fake_Finn",
 	"position": [
 		-320,
 		30
@@ -70,9 +70,9 @@
 		161
 	],
 	"camera_position": [
-		-80,
-		-70
+		100,
+		90
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 0.75
 }
