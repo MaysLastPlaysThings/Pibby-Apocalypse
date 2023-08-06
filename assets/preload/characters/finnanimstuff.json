@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				-300,
-				-54
+				-294,
+				-101
 			],
 			"loop": false,
 			"fps": 24,
@@ -26,9 +26,9 @@
 		161
 	],
 	"camera_position": [
-		-150,
-		-170
+		-120,
+		40
 	],
 	"sing_duration": 6.1,
-	"scale": 1.65
+	"scale": 1.5
 }
