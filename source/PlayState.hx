@@ -93,10 +93,12 @@ class PlayState extends MusicBeatState
 	var channelBG:FlxSprite;
 	var channelTxt:FlxText;
 
-	public var midSongVideo:VideoHandler;
+	public var midSongVideo:VideoSprite;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+
+	var canShakeNote:Bool; // fix for CAWM
 
 	var crtFNF:FlxRuntimeShader;
 	var mawFNF:Shaders.MAWVHS;
@@ -600,6 +602,8 @@ class PlayState extends MusicBeatState
 		if(isPixelStage) {
 			introSoundsSuffix = '-pixel';
 		}
+
+		canShakeNote = ClientPrefs.screenGlitch;
 
 		add(gfGroup); //Needed for blammed lights
 		add(dadGroup);
@@ -1190,9 +1194,9 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.7;
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
-					midSongVideo.playVideo(Paths.video('forgottenscene'));
+					midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 					midSongVideo.finishCallback = null;
-					midSongVideo.stop();
+					midSongVideo.bitmap.stop();
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -1996,7 +2000,7 @@ class PlayState extends MusicBeatState
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
-		midSongVideo = new VideoHandler();
+		midSongVideo = new VideoSprite();
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -4221,11 +4225,14 @@ class PlayState extends MusicBeatState
                                     } else{
                                         camHUD.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
                                         for (i in 0...opponentStrums.length) {
-                                            opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-                                            opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+                                            if (canShakeNote)
+											{
+												opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+												opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
 
-                                            playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-                                            playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+												playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+												playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+											}
                                         }
                                     }
                                 }
@@ -4638,7 +4645,7 @@ class PlayState extends MusicBeatState
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
-							theBlackness.alpha = 0;
+							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:
@@ -4686,15 +4693,16 @@ class PlayState extends MusicBeatState
 							theBlackness.alpha = 1;
 							addBehindBF(blackie);
 							addBehindDad(blackie);
-							triggerEventNote('Change Character', 'Dad', 'finncawm');
+							triggerEventNote('Change Character', 'Dad', 'finncawn');
 							triggerEventNote('Change Character', 'BF', 'bfcawn');
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
 							boyfriend.angle = 180;
-							dad.setPosition(400, FlxG.height - 730);
-							boyfriend.setPosition(800, 40);
+							dad.setPosition(80, FlxG.height + 100);
+							boyfriend.setPosition(750, -340);
 							FlxTween.tween(boyfriend, {y: 40}, 1, {ease: FlxEase.sineInOut});
-							FlxTween.tween(dad, {y: 640}, 1, {ease: FlxEase.sineInOut});
+							FlxTween.tween(dad, {y: 260}, 1, {ease: FlxEase.sineInOut});
+							canShakeNote = false;
 
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(playerStrums.members[i], {alpha: 1}, 1.15, {onStart: goofyAhh -> {
@@ -5024,9 +5032,9 @@ class PlayState extends MusicBeatState
 							}
 						case 1182:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
-							midSongVideo.canSkip = false;
-							midSongVideo.playVideo(Paths.video('forgottenscene'));
-							midSongVideo.finishCallback = () -> { 
+							midSongVideo.bitmap.canSkip = false;
+							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
+							midSongVideo.bitmap.finishCallback = () -> { 
 								canPause = true;
 								if (ClientPrefs.shaders) 
 									{
