@@ -4675,8 +4675,21 @@ class PlayState extends MusicBeatState
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
 							}
-						case 1791:
-							FlxTween.tween(blackie, {alpha: 1}, 0.25);
+						case 1787:
+							blackie.alpha = 0;
+							theBlackness.alpha = 1;
+							addBehindBF(blackie);
+							addBehindDad(blackie);
+							triggerEventNote('Change Character', 'Dad', 'finncawm');
+							triggerEventNote('Change Character', 'BF', 'bfcawn');
+							dad.cameras = [camHUD];
+							boyfriend.cameras = [camHUD];
+							boyfriend.angle = 180;
+							dad.setPosition(400, FlxG.height - 730);
+							boyfriend.setPosition(800, 40);
+							FlxTween.tween(boyfriend, {y: 40}, 1, {ease: FlxEase.sineInOut});
+							FlxTween.tween(dad, {y: 640}, 1, {ease: FlxEase.sineInOut});
+
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(playerStrums.members[i], {alpha: 1}, 1.15, {onStart: goofyAhh -> {
 									timeBar.alpha = 0;
@@ -4684,7 +4697,7 @@ class PlayState extends MusicBeatState
 									timeTxt.alpha = 1;
 									scoreTxt.alpha = 0;
 									playerStrums.forEach(yeah -> {
-										FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
+										if (!ClientPrefs.downScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
 									});
 								}});
 							}
