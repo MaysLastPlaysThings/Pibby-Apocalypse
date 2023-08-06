@@ -1,78 +1,61 @@
 {
-	"animations": [
-		{
-			"offsets": [
-				-100,
-				-100
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "idle",
-			"loop": true,
-			"name": "full-idle0"
-		},
-		{
-			"offsets": [
-				-150,
-				-199
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singLEFT",
-			"loop": false,
-			"name": "Left-full0"
-		},
-		{
-			"offsets": [
-				-194,
-				-407
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singDOWN",
-			"loop": true,
-			"name": "Down0"
-		},
-		{
-			"offsets": [
-				-242,
-				39
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singUP",
-			"loop": false,
-			"name": "Up0"
-		},
-		{
-			"offsets": [
-				-464,
-				-97
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT",
-			"loop": false,
-			"name": "Right0"
-		}
-	],
-	"no_antialiasing": false,
-	"image": "characters/finn_reveal",
-	"position": [
-		-470,
-		-400
-	],
-	"healthicon": "finn",
-	"flip_x": false,
-	"healthbar_colors": [
-		161,
-		161,
-		161
-	],
-	"camera_position": [
-		-140,
-		130
-	],
-	"sing_duration": 6.1,
-	"scale": 0.999999999999999
+    "animations": [{
+            "offsets": [-100, -100],
+            "loop": true,
+            "fps": 24,
+            "anim": "idle",
+            "indices": [],
+            "name": "full-idle0"
+        },
+        {
+            "offsets": [-150, -199],
+            "loop": false,
+            "fps": 24,
+            "anim": "singLEFT",
+            "indices": [],
+            "name": "Left-full0"
+        },
+        {
+            "offsets": [-242,
+                39
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singUP",
+            "indices": [],
+            "name": "Up0"
+        },
+        {
+            "offsets": [-464, -97],
+            "loop": false,
+            "fps": 24,
+            "anim": "singRIGHT",
+            "indices": [],
+            "name": "Right0"
+        },
+        {
+            "loop": false,
+            "offsets": [-194, -407],
+            "anim": "singDOWN",
+            "fps": 24,
+            "name": "Down0",
+            "indices": []
+        }
+    ],
+    "no_antialiasing": false,
+    "image": "characters/finn_reveal",
+    "position": [-470, -400],
+    "healthicon": "finn",
+    "flip_x": false,
+    "healthbar_colors": [
+        161,
+        161,
+        161
+    ],
+    "camera_position": [
+        60,
+        340
+    ],
+    "sing_duration": 6.1,
+    "scale": 0.999999999999999
 }

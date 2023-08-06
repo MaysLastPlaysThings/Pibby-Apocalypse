@@ -93,7 +93,7 @@ class PlayState extends MusicBeatState
 	var channelBG:FlxSprite;
 	var channelTxt:FlxText;
 
-	public var midSongVideo:VideoSprite;
+	public var midSongVideo:VideoHandler;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -364,6 +364,8 @@ class PlayState extends MusicBeatState
 	var bulb:BGSprite;
 
 	var completeDarkness : FlxSprite;
+
+	var camShitforReveal: FlxSprite;
 
 	//Achievement shit
 	var keysPressed:Array<Bool> = [];
@@ -980,7 +982,6 @@ class PlayState extends MusicBeatState
 		warning.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
-		midSongVideo.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1189,9 +1190,9 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.7;
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
-					midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
-					midSongVideo.bitmap.finishCallback = null;
-					midSongVideo.bitmap.stop();
+					midSongVideo.playVideo(Paths.video('forgottenscene'));
+					midSongVideo.finishCallback = null;
+					midSongVideo.stop();
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -1220,6 +1221,12 @@ class PlayState extends MusicBeatState
 					for (i in 0...opponentStrums.length) {
 						opponentStrums.members[i].shader = null;
 					}
+					// I cant be bothered, so I threw it in preload, if you have an issue with it kiss my ass k thx :3
+					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
+					camShitforReveal.screenCenter(XY);
+					camShitforReveal.cameras = [camHUD];
+					add(camShitforReveal);
+
 					blackie.alpha = 1;
 					iconP2.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
@@ -1228,7 +1235,7 @@ class PlayState extends MusicBeatState
 					scoreTxt.alpha = 1;
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
-					addCharacterToList('finn-open2', 1);
+					addCharacterToList('finncawm_reveal', 1);
 					@:privateAccess
 					{
 						if (ClientPrefs.shaders)
@@ -1987,8 +1994,7 @@ class PlayState extends MusicBeatState
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
-		midSongVideo = new VideoSprite();
-		add(midSongVideo);
+		midSongVideo = new VideoHandler();
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -4608,10 +4614,9 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
-						case 624:
-							FlxTween.tween(camGame, {alpha: 0},0.0000001);
-							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 						case 640:
+							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+
 							if (!ClientPrefs.lowQuality)
 								{
 									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
@@ -4620,7 +4625,6 @@ class PlayState extends MusicBeatState
 									vig.screenCenter();
 									add(vig);
 								}
-							FlxTween.tween(camGame, {alpha: 1},0.0000001);
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
@@ -4632,13 +4636,13 @@ class PlayState extends MusicBeatState
 
 							dad.shader = null;
 						case 656:
-							defaultCamZoom = 1.15;
+							defaultCamZoom = 0.85;
 						case 672:
-							defaultCamZoom = 0.9;
+							defaultCamZoom = 0.75;
 						case 720:
-							defaultCamZoom = 1.45;
+							defaultCamZoom = 0.9;
 						case 736:
-							defaultCamZoom = 1.2;
+							defaultCamZoom = 0.85;
 						case 848:
 							FlxTween.tween(camGame, {alpha: 0},3.52);
 						case 896:
@@ -4660,18 +4664,13 @@ class PlayState extends MusicBeatState
 							dad.y = DAD_Y + 250;
 							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 							boyfriendGroup.visible = false;
-						case 1648:
-							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1);
-							}
-							triggerEventNote('Change Character', 'Dad', 'finn-open2');
 						case 1664:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
-							dad.x = DAD_X - 260;
-							dad.y = DAD_Y - 250;
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
+							dad.x = DAD_X;
+							dad.y = DAD_Y;
 							boyfriendGroup.visible = true;
 						case 1775:
 							FlxTween.tween(blackie, {alpha: 1}, 1);
@@ -5006,11 +5005,11 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1183:
+						case 1182:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
-							midSongVideo.bitmap.canSkip = false;
-							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
-							midSongVideo.bitmap.finishCallback = () -> { 
+							midSongVideo.canSkip = false;
+							midSongVideo.playVideo(Paths.video('forgottenscene'));
+							midSongVideo.finishCallback = () -> { 
 								canPause = true;
 								if (ClientPrefs.shaders) 
 									{
@@ -5031,8 +5030,6 @@ class PlayState extends MusicBeatState
 							};
 						case 1190:
 							defaultCamZoom = 0.7;
-						case 1440:
-							midSongVideo.destroy();
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
