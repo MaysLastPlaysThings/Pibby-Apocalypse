@@ -1236,6 +1236,8 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finncawm_reveal', 1);
+					addCharacterToList('bfcawn', 0);
+					addCharacterToList('finncawn', 1);
 					@:privateAccess
 					{
 						if (ClientPrefs.shaders)
@@ -4679,7 +4681,7 @@ class PlayState extends MusicBeatState
 							for (i in 0...opponentStrums.length) {
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
 							}
-						case 1787:
+						case 1792:
 							blackie.alpha = 0;
 							theBlackness.alpha = 1;
 							addBehindBF(blackie);
@@ -4705,7 +4707,6 @@ class PlayState extends MusicBeatState
 									});
 								}});
 							}
-							blackie.cameras = [camHUD];
 						case 2432:
 							blackie.alpha = 1;
 							dad.cameras = [camHUD];
