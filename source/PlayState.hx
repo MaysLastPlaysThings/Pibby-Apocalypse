@@ -1199,10 +1199,12 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.7;
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
+					#if VIDEOS_ALLOWED
 					midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 					midSongVideo.bitmap.finishCallback = null;
 					midSongVideo.bitmap.stop();
 					midSongVideo.cameras = [camHUD];
+					#end
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -5071,11 +5073,28 @@ class PlayState extends MusicBeatState
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
-						case 1440:
+						case 1441:
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
 							#else
 							blackie.alpha = 0;
+
+							if (ClientPrefs.shaders) 
+								{
+									playerStrums.forEach(strum -> strum.shader = distortFNF);
+								}
+								// pizza tower scoutdigo reference
+								boyfriend.color = 0xbababa;
+								dad.color = 0xbababa;
+
+							if (!ClientPrefs.lowQuality)
+								{
+									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+									vig.scrollFactor.set();
+									vig.cameras = [camOther];
+									vig.screenCenter();
+									add(vig);
+								}
 							#end
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
