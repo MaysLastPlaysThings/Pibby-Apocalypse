@@ -93,7 +93,7 @@ class PlayState extends MusicBeatState
 	var channelBG:FlxSprite;
 	var channelTxt:FlxText;
 
-	public var midSongVideo:VideoSprite;
+	public var midSongVideo:#if VIDEOS_ALLOWED VideoSprite #else Dynamic #end;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -2006,8 +2006,10 @@ class PlayState extends MusicBeatState
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
+		#if VIDEOS_ALLOWED
 		midSongVideo = new VideoSprite();
 		add(midSongVideo);
+		#end
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -5040,6 +5042,7 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1182:
+							#if VIDEOS_ALLOWED
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
 							for (yeah in 0...uiObjects.length) uiObjects.members[yeah].alpha = 0;
 							midSongVideo.bitmap.canSkip = false;
@@ -5063,10 +5066,17 @@ class PlayState extends MusicBeatState
 										add(vig);
 									}
 							};
+							#else
+							blackie.alpha = 1;
+							#end
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1440:
+							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
+							#else
+							blackie.alpha = 0;
+							#end
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
