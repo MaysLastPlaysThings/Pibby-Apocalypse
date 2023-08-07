@@ -388,8 +388,6 @@ class FreeplayState extends MusicBeatState
 
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
-		
-		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
 
 		var leftP = controls.UI_LEFT_P;
 		var rightP = controls.UI_RIGHT_P;
@@ -512,6 +510,8 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		super.update(elapsed);
+
+		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
 	}
 
 	override function beatHit() {

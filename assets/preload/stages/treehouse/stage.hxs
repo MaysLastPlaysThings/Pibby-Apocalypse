@@ -102,6 +102,20 @@ function onCreate()
     coolGradient.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-3.png', 'image'));
     coolGradient.updateHitbox();
 
+    backGlitch.y += 270;
+    aboveGlitch.y += 270;
+    hillShit.y += 270;
+    particles.y += 270;
+    dangling.y += 270;
+    corruption.y += 270;
+
+    backGlitch.x += 90;
+    aboveGlitch.x += 90;
+    hillShit.x += 90;
+    particles.x += 90;
+    dangling.x += 90;
+    corruption.x += 90;
+
     add(bg);
     add(thunder);
     add(treehouse);
@@ -146,22 +160,18 @@ function onStepHit(curStep:Int)
             dadCamZoom = 0.75;
 
         }
-        if (curStep == 1647)
+        if (curStep == 1648)
         {
             outside.alpha = 0;
             outside2.alpha = 0;
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
-            backGlitch.alpha = 0;
-            aboveGlitch.alpha = 0;
-            hillShit.alpha = 0;
-            particles.alpha = 0;
-            dangling.alpha = 0;
-            corruption.alpha = 0;
-            thunder.alpha = 1;
-            treehouse.alpha = 1;
-            bg.alpha = 1;
-            doThunder = true;
+            backGlitch.alpha = 1;
+            aboveGlitch.alpha = 1;
+            hillShit.alpha = 1;
+            particles.alpha = 1;
+            dangling.alpha = 1;
+            corruption.alpha = 1;
             dadCamZoom = 0.7;
         }
 
@@ -171,17 +181,40 @@ function onStepHit(curStep:Int)
             outside2.alpha = 0;
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
+
+            thunder.alpha = 1;
+            treehouse.alpha = 1;
+            bg.alpha = 0;
+            doThunder = true;
+        }
+        if (curStep == 896) {
+            dadCamZoom = 0.6;
+
+            backGlitch.alpha = 0;
+            aboveGlitch.alpha = 0;
+            hillShit.alpha = 0;
+            particles.alpha = 0;
+            dangling.alpha = 0;
+            corruption.alpha = 0;
+            bg.alpha = 1;
+        }
+        if (curStep == 1536)
+            dadCamZoom = 0.8;
+        if (curStep == 1664) {
+            dadCamZoom = 0.6;
+
+            backGlitch.alpha = 0;
+            aboveGlitch.alpha = 0;
+            hillShit.alpha = 0;
+            particles.alpha = 0;
+            dangling.alpha = 0;
+            corruption.alpha = 0;
+
             thunder.alpha = 1;
             treehouse.alpha = 1;
             bg.alpha = 1;
             doThunder = true;
         }
-        if (curStep == 896)
-            dadCamZoom = 0.6;
-        if (curStep == 1536)
-            dadCamZoom = 0.8;
-        if (curStep == 1664)
-            dadCamZoom = 0.6;
     }
 
 function onBeatHit(curBeat:Int)

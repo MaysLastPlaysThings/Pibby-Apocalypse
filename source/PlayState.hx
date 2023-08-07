@@ -404,6 +404,8 @@ class PlayState extends MusicBeatState
     var defaultOpponentStrum:Array<{x:Float, y:Float}> = [];
     var defaultPlayerStrum:Array<{x:Float, y:Float}> = [];
 
+	var uiObjects:FlxTypedGroup<FlxSprite>;
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -771,6 +773,8 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
+		add(uiObjects = new FlxTypedGroup<FlxSprite>());
+
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -804,9 +808,9 @@ class PlayState extends MusicBeatState
 		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
+		timeBarBG.sprTracker = timeBar;
 		add(timeBar);
 		add(timeTxt);
-		timeBarBG.sprTracker = timeBar;
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
@@ -876,7 +880,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.yAdd = -4;
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 		healthBarBG.alpha = 0.0001;
-		add(healthBarBG);
+		uiObjects.add(healthBarBG);
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
@@ -885,7 +889,7 @@ class PlayState extends MusicBeatState
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		healthBarBG.sprTracker = healthBar;
 		healthBar.alpha = 0.0001;
-		add(healthBar);
+		uiObjects.add(healthBar);
 
 		healthbar = new FlxSprite();
 		healthbar.x = 197;
@@ -903,7 +907,7 @@ class PlayState extends MusicBeatState
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
-		add(finnBarThing);
+		uiObjects.add(finnBarThing);
 
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
@@ -915,7 +919,7 @@ class PlayState extends MusicBeatState
 			iconP3.y = healthBar.y - 112;
 			iconP3.visible = !ClientPrefs.hideHud;
 			iconP3.alpha = ClientPrefs.healthBarAlpha;
-			add(iconP3);
+			uiObjects.add(iconP3);
 		}
 
 		if (SONG.song == "Suffering Siblings")
@@ -924,26 +928,26 @@ class PlayState extends MusicBeatState
 			iconPibby.y = healthBar.y - 77;
 			iconPibby.visible = !ClientPrefs.hideHud;
 			iconPibby.alpha = ClientPrefs.healthBarAlpha;
-			add(iconPibby);
+			uiObjects.add(iconPibby);
 
 			iconJake = new HealthIcon("jake", false);
 			iconJake.y = healthBar.y - 77;
 			iconJake.visible = !ClientPrefs.hideHud;
 			iconJake.alpha = ClientPrefs.healthBarAlpha;
-			add(iconJake);
+			uiObjects.add(iconJake);
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
-		add(iconP1);
+		uiObjects.add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
-		add(iconP2);
+		uiObjects.add(iconP2);
 
 		reloadHealthBarColors();
 
@@ -952,7 +956,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
-		add(scoreTxt);
+		uiObjects.add(scoreTxt);
 
 		lyricTxt = new FlxText(0, healthBarBG.y - 72, FlxG.width, "", 20);
 		lyricTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 48, dadColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -962,14 +966,14 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) {
 			lyricTxt.y = healthBarBG.y + 72;
 		}
-		add(lyricTxt);
+		uiObjects.add(lyricTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "SHOWCASE", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
-		add(botplayTxt);
+		uiObjects.add(botplayTxt);
 		if(ClientPrefs.downScroll) {
 			botplayTxt.y = timeBarBG.y - 78;
 		}
@@ -980,7 +984,7 @@ class PlayState extends MusicBeatState
 		warning.scale.set(0.95, 0.85);
 		warning.screenCenter();
 		warning.alpha = 0;
-		add(warning);
+		uiObjects.add(warning);
 
 		blackie.cameras = [camOther];
 		warning.cameras = [camOther];
@@ -1007,7 +1011,8 @@ class PlayState extends MusicBeatState
 		finnBarThing.cameras = [camHUD];
 		finnT.cameras = [camHUD];
 		channelTxt.cameras = [camHUD];
-		add(channelTxt);
+		uiObjects.cameras = [camHUD];
+		uiObjects.add(channelTxt);
 
 
 		// if (SONG.song == 'South')
@@ -1195,8 +1200,9 @@ class PlayState extends MusicBeatState
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
 					midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
-					midSongVideo.finishCallback = null;
+					midSongVideo.bitmap.finishCallback = null;
 					midSongVideo.bitmap.stop();
+					midSongVideo.cameras = [camHUD];
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
@@ -2001,6 +2007,7 @@ class PlayState extends MusicBeatState
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		midSongVideo = new VideoSprite();
+		add(midSongVideo);
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -4675,6 +4682,8 @@ class PlayState extends MusicBeatState
 							dad.y = DAD_Y + 250;
 							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 							boyfriendGroup.visible = false;
+						case 1648: 
+							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 						case 1664:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
@@ -5032,6 +5041,7 @@ class PlayState extends MusicBeatState
 							}
 						case 1182:
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
+							for (yeah in 0...uiObjects.length) uiObjects.members[yeah].alpha = 0;
 							midSongVideo.bitmap.canSkip = false;
 							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 							midSongVideo.bitmap.finishCallback = () -> { 
@@ -5044,17 +5054,19 @@ class PlayState extends MusicBeatState
 									boyfriend.color = 0xbababa;
 									dad.color = 0xbababa;
 
-									if (!ClientPrefs.lowQuality)
-										{
-											var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-											vig.scrollFactor.set();
-											vig.cameras = [camOther];
-											vig.screenCenter();
-											add(vig);
-										}
+								if (!ClientPrefs.lowQuality)
+									{
+										var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+										vig.scrollFactor.set();
+										vig.cameras = [camOther];
+										vig.screenCenter();
+										add(vig);
+									}
 							};
 						case 1190:
 							defaultCamZoom = 0.7;
+						case 1440:
+							midSongVideo.destroy();
 						case 1445:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
