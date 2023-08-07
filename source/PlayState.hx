@@ -3075,7 +3075,7 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.greenOffset = 255; }
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
-					}else{
+					} else {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
@@ -3085,8 +3085,11 @@ class PlayState extends MusicBeatState
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
-				}else{
+				}
+				else{
+					touhouBG.alpha = 0;
 					touhouBG.kill();
+					touhouBG = null;
 					reloadHealthBarColors();
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
@@ -4670,8 +4673,8 @@ class PlayState extends MusicBeatState
 						case 896:
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
-							dad.x = DAD_X - 260;
-							dad.y = DAD_Y - 250;
+							dad.x = DAD_X - 240;
+							dad.y = DAD_Y - 260;
 						case 1040:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
