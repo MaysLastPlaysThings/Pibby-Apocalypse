@@ -4691,9 +4691,12 @@ class PlayState extends MusicBeatState
 							boyfriendGroup.visible = false;
 						case 1648: 
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 0.3);
+							}
 						case 1664:
 							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1.5);
+								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							dad.x = DAD_X;
