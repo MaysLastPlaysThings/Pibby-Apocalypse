@@ -501,7 +501,7 @@ class FreeplayState extends MusicBeatState
             if (!isResetTimerRunning) {
                 resetSecretTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
                     pressed = 0;
-                    noHeroIntro.alpha = 0.001;
+                    FlxTween.tween(noHeroIntro, {alpha: 0.001}, 0.25, {ease: FlxEase.quadInOut});
                     FlxG.sound.music.volume = 1;
                     isResetTimerRunning = false;
                 });

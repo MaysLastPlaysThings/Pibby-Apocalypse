@@ -302,11 +302,14 @@ class MainMenuState extends MusicBeatState
 								case 'STORY MODE':
 									MusicBeatState.switchState(new StoryMenuState());
 								case 'FREEPLAY':
-                                MusicBeatState.switchState(new FreeplayState());
+                                    MusicBeatState.switchState(new FreeplayState());
 									FlxG.sound.playMusic(Paths.music('fpmenu'));
 								case 'CREDITS':
-									MusicBeatState.switchState(new PACreditsState());
-									FlxG.sound.playMusic(Paths.music('creditsmenu'));
+									//MusicBeatState.switchState(new PACreditsState());
+									//FlxG.sound.playMusic(Paths.music('creditsmenu'));
+                                    //until its done ^
+                                    Lib.getURL(new URLRequest('https://gamebanana.com/wips/73842'));
+                                    MusicBeatState.switchState(new MainMenuState());
 							}
 						});
 					}
