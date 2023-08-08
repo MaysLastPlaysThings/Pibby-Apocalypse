@@ -193,6 +193,8 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
 
+    public var cameraOnDad:Bool = false;
+
     public var angleshit:Float = 1;
     public var anglevar:Float = 1;
 
@@ -202,6 +204,9 @@ class PlayState extends MusicBeatState
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
+
+    public var jakeSings:Bool = false;
+    public var pibbySings:Bool = false;
 
 	private var strumLine:FlxSprite;
 	var blackie:FlxSprite;
@@ -516,16 +521,12 @@ class PlayState extends MusicBeatState
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
-		{
-			detailsText = "--CLASSIFIED--";
-		}
+			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
 		else
-		{
-			detailsText = "--CLASSIFIED--";
-		}
+			detailsText = "Freeplay";
 
 		// String for when the game is paused
-		detailsPausedText = "--CLASSIFIED--";
+		detailsPausedText = "Paused - " + detailsText;
 		#end
 
 		GameOverSubstate.resetVariables();
@@ -861,6 +862,7 @@ class PlayState extends MusicBeatState
 		FlxG.camera.focusOn(camFollow);
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+        uiObjects.insert(members.indexOf(opponentStrums) + 1, channelTxt);
 
 		if (Assets.exists(Paths.txt(SONG.song.replace(' ', '-') + "/info")))
 			{
@@ -879,7 +881,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
-		healthBarBG.alpha = 0.0001;
+		//healthBarBG.alpha = 1;
 		uiObjects.add(healthBarBG);
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
@@ -888,7 +890,7 @@ class PlayState extends MusicBeatState
 		// healthBar
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		healthBarBG.sprTracker = healthBar;
-		healthBar.alpha = 0.0001;
+		//healthBar.alpha = 1;
 		uiObjects.add(healthBar);
 
 		healthbar = new FlxSprite();
@@ -968,7 +970,7 @@ class PlayState extends MusicBeatState
 		}
 		uiObjects.add(lyricTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "SHOWCASE", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1010,10 +1012,8 @@ class PlayState extends MusicBeatState
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
 		finnT.cameras = [camHUD];
-		channelTxt.cameras = [camHUD];
+		channelTxt.cameras = [camOther];
 		uiObjects.cameras = [camHUD];
-		uiObjects.add(channelTxt);
-
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1143,9 +1143,8 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
-
 
 		if(!ClientPrefs.controllerMode)
 		{
@@ -1155,6 +1154,8 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onCreatePost', []);
         newStage.onCreatePost();
+
+        FlxG.mouse.visible = false;
 
         if (gf != null) {
             iconP3.visible = false;
@@ -1967,7 +1968,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2347,11 +2348,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -2360,35 +2361,35 @@ class PlayState extends MusicBeatState
 	}
 
 	override public function onFocus():Void
-	{
-		#if desktop
-		if (health > 0 && !paused)
-		{
-			if (Conductor.songPosition > 0.0)
-			{
-				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
-			}
-			else
-			{
-				DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
-			}
-		}
-		#end
+    {
+        #if desktop
+        if (health > 0 && !paused)
+        {
+            if (Conductor.songPosition > 0.0)
+            {
+                DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+            }
+            else
+            {
+                DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+            }
+        }
+        #end
 
-		super.onFocus();
-	}
+        super.onFocus();
+    }
+    
 
 	override public function onFocusLost():Void
-	{
-		#if desktop
-		if (health > 0 && !paused)
-		{
-			DiscordClient.changePresence(detailsPausedText, "nuh uh", iconP2.getCharacter());
-		}
-		#end
-
-		super.onFocusLost();
-	}
+    {
+        #if desktop
+        if (health > 0 && !paused)
+        {
+            DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+        }
+        #end
+        super.onFocusLost();
+    }
 
 	function resyncVocals():Void
 	{
@@ -2552,6 +2553,16 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
+		if (storyWeekName == "gumball") {
+            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+        }else{
+            iconP1.x = 614;
+            iconP2.x = 513;
+            healthBar.visible = false;
+            healthBarBG.visible = false;
+        }
+
 		if (gf != null)
 		{
 			var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
@@ -2573,7 +2584,7 @@ class PlayState extends MusicBeatState
 			iconJake.x = 163;
 		}
 
-		iconP1.x = 614;
+		//iconP1.x = 614;
 		defaultIconP2x = 513;
 
 		if (health > 2) {
@@ -2887,7 +2898,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onUpdatePost', [elapsed]);
         newStage.onUpdatePost(elapsed);
 
-        iconP2.x = defaultIconP2x + FlxG.random.float(-glitchShaderIntensity, glitchShaderIntensity);
+        //iconP2.x = defaultIconP2x + FlxG.random.float(-glitchShaderIntensity, glitchShaderIntensity);
         iconP2.y = healthBar.y - 75 + FlxG.random.float(-glitchShaderIntensity, glitchShaderIntensity);
 	}
 
@@ -2913,7 +2924,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, "nuh uh", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 	}
 
@@ -2959,7 +2970,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, "nuh uh", iconP2.getCharacter());
+                DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3075,7 +3086,7 @@ class PlayState extends MusicBeatState
 						gf.colorTransform.greenOffset = 255; }
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
-					}else{
+					} else {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 						boyfriend.color = FlxColor.BLACK;
@@ -3085,8 +3096,11 @@ class PlayState extends MusicBeatState
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
-				}else{
+				}
+				else{
+					touhouBG.alpha = 0;
 					touhouBG.kill();
+					touhouBG = null;
 					reloadHealthBarColors();
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
@@ -3329,19 +3343,15 @@ class PlayState extends MusicBeatState
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
-			if(focusedCharacter!=dad) {
-				moveCamera(true);
-				callOnLuas('onMoveCamera', ['dad']);
-				newStage.onMoveCamera('dad');
-			}
+            moveCamera(true);
+            callOnLuas('onMoveCamera', ['dad']);
+            newStage.onMoveCamera('dad');
 		}
 		else
 		{
-			if(focusedCharacter!=boyfriend) {
-				moveCamera(false);
-				callOnLuas('onMoveCamera', ['boyfriend']);
-				newStage.onMoveCamera('boyfriend');
-			}
+            moveCamera(false);
+            callOnLuas('onMoveCamera', ['boyfriend']);
+            newStage.onMoveCamera('boyfriend');
 		}
 	}
 
@@ -3350,7 +3360,7 @@ class PlayState extends MusicBeatState
 	{
 		if(isDad)
 		{
-			focusedCharacter=dad;
+            cameraOnDad = true;
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
@@ -3358,8 +3368,8 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
+            cameraOnDad = false;
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-			focusedCharacter=boyfriend;
 			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
 			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
@@ -4137,6 +4147,7 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
+            boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
 			if (ClientPrefs.shaders)
 				{
@@ -4150,6 +4161,7 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+        jakeSings = false;
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
 
@@ -4179,15 +4191,19 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 			if (note.gfNote) {
 				char = gf;
+                jakeSings = true;
 			}
 			else if(note.char2note) {
 				char = jake;
+                jakeSings = true;
 			}
 			else if(note.bothCharSing) {
 				char = jake;
+                jakeSings = true;
 			}
 			else if (note.noteType == 'Second Char Glitch') {
 				char = jake;
+                jakeSings = true;
 				for (i in 0...opponentStrums.length) {
 					opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
 					opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
@@ -4212,6 +4228,13 @@ class PlayState extends MusicBeatState
 			if(char != null)
 			{
 				char.holdTimer = 0;
+                if (cameraOnDad) {
+                    if (jakeSings) {
+                        focusedCharacter=jake;
+                    }else{
+                        focusedCharacter=dad;
+                    }
+                }
 
 				// TODO: maybe move this all away into a seperate function
 					if (!note.isSustainNote && noteRows[note.mustPress ? 0 : 1][note.row] != null && noteRows[note.mustPress ? 0 : 1][note.row].length > 1)
@@ -4302,7 +4325,7 @@ class PlayState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
 			}
-
+		    boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]);
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
@@ -4326,7 +4349,7 @@ class PlayState extends MusicBeatState
 								dad.playAnim('attack', true);
 								dad.specialAnim = true;
 
-								trace('no skill issue');
+								//trace('no skill issue');
 
 								FlxG.camera.shake(0.01, 0.2);
 							}
@@ -4337,7 +4360,7 @@ class PlayState extends MusicBeatState
 								boyfriend.specialAnim = true;
 								FlxG.sound.play(Paths.sound('glitchhit', 'shared'), 0.3);
 
-								trace('skill issue glitch edition');
+								//trace('skill issue glitch edition');
 							}
 					}
 				}
@@ -4361,11 +4384,13 @@ class PlayState extends MusicBeatState
 
 			health += note.hitHealth * healthGain;
 
-            if (gf != null && !note.gfNote) {
+            if (!note.gfNote) {
                 reloadHealthBarColors();
                 iconP1.changeIcon(boyfriend.healthIcon);
                 scoreTxt.color = boyfriendColor;
-                iconP3.changeIcon(gf.healthIcon);
+                if(gf != null) {
+                    iconP3.changeIcon(gf.healthIcon);
+                }
             }else{
                 if (gf != null && gf.healthIcon == 'gf') {
                     reloadHealthBarColors();
@@ -4383,6 +4408,17 @@ class PlayState extends MusicBeatState
             }
 
 			if(!note.noAnimation) {
+                if (!cameraOnDad) {
+                    if (pibbySings) {
+                        if (gf != null) {
+                            focusedCharacter=gf;
+                        }else{
+                            focusedCharacter=boyfriend;
+                        }
+                    }else{
+                        focusedCharacter=boyfriend;
+                    }
+                }
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				var dodgeAnim:String = dodgeAnimations[Std.int(Math.abs(note.noteData))];
 				var shootAnim:String = shootAnimations[Std.int(Math.abs(note.noteData))];
@@ -4405,12 +4441,14 @@ class PlayState extends MusicBeatState
 				{
 					if(gf != null)
 					{
+                        pibbySings = true;
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;
 					}
 				}
 				else
 				{
+                    pibbySings = false;
 					boyfriend.playAnim(animToPlay + note.animSuffix, true);
 					boyfriend.holdTimer = 0;
 				}
@@ -4670,8 +4708,8 @@ class PlayState extends MusicBeatState
 						case 896:
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
-							dad.x = DAD_X - 260;
-							dad.y = DAD_Y - 250;
+							dad.x = DAD_X - 240;
+							dad.y = DAD_Y - 260;
 						case 1040:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -4688,9 +4726,12 @@ class PlayState extends MusicBeatState
 							boyfriendGroup.visible = false;
 						case 1648: 
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 0.3);
+							}
 						case 1664:
 							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1.5);
+								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							dad.x = DAD_X;
@@ -5374,6 +5415,7 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if(ClientPrefs.shaders) {
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
 							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
 							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
 							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF),new ShaderFilter(mawFNF)]);
@@ -5518,6 +5560,7 @@ class PlayState extends MusicBeatState
 
 							camHUD.setFilters([]);
 							camOverlay.setFilters([]);
+                            camOther.setFilters([]);
 							camGame.setFilters([]);
 					}
 				case 'Retcon':

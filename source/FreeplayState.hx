@@ -55,6 +55,13 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
+    var noHeroIntro:FlxSprite;
+
+    var resetSecretTimer:FlxTimer;
+    var isResetTimerRunning:Bool = false;
+
+    var pressed:Float = 0;
+
 	var shaderIntensity:Float;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
@@ -258,6 +265,14 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.setDirectoryFromWeek();
 
+        noHeroIntro = new FlxSprite(-200, -400);
+        noHeroIntro.frames = Paths.getSparrowAtlas('noherocutscenefirst', 'shared');
+        noHeroIntro.animation.addByPrefix('finnJumpscareMomento', 'play003', 24, true);
+        noHeroIntro.animation.play('finnJumpscareMomento',true);
+
+        add(noHeroIntro);
+        noHeroIntro.alpha = 0.001;
+
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
@@ -278,23 +293,6 @@ class FreeplayState extends MusicBeatState
 		changeDiff();
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
-
-		// JUST DOIN THIS SHIT FOR TESTING!!!
-		/* 
-			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
-
-			var texFel:TextField = new TextField();
-			texFel.width = FlxG.width;
-			texFel.height = FlxG.height;
-			// texFel.
-			texFel.htmlText = md;
-
-			FlxG.stage.addChild(texFel);
-
-			// scoreText.textField.htmlText = md;
-
-			trace(md);
-		 */
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
@@ -437,7 +435,7 @@ class FreeplayState extends MusicBeatState
 				holdTime = 0;
 			}
 
-			if(controls.UI_DOWN || controls.UI_UP)
+			if(controls.UI_DOWN)
 			{
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
@@ -473,16 +471,6 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-			/*#if MODS_ALLOWED
-			if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
-			#else
-			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
-			#end
-				poop = songLowercase;
-				curDifficulty = 1;
-				trace('Couldnt find file');
-			}*/
-			trace(poop);
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
@@ -491,13 +479,7 @@ class FreeplayState extends MusicBeatState
 
 			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
 			
-			if (FlxG.keys.pressed.SHIFT){
-				FlxG.game.setFilters([]);
-				LoadingState.loadAndSwitchState(new ChartingState());
-			}else{
-				FlxG.game.setFilters([]);
-				LoadingState.loadAndSwitchState(new PlayState());
-			}
+            LoadingState.loadAndSwitchState(new PlayState());
 
 			FlxG.sound.music.volume = 0;
 					
@@ -510,6 +492,37 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		super.update(elapsed);
+
+        if (controls.UI_UP_P) {
+            pressed += 1;
+            noHeroIntro.alpha += pressed/40;
+            FlxG.sound.music.volume -= pressed/10;
+            FlxG.sound.play(Paths.sound('confirmMenu'),3*pressed);
+            if (!isResetTimerRunning) {
+                resetSecretTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
+                    pressed = 0;
+                    FlxTween.tween(noHeroIntro, {alpha: 0.001}, 0.25, {ease: FlxEase.quadInOut});
+                    FlxG.sound.music.volume = 1;
+                    isResetTimerRunning = false;
+                });
+            }
+            isResetTimerRunning = true;
+            if (pressed == 8) {
+                persistentUpdate = false;
+                var songLowercase:String = Paths.formatToSongPath("No-Hero-Remix");
+                var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+    
+                PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+                PlayState.isStoryMode = false;
+                PlayState.storyDifficulty = curDifficulty;
+                PlayState.storyWeekName = WeekData.getWeekFileName();
+                
+                LoadingState.loadAndSwitchState(new PlayState());
+    
+                FlxG.sound.music.volume = 0;
+                destroyFreeplayVocals();
+            }
+        }
 
 		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
 	}
