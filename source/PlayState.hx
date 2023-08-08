@@ -516,16 +516,12 @@ class PlayState extends MusicBeatState
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
-		{
-			detailsText = "--CLASSIFIED--";
-		}
+			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
 		else
-		{
-			detailsText = "--CLASSIFIED--";
-		}
+			detailsText = "Freeplay";
 
 		// String for when the game is paused
-		detailsPausedText = "--CLASSIFIED--";
+		detailsPausedText = "Paused - " + detailsText;
 		#end
 
 		GameOverSubstate.resetVariables();
@@ -861,6 +857,7 @@ class PlayState extends MusicBeatState
 		FlxG.camera.focusOn(camFollow);
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+        uiObjects.insert(members.indexOf(opponentStrums) + 1, channelTxt);
 
 		if (Assets.exists(Paths.txt(SONG.song.replace(' ', '-') + "/info")))
 			{
@@ -968,7 +965,7 @@ class PlayState extends MusicBeatState
 		}
 		uiObjects.add(lyricTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "SHOWCASE", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1010,10 +1007,8 @@ class PlayState extends MusicBeatState
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
 		finnT.cameras = [camHUD];
-		channelTxt.cameras = [camHUD];
+		channelTxt.cameras = [camOther];
 		uiObjects.cameras = [camHUD];
-		uiObjects.add(channelTxt);
-
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1143,9 +1138,8 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, "nuh uh", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
-
 
 		if(!ClientPrefs.controllerMode)
 		{
@@ -4140,6 +4134,7 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
+            boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
 			if (ClientPrefs.shaders)
 				{
@@ -4305,7 +4300,7 @@ class PlayState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
 			}
-
+		    boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]);
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
@@ -4364,11 +4359,13 @@ class PlayState extends MusicBeatState
 
 			health += note.hitHealth * healthGain;
 
-            if (gf != null && !note.gfNote) {
+            if (!note.gfNote) {
                 reloadHealthBarColors();
                 iconP1.changeIcon(boyfriend.healthIcon);
                 scoreTxt.color = boyfriendColor;
-                iconP3.changeIcon(gf.healthIcon);
+                if(gf != null) {
+                    iconP3.changeIcon(gf.healthIcon);
+                }
             }else{
                 if (gf != null && gf.healthIcon == 'gf') {
                     reloadHealthBarColors();
@@ -5380,6 +5377,7 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if(ClientPrefs.shaders) {
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
 							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
 							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
 							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF),new ShaderFilter(mawFNF)]);
@@ -5524,6 +5522,7 @@ class PlayState extends MusicBeatState
 
 							camHUD.setFilters([]);
 							camOverlay.setFilters([]);
+                            camOther.setFilters([]);
 							camGame.setFilters([]);
 					}
 				case 'Retcon':
