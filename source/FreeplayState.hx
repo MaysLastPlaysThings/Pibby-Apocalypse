@@ -515,7 +515,7 @@ class FreeplayState extends MusicBeatState
                 PlayState.SONG = Song.loadFromJson(poop, songLowercase);
                 PlayState.isStoryMode = false;
                 PlayState.storyDifficulty = curDifficulty;
-                PlayState.storyWeekName = WeekData.getWeekFileName();
+                PlayState.storyWeekName = 'finn';
                 
                 LoadingState.loadAndSwitchState(new PlayState());
     

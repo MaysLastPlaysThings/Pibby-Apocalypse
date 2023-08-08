@@ -620,6 +620,8 @@ class PlayState extends MusicBeatState
 
 			case 'gumball':
 				add(cnlogo);
+
+			default: // the nothing
 		}
 
 		add(newStage.foreground);
