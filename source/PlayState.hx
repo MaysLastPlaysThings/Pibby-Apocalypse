@@ -5113,6 +5113,14 @@ class PlayState extends MusicBeatState
 							};
 							#else
 							blackie.alpha = 1;
+
+							var text = new FlxText(0, 0, 500, 'sorry videos dont support 32 bits so heres a black screen', 20);
+							text.cameras = [camOther];
+							text.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+							text.screenCenter();
+							add(text);
+
+							FlxTween.tween(text, {alpha: 0}, 4, {startDelay: 4});
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
@@ -6342,12 +6350,16 @@ class PlayState extends MusicBeatState
 							FlxG.camera.filtersEnabled = false;
 							camHUD.filtersEnabled = false;
 							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = null);
+							timeTxt.font = Paths.font('vcr.ttf');
+							if (cnlogo != null) cnlogo.alpha = 0;
 
 						case 592: 
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 							FlxG.camera.filtersEnabled = true;
 							camHUD.filtersEnabled = true;
+							timeTxt.font = Paths.font('finn.ttf');
 							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = distortFNF);
+							if (cnlogo != null) cnlogo.alpha = 0.5;
 
 						case 720: 
 							defaultCamZoom = 1.05;
