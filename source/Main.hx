@@ -231,7 +231,7 @@ class Main extends Sprite
 		}
 
 		private static function gc() {
-			Sys.println("The Garbage Collector Appears");
+			//Sys.println("The Garbage Collector Appears");
 	
 			#if cpp
 			NativeGc.compact();
