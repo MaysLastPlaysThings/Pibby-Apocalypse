@@ -100,6 +100,25 @@ function onStepHit(curStep:Int)
 				bulb.visible = true;
 			}
 	}
+	
+	if (curStep == 2080)
+	{
+		if (PlayState.curSong == 'Suffering Siblings')
+		    {
+				dark.visible = false;
+				light.visible = false;
+				bulb.visible = false;
+			}
+	}
+	if (curStep == 2336)
+	{
+		if (PlayState.curSong == 'Suffering Siblings')
+		    {
+				dark.visible = true;
+				light.visible = true;
+				bulb.visible = true;
+			}
+	}
 }
 
 function onEvent(event:String, value1:String, value2:String)

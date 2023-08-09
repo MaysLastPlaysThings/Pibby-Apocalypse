@@ -319,6 +319,7 @@ class PlayState extends MusicBeatState
 
 	// for da blammed lights
 	var theBlackness:FlxSprite;
+	var theWhiteness:FlxSprite;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1307,6 +1308,12 @@ class PlayState extends MusicBeatState
 			theBlackness.alpha = 0;
 			theBlackness.scrollFactor.set();
 		addBehindGF(theBlackness);
+
+		theWhiteness = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+			-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
+			theWhiteness.alpha = 0;
+			theWhiteness.scrollFactor.set();
+		addBehindGF(theWhiteness);
 	}
 						
 	#if (!flash && sys)
@@ -5976,8 +5983,9 @@ class PlayState extends MusicBeatState
 						case 2006:
 							defaultCamZoom = 0.9;
 						case 2049:
-							FlxTween.tween(camGame, {zoom: 1.4}, 1.65, {
-								ease: FlxEase.linear,
+							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							FlxTween.tween(camGame, {zoom: 0.8}, 1.65, {
+								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
 									{
@@ -5995,11 +6003,7 @@ class PlayState extends MusicBeatState
 										}
 								});
 							}
-						case 2071:
-							defaultCamZoom = 0.8;
-							if (ClientPrefs.flashing){
-								camOverlay.flash(FlxColor.WHITE, 0.5);
-							}
+						case 2064:
 							FlxTween.tween(boyfriend, {alpha: 1}, 0.25, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -6008,15 +6012,23 @@ class PlayState extends MusicBeatState
 										boyfriend.alpha = 1;
 									}
 							});
+						case 2066:
+							triggerEventNote('Camera Follow Pos', '1950', '1100');
+						case 2071:
+							defaultCamZoom = 0.9;
+							if (ClientPrefs.flashing){
+								camOverlay.flash(FlxColor.WHITE, 0.5);
+							}
 						case 2080:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Camera Follow Pos', '1950', '1100');
-							triggerEventNote('Apple Filter', 'on', 'black');
 							gf.alpha = 0.0001;
 							jake.alpha = 0.0001;
+							theWhiteness.alpha = 1;
 							defaultCamZoom = 0.65;
+
 						case 2140:
 							boyfriend.playAnim('reload', true);
 							boyfriend.specialAnim = true;
@@ -6035,9 +6047,9 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
-							triggerEventNote('Apple Filter', 'off', 'black');
 							gf.alpha = 1;
 							jake.alpha = 1;
+							theWhiteness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
 								ease: FlxEase.quadInOut,
