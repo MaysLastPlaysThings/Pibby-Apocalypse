@@ -26,16 +26,16 @@ var doThunder:Bool = false;
 
 function onCreate()
 {
-    bg = new flixel.FlxSprite(0, 0);
+    bg = new flixel.FlxSprite(-800, -800);
     bg.loadGraphic(retrieveAsset('images/back.png', 'image'));
-    bg.scale.set(1.5, 1.5);
+    bg.scale.set(1.8, 1.8);
     bg.antialiasing = ClientPrefs.globalAntialiasing;
     bg.updateHitbox();
     bg.alpha = 0.0001;
 
-    treehouse = new flixel.FlxSprite(0, 0);
+    treehouse = new flixel.FlxSprite(-800, -800);
     treehouse.loadGraphic(retrieveAsset('images/tree.png', 'image'));
-    treehouse.scale.set(1.5, 1.5);
+    treehouse.scale.set(1.8, 1.8);
     treehouse.antialiasing = ClientPrefs.globalAntialiasing;
     treehouse.updateHitbox();
     treehouse.alpha = 0.0001;
@@ -49,7 +49,7 @@ function onCreate()
         thunder.frames = retrieveAsset('images/Lighting', 'atlas');
         thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
         thunder.alpha = 0.0001;
-        thunder.scrollFactor.set();
+        thunder.scrollFactor.set(1,1);//I'm not offsetting the thunder one of you dumbasses set the thunder scroll 0 (if you want thunder do it) --Tormented
     }
 
     
@@ -141,7 +141,7 @@ function onMoveCamera(focus:String)
         if (focus == 'dad') 
 			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = 1;
+            PlayState.defaultCamZoom = dadCamZoom+0.1;
     }
 
 function onStepHit(curStep:Int)
