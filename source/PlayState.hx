@@ -1601,248 +1601,241 @@ class PlayState extends MusicBeatState
 	}
 
 	public function startCountdown():Void
-	{
-        if (SONG.song == 'Come Along With Me') {
-            skipCountdown = true;
-        }
-        if (!skipCountdown) {
-            if (SONG.player1 == 'newbf') {
-                bfIntro = new Boyfriend(0, 0, 'bf_intro');
-                startCharacterPos(bfIntro);
-                boyfriend.alpha = 0;
-    
-                bfIntro.playAnim('Go', true);
-                bfIntro.specialAnim = true;
-            } else if (SONG.player1 == 'zero') {
-                bfIntro = new Boyfriend(0, 0, 'zero_intro');
-                startCharacterPos(bfIntro);
-                boyfriend.alpha = 0;
-    
-                bfIntro.playAnim('3', true);
-                bfIntro.specialAnim = true;
-            }
-    
-            if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                pibbyIntro = new Boyfriend(-68.55, -76.15, 'pibby_intro');
-                startCharacterPos(pibbyIntro);
-                boyfriendGroup.add(pibbyIntro);
-                if (gf != null)
-                    gf.alpha = 0;
-                
-                pibbyIntro.playAnim('Go', true);
-                pibbyIntro.specialAnim = true;
-            }
-    
-            if (SONG.player1 == 'newbf')
-                boyfriendGroup.add(bfIntro);
-    
-            else if (SONG.player1 == 'zero')
-                boyfriendGroup.add(bfIntro);
+    {
+        if (SONG.player1 == 'newbf') {
+            bfIntro = new Boyfriend(0, 0, 'bf_intro');
+            startCharacterPos(bfIntro);
+            boyfriend.alpha = 0;
 
-            var numberIntro:FlxSprite = new FlxSprite(
-                (gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
-                (bfIntro != null ? (BF_Y + bfIntro.positionArray[1] - 300) : 135)
-            );
-            numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
-            numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
-            numberIntro.alpha = 0.0001;
-            numberIntro.cameras = [camOverlay];
-    
-            numberIntro.animation.addByPrefix('3', '3', 30, false);
-            numberIntro.animation.addByPrefix('2', '2', 30, false);
-            numberIntro.animation.addByPrefix('1', '1', 30, false);
-            numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
-    
-            add(numberIntro);
+            bfIntro.playAnim('Go', true);
+            bfIntro.specialAnim = true;
+        } else if (SONG.player1 == 'zero') {
+            bfIntro = new Boyfriend(0, 0, 'zero_intro');
+            startCharacterPos(bfIntro);
+            boyfriend.alpha = 0;
+
+            bfIntro.playAnim('3', true);
+            bfIntro.specialAnim = true;
         }
 
-		//introGroup.add(numberIntro);
-	
-		if(startedCountdown) {
-			callOnLuas('onStartCountdown', []);
-			return;
-		}
+        if (gf != null && gf.curCharacter.startsWith('pibby')) {
+            pibbyIntro = new Boyfriend(-68.55, -76.15, 'pibby_intro');
+            startCharacterPos(pibbyIntro);
+            boyfriendGroup.add(pibbyIntro);
+            if (gf != null)
+                gf.alpha = 0;
+            
+            pibbyIntro.playAnim('Go', true);
+            pibbyIntro.specialAnim = true;
+        }
 
-		newStage.onStartCountdown();
+        if (SONG.player1 == 'newbf')
+            boyfriendGroup.add(bfIntro);
 
-		inCutscene = false;
-		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
-		if(ret != FunkinLua.Function_Stop) {
-			generateStaticArrows(0);
-			generateStaticArrows(1);
-			for (i in 0...playerStrums.length) {
-				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
-				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+        else if (SONG.player1 == 'zero')
+            boyfriendGroup.add(bfIntro);
+
+        var numberIntro:FlxSprite = new FlxSprite(
+            (gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
+            (bfIntro != null ? (BF_Y + bfIntro.positionArray[1] - 300) : 135)
+        );
+        numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
+        numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
+        numberIntro.alpha = 0.0001;
+        numberIntro.cameras = [camOverlay];
+
+        numberIntro.animation.addByPrefix('3', '3', 30, false);
+        numberIntro.animation.addByPrefix('2', '2', 30, false);
+        numberIntro.animation.addByPrefix('1', '1', 30, false);
+        numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
+
+        add(numberIntro);
+
+        //introGroup.add(numberIntro);
+    
+        if(startedCountdown) {
+            callOnLuas('onStartCountdown', []);
+            return;
+        }
+
+        newStage.onStartCountdown();
+
+        inCutscene = false;
+        var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
+        if(ret != FunkinLua.Function_Stop) {
+            generateStaticArrows(0);
+            generateStaticArrows(1);
+            for (i in 0...playerStrums.length) {
+                setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
+                setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
                 defaultPlayerStrum.push({x: playerStrums.members[i].x, y: playerStrums.members[i].y});
-			}
-			for (i in 0...opponentStrums.length) {
-				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
-				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
+            }
+            for (i in 0...opponentStrums.length) {
+                setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
+                setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
                 defaultOpponentStrum.push({x: opponentStrums.members[i].x, y: opponentStrums.members[i].y});
-				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
-			}
+                //if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+            }
 
-			startedCountdown = true;
-			Conductor.songPosition = (-0.67 * 5) * 1000;
-			setOnLuas('startedCountdown', true);
-			callOnLuas('onCountdownStarted', []);
+            startedCountdown = true;
+            Conductor.songPosition = (-0.67 * 5) * 1000;
+            setOnLuas('startedCountdown', true);
+            callOnLuas('onCountdownStarted', []);
 
-			var swagCounter:Int = 0;
+            var swagCounter:Int = 0;
 
-			if(startOnTime < 0) startOnTime = 0;
+            if(startOnTime < 0) startOnTime = 0;
 
-			if (startOnTime > 0) {
-				clearNotesBefore(startOnTime);
-				setSongTime(startOnTime - 350);
-				return;
-			}
-			else if (skipCountdown)
-			{
-				setSongTime(0);
-				return;
-			}
+            if (startOnTime > 0) {
+                clearNotesBefore(startOnTime);
+                setSongTime(startOnTime - 350);
+                return;
+            }
+            else if (skipCountdown)
+            {
+                setSongTime(0);
+                return;
+            }
 
-            if (!skipCountdown) {
-                startTimer = new FlxTimer().start(0.67, function(tmr:FlxTimer)
-                    {
-                        switch (swagCounter)
-                        {
-                            case 0:
-                                /**
-                                for (sprite in introGroup)
-                                    sprite.animation.play('2');
-                                cameraBump();
-                                **/
-                                cameraBump();
-                                numberIntro.alpha = 1;
-                                if (bfIntro != null)
-                                    {
-                                        if (SONG.player1 == 'newbf') {
-                                            bfIntro.playAnim('3', true);
-                                            bfIntro.specialAnim = true;
-                                        } else if (SONG.player1 == 'zero') {
-                                            bfIntro.playAnim('3', true);
-                                            bfIntro.specialAnim = true;
-                                        }
-                                        if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                                            pibbyIntro.playAnim('3', true);
-                                            pibbyIntro.specialAnim = true;
-                                        }
-        
-                                        numberIntro.animation.play('3');
-                                    }
-                                FlxG.sound.play(Paths.sound('3'), 0.6);
-                            case 1:
-                                /**
-                                for (sprite in introGroup)
-                                    sprite.animation.play('2');
-                                cameraBump();
-                                **/
-                                cameraBump();
-                                if (bfIntro != null)
-                                    {
-                                        if (SONG.player1 == 'newbf') {
-                                            bfIntro.playAnim('2', true);
-                                            bfIntro.specialAnim = true;
-                                        } else if (SONG.player1 == 'zero') {
-                                            bfIntro.playAnim('2', true);
-                                            bfIntro.specialAnim = true;
-                                        }
-        
-                                        if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                                            pibbyIntro.playAnim('2', true);
-                                            pibbyIntro.specialAnim = true;
-                                        }
-                                        
-                                        numberIntro.animation.play('2');
-                                        numberIntro.offset.set(-85, -58);
-                                    }
-                                FlxG.sound.play(Paths.sound('2'), 0.6);
-                            case 2:
-                                /**
-                                for (sprite in introGroup)
-                                    sprite.animation.play('2');
-                                cameraBump();
-                                **/
-                                cameraBump();
-                                if (bfIntro != null)
-                                    {
-                                        if (SONG.player1 == 'newbf') {
-                                            bfIntro.playAnim('1', true);
-                                            bfIntro.specialAnim = true;
-                                        } else if (SONG.player1 == 'zero') {
-                                            bfIntro.playAnim('1', true);
-                                            bfIntro.specialAnim = true;
-                                        }
-                                        if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                                            pibbyIntro.playAnim('1', true);
-                                            pibbyIntro.specialAnim = true;
-                                        }
-        
-        
-                                        numberIntro.animation.play('1');
-                                        numberIntro.offset.set(-72, -47);
-        
-                                    }
-                                FlxG.sound.play(Paths.sound('1'), 0.6);
-                            case 3:
-                                /**
-                                for (sprite in introGroup)
-                                    sprite.animation.play('2');
-                                cameraBump();
-                                **/
-                                cameraBump(true);
-                                if (bfIntro != null)
-                                    {
-                                        if (SONG.player1 == 'newbf') {
-                                            bfIntro.playAnim('Go', true);
-                                            bfIntro.specialAnim = true;
-                                        } else if (SONG.player1 == 'zero') {
-                                            bfIntro.playAnim('Go', true);
-                                            bfIntro.specialAnim = true;
-                                        }
-        
-                                        if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                                            pibbyIntro.playAnim('Go', true);
-                                            pibbyIntro.specialAnim = true;
-                                        }
-                                        
-                                        numberIntro.animation.play('Go');
-                                        numberIntro.offset.set(98, -15);
-                                    }
-                                FlxG.sound.play(Paths.sound('go'), 0.6);
-                            case 4:
+            startTimer = new FlxTimer().start(0.67, function(tmr:FlxTimer)
+            {
+                switch (swagCounter)
+                {
+                    case 0:
+                        /**
+                        for (sprite in introGroup)
+                            sprite.animation.play('2');
+                        cameraBump();
+                        **/
+                        cameraBump();
+                        numberIntro.alpha = 1;
+                        if (bfIntro != null)
+                            {
                                 if (SONG.player1 == 'newbf') {
-                                    boyfriend.alpha = 1;
-                                    bfIntro.alpha = 0;
+                                    bfIntro.playAnim('3', true);
+                                    bfIntro.specialAnim = true;
                                 } else if (SONG.player1 == 'zero') {
-                                    boyfriend.alpha = 1;
-                                    bfIntro.alpha = 0;
+                                    bfIntro.playAnim('3', true);
+                                    bfIntro.specialAnim = true;
                                 }
                                 if (gf != null && gf.curCharacter.startsWith('pibby')) {
-                                    gf.alpha = 1;
-                                    pibbyIntro.alpha = 0;
+                                    pibbyIntro.playAnim('3', true);
+                                    pibbyIntro.specialAnim = true;
                                 }
-                                numberIntro.alpha = 0;
-                        }
-        
-                        notes.forEachAlive(function(note:Note) {
-                            if(ClientPrefs.opponentStrums || note.mustPress)
-                            {
-                                note.copyAlpha = false;
-                                if(ClientPrefs.middleScroll && !note.mustPress) {
-                                    note.alpha *= 0.35;
-                                }
+
+                                numberIntro.animation.play('3');
                             }
-                        });
-                        callOnLuas('onCountdownTick', [swagCounter]);
-                        newStage.onCountdownTick(swagCounter);
-        
-                        swagCounter += 1;
-                    }, 5);
-            }
-		}
-	}
+                        FlxG.sound.play(Paths.sound('3'), 0.6);
+                    case 1:
+                        /**
+                        for (sprite in introGroup)
+                            sprite.animation.play('2');
+                        cameraBump();
+                        **/
+                        cameraBump();
+                        if (bfIntro != null)
+                            {
+                                if (SONG.player1 == 'newbf') {
+                                    bfIntro.playAnim('2', true);
+                                    bfIntro.specialAnim = true;
+                                } else if (SONG.player1 == 'zero') {
+                                    bfIntro.playAnim('2', true);
+                                    bfIntro.specialAnim = true;
+                                }
+
+                                if (gf != null && gf.curCharacter.startsWith('pibby')) {
+                                    pibbyIntro.playAnim('2', true);
+                                    pibbyIntro.specialAnim = true;
+                                }
+                                
+                                numberIntro.animation.play('2');
+                                numberIntro.offset.set(-85, -58);
+                            }
+                        FlxG.sound.play(Paths.sound('2'), 0.6);
+                    case 2:
+                        /**
+                        for (sprite in introGroup)
+                            sprite.animation.play('2');
+                        cameraBump();
+                        **/
+                        cameraBump();
+                        if (bfIntro != null)
+                            {
+                                if (SONG.player1 == 'newbf') {
+                                    bfIntro.playAnim('1', true);
+                                    bfIntro.specialAnim = true;
+                                } else if (SONG.player1 == 'zero') {
+                                    bfIntro.playAnim('1', true);
+                                    bfIntro.specialAnim = true;
+                                }
+                                if (gf != null && gf.curCharacter.startsWith('pibby')) {
+                                    pibbyIntro.playAnim('1', true);
+                                    pibbyIntro.specialAnim = true;
+                                }
+
+
+                                numberIntro.animation.play('1');
+                                numberIntro.offset.set(-72, -47);
+
+                            }
+                        FlxG.sound.play(Paths.sound('1'), 0.6);
+                    case 3:
+                        /**
+                        for (sprite in introGroup)
+                            sprite.animation.play('2');
+                        cameraBump();
+                        **/
+                        cameraBump(true);
+                        if (bfIntro != null)
+                            {
+                                if (SONG.player1 == 'newbf') {
+                                    bfIntro.playAnim('Go', true);
+                                    bfIntro.specialAnim = true;
+                                } else if (SONG.player1 == 'zero') {
+                                    bfIntro.playAnim('Go', true);
+                                    bfIntro.specialAnim = true;
+                                }
+
+                                if (gf != null && gf.curCharacter.startsWith('pibby')) {
+                                    pibbyIntro.playAnim('Go', true);
+                                    pibbyIntro.specialAnim = true;
+                                }
+                                
+                                numberIntro.animation.play('Go');
+                                numberIntro.offset.set(98, -15);
+                            }
+                        FlxG.sound.play(Paths.sound('go'), 0.6);
+                    case 4:
+                        if (SONG.player1 == 'newbf') {
+                            boyfriend.alpha = 1;
+                            bfIntro.alpha = 0;
+                        } else if (SONG.player1 == 'zero') {
+                            boyfriend.alpha = 1;
+                            bfIntro.alpha = 0;
+                        }
+                        if (gf != null && gf.curCharacter.startsWith('pibby')) {
+                            gf.alpha = 1;
+                            pibbyIntro.alpha = 0;
+                        }
+                        numberIntro.alpha = 0;
+                }
+
+                notes.forEachAlive(function(note:Note) {
+                    if(ClientPrefs.opponentStrums || note.mustPress)
+                    {
+                        note.copyAlpha = false;
+                        if(ClientPrefs.middleScroll && !note.mustPress) {
+                            note.alpha *= 0.35;
+                        }
+                    }
+                });
+                callOnLuas('onCountdownTick', [swagCounter]);
+                newStage.onCountdownTick(swagCounter);
+
+                swagCounter += 1;
+            }, 5);
+        }
+    }
 
 	public function addBehindGF(obj:FlxObject)
 	{
