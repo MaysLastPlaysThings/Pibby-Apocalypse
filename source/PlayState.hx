@@ -1609,14 +1609,7 @@ class PlayState extends MusicBeatState
 
             bfIntro.playAnim('Go', true);
             bfIntro.specialAnim = true;
-        } else if (SONG.player1 == 'zero') {
-            bfIntro = new Boyfriend(0, 0, 'zero_intro');
-            startCharacterPos(bfIntro);
-            boyfriend.alpha = 0;
-
-            bfIntro.playAnim('3', true);
-            bfIntro.specialAnim = true;
-        }
+		}
 
         if (gf != null && gf.curCharacter.startsWith('pibby')) {
             pibbyIntro = new Boyfriend(-68.55, -76.15, 'pibby_intro');
@@ -1630,9 +1623,6 @@ class PlayState extends MusicBeatState
         }
 
         if (SONG.player1 == 'newbf')
-            boyfriendGroup.add(bfIntro);
-
-        else if (SONG.player1 == 'zero')
             boyfriendGroup.add(bfIntro);
 
         var numberIntro:FlxSprite = new FlxSprite(
@@ -1714,10 +1704,8 @@ class PlayState extends MusicBeatState
                                 if (SONG.player1 == 'newbf') {
                                     bfIntro.playAnim('3', true);
                                     bfIntro.specialAnim = true;
-                                } else if (SONG.player1 == 'zero') {
-                                    bfIntro.playAnim('3', true);
-                                    bfIntro.specialAnim = true;
                                 }
+
                                 if (gf != null && gf.curCharacter.startsWith('pibby')) {
                                     pibbyIntro.playAnim('3', true);
                                     pibbyIntro.specialAnim = true;
@@ -1736,9 +1724,6 @@ class PlayState extends MusicBeatState
                         if (bfIntro != null)
                             {
                                 if (SONG.player1 == 'newbf') {
-                                    bfIntro.playAnim('2', true);
-                                    bfIntro.specialAnim = true;
-                                } else if (SONG.player1 == 'zero') {
                                     bfIntro.playAnim('2', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1762,9 +1747,6 @@ class PlayState extends MusicBeatState
                         if (bfIntro != null)
                             {
                                 if (SONG.player1 == 'newbf') {
-                                    bfIntro.playAnim('1', true);
-                                    bfIntro.specialAnim = true;
-                                } else if (SONG.player1 == 'zero') {
                                     bfIntro.playAnim('1', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1791,9 +1773,6 @@ class PlayState extends MusicBeatState
                                 if (SONG.player1 == 'newbf') {
                                     bfIntro.playAnim('Go', true);
                                     bfIntro.specialAnim = true;
-                                } else if (SONG.player1 == 'zero') {
-                                    bfIntro.playAnim('Go', true);
-                                    bfIntro.specialAnim = true;
                                 }
 
                                 if (gf != null && gf.curCharacter.startsWith('pibby')) {
@@ -1807,9 +1786,6 @@ class PlayState extends MusicBeatState
                         FlxG.sound.play(Paths.sound('go'), 0.6);
                     case 4:
                         if (SONG.player1 == 'newbf') {
-                            boyfriend.alpha = 1;
-                            bfIntro.alpha = 0;
-                        } else if (SONG.player1 == 'zero') {
                             boyfriend.alpha = 1;
                             bfIntro.alpha = 0;
                         }
