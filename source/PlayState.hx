@@ -1895,7 +1895,7 @@ class PlayState extends MusicBeatState
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.angle = randomSeed.float(-2, 2);
+			scoreTxt.angle = randomSeed.int(-2, 2, [-1, 0, 1]);
 			scoreTxtTween = FlxTween.tween(scoreTxt, {angle: 0}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
