@@ -6305,13 +6305,17 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
-							add(noHeroIntro);
-							noHeroIntro.animation.play('finnJumpscareMomento');
+							if (noHeroIntro != null)
+								{
+									add(noHeroIntro);
+									noHeroIntro.animation.play('finnJumpscareMomento');
+								}
 
 						case 32: 
 							blackie.alpha = 0;
 							remove(noHeroIntro);
 							noHeroIntro.destroy();
+							noHeroIntro = null;
 							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1.3');
 							triggerEventNote('Apple Filter', 'on', 'white');
