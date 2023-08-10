@@ -528,8 +528,8 @@ class FreeplayState extends MusicBeatState
 
 		stagebox.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
 		image.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
-		arrowL.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
-		arrowR.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
+		if (!ClientPrefs.lowQuality && arrowL != null) arrowL.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
+		if (!ClientPrefs.lowQuality && arrowR != null) arrowR.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
 	}
 
 	override function beatHit() {
