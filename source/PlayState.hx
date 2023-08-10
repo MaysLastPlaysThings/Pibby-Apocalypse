@@ -1165,7 +1165,8 @@ class PlayState extends MusicBeatState
         FlxG.mouse.visible = false;
 
         if (gf != null) {
-            iconP3.visible = false;
+			// for retcon cus yeah you get the point
+            iconP3.visible = (SONG.song == 'Retcon');
         }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
@@ -5339,6 +5340,7 @@ class PlayState extends MusicBeatState
 							lyricTxt.text = "";
 							camGame.alpha = 1;
 							triggerEventNote('Apple Filter', 'on', 'white');
+							iconP3.visible = true;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1');
@@ -5435,6 +5437,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'off', '1');
+							iconP3.visible = false;
 						case 2176:
 							changeChannel(2);
 							FlxTween.tween(camGame, {zoom: 1.1}, 0.00075, {
@@ -5569,6 +5572,8 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+
+							iconP3.visible = true;
 
 							camHUD.setFilters([]);
 							camOverlay.setFilters([]);
