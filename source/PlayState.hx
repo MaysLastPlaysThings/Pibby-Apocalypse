@@ -6031,7 +6031,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Camera Follow Pos', '1950', '1100');
 							gf.alpha = 0.0001;
 							jake.alpha = 0.0001;
-							theWhiteness.alpha = 1;
+							theBlackness.alpha = 1;
 							defaultCamZoom = 0.65;
 
 						case 2140:
@@ -6054,7 +6054,7 @@ class PlayState extends MusicBeatState
 							}
 							gf.alpha = 1;
 							jake.alpha = 1;
-							theWhiteness.alpha = 0;
+							theBlackness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
 								ease: FlxEase.quadInOut,
