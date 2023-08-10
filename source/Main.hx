@@ -1,7 +1,5 @@
 package;
 
-import codenameStuff.MemoryUtil;
-import codenameStuff.CacheStuff;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -82,18 +80,16 @@ class Main extends Sprite
 			addEventListener(Event.ADDED_TO_STAGE, init);
 
 			#if desktop
-			MemoryUtil.enable();
-			MemoryUtil.askEnable();
+			Gc.enable(true);
 			#end
 
 			FlxG.signals.postStateSwitch.add(()->{
 				optimizeGame(true);
-				trace(Math.abs(System.totalMemory / 1000000));
 			});
 			FlxG.signals.preStateSwitch.add(()-> {
 				optimizeGame(false);
 			});
-			FlxG.signals.focusLost.add(()->MemoryUtil.clearMinor()); // they don't know
+			FlxG.signals.focusLost.add(()->gc()); // they don't know
 			
 			FlxG.signals.preGameStart.add(() -> funnyMenuMusic = FlxG.random.bool(5) ? 2 : 1);
 		}
@@ -124,11 +120,9 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		addChild(new codenameStuff.Game(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
 		ScriptManager.init();
-		CacheStuff.init();
-		MemoryUtil.init();
 		InputFormatter.loadKeys();
 		FlxSprite.defaultAntialiasing = ClientPrefs.globalAntialiasing;
 
@@ -211,16 +205,28 @@ class Main extends Sprite
 					Paths.clearUnusedMemory();
 					FlxG.bitmap.dumpCache();
 					
-					MemoryUtil.clearMajor();
-					MemoryUtil.clearMinor();
+					gc();
+		
+					var cache = cast(Assets.cache, AssetCache);
+					for (key=>font in cache.font)
+						{
+							cache.removeFont(key); 
+							trace('removed font $key');
+						}
+					for (key=>sound in cache.sound)
+						{
+							cache.removeSound(key); 
+							trace('removed sound $key');
+						}
+						
 				} else {
 					Paths.clearUnusedMemory();
 					openfl.Assets.cache.clear('assets/songs');
 					openfl.Assets.cache.clear('assets/preload');
 					openfl.Assets.cache.clear('assets/music');
 					openfl.Assets.cache.clear('assets/videos');
-					MemoryUtil.clearMinor();
-					MemoryUtil.clearMajor();
+					gc();
+					trace(Math.abs(System.totalMemory / 1000000));
 				}
 		}
 
