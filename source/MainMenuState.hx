@@ -227,6 +227,11 @@ class MainMenuState extends MusicBeatState
 		changeItem();
 
 		super.create();
+
+        if(!FlxG.save.data.debugBuild) {
+            FlxG.save.data.debugBuild=true;
+            FlxG.save.flush();
+        }
 	}
 
 	var selectedSomethin:Bool = false;

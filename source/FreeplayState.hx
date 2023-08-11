@@ -525,11 +525,6 @@ class FreeplayState extends MusicBeatState
         }
 
 		Conductor.bpm = 100; // in case the code sucks and stays with the bpm
-
-		stagebox.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
-		image.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
-		if (!ClientPrefs.lowQuality && arrowL != null) arrowL.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
-		if (!ClientPrefs.lowQuality && arrowR != null) arrowR.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
 	}
 
 	override function beatHit() {
