@@ -6512,6 +6512,11 @@ class PlayState extends MusicBeatState
 				jake.dance();
 			}}
 
+		@:privateAccess
+			{
+				if (curBeat % 20 == 0) Main.optimizeGame(false);
+			}
+
 		lastBeatHit = curBeat;
 
 		switch (SONG.song)
