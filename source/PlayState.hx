@@ -1165,7 +1165,8 @@ class PlayState extends MusicBeatState
         FlxG.mouse.visible = false;
 
         if (gf != null) {
-            iconP3.visible = false;
+			// for retcon cus yeah you get the point
+            iconP3.visible = (SONG.song == 'Retcon');
         }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
@@ -1882,7 +1883,7 @@ class PlayState extends MusicBeatState
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.angle = randomSeed.float(-2, 2);
+			scoreTxt.angle = randomSeed.int(-2, 2, [-1, 0, 1]);
 			scoreTxtTween = FlxTween.tween(scoreTxt, {angle: 0}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
@@ -5403,6 +5404,7 @@ class PlayState extends MusicBeatState
 							lyricTxt.text = "";
 							camGame.alpha = 1;
 							triggerEventNote('Apple Filter', 'on', 'white');
+							iconP3.visible = true;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1');
@@ -5499,6 +5501,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'off', '1');
+							iconP3.visible = false;
 						case 2176:
 							changeChannel(2);
 							FlxTween.tween(camGame, {zoom: 1.1}, 0.00075, {
@@ -5633,6 +5636,8 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+
+							iconP3.visible = true;
 
 							camHUD.setFilters([]);
 							camOverlay.setFilters([]);
@@ -6090,7 +6095,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Camera Follow Pos', '1950', '1100');
 							gf.alpha = 0.0001;
 							jake.alpha = 0.0001;
-							theWhiteness.alpha = 1;
+							theBlackness.alpha = 1;
 							defaultCamZoom = 0.65;
 
 						case 2140:
@@ -6113,7 +6118,7 @@ class PlayState extends MusicBeatState
 							}
 							gf.alpha = 1;
 							jake.alpha = 1;
-							theWhiteness.alpha = 0;
+							theBlackness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
 								ease: FlxEase.quadInOut,
@@ -6364,13 +6369,17 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
-							add(noHeroIntro);
-							noHeroIntro.animation.play('finnJumpscareMomento');
+							if (noHeroIntro != null)
+								{
+									add(noHeroIntro);
+									noHeroIntro.animation.play('finnJumpscareMomento');
+								}
 
 						case 32: 
 							blackie.alpha = 0;
 							remove(noHeroIntro);
 							noHeroIntro.destroy();
+							noHeroIntro = null;
 							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1.3');
 							triggerEventNote('Apple Filter', 'on', 'white');
@@ -6566,6 +6575,11 @@ class PlayState extends MusicBeatState
 			{
 				jake.dance();
 			}}
+
+		@:privateAccess
+			{
+				if (curBeat % 20 == 0) Main.optimizeGame(false);
+			}
 
 		lastBeatHit = curBeat;
 
