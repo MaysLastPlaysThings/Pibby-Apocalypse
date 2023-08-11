@@ -4,6 +4,16 @@ var vignette;
 var vignette2;
 var light;
 
+// the thingies that yeah they cool totally 102%
+var daGloop;
+var daGloop2;
+var daGloop3;
+var daGloop4;
+var daGloop5;
+
+//PENNY MY BELOVED - schweizer
+var penny;
+
 function onCreate()
 {
     background = new flixel.FlxSprite(0, 0);
@@ -15,6 +25,41 @@ function onCreate()
 
     if (!ClientPrefs.lowQuality)
     {
+        daGloop = new flixel.FlxSprite();
+        daGloop.x = 50;
+        daGloop.y = 110;
+        daGloop.scale.set(1.5, 1.5);
+        daGloop.frames = retrieveAsset('images/topgoop', 'atlas');
+        daGloop.animation.addByPrefix('topey', 'gooey', 24, false);
+
+        daGloop2 = new flixel.FlxSprite();
+        daGloop2.x = 1450;
+        daGloop2.y = 110;
+        daGloop2.scale.set(1.5, 1.5);
+        daGloop2.frames = retrieveAsset('images/secondtopgoop', 'atlas');
+        daGloop2.animation.addByPrefix('topey2', 'gooey', 24, false);
+
+        daGloop4 = new flixel.FlxSprite();
+        daGloop4.x = 910;
+        daGloop4.y = 300;
+        daGloop4.scale.set(1.7, 1.7);
+        daGloop4.frames = retrieveAsset('images/droplet', 'atlas');
+        daGloop4.animation.addByPrefix('dropey', 'gooey', 24, false);
+
+        daGloop5 = new flixel.FlxSprite();
+        daGloop5.x = 715;
+        daGloop5.y = 595;
+        daGloop5.scale.set(1.7, 1.7);
+        daGloop5.frames = retrieveAsset('images/sinkgoop', 'atlas');
+        daGloop5.animation.addByPrefix('sinkey', 'gooey', 24, false);
+
+        penny = new flixel.FlxSprite();
+        penny.x = 800;
+        penny.y = 220;
+        penny.scale.set(1.3, 1.3);
+        penny.frames = retrieveAsset('images/penny', 'atlas');
+        penny.animation.addByPrefix('idle', 'idle', 6, true);
+
         wall = new flixel.FlxSprite(-200, 200);
         wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
         wall.setGraphicSize(Std.int(wall.width * 1.1));
@@ -46,9 +91,14 @@ function onCreate()
 
     add(background);
     if (!ClientPrefs.lowQuality) foreground.add(wall);
+    if (!ClientPrefs.lowQuality) foreground.add(daGloop);
+    if (!ClientPrefs.lowQuality) foreground.add(daGloop2);
     if (!ClientPrefs.lowQuality) foreground.add(vignette);
     if (!ClientPrefs.lowQuality) foreground.add(vignette2);
     if (!ClientPrefs.lowQuality) foreground.add(light);
+
+    if (!ClientPrefs.lowQuality) daGloop.alpha = 0.0001;
+    if (!ClientPrefs.lowQuality) daGloop2.alpha = 0.0001;
 
 }
 
@@ -75,6 +125,8 @@ function onEvent(event:String, value1:String, value2:String)
                 if (!ClientPrefs.lowQuality) vignette2.alpha = 0.0001; 
                 if (!ClientPrefs.lowQuality) vignette.alpha = 0.0001; 
                 if (!ClientPrefs.lowQuality) light.alpha = 0.0001; 
+                if (!ClientPrefs.lowQuality) daGloop.alpha = 0.0001;
+                if (!ClientPrefs.lowQuality) daGloop2.alpha = 0.0001;
             }
              else if (value1 == 'off')
             {
@@ -82,6 +134,8 @@ function onEvent(event:String, value1:String, value2:String)
                 if (!ClientPrefs.lowQuality) vignette2.alpha = 1;
                 if (!ClientPrefs.lowQuality) vignette.alpha = 1;
                 if (!ClientPrefs.lowQuality) light.alpha = 1;
+                if (!ClientPrefs.lowQuality) daGloop.alpha = 1;
+                if (!ClientPrefs.lowQuality) daGloop2.alpha = 1;
             }
         }
     }
@@ -98,4 +152,39 @@ function onUpdate()
                     PlayState.dad.x = 300;
                     PlayState.dad.y = 550;
                 }
+    }
+
+function onStepHit(curStep:Int)
+    {
+        if (curStep == 392)
+            {
+                if (!ClientPrefs.lowQuality) add(daGloop5);
+                if (!ClientPrefs.lowQuality) add(daGloop4);
+                if (!ClientPrefs.lowQuality) add(penny);
+                if (!ClientPrefs.lowQuality) daGloop.alpha = 1;
+                if (!ClientPrefs.lowQuality) daGloop2.alpha = 1;
+            }
+    }
+
+//thanks for da code
+function onBeatHit(curBeat:Int)
+    {
+        if (curBeat % 1 == 0)
+            doGoo();
+        if (curBeat % 1 == 0)
+            ponny();
+    }
+
+
+function doGoo()
+    {
+        daGloop5.animation.play('sinkey');
+        daGloop4.animation.play('dropey');
+        daGloop2.animation.play('topey2');
+        daGloop.animation.play('topey');
+    }
+
+function ponny()
+    {
+        penny.animation.play('idle');
     }
