@@ -124,19 +124,16 @@ function onCreate()
     // reveal shit cuz yes
 
     add(backGlitch);
-    foreground.add(aboveGlitch);
+    add(aboveGlitch);
     add(hillShit);
     add(particles);
     add(dangling);
-    foreground.add(corruption);
+    add(corruption);
 
     add(outside);
     add(outside2);
     add(coolGradient);
     add(idkWhatAreThatThings);
-
-    corruption.alpha = 0;
-    aboveGlitch.alpha = 0;
 }
 
 function onMoveCamera(focus:String)
@@ -144,22 +141,12 @@ function onMoveCamera(focus:String)
         if (focus == 'dad') 
 			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = dadCamZoom + 0.3;
+            PlayState.defaultCamZoom = dadCamZoom+0.1;
     }
 
 function onStepHit(curStep:Int)
     {
         coolStep = curStep;
-
-        if (curStep == 640) {
-            aboveGlitch.alpha = 1;
-            corruption.alpha = 1;
-        }
-
-        if (curStep == 896) {
-            aboveGlitch.alpha = 0;
-            corruption.alpha = 0;
-        }
 
         if (curStep == 1535) {
             outside.alpha = 1;
