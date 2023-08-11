@@ -4662,10 +4662,9 @@ class PlayState extends MusicBeatState
 										}
 								});
 
-						case 608: 
-							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
-						// I love timing shit.
 						case 628:
+							camGame.alpha = 0;
+							// camGame.alpha = 0 better
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 0.3);
 							}
@@ -4693,31 +4692,96 @@ class PlayState extends MusicBeatState
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
-							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
-						case 656:
-							defaultCamZoom = 0.85;
-						case 672:
-							defaultCamZoom = 0.75;
-						case 720:
-							defaultCamZoom = 0.9;
-						case 736:
-							defaultCamZoom = 0.85;
 						case 848:
 							FlxG.camera.fade(FlxColor.BLACK, 3.52);
 						case 896:
+							camGame.alpha = 1;
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
 							dad.x = DAD_X - 240;
 							dad.y = DAD_Y - 120;
                             fuckyouDadX = dad.x;
                             fuckyouDadY = dad.y;
+						case 1024:
+							defaultCamZoom = 1;
+						case 1032:
+							camHUD.alpha = 0;
+							FlxTween.tween(camGame, {zoom: 1.1}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.1;
+									}});
+						case 1034:
+							FlxTween.tween(camGame, {zoom: 1.3}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.3;
+									}});
+						case 1036:
+							FlxTween.tween(camGame, {zoom: 1.5}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.5;
+									}});
 						case 1040:
+							camHUD.alpha = 1;
+							defaultCamZoom = 0.8;
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
+						case 1152:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1216:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1280:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1344:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1408:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
 						case 1520:
-							defaultCamZoom = 1.2;
+							FlxTween.tween(camGame, {alpha: 0}, 1.25, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camGame.alpha = 0;
+									}
+							});
+							defaultCamZoom = 1.4;
 						case 1536:
+							FlxTween.tween(camGame, {alpha: 1}, 2.67, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camGame.alpha = 1;
+									}
+							});
+							FlxTween.tween(camGame, {zoom: 1.2}, 2.67, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.2;
+									}
+							});
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
@@ -5712,13 +5776,13 @@ class PlayState extends MusicBeatState
 							camGame.scroll.y = 0;
 						case 1013:
 							if (ClientPrefs.flashing) 
-			    				camHUD.fade(FlxColor.BLACK, 0.9, false, function() {
-									camHUD.fade(FlxColor.BLACK, 0.2, true);
+			    				camOther.fade(FlxColor.BLACK, 0.9, false, function() {
+									camOther.fade(FlxColor.BLACK, 0.2, true);
 								});
 						case 1440:
 							if (ClientPrefs.flashing) 
-			    				camHUD.fade(FlxColor.WHITE, 6, false, function() {
-									camHUD.fade(FlxColor.WHITE, 0.75, true);
+			    				camOther.fade(FlxColor.WHITE, 6, false, function() {
+									camOther.fade(FlxColor.WHITE, 0.75, true);
 								});
 						case 1520:
 							camGame.alpha = 0;
@@ -6817,6 +6881,24 @@ class PlayState extends MusicBeatState
 								}
 						}
 					if (curStep >= 896 && curStep <= 1024 && ClientPrefs.camZooms)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1040 && curStep <= 1264 && ClientPrefs.camZooms)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1280 && curStep <= 1520 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
