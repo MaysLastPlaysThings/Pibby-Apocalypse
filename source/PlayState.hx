@@ -1165,7 +1165,8 @@ class PlayState extends MusicBeatState
         FlxG.mouse.visible = false;
 
         if (gf != null) {
-            iconP3.visible = false;
+            // for retcon cus yeah you get the point
+            iconP3.visible = (SONG.song == 'Retcon');
         }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
@@ -1882,7 +1883,7 @@ class PlayState extends MusicBeatState
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.angle = randomSeed.float(-2, 2);
+			scoreTxt.angle = randomSeed.int(-2, 2, [-1, 0, 1]);
 			scoreTxtTween = FlxTween.tween(scoreTxt, {angle: 0}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
@@ -5342,6 +5343,7 @@ class PlayState extends MusicBeatState
 						case 1568:
 							lyricTxt.text = "";
 							camGame.alpha = 1;
+							iconP3.visible = true;
 							triggerEventNote('Apple Filter', 'on', 'white');
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -5423,6 +5425,7 @@ class PlayState extends MusicBeatState
 								});
 							});
 						case 2144:
+							iconP3.visible = false;
 							changeChannel(1);
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].alpha = 1;
@@ -5568,6 +5571,7 @@ class PlayState extends MusicBeatState
 						case 2684:
 							defaultCamZoom = 1.6;
 						case 2688:
+							iconP3.visible = true;
 							changeChannel(0);
 							boyfriend.alpha = 1;
 							defaultCamZoom = 0.7;
@@ -6304,13 +6308,16 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
+							if (noHeroIntro != null) {
 							add(noHeroIntro);
 							noHeroIntro.animation.play('finnJumpscareMomento');
+							}
 
 						case 32: 
 							blackie.alpha = 0;
 							remove(noHeroIntro);
 							noHeroIntro.destroy();
+							noHeroIntro = null;
 							if (ClientPrefs.flashing) camGame.flash (FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'on', '1.3');
 							triggerEventNote('Apple Filter', 'on', 'white');
