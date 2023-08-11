@@ -5306,8 +5306,6 @@ class PlayState extends MusicBeatState
 							gf.alpha = 1;
 							boyfriend.alpha = 0.3;
 						case 1552:
-							camGame.alpha = 0;
-						case 1560:
 							FlxTween.tween(lyricTxt, {alpha: 1}, 0.05, {
 								ease: FlxEase.linear,
 								onComplete:
@@ -5316,6 +5314,12 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
+
+							lyricTxt.color = FlxColor.fromRGB(255, 120, 75);
+							camGame.alpha = 0;
+							lyricTxt.text = "GUMBALL!";
+						case 1560:
+							lyricTxt.color = FlxColor.fromRGB(82, 165, 235);
 							lyricTxt.text = "D";
 							new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
 								lyricTxt.text = "D-D";
