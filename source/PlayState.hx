@@ -4718,6 +4718,10 @@ class PlayState extends MusicBeatState
 							}
 						case 1520:
 							defaultCamZoom = 1.2;
+
+						case 1535: 
+							boyfriendGroup.visible = false;
+				
 						case 1536:
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
@@ -4725,7 +4729,9 @@ class PlayState extends MusicBeatState
 							dad.x = DAD_X + 260;
 							dad.y = DAD_Y + 250;
 							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
-							boyfriendGroup.visible = false;
+
+							cameraSpeed = 50;
+							new FlxTimer().start(0.0461, a -> cameraSpeed = 1);
 						case 1648: 
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 							if (ClientPrefs.flashing) {
