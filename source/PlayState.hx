@@ -1253,6 +1253,7 @@ class PlayState extends MusicBeatState
 					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
 					camShitforReveal.screenCenter(XY);
 					camShitforReveal.cameras = [camOther];
+					camShitforReveal.scale.set(0.9, 0.9);
 					add(camShitforReveal);
 
 					blackie.alpha = 1;
@@ -4785,7 +4786,7 @@ class PlayState extends MusicBeatState
                                     iconP1.alpha = 0;
                                     iconP2.alpha = 0;
 									playerStrums.forEach(yeah -> {
-										if (!ClientPrefs.downScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
+										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
 									});
 								}});
 							}
