@@ -62,15 +62,19 @@ class LoadingStuffLmao extends MusicBeatState {
         'spotlight' => PreloadType.image,
         'timeBar' => PreloadType.image,
         'smoke' => PreloadType.image,
+        'healthbar/iconbar' => PreloadType.image,
 
         //Icons cause why not?
-        'icons/icon-bob' => PreloadType.imagealt,
+        'icons/icon-zero' => PreloadType.imagealt,
         'icons/icon-bf' => PreloadType.imagealt,
         'icons/icon-gf' => PreloadType.imagealt,
-        'icons/icon-idiot' => PreloadType.imagealt,
-        'icons/icon-angrybob' => PreloadType.imagealt,
-        'icons/icon-pentajon' => PreloadType.imagealt,
-        'icons/icon-lil' => PreloadType.imagealt,
+        'icons/icon-pibby' => PreloadType.imagealt,
+        'icons/icon-jake' => PreloadType.imagealt,
+        'icons/icon-finn' => PreloadType.imagealt,
+        'icons/icon-gumball' => PreloadType.imagealt,
+        'icons/icon-gumball_fake' => PreloadType.imagealt,
+        'icons/icon-darwin' => PreloadType.imagealt,
+        'icons/icon-finnbad' => PreloadType.imagealt,
 
         //Preload assets for better loading time
         'go' => PreloadType.image, 
@@ -192,12 +196,33 @@ class LoadingStuffLmao extends MusicBeatState {
         'dialogue' => PreloadType.soundalt,
 
         // music but they not the songs
-        'freakyMenu' => PreloadType.actualmusicalt,
+        'freakyMenu_1' => PreloadType.actualmusicalt,
+        'freakyMenu_2' => PreloadType.actualmusicalt,
         'offsetSong' => PreloadType.actualmusicalt,
         'breakfast' => PreloadType.actualmusic,
         'gameOver' => PreloadType.actualmusic,
         'gameOverEnd' => PreloadType.actualmusic,
         'tea-time' => PreloadType.actualmusic,
+        'fpmenu' => PreloadType.actualmusic,
+        'creditsmenu' => PreloadType.actualmusic,
+
+        // freeplay
+        'fpmenu/arrowL' => imagealt,
+        'fpmenu/arrowR' => imagealt,
+        'fpmenu/arrows' => imagealt,
+        'fpmenu/background' => imagealt,
+        'fpmenu/stageBox' => imagealt,
+        'fpmenu/threatBarBG' => imagealt,
+        'fpmenu/threatLevel' => imagealt,
+        'fpmenu/stage/Blessed by Swords' => imagealt,
+        'fpmenu/stage/Brotherly Love' => imagealt,
+        "fpmenu/stage/Child's Play" => imagealt,
+        'fpmenu/stage/Come Along With Me' => imagealt,
+        'fpmenu/stage/Forgotten World' => imagealt,
+        'fpmenu/stage/Mindless' => imagealt,
+        'fpmenu/stage/My Amazing World' => imagealt,
+        'fpmenu/stage/Retcon' => imagealt,
+        'fpmenu/stage/Suffering Siblings' => imagealt,
     ];
     var maxCount:Int;
 
@@ -334,7 +359,7 @@ class LoadingStuffLmao extends MusicBeatState {
                 case PreloadType.actualmusicalt:
                     var savedSound:FlxGraphic = FlxG.bitmap.add('assets/preload/music/$i.${Paths.SOUND_EXT}');
                     preloadedAssets.set(i, savedSound);
-                    trace('loaded sound (preload folder) $savedSound');
+                    trace('loaded music (preload folder) $savedSound');
             }
             FlxGraphic.defaultPersist = false;
 
