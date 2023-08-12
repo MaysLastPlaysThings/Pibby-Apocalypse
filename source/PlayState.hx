@@ -4716,22 +4716,102 @@ class PlayState extends MusicBeatState
 						case 848:
 							FlxG.camera.fade(FlxColor.BLACK, 3.52);
 						case 896:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
 							dad.x = DAD_X - 240;
 							dad.y = DAD_Y - 120;
                             fuckyouDadX = dad.x;
                             fuckyouDadY = dad.y;
+						case 960:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1024:
+							FlxTween.tween(camGame, {zoom: 0.9}, 0.75, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.9;
+									}});
+						case 1032:
+							camHUD.alpha = 0;
+							FlxTween.tween(camGame, {zoom: 1}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1;
+									}});
+						case 1034:
+							FlxTween.tween(camGame, {zoom: 1.1}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.1;
+									}});
+						case 1036:
+							FlxTween.tween(camGame, {zoom: 1.2}, 0.00075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.2;
+									}});
 						case 1040:
+							camHUD.alpha = 1;
+							defaultCamZoom = 0.8;
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1152:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1280:
+							if (ClientPrefs.flashing) {
+							    camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1344:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1408:
+							if (ClientPrefs.flashing) {
+								camOverlay.flash(FlxColor.WHITE, 1);
+							}
+						case 1472:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 						case 1520:
-							defaultCamZoom = 1.2;
-
+							FlxTween.tween(camGame, {alpha: 0}, 1.18, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camGame.alpha = 0;
+									}});
+							FlxTween.tween(camGame, {zoom: 1.1}, 1.18, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 1.1;
+									}});
 						case 1535: 
 							boyfriendGroup.visible = false;
-				
+							FlxTween.tween(camGame, {alpha: 1}, 10, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										camGame.alpha = 1;
+									}});
 						case 1536:
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
@@ -4761,6 +4841,9 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 1);
 							}
 						case 1792:
+							if (ClientPrefs.flashing) {
+								camOther.flash(FlxColor.WHITE, 1.33);
+							}
 							blackie.alpha = 0;
 							theBlackness.alpha = 1;
 							addBehindBF(blackie);
@@ -4789,6 +4872,59 @@ class PlayState extends MusicBeatState
 										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
 									});
 								}});
+							}
+						case 2176:
+							for (i in 0...playerStrums.length) {
+								FlxTween.tween(playerStrums.members[i], {alpha: 0}, 6.34, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											playerStrums.members[i].alpha = 0;
+										}
+								});
+							}
+							FlxTween.tween(botplayTxt, {alpha: 0}, 6.34, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										botplayTxt.alpha = 0;
+									}
+							});
+							FlxTween.tween(timeBar, {alpha: 0}, 6.34, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										timeBar.alpha = 0;
+									}
+							});
+							FlxTween.tween(timeTxt, {alpha: 0}, 6.34, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										timeTxt.alpha = 0;
+									}
+							});
+							FlxTween.tween(timeBarBG, {alpha: 0}, 6.34, {
+								ease: FlxEase.linear,
+								onComplete:
+								function (twn:FlxTween)
+									{
+										timeBarBG.alpha = 0;
+									}
+							});
+							for (i in 0...opponentStrums.length) {
+								FlxTween.tween(opponentStrums.members[i], {alpha: 0}, 6.34, {
+									ease: FlxEase.linear,
+									onComplete:
+									function (twn:FlxTween)
+										{
+											opponentStrums.members[i].alpha = 0;
+										}
+								});
 							}
 						case 2432:
 							blackie.alpha = 1;
@@ -5680,7 +5816,7 @@ class PlayState extends MusicBeatState
 										defaultCamZoom = 1.25;
 									}});
 						case 1818:
-							FlxTween.tween(camGame, {zoom: 1.4}, 0.00075, {
+							FlxTween.tween(camGame, {zoom: 1.3}, 0.00075, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
@@ -6844,6 +6980,33 @@ class PlayState extends MusicBeatState
 								}
 						}
 					if (curStep >= 896 && curStep <= 1024 && ClientPrefs.camZooms)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1040 && curStep <= 1264 && ClientPrefs.camZooms)
+						{
+							if (curBeat % 1 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1280 && curStep <= 1520 && ClientPrefs.camZooms)
+						{
+							if (curBeat % 2 == 0)
+								{
+                                    abberationShaderIntensity = beatShaderAmount;
+									FlxG.camera.zoom += 0.015 * camZoomingMult;
+									camHUD.zoom += 0.03 * camZoomingMult;
+								}
+						}
+					if (curStep >= 1792 && curStep <= 2176 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{

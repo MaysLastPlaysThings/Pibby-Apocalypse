@@ -94,19 +94,6 @@ function onCreate()
     if (!ClientPrefs.lowQuality) add(wtf);
 }
 
-function onStepHit(curStep) {
-    if (glitch != null) {
-        glitch.animation.play('spin');
-    }
-
-    if (curStep == 1824)
-    {
-        void.alpha = 0.001;
-        glitch.alpha = 1;
-        velocityShitHehe = 10;
-    }
-}
-
 function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
     FlxTween.tween(varx, {angle: distance1}, duration1 / velocityShitHehe, {
         ease: FlxEase.sineInOut,

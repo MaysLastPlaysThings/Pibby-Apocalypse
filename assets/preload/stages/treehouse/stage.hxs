@@ -141,7 +141,7 @@ function onMoveCamera(focus:String)
         if (focus == 'dad') 
 			PlayState.defaultCamZoom = dadCamZoom;
         else
-            PlayState.defaultCamZoom = dadCamZoom+0.1;
+            PlayState.defaultCamZoom = dadCamZoom + 0.2;
     }
 
 function onStepHit(curStep:Int)
@@ -157,7 +157,7 @@ function onStepHit(curStep:Int)
             treehouse.alpha = 0;
             bg.alpha = 0;
             doThunder = false;
-            dadCamZoom = 0.75;
+            dadCamZoom = 0.85;
 
         }
         if (curStep == 1648)
@@ -172,7 +172,7 @@ function onStepHit(curStep:Int)
             particles.alpha = 1;
             dangling.alpha = 1;
             corruption.alpha = 1;
-            dadCamZoom = 0.7;
+            dadCamZoom = 0.8;
         }
 
         if (curStep == 628)
