@@ -1199,7 +1199,7 @@ class PlayState extends MusicBeatState
 		//garbage collection :trol:
 		System.gc();
 
-		switch (SONG.song)
+		switch (SONG.song.replace('-', ' '))
 			{
 				case 'My Amazing World':
 					gf.alpha = 0;
@@ -1225,6 +1225,11 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
+					GameOverSubstate.characterName = 'bf-dead-finn';
+				case 'Brotherly Love': 
+					GameOverSubstate.characterName = 'bf-dead-jake';
+				case 'Suffering Siblings': 
+					GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
 				case 'Mindless':
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-slash', 1);
@@ -1238,6 +1243,8 @@ class PlayState extends MusicBeatState
 					for (i in 0...opponentStrums.length) {
 						opponentStrums.members[i].alpha = 0;
 					}
+
+					GameOverSubstate.characterName = 'bf-dead-finn';
 				case 'Come Along With Me':
 					for (i in 0...opponentStrums.length) {
 						opponentStrums.members[i].shader = null;
@@ -1274,6 +1281,8 @@ class PlayState extends MusicBeatState
 					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
 					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
 					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
+
+					GameOverSubstate.characterName = 'bf-dead-finn';
 				case 'No Hero Remix': 
 					blackie.alpha = 1;
 					healthBar.visible = false;
@@ -1874,9 +1883,9 @@ class PlayState extends MusicBeatState
 	public function updateScore(miss:Bool = false)
 	{
 		scoreTxt.text = 'Score: ' + songScore
-		+ ' | Misses: ' + songMisses
-		+ ' | Rating: ' + ratingName
-		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		+ ' | Combo Breaks: ' + songMisses
+		+ ' | Rank: '
+		+ (ratingName != '?' ? '$ratingFC - ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' : '');
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
