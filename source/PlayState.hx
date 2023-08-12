@@ -4823,6 +4823,8 @@ class PlayState extends MusicBeatState
 							dad.y = DAD_Y + 250;
 							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 
+							defaultCamZoom += 0.15; // black border fix
+
 							cameraSpeed = 50;
 							new FlxTimer().start(0.0461, a -> cameraSpeed = 1);
 						case 1648: 
