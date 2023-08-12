@@ -416,6 +416,8 @@ class PlayState extends MusicBeatState
 
 	var uiObjects:FlxTypedGroup<FlxSprite>;
 
+	var healthDrain:Bool = ClientPrefs.healthDrain;
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -1222,6 +1224,7 @@ class PlayState extends MusicBeatState
 					scoreTxt.visible = false;
 				case "Child's Play":
 					blackie.alpha = 1;
+					healthDrain = false;
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
@@ -4180,7 +4183,7 @@ class PlayState extends MusicBeatState
 			}
 
 			if(!note.gfNote) {
-                if (ClientPrefs.healthDrain) {
+                if (healthDrain) {
                     if (health > 0.1) {
                         health -= 0.0125;
                     }
@@ -4249,7 +4252,7 @@ class PlayState extends MusicBeatState
 						if (note != animNote)
 							if (!note.gfNote) {
 								if (health > 0.5) {
-                                    if (ClientPrefs.healthDrain) {
+                                    if (healthDrain) {
                                         health -= FlxG.random.float(0.075, 0.2);
                                     }
 								}
@@ -5079,6 +5082,8 @@ class PlayState extends MusicBeatState
 						case 410:
 							defaultCamZoom = 1.2;
 						case 416:
+							healthDrain = ClientPrefs.healthDrain;
+							health = 1;
 							camGame.alpha = 1;
 							camHUD.alpha = 1;
 							if (ClientPrefs.flashing) {
@@ -5103,7 +5108,7 @@ class PlayState extends MusicBeatState
                                         if (ClientPrefs.flashing) {
                                             camOverlay.flash(FlxColor.WHITE, 1);
                                         }
-                                        if (ClientPrefs.healthDrain) {
+                                        if (healthDrain) {
                                             health = 0.1;
                                         }
                                         triggerEventNote('Apple Filter', 'on', 'black');
@@ -5279,7 +5284,7 @@ class PlayState extends MusicBeatState
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
-						case 1441:
+						case 1442:
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
 							#else
