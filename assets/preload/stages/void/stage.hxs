@@ -7,6 +7,7 @@ var rock4;
 var wtf;
 var glitch;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
+var velocityShitHehe = 1;
 
 function onCreate()
 {
@@ -16,6 +17,14 @@ function onCreate()
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
+
+    glitch = new flixel.FlxSprite();
+    glitch.alpha = 0.0001;
+    glitch.x = 1000;
+    glitch.y = 800;
+    glitch.scale.set(5, 5);
+    glitch.frames = retrieveAsset('images/gumballglitchbg', 'atlas');
+    glitch.animation.addByPrefix('spin', 'spin', 24, false);
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
@@ -62,13 +71,6 @@ function onCreate()
         wtf.updateHitbox();
     }
 
-    glitch = new flixel.FlxSprite(0, -200);
-    glitch.frames = retrieveAsset('images/gumballglitchbg', 'ATLAS');
-    glitch.animation.addByPrefix('spin', 'spin', 24, true);
-    glitch.setGraphicSize(Std.int(glitch.width * 2.5));
-    glitch.scrollFactor.set(1, 1);
-    glitch.updateHitbox();
-
     tweenLoopAngle(house, 4, -4, 6, 6);
     if (!ClientPrefs.lowQuality) tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
     if (!ClientPrefs.lowQuality) tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
@@ -84,28 +86,74 @@ function onCreate()
 
     if (!ClientPrefs.lowQuality) stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
     add(void);
+    add(glitch);
     if (!ClientPrefs.lowQuality) add(rock4);
     if (!ClientPrefs.lowQuality) add(rock3);
     if (!ClientPrefs.lowQuality) add(rock2);
     add(house);
     add(rock);
     if (!ClientPrefs.lowQuality) add(wtf);
-    add(glitch);
 }
 
 function onStepHit(curStep) {
     if (glitch != null) {
         glitch.animation.play('spin');
     }
+
+    if (curStep == 512)
+    {
+        glitch.alpha = 1;
+        velocityShitHehe = 2;
+    }
+
+    if (curStep == 768)
+    {
+        FlxTween.tween(glitch, {alpha: 0.0001}, 0.5, {
+            ease: FlxEase.quadInOut
+            });
+        velocityShitHehe = 1;
+    }
+
+    if (curStep == 1024)
+    {
+        glitch.alpha = 1;
+        velocityShitHehe = 2;
+    }
+
+    if (curStep == 1280)
+    {
+        glitch.alpha = 0;
+        velocityShitHehe = 5;
+    }
+
+    if (curStep == 1536)
+    {
+        glitch.alpha = 1;
+        velocityShitHehe = 10;
+    }
+
+    if (curStep == 1792)
+    {
+        FlxTween.tween(glitch, {alpha: 0.0001}, 1, {
+            ease: FlxEase.quadInOut
+            });
+        velocityShitHehe = 1;
+    }
+
+    if (curStep == 1824)
+    {
+        glitch.alpha = 1;
+        velocityShitHehe = 10;
+    }
 }
 
 function tweenLoopAngle(varx, distance1, distance2, duration1, duration2) {
-    FlxTween.tween(varx, {angle: distance1}, duration1, {
+    FlxTween.tween(varx, {angle: distance1}, duration1 / velocityShitHehe, {
         ease: FlxEase.sineInOut,
         onComplete: 
         function (twn:FlxTween)
             {
-                FlxTween.tween(varx, {angle: distance2}, duration2, {
+                FlxTween.tween(varx, {angle: distance2}, duration2 / velocityShitHehe, {
                     ease: FlxEase.sineInOut,
                     onComplete: 
                     function (twn:FlxTween)
