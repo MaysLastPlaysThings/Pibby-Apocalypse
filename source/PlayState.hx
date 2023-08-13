@@ -1254,7 +1254,9 @@ class PlayState extends MusicBeatState
 						opponentStrums.members[i].alpha = 0;
 					}
 
-					GameOverSubstate.characterName = 'bf-dead-finn';
+                    if (ClientPrefs.gore) {
+					    GameOverSubstate.characterName = 'bf-dead-finn';
+                    }
 				case 'Come Along With Me':
 					for (i in 0...opponentStrums.length) {
 						opponentStrums.members[i].shader = null;
@@ -1293,7 +1295,9 @@ class PlayState extends MusicBeatState
 					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
 					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
 
-					GameOverSubstate.characterName = 'bf-dead-finn';
+                    if (ClientPrefs.gore) {
+					    GameOverSubstate.characterName = 'bf-dead-finn';
+                    }
 				case 'No Hero Remix': 
 					blackie.alpha = 1;
 					healthBar.visible = false;
@@ -6227,7 +6231,7 @@ class PlayState extends MusicBeatState
 							}
 							gf.alpha = 1;
 							jake.alpha = 1;
-							theWhiteness.alpha = 0;
+							theBlackness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
 								ease: FlxEase.quadInOut,
