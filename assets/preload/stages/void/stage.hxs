@@ -104,6 +104,9 @@ function onStepHit(curStep) {
     {
         glitch.alpha = 1;
         velocityShitHehe = 2;
+        PlayState.boyfriend.color = 0xe6ffe3;
+        PlayState.dad.color = 0xe6ffe3;
+        PlayState.gf.color = 0xe6ffe3;
     }
 
     if (curStep == 768)
@@ -111,6 +114,9 @@ function onStepHit(curStep) {
         FlxTween.tween(glitch, {alpha: 0.0001}, 0.5, {
             ease: FlxEase.quadInOut
             });
+        PlayState.boyfriend.color = 0xFFFFFF;
+        PlayState.dad.color = 0xFFFFFF;
+        PlayState.gf.color = 0xFFFFFF;
         velocityShitHehe = 1;
     }
 
@@ -118,18 +124,27 @@ function onStepHit(curStep) {
     {
         glitch.alpha = 1;
         velocityShitHehe = 2;
+        PlayState.boyfriend.color = 0xe6ffe3;
+        PlayState.dad.color = 0xe6ffe3;
+        PlayState.gf.color = 0xe6ffe3;
     }
 
     if (curStep == 1280)
     {
         glitch.alpha = 0;
         velocityShitHehe = 5;
+        PlayState.boyfriend.color = 0xFFFFFF;
+        PlayState.dad.color = 0xFFFFFF;
+        PlayState.gf.color = 0xFFFFFF;
     }
 
     if (curStep == 1536)
     {
         glitch.alpha = 1;
         velocityShitHehe = 10;
+        PlayState.boyfriend.color = 0xe6ffe3;
+        PlayState.dad.color = 0xe6ffe3;
+        PlayState.gf.color = 0xe6ffe3;
     }
 
     if (curStep == 1792)
@@ -137,6 +152,9 @@ function onStepHit(curStep) {
         FlxTween.tween(glitch, {alpha: 0.0001}, 1, {
             ease: FlxEase.quadInOut
             });
+            PlayState.boyfriend.color = 0xFFFFFF;
+            PlayState.dad.color = 0xFFFFFF;
+            PlayState.gf.color = 0xFFFFFF;
         velocityShitHehe = 1;
     }
 
@@ -144,6 +162,9 @@ function onStepHit(curStep) {
     {
         glitch.alpha = 1;
         velocityShitHehe = 10;
+        PlayState.boyfriend.color = 0xe6ffe3;
+        PlayState.dad.color = 0xe6ffe3;
+        PlayState.gf.color = 0xe6ffe3;
     }
 }
 
