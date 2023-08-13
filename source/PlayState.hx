@@ -5161,11 +5161,11 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Cinematics', 'off', '1.5');
 							triggerEventNote('Camera Follow Pos', '', '');
 							camHUD.alpha = 1;
-						case 498:
+						case 497:
 							defaultCamZoom = 0.75;
-						case 502:
+						case 501:
 							defaultCamZoom = 0.9;
-						case 506:
+						case 505:
 							defaultCamZoom = 1.1;
 						case 514:
 							if (ClientPrefs.flashing) {
@@ -5177,18 +5177,18 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
 							triggerEventNote('Apple Filter', 'off', '');
-						case 563:
+						case 562:
 							defaultCamZoom = 0.85;
-						case 576:
+						case 578:
 							defaultCamZoom = 0.7;
-						case 628:
+						case 627:
 							defaultCamZoom = 0.95;
-						case 644:
+						case 643:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							defaultCamZoom = 0.7;
-						case 758:
+						case 756:
 							FlxTween.tween(camGame, {zoom: 0.8}, 1, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5196,11 +5196,11 @@ class PlayState extends MusicBeatState
 									{
 										defaultCamZoom = 0.7;
 									}});
-						case 774:
+						case 772:
 							triggerEventNote('Cinematics', 'on', '1');
-						case 790:
+						case 788:
 							defaultCamZoom = 0.95;
-						case 804:
+						case 803:
 							FlxTween.tween(camGame, {zoom: 0.8}, 0.075, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5208,7 +5208,7 @@ class PlayState extends MusicBeatState
 									{
 										defaultCamZoom = 0.8;
 									}});
-						case 806:
+						case 805:
 							FlxTween.tween(camGame, {zoom: 0.7}, 0.075, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5216,17 +5216,17 @@ class PlayState extends MusicBeatState
 									{
 										defaultCamZoom = 0.7;
 									}});
-						case 855:
+						case 854:
 							defaultCamZoom = 0.95;
+						case 868:
+							FlxTween.tween(camGame, {zoom: 0.8}, 0.075, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.8;
+									}});
 						case 870:
-							FlxTween.tween(camGame, {zoom: 0.8}, 0.075, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										defaultCamZoom = 0.8;
-									}});
-						case 872:
 							FlxTween.tween(camGame, {zoom: 0.7}, 0.075, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -5234,21 +5234,21 @@ class PlayState extends MusicBeatState
 									{
 										defaultCamZoom = 0.7;
 									}});
-						case 904:
+						case 902:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							triggerEventNote('Cinematics', 'off', '1');
 							defaultCamZoom = 1;
-						case 969:
+						case 967:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1035:
+						case 1032:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1182:
+						case 1180:
 							#if VIDEOS_ALLOWED
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
 							for (yeah in 0...uiObjects.length) uiObjects.members[yeah].alpha = 0;
@@ -5286,7 +5286,7 @@ class PlayState extends MusicBeatState
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
-						case 1442:
+						case 1439:
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
 							#else
@@ -5309,31 +5309,31 @@ class PlayState extends MusicBeatState
 									add(vig);
 								}
 							#end
-						case 1445:
+						case 1442:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1710:
+						case 1706:
 							triggerEventNote('Cinematics', 'off', '1');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							defaultCamZoom = 0.8;
-						case 1826:
+						case 1822:
 							defaultCamZoom = 0.85;
-						case 1834:
+						case 1830:
 							defaultCamZoom = 0.9;
-						case 1842:
+						case 1838:
 							triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
 							defaultCamZoom = 1;
-						case 1976:
+						case 1972:
 							triggerEventNote('Cinematics', 'off', '1');
 							defaultCamZoom = 0.7;
-						case 1993:
+						case 1988:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
@@ -5345,26 +5345,26 @@ class PlayState extends MusicBeatState
 										camGame._filters.push(new ShaderFilter(glitchFWFNF));
 									}
 								}
-						case 2043:
+						case 2038:
 							defaultCamZoom = 0.85;
-						case 2060:
+						case 2055:
 							defaultCamZoom = 0.7;
-						case 2110:
+						case 2105:
 							defaultCamZoom = 0.95;
-						case 2126:
+						case 2121:
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 2260:
+						case 2255:
 							defaultCamZoom = 1;
-						case 2394:
+						case 2389:
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
-						case 2620:
+						case 2610:
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {
 								ease: FlxEase.linear,
 								onComplete:
@@ -5379,7 +5379,7 @@ class PlayState extends MusicBeatState
 									playerStrums.forEach(playerNotes -> playerNotes.alpha = 0);
 								}
 							});
-						case 2701:
+						case 2695:
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
@@ -7042,7 +7042,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				case 'Forgotten World':
-					if (curStep >= 514 && curStep <= 774 && ClientPrefs.camZooms)
+					if (curStep >= 514 && curStep <= 772 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -7051,7 +7051,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 904 && curStep <= 1166 && ClientPrefs.camZooms)
+					if (curStep >= 902 && curStep <= 1163 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -7060,7 +7060,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1445 && curStep <= 1826 && ClientPrefs.camZooms)
+					if (curStep >= 1442 && curStep <= 1822 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
@@ -7069,7 +7069,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1843 && curStep <= 1976 && ClientPrefs.camZooms)
+					if (curStep >= 1838 && curStep <= 1972 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 2 == 0)
 								{
@@ -7078,7 +7078,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1993 && curStep <= 2260 && ClientPrefs.camZooms)
+					if (curStep >= 1988 && curStep <= 2255 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
