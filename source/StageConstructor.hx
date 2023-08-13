@@ -50,7 +50,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
                     newGraphic.persist = true;
 
                     var newSparrow = FlxAtlasFrames.fromSparrow(newGraphic, File.getContent('assets/stages/${currentStage}/${path}.xml'));
-                    trace(newSparrow);
+                    //trace(newSparrow);
                     return newSparrow;
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL

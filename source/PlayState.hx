@@ -1219,7 +1219,7 @@ class PlayState extends MusicBeatState
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
-					iconP1.visible = false;
+					iconP1.visible = false; 
 					iconP2.visible = false;
 					scoreTxt.visible = false;
 				case "Child's Play":
@@ -1228,11 +1228,17 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
-					GameOverSubstate.characterName = 'bf-dead-finn';
+                    if (ClientPrefs.gore) {
+                        GameOverSubstate.characterName = 'bf-dead-finn';
+                    }
 				case 'Brotherly Love': 
-					GameOverSubstate.characterName = 'bf-dead-jake';
+                    if (ClientPrefs.gore) {
+					    GameOverSubstate.characterName = 'bf-dead-jake';
+                    }
 				case 'Suffering Siblings': 
-					GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
+                    if (ClientPrefs.gore) {
+					    GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
+                    }
 				case 'Mindless':
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finn-slash', 1);
@@ -2540,7 +2546,7 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
 		{
-			openChartEditor();
+			//openChartEditor();
 		}
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
@@ -2936,7 +2942,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
-		MusicBeatState.switchState(new ChartingState());
+		//MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
 		#if desktop
@@ -6193,7 +6199,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Camera Follow Pos', '1950', '1100');
 							gf.alpha = 0.0001;
 							jake.alpha = 0.0001;
-							theWhiteness.alpha = 1;
+							theBlackness.alpha = 1;
 							defaultCamZoom = 0.65;
 
 						case 2140:
