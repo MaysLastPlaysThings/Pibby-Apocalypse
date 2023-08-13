@@ -190,7 +190,7 @@ class MainMenuState extends MusicBeatState
 		aweTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(aweTxt);
 
-        verTxt = new FlxText(0, FlxG.height - 65, 0, '♪ HOTFIX V0.5 - ' + MOTD, 8);
+        verTxt = new FlxText(0, FlxG.height - 65, 0, '♪ HOTFIX V0.5', 8);
 		verTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		verTxt.alpha = 1;
 		verTxt.antialiasing = ClientPrefs.globalAntialiasing;
@@ -240,12 +240,6 @@ class MainMenuState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-
-        if (curBeat % 100 == 0) {
-            MOTD = getStringFromURL(URL);
-            //trace('test');
-            verTxt.text = '♪ HOTFIX V0.5 - ' + MOTD;
-        }
 
         sickBeats++;
 	}
@@ -346,7 +340,7 @@ class MainMenuState extends MusicBeatState
 									//FlxG.sound.playMusic(Paths.music('creditsmenu'));
                                     //until its done ^
                                     Lib.getURL(new URLRequest('https://gamebanana.com/wips/73842'));
-                                    MusicBeatState.switchState(new MainMenuState());
+                                    MusicBeatState.switchState(this);
 							}
 						});
 					}

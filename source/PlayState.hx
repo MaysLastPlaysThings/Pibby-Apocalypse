@@ -1225,6 +1225,7 @@ class PlayState extends MusicBeatState
 				case "Child's Play":
 					blackie.alpha = 1;
 					healthDrain = false;
+					for (i in 0...opponentStrums.length) opponentStrums.members[i].shader = null;
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
@@ -5074,6 +5075,10 @@ class PlayState extends MusicBeatState
 							});
 						case 128:
 							defaultCamZoom = 1.2;
+						case 256: 
+							for (i in 0...opponentStrums.length) {
+								if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
+							}
 						case 352:
 							FlxTween.tween(camGame, {zoom: 1.4}, 5.33, {
 								ease: FlxEase.linear,

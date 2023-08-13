@@ -272,9 +272,6 @@ class LoadingStuffLmao extends MusicBeatState {
             }
         });
 
-        // save bullshit
-        FlxG.save.bind('funkin', 'ninjamuffin99');
-
         loadText = new FlxText(FlxG.width/3, FlxG.height - 170, 1000, 'LOADING!');
         loadText.setFormat(Paths.font("menuBUTTONS.ttf"), 58, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         loadText.autoSize = false;
