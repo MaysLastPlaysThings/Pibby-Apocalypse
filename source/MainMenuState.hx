@@ -80,8 +80,6 @@ class MainMenuState extends MusicBeatState
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-        MOTD = getStringFromURL(URL);
-
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
@@ -245,20 +243,6 @@ class MainMenuState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
-
-    public static function getStringFromURL(url:String) {
-        var http = new haxe.Http(url);
-        var stringo:String;
-		http.onData = function (data:String) {
-			stringo = data;
-		}
-        http.onError = function (e) {
-			trace('error: $e');
-			return null;
-		}
-        http.request();
-        return stringo;
-    }
 
 	override function update(elapsed:Float)
 	{
