@@ -256,12 +256,11 @@ class LoadingStuffLmao extends MusicBeatState {
 
         preloadedAssets = new Map<String, FlxGraphic>();
 
-        bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+        bg = new FlxSprite().loadGraphic(Paths.image('loading'));
 		bg.screenCenter(X);
-        bg.alpha = 0;
 		add(bg);
 
-        FlxTween.tween(bg, {alpha: 1, y: 110}, 1.5, {ease: FlxEase.expoOut});
+        FlxTween.tween(bg, {alpha: 1}, 1.5, {ease: FlxEase.expoOut});
 
         // new FlxTimer().start(2, e->refresh(folderLength.length), 0);
     
@@ -276,11 +275,14 @@ class LoadingStuffLmao extends MusicBeatState {
         // save bullshit
         FlxG.save.bind('funkin', 'ninjamuffin99');
 
-        loadText = new FlxText(-100, 960 - (32 + 20), 0);
-        loadText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        loadText = new FlxText(FlxG.width/3, FlxG.height - 170, 1000, 'LOADING!');
+        loadText.setFormat(Paths.font("menuBUTTONS.ttf"), 58, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        loadText.autoSize = false;
+        loadText.alignment = FlxTextAlign.CENTER;
+        loadText.screenCenter(X);
         loadText.antialiasing = ClientPrefs.globalAntialiasing;
         add(loadText);
-        loadText.alpha = 0;
+        loadText.alpha = 1;
 
         loadBar = new FlxBar(0, 960 - 20, LEFT_TO_RIGHT, 1280, 20, this,
         'storedPercentage', 0, 1);
@@ -288,7 +290,7 @@ class LoadingStuffLmao extends MusicBeatState {
         loadBar.createFilledBar(0xFF2E2E2E, FlxColor.WHITE);
         add(loadBar);
 
-        FlxTween.tween(loadText, {alpha: 1, x: 5}, 0.5, {startDelay: 0.5});
+        FlxTween.tween(loadText, {alpha: 1}, 0.5, {startDelay: 0.5});
         FlxTween.tween(loadBar, {alpha: 1, y: 960 - 20}, 0.5, {startDelay: 0.5});
     }
 
@@ -363,7 +365,7 @@ class LoadingStuffLmao extends MusicBeatState {
             }
             FlxGraphic.defaultPersist = false;
 
-            loadText.text = '${Highscore.floorDecimal(storedPercentage * 100, 2)}%';
+            loadText.text = 'LOADING: ${Highscore.floorDecimal(storedPercentage * 100, 2)}%';
 
             FlxG.stage.window.title = 'Pibby: Apocalypse - Loading... ${Highscore.floorDecimal(storedPercentage * 100, 2)}%';
         
@@ -371,7 +373,7 @@ class LoadingStuffLmao extends MusicBeatState {
             storedPercentage = countUp/maxCount;
             if(countUp == maxCount)
             {
-                loadText.text = '100.00%'; // its actually at 100% is just a bug i swear
+                loadText.text = 'LOADING: 100.00%'; // its actually at 100% is just a bug i swear
                 FlxG.stage.window.title = 'Pibby: Apocalypse - Done!';
             }
         }
