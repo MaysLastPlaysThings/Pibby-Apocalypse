@@ -157,7 +157,7 @@ function onStepHit(curStep:Int)
             treehouse.alpha = 0;
             bg.alpha = 0;
             doThunder = false;
-            dadCamZoom = 0.85;
+            dadCamZoom = 0.9;
 
         }
         if (curStep == 1648)
@@ -172,7 +172,7 @@ function onStepHit(curStep:Int)
             particles.alpha = 1;
             dangling.alpha = 1;
             corruption.alpha = 1;
-            dadCamZoom = 0.8;
+            dadCamZoom = 0.85;
         }
 
         if (curStep == 628)

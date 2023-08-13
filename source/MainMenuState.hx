@@ -59,7 +59,11 @@ class MainMenuState extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 	var aweTxt:FlxText;
+    var verTxt:FlxText;
 	var barTab : FlxSprite;
+
+    var URL:String = "https://pastebin.com/raw/HLtJfzAC";
+    var MOTD:String;
 
 	override function create()
 	{
@@ -75,6 +79,8 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("📱 | In the Menus", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+
+        MOTD = getStringFromURL(URL);
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -178,11 +184,17 @@ class MainMenuState extends MusicBeatState
 		);
 
 
-		aweTxt = new FlxText(0, FlxG.height - 50, 0, '♪ Now Playing: Menu Theme ${Main.funnyMenuMusic == 2 ? '(Alt)' : ''} - By ${Main.funnyMenuMusic == 2 ? 'Sodukoru' : 'GoddessAwe'} ♪', 8);
+		aweTxt = new FlxText(0, FlxG.height - 35, 0, '♪ Now Playing: Menu Theme ${Main.funnyMenuMusic == 2 ? '(Alt)' : ''} - By ${Main.funnyMenuMusic == 2 ? 'Sodukoru' : 'GoddessAwe'} ♪', 8);
 		aweTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
-		aweTxt.alpha = 0;
+		aweTxt.alpha = 1;
 		aweTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(aweTxt);
+
+        verTxt = new FlxText(0, FlxG.height - 65, 0, '♪ HOTFIX V0.5 - ' + MOTD, 8);
+		verTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
+		verTxt.alpha = 1;
+		verTxt.antialiasing = ClientPrefs.globalAntialiasing;
+		add(verTxt);
 
 		menuItems = new FlxTypedGroup<AlphabetTyped>();
 		add(menuItems);
@@ -214,30 +226,50 @@ class MainMenuState extends MusicBeatState
 
 		// NG.core.calls.event.logEvent('swag').send();
 
-		FlxTween.tween(aweTxt, {alpha: 1}, 1.5, {
-			ease: FlxEase.quadInOut, 
-			startDelay: 2,
-			onComplete: 
-			function (twn:FlxTween)
-				{
-					FlxTween.tween(aweTxt, {alpha: 0}, 1.5, {
-						ease: FlxEase.quadInOut, startDelay: 2});
-				}
-		});
 		changeItem();
 
 		super.create();
 
         if(!FlxG.save.data.debugBuild) {
-            FlxG.save.data.debugBuild=true;
-            FlxG.save.flush();
+            //FlxG.save.data.debugBuild=true;
+            //FlxG.save.flush();
         }
+	}
+
+    private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	override function beatHit()
+	{
+		super.beatHit();
+
+        if (curBeat % 100 == 0) {
+            MOTD = getStringFromURL(URL);
+            //trace('test');
+            verTxt.text = '♪ HOTFIX V0.5 - ' + MOTD;
+        }
+
+        sickBeats++;
 	}
 
 	var selectedSomethin:Bool = false;
 
+    public static function getStringFromURL(url:String) {
+        var http = new haxe.Http(url);
+        var stringo:String;
+		http.onData = function (data:String) {
+			stringo = data;
+		}
+        http.onError = function (e) {
+			trace('error: $e');
+			return null;
+		}
+        http.request();
+        return stringo;
+    }
+
 	override function update(elapsed:Float)
 	{
+        if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
@@ -320,13 +352,6 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 			}
-			#if desktop
-			else if (FlxG.keys.anyJustPressed(debugKeys))
-			{
-				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
-			#end
 		}
 
 		super.update(elapsed);

@@ -47,13 +47,22 @@ class GameOverSubstate extends MusicBeatSubstate
 		super();
 
 		PlayState.instance.setOnLuas('inGameOver', true);
-
 		Conductor.songPosition = 0;
 
 		boyfriend = new Boyfriend(x, y, characterName);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
+
+        camX = boyfriend.getGraphicMidpoint().x;
+        camY = boyfriend.getGraphicMidpoint().y;
+        camY -= boyfriend.height/3;
+
+        switch(characterName) {
+            case "bf-dead-jake":
+                camX -= 250;
+                camY += 300;
+         }
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
@@ -66,9 +75,15 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		boyfriend.playAnim('firstDeath');
 
+        // hi nebula was here :3
+
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(camX, camY);
 		add(camFollowPos);
+		FlxG.camera.follow(camFollowPos, LOCKON, 1);
+
+        FlxG.camera.snapToTarget();
+
 	}
 
 	var isFollowingAlready:Bool = false;
@@ -77,10 +92,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super.update(elapsed);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
-		if(updateCamera) {
-			var lerpVal:Float = 0.95;
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
-		}
+        FlxG.camera.zoom = 0.7;
 
 		if (controls.ACCEPT)
 		{
@@ -108,7 +120,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 			{
-				FlxG.camera.follow(camFollowPos, LOCKON, 1);
 				updateCamera = false;
 				isFollowingAlready = true;
 			}

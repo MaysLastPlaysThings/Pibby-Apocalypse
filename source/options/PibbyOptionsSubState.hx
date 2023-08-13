@@ -66,7 +66,7 @@ class PibbyOptionsSubState extends BaseOptionsMenu
         addOption(option);
 
         var option:Option = new Option('Death Gore', //Name
-            "If unchecked, deaths won't have gore and will be replaced with the normal death (Work In Progress)", //Description
+            "If unchecked, deaths won't have gore and will be replaced with the normal death", //Description
             'gore', //Save data variable name
             'bool', //Variable type
             true); //Default value
@@ -81,8 +81,8 @@ class PibbyOptionsSubState extends BaseOptionsMenu
             addOption(option);
 		}
 
-        var option:Option = new Option('PIBBY CORRUPTED SHAKE !?', //Name
-            "That really annoying f***KING shake that was stolen from bbpanzu's demoman mod (hi its me tormented)", //Description
+        var option:Option = new Option('PIBBY CORRUPTED SHAKE!?', //Name
+            "the most annoying hud shake ever", //Description
             'killyourself', //Save data variable name
             'bool', //Variable type
             false); //Default value
