@@ -3167,6 +3167,7 @@ class PlayState extends MusicBeatState
 					}
 				}
 				else{
+                    if(touhouBG==null)return; // ficks
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
