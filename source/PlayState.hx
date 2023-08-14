@@ -909,7 +909,7 @@ class PlayState extends MusicBeatState
 		    finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
         else
             finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
-        
+
         finnHealthbar.scale.set(0.8, 0.8);
         finnHealthbar.updateHitbox();
         for(i in 0...21){
@@ -944,8 +944,8 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		uiObjects.add(finnBarThing);
 
-        switch(storyWeekName){
-            case 'finn' | 'cawm': // why is cawm its own week lol
+/*         switch(storyWeekName){
+            case 'finn' | 'cawm': // why is cawm its own week lol */
                 timeBar.x -= timeBarBG.width;
                 timeTxt.x -= timeBarBG.width;
                 timeBarBG.x -= timeBarBG.width;
@@ -954,13 +954,13 @@ class PlayState extends MusicBeatState
                 timeTxt.x += 65;
                 timeBarBG.x += 65;
 
-        }
+        //}
 
 
 
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
-            finnHealthbar.visible = false;
+            //finnHealthbar.visible = false;
 		}
 
 		if (gf != null)
@@ -2621,15 +2621,15 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
-		if (storyWeekName == "gumball") {
+/* 		if (storyWeekName == "gumball") {
             iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
             iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-        }else{
+        }else{ */
             iconP1.x = 614;
             iconP2.x = 513;
             healthBar.visible = false;
             healthBarBG.visible = false;
-        }
+        //}
 
 		if (gf != null)
 		{
