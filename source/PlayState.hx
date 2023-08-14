@@ -3020,7 +3020,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
-		//MusicBeatState.switchState(new ChartingState());
+		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
 		#if desktop
