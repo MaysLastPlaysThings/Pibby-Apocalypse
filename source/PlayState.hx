@@ -1224,6 +1224,15 @@ class PlayState extends MusicBeatState
 		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
+
+        distortDadFNF.setFloat("negativity", 0.0);
+        distortFNF.setFloat("negativity", 0.0);
+        distortCAWMFNF.setFloat("negativity", 0.0);
+
+        distortDadFNF.setFloat("binaryIntensity", 1000.0);
+        distortFNF.setFloat("binaryIntensity", 1000.0);
+        distortCAWMFNF.setFloat("binaryIntensity", 1000.0);
+        
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1737,12 +1746,13 @@ class PlayState extends MusicBeatState
         numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
-
+        
         numberIntro.animation.addByPrefix('3', '3', 30, false);
         numberIntro.animation.addByPrefix('2', '2', 30, false);
         numberIntro.animation.addByPrefix('1', '1', 30, false);
         numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
-
+        
+        numberIntro.animation.finishCallback = (name) -> {numberIntro.visible = false;}
         add(numberIntro);
 
         //introGroup.add(numberIntro);
@@ -1836,7 +1846,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.playAnim('2', true);
                                     pibbyIntro.specialAnim = true;
                                 }
-                                
+                                numberIntro.visible = true;
                                 numberIntro.animation.play('2');
                                 numberIntro.offset.set(-85, -58);
                             }
@@ -1859,7 +1869,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
 
-
+                                numberIntro.visible = true;
                                 numberIntro.animation.play('1');
                                 numberIntro.offset.set(-72, -47);
 
@@ -1884,6 +1894,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
                                 
+							numberIntro.visible = true;
                                 numberIntro.animation.play('Go');
                                 numberIntro.offset.set(98, -15);
                             }
@@ -2522,7 +2533,6 @@ class PlayState extends MusicBeatState
 			shaderStuff += elapsed;
 
             chromFNF.setFloat('aberration', abberationShaderIntensity);
-			chromFNF.setFloat('effectTime', chromEffectTimeIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
             distortCAWMFNF.setFloat('binaryIntensity', distortIntensity);
