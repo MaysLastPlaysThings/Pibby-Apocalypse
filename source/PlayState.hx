@@ -238,7 +238,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
-	var finnHealthbar:FlxSprite;
+	var pibbyHealthbar:FlxSprite;
 
     var pibbyHealth:FlxSprite;
     
@@ -904,32 +904,32 @@ class PlayState extends MusicBeatState
 		//healthBar.alpha = 1;
 		uiObjects.add(healthBar);
 
-		finnHealthbar = new FlxSprite();
+		pibbyHealthbar = new FlxSprite();
         if(ClientPrefs.shaders)
-		    finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
+		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
         else
-            finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
 
-        finnHealthbar.scale.set(0.8, 0.8);
-        finnHealthbar.updateHitbox();
+        pibbyHealthbar.scale.set(0.8, 0.8);
+        pibbyHealthbar.updateHitbox();
         for(i in 0...21){
             var indiceStart = i * 3;
             var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
-           	finnHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
+           	pibbyHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
         }
         
-        finnHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
-        if(ClientPrefs.shaders)finnHealthbar.shader = new Shaders.GreenReplacementShader();
+        pibbyHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
+        if(ClientPrefs.shaders)pibbyHealthbar.shader = new Shaders.GreenReplacementShader();
 
-		finnHealthbar.screenCenter(X); 
-		finnHealthbar.x += finnHealthbar.width; // moved to the right side of the screen i think
-        finnHealthbar.x -= 60;
-		finnHealthbar.y = 10;
+		pibbyHealthbar.screenCenter(X); 
+		pibbyHealthbar.x += pibbyHealthbar.width; // moved to the right side of the screen i think
+        pibbyHealthbar.x -= 60;
+		pibbyHealthbar.y = 10;
 
 		if (ClientPrefs.downScroll)
-			finnHealthbar.y = FlxG.height - finnHealthbar.height/2 - 10;
+			pibbyHealthbar.y = FlxG.height - pibbyHealthbar.height/2 - 10;
         
-        uiObjects.add(finnHealthbar);
+        uiObjects.add(pibbyHealthbar);
         
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
@@ -960,7 +960,7 @@ class PlayState extends MusicBeatState
 
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
-            //finnHealthbar.visible = false;
+            //pibbyHealthbar.visible = false;
 		}
 
 		if (gf != null)
@@ -1059,7 +1059,7 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
-        finnHealthbar.cameras = [camHUD];
+        pibbyHealthbar.cameras = [camHUD];
 		finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 		uiObjects.cameras = [camHUD];
@@ -1531,7 +1531,7 @@ class PlayState extends MusicBeatState
 		timeBar.updateBar();
 		healthBar.updateBar();
         if(ClientPrefs.shaders){
-            var shader:Shaders.GreenReplacementShader = cast finnHealthbar.shader;
+            var shader:Shaders.GreenReplacementShader = cast pibbyHealthbar.shader;
             shader.colour = boyfriendColor;
         }
 	}
@@ -2514,7 +2514,7 @@ class PlayState extends MusicBeatState
         var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
         var damagePercent = 1 - healthPercent;
 
-        finnHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+        pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
         // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
 
 		if(ClientPrefs.shaders) {
@@ -4226,6 +4226,7 @@ class PlayState extends MusicBeatState
 			}
             boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
 			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
+            // ^^ could combine them into one shader? wouldnt be too hard i think
 			if (ClientPrefs.shaders)
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
@@ -4478,6 +4479,10 @@ class PlayState extends MusicBeatState
                     healthBar.createFilledBar(dadColor, gfColor);
                     healthBar.updateBar();
                     scoreTxt.color = gfColor;
+                    if(ClientPrefs.shaders){
+                        var shader:Shaders.GreenReplacementShader = cast pibbyHealthbar.shader;
+                        shader.colour = gfColor;
+                    }
 					if (storyWeekName != "finn") {
                     if (gf != null) iconP1.changeIcon(gf.healthIcon);
                     if (iconP3 != null) iconP3.changeIcon(boyfriend.healthIcon); }
