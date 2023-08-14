@@ -2718,7 +2718,6 @@ class PlayState extends MusicBeatState
             cpuControlled = !cpuControlled;
             botplayTxt.visible = cpuControlled;
         }
-        #end
 		
 		if (startedCountdown)
 		{
@@ -4959,7 +4958,7 @@ class PlayState extends MusicBeatState
 									scoreTxt.alpha = 0;
                                     finnBarThing.alpha = 0;
                                     iconP1.alpha = 0;
-                                    finnHealthbar.alpha = 0;
+                                    pibbyHealthbar.alpha = 0;
                                     iconP2.alpha = 0;
 									playerStrums.forEach(yeah -> {
 										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
