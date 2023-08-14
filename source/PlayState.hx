@@ -1851,7 +1851,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.playAnim('2', true);
                                     pibbyIntro.specialAnim = true;
                                 }
-                                
+                                numberIntro.visible = true;
                                 numberIntro.animation.play('2');
                                 numberIntro.offset.set(-85, -58);
                             }
@@ -1874,7 +1874,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
 
-
+                                numberIntro.visible = true;
                                 numberIntro.animation.play('1');
                                 numberIntro.offset.set(-72, -47);
 
@@ -1899,6 +1899,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
                                 
+							numberIntro.visible = true;
                                 numberIntro.animation.play('Go');
                                 numberIntro.offset.set(98, -15);
                             }
