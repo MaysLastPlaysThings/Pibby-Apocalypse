@@ -229,8 +229,8 @@ class MainMenuState extends MusicBeatState
 		super.create();
 
         if(!FlxG.save.data.debugBuild) {
-            //FlxG.save.data.debugBuild=true;
-            //FlxG.save.flush();
+            FlxG.save.data.debugBuild=true;
+            FlxG.save.flush();
         }
 	}
 

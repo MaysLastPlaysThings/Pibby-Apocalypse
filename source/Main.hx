@@ -154,7 +154,7 @@ class Main extends Sprite
         buildDate.defaultTextFormat = new TextFormat("_sans", 24, 0x9E9191);
         buildDate.autoSize = LEFT;
         buildDate.multiline = false;
-        buildDate.text = "Compiled " + Macro.getBuildDate() + " Dev Build";
+        buildDate.text = Macro.getBuildDate() + " Dev Build";
         addChild(buildDate);
 
 		FlxG.autoPause = false;
