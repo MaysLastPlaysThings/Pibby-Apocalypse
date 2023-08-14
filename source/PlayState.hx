@@ -2621,23 +2621,26 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
+        if (gf != null)
+		{
+			var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP3.scale.set(mult, mult);
+			iconP3.updateHitbox();
+			//iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
+		} 
+
 /* 		if (storyWeekName == "gumball") {
             iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
             iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
         }else{ */
             iconP1.x = 614;
             iconP2.x = 513;
+            if (gf != null)
+                iconP3.x = 614 + 100;
             healthBar.visible = false;
             healthBarBG.visible = false;
         //}
 
-		if (gf != null)
-		{
-			var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-			iconP3.scale.set(mult, mult);
-			iconP3.updateHitbox();
-			iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
-		}
 
 		if (SONG.song == "Suffering Siblings")
 		{
