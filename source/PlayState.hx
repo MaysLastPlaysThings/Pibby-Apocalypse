@@ -1208,6 +1208,17 @@ class PlayState extends MusicBeatState
 					moveCamera(true);
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
+					if (ClientPrefs.gore) {
+                        GameOverSubstate.characterName = 'bf-dead';
+						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.endSoundName = 'gfgumballrevive';
+                    }
+				case 'Retcon': 
+					if (ClientPrefs.gore) {
+                        GameOverSubstate.characterName = 'bf-dead';
+						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.endSoundName = 'gfgumballrevive';
+                    }
 				case 'Forgotten World':
 					addCharacterToList('darwinfw', 0);
 					#if VIDEOS_ALLOWED
@@ -1226,19 +1237,33 @@ class PlayState extends MusicBeatState
 					blackie.alpha = 1;
 					healthDrain = false;
 					for (i in 0...opponentStrums.length) opponentStrums.members[i].shader = null;
+					if (ClientPrefs.gore) {
+                        GameOverSubstate.characterName = 'bf-dead';
+						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.endSoundName = 'gfgumballrevive';
+                    }
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
                     if (ClientPrefs.gore) {
                         GameOverSubstate.characterName = 'bf-dead-finn';
+						GameOverSubstate.deathSoundName = 'bffinndeath';
+						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'Brotherly Love': 
                     if (ClientPrefs.gore) {
 					    GameOverSubstate.characterName = 'bf-dead-jake';
+						GameOverSubstate.deathSoundName = 'bfjakedeath';
                     }
 				case 'Suffering Siblings': 
                     if (ClientPrefs.gore) {
 					    GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
+						GameOverSubstate.endSoundName = 'gffinnrevive';
+
+						if (GameOverSubstate.characterName == 'bf-dead-jake')
+							GameOverSubstate.deathSoundName = 'bfjakedeath';
+						else
+							GameOverSubstate.deathSoundName = 'bffinndeath';
                     }
 				case 'Mindless':
 					addCharacterToList('finn-sword', 1);
@@ -1256,6 +1281,8 @@ class PlayState extends MusicBeatState
 
                     if (ClientPrefs.gore) {
 					    GameOverSubstate.characterName = 'bf-dead-finn';
+						GameOverSubstate.deathSoundName = 'bffinndeath';
+						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'Come Along With Me':
 					for (i in 0...opponentStrums.length) {
@@ -1297,6 +1324,8 @@ class PlayState extends MusicBeatState
 
                     if (ClientPrefs.gore) {
 					    GameOverSubstate.characterName = 'bf-dead-finn';
+						GameOverSubstate.deathSoundName = 'bffinndeath';
+						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'No Hero Remix': 
 					blackie.alpha = 1;
@@ -1307,6 +1336,7 @@ class PlayState extends MusicBeatState
 					scoreTxt.visible = false;
 					finnBarThing.alpha = 0.001;
 					GameOverSubstate.characterName = 'assbf';
+					GameOverSubstate.endSoundName = 'gffinnrevive';
 			}
 
 		cacheCountdown();
