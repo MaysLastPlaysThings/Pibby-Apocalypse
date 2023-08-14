@@ -905,7 +905,11 @@ class PlayState extends MusicBeatState
 		uiObjects.add(healthBar);
 
 		finnHealthbar = new FlxSprite();
-		finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+        if(ClientPrefs.shaders)
+		    finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
+        else
+            finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+        
         finnHealthbar.scale.set(0.8, 0.8);
         finnHealthbar.updateHitbox();
         for(i in 0...21){
@@ -2701,14 +2705,14 @@ class PlayState extends MusicBeatState
 
         // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
         // just for people who wanna make custom stuff w/ the mod
-        #if debug
+        
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
-        #end
+        
 		
 		if (startedCountdown)
 		{

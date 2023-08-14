@@ -154,8 +154,8 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
 
     @:glFragmentSource('
     #pragma header
-    #define threshold 0.5
-    #define padding 0.1
+    const float threshold = 0.5;
+    const float padding = 0.05;
 
     uniform vec3 replacementColour;
 
