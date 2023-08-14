@@ -2603,11 +2603,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
-		{
-			//openChartEditor();
-		}
-
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
@@ -2715,7 +2710,15 @@ class PlayState extends MusicBeatState
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
-        
+        if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+        {
+            openChartEditor();
+        }
+        if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
+            cpuControlled = !cpuControlled;
+            botplayTxt.visible = cpuControlled;
+        }
+        #end
 		
 		if (startedCountdown)
 		{
@@ -4808,8 +4811,8 @@ class PlayState extends MusicBeatState
 							}
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
-							dad.x = DAD_X - 240;
-							dad.y = DAD_Y - 120;
+							dad.x = DAD_X - 200;
+							dad.y = DAD_Y - 0;
                             fuckyouDadX = dad.x;
                             fuckyouDadY = dad.y;
 						case 960:
@@ -4956,6 +4959,7 @@ class PlayState extends MusicBeatState
 									scoreTxt.alpha = 0;
                                     finnBarThing.alpha = 0;
                                     iconP1.alpha = 0;
+                                    finnHealthbar.alpha = 0;
                                     iconP2.alpha = 0;
 									playerStrums.forEach(yeah -> {
 										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
