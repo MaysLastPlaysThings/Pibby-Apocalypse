@@ -51,7 +51,7 @@ enum abstract RuntimeShaders(String) to String from String
     #define mainImage main
 
     const float blurSize = 1.0/512.0;
-    const float intensity = 1.15;
+    const float intensity = 0.85;
 
     void mainImage()
     {
