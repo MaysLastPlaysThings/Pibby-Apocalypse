@@ -224,7 +224,7 @@ class Main extends Sprite
 	}
 	#end
 
-	private static function optimizeGame(post:Bool = false)
+	private static function optimizeGame(post:Bool = false) // BAD WHY NOT JUST USE PSYCH'S NORMAL STUFF???
 		{
 			if(!post)
 				{
