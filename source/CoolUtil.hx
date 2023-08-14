@@ -27,10 +27,17 @@ class CoolUtil
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);
-		trace(snap);
 		return (m / snap);
 	}
 
+	inline public static function snap(f:Float, snap:Float)
+	{
+		var m:Float = Math.fround(f / snap);
+		return (m * snap);
+	}
+
+
+    // honestly this should be part of the chart file but whatever
 	public static function getSongArtist(song:String) //song should be in uppercase, like the songName var
 		{
 			var artist:String = 'Kawai Sprite';

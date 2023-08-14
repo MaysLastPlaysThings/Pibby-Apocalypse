@@ -147,6 +147,43 @@ class WiggleShader extends FlxShader
 	}
 }
 
+// https://www.shadertoy.com/view/llBGWc
+class GreenReplacementShader extends FlxShader { // green screen and replaces the green w/ a different colour
+    @:isVar
+    public var colour(default, set):FlxColor = FlxColor.GREEN;
+
+    @:glFragmentSource('
+    #pragma header
+    #define threshold 0.5
+    #define padding 0.1
+
+    uniform vec3 replacementColour;
+
+    void main()
+    {
+        vec2 uv = openfl_TextureCoordv;
+        
+        vec4 greenScreen = vec4(0.,1.,0.,1.);
+        vec4 color = flixel_texture2D(bitmap, uv);
+        
+        vec3 diff = color.xyz - greenScreen.xyz;
+        float fac = smoothstep(threshold-padding,threshold+padding, dot(diff,diff));
+        
+        color = mix(color, vec4(replacementColour.rgb, 1.0), 1.-fac);
+        gl_FragColor = color;
+    }
+')
+    public function new(){
+        super();
+        replacementColour.value = [colour.redFloat, colour.greenFloat, colour.blueFloat];
+    }
+
+    public function set_colour(clr:FlxColor){
+		replacementColour.value = [clr.redFloat, clr.greenFloat, clr.blueFloat];
+	    return colour = clr;
+    }
+    
+}
 class MAWVHS extends FlxShader {
     @:glFragmentSource('
     #pragma header

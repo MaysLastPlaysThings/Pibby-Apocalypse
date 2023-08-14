@@ -238,8 +238,10 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
-	var healthbar:FlxSprite;
+	var finnHealthbar:FlxSprite;
 
+    var pibbyHealth:FlxSprite;
+    
 	//finn week shit
 	var finnT:FlxSprite;
 	var finnBarThing:FlxSprite;
@@ -832,7 +834,6 @@ class PlayState extends MusicBeatState
 			timeTxt.size = 24;
 			timeTxt.y += 3;
 		}
-
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
@@ -903,11 +904,29 @@ class PlayState extends MusicBeatState
 		//healthBar.alpha = 1;
 		uiObjects.add(healthBar);
 
-		healthbar = new FlxSprite();
-		healthbar.x = 197;
-		healthbar.y = 465;
-		healthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+		finnHealthbar = new FlxSprite();
+		finnHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+        finnHealthbar.scale.set(0.8, 0.8);
+        finnHealthbar.updateHitbox();
+        for(i in 0...21){
+            var indiceStart = i * 3;
+            var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
+           	finnHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
+        }
+        
+        finnHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
+        if(ClientPrefs.shaders)finnHealthbar.shader = new Shaders.GreenReplacementShader();
 
+		finnHealthbar.screenCenter(X); 
+		finnHealthbar.x += finnHealthbar.width; // moved to the right side of the screen i think
+        finnHealthbar.x -= 60;
+		finnHealthbar.y = 10;
+
+		if (ClientPrefs.downScroll)
+			finnHealthbar.y = FlxG.height - finnHealthbar.height/2 - 10;
+        
+        uiObjects.add(finnHealthbar);
+        
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
@@ -921,8 +940,23 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		uiObjects.add(finnBarThing);
 
+        switch(storyWeekName){
+            case 'finn' | 'cawm': // why is cawm its own week lol
+                timeBar.x -= timeBarBG.width;
+                timeTxt.x -= timeBarBG.width;
+                timeBarBG.x -= timeBarBG.width;
+
+                timeBar.x += 65;
+                timeTxt.x += 65;
+                timeBarBG.x += 65;
+
+        }
+
+
+
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
+            finnHealthbar.visible = false;
 		}
 
 		if (gf != null)
@@ -1021,6 +1055,7 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
+        finnHealthbar.cameras = [camHUD];
 		finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 		uiObjects.cameras = [camHUD];
@@ -1491,6 +1526,10 @@ class PlayState extends MusicBeatState
 		timeBar.createFilledBar(0xFF000000, dadColor);
 		timeBar.updateBar();
 		healthBar.updateBar();
+        if(ClientPrefs.shaders){
+            var shader:Shaders.GreenReplacementShader = cast finnHealthbar.shader;
+            shader.colour = boyfriendColor;
+        }
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -2468,6 +2507,11 @@ class PlayState extends MusicBeatState
         if (curBeat % 1 == 0)
 			finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
 
+        var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
+        var damagePercent = 1 - healthPercent;
+
+        finnHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+        // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
 
 		if(ClientPrefs.shaders) {
 			shaderStuff += elapsed;
@@ -2484,6 +2528,7 @@ class PlayState extends MusicBeatState
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
+            // thers probably a better way to do this tbh -neb
 		{
 			case "Child's Play":
 				if (gf != null)	gf.alpha = 0;
@@ -2671,12 +2716,16 @@ class PlayState extends MusicBeatState
 			iconP2.playAnim(iconP2.char + 'neutral', false, false);
         }
 
+        // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
+        // just for people who wanna make custom stuff w/ the mod
+        #if debug
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-			//persistentUpdate = false;
-			//paused = true;
-			//cancelMusicFadeTween();
-			//MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+			persistentUpdate = false;
+			paused = true;
+			cancelMusicFadeTween();
+			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
+        #end
 		
 		if (startedCountdown)
 		{
