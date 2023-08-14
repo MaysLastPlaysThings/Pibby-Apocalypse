@@ -1646,7 +1646,7 @@ class FlxCamera extends FlxBasic
 	// honestly idk if this is even gonna work lmao
 	public function removeFilter(filter:BitmapFilter):Void
 	{
-		_filters.remove(filter)
+		_filters.remove(filter);
 	}
 
 	/**
