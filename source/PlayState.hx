@@ -4548,7 +4548,7 @@ class PlayState extends MusicBeatState
 				var dodgeAnim:String = dodgeAnimations[Std.int(Math.abs(note.noteData))];
 				var shootAnim:String = shootAnimations[Std.int(Math.abs(note.noteData))];
 
-				if (note.dodgeNote)
+				if (note.dodgeNote && boyfriend.curCharacter != 'bfsword') // when bfsword he parries
 					{
 						boyfriend.playAnim(dodgeAnim, true);
 						boyfriend.specialAnim = true;
