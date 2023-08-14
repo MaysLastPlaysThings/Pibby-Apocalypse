@@ -104,6 +104,7 @@ class PlayState extends MusicBeatState
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
     var distortFNF:FlxRuntimeShader;
+    var distortCAWMFNF:FlxRuntimeShader;
 	var distortDadFNF:FlxRuntimeShader;
 	var invertFNF:Shaders.InvertShader;
     var glowfnf:FlxRuntimeShader;
@@ -1217,6 +1218,7 @@ class PlayState extends MusicBeatState
 		mawFNF = new Shaders.MAWVHS();
 		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
 		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+        distortCAWMFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
         glowfnf = new FlxRuntimeShader(RuntimeShaders.glowy, null, 120);
 		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
@@ -2524,6 +2526,7 @@ class PlayState extends MusicBeatState
 			chromFNF.setFloat('effectTime', chromEffectTimeIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
+            distortCAWMFNF.setFloat('binaryIntensity', distortIntensity);
 			distortDadFNF.setFloat('binaryIntensity', dadGlitchIntensity);
 			pibbyFNF.uTime.value[0] += elapsed;
 			mawFNF.iTime.value[0] += elapsed;
@@ -4237,12 +4240,15 @@ class PlayState extends MusicBeatState
 			if (ClientPrefs.shaders)
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
-					var shader = distortDadFNF;
-                    shader.setFloat("negativity", 1.0);
-					dad.shader = shader;
-					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-					shader.setFloat("negativity", 0.0);
-				});
+                    var shaders = [distortDadFNF, distortCAWMFNF];
+                    if(dad.shader == null)dad.shader = distortDadFNF;
+                    for(shader in shaders){
+                        shader.setFloat("negativity", 1.0);
+                        new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                            shader.setFloat("negativity", 0.0);
+                            if(dad.shader == distortDadFNF)dad.shader = null;
+                        });
+                    }
 				}
 		}
 
@@ -4299,12 +4305,15 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.shaders)
 						{
 							dadGlitchIntensity = FlxG.random.float(12, 25);
-							var shader = distortDadFNF;
-							jake.shader = shader;
-                            shader.setFloat("negativity", 1.0);
-							new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-							    shader.setFloat("negativity", 0.0);
-							});
+                            var shaders = [distortDadFNF, distortCAWMFNF];
+                            if(jake.shader == null)jake.shader = distortDadFNF;
+                            for(shader in shaders){
+                                shader.setFloat("negativity", 1.0);
+                                new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                                    shader.setFloat("negativity", 0.0);
+                                    if(jake.shader == distortDadFNF)jake.shader = null;
+                                });
+                            }
 						}
 				}
 		}
@@ -4746,7 +4755,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.shaders) {
 								for (i in 0...opponentStrums.length) {
 									if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
-								dad.shader = distortFNF;
+								dad.shader = distortCAWMFNF;
 							}
 							
 						}
