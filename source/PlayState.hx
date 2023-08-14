@@ -1229,6 +1229,15 @@ class PlayState extends MusicBeatState
 		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
 		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
+
+        distortDadFNF.setFloat("negativity", 0.0);
+        distortFNF.setFloat("negativity", 0.0);
+        distortCAWMFNF.setFloat("negativity", 0.0);
+
+        distortDadFNF.setFloat("binaryIntensity", 1000.0);
+        distortFNF.setFloat("binaryIntensity", 1000.0);
+        distortCAWMFNF.setFloat("binaryIntensity", 1000.0);
+        
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
