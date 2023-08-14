@@ -5669,10 +5669,10 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if(ClientPrefs.shaders) {
-                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
-							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
+							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
 							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
-							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF),new ShaderFilter(mawFNF)]);
+							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF)]);
 							}
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
