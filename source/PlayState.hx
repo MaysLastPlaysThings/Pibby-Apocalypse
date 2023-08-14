@@ -720,7 +720,7 @@ class PlayState extends MusicBeatState
 		}
 
         if(SONG.song == 'Suffering Siblings'){
-			jake = new Character(120, -18, "jake");
+			jake = new Character(100, -90, "jake");
 			startCharacterPos(jake, true);
 		    dadGroup.add(jake);
 		}
