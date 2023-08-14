@@ -159,9 +159,9 @@ class FPS extends TextField
 
 		var ms:Float = 1 / Math.round(currentFPS);
 		ms *= 1000;
-		#if debug
-		text += ' (${FlxMath.roundDecimal(ms, 2)}ms)';
-		#end
+		if(Main.debug)
+		    text += ' (${FlxMath.roundDecimal(ms, 2)}ms)';
+		
 
 		lagging = false;
 
@@ -179,16 +179,15 @@ class FPS extends TextField
 			maxMemory = curMemory;
 		text += 'MEM: ${CoolUtil.formatMemory(Std.int(curMemory))} / ${CoolUtil.formatMemory(Std.int(maxMemory))}';
 		text += '\n';
-		#if debug
-		text += '\nDEBUG INFO:\n';
-		text += 'USAGE: ???\n';
-		text += '\nRUNTIME: ${FlxStringUtil.formatTime(currentTime / 1000)}';
-		text += "\n";
-		text += 'STATE: ${Type.getClassName(Type.getClass(FlxG.state))}';
-		if (FlxG.state.subState != null)
-			text += ' (SUBSTATE: ${Type.getClassName(Type.getClass(FlxG.state.subState))})';
-		text += "\n";
-		#end
+		if(Main.debug){
+            text += '\nDEBUG INFO:\n';
+            text += '\nRUNTIME: ${FlxStringUtil.formatTime(currentTime / 1000)}';
+            text += "\n";
+            text += 'STATE: ${Type.getClassName(Type.getClass(FlxG.state))}';
+            if (FlxG.state.subState != null)
+                text += ' (SUBSTATE: ${Type.getClassName(Type.getClass(FlxG.state.subState))})';
+            text += "\n";
+        }
 	}
 	
 	function obtainMemory():Dynamic

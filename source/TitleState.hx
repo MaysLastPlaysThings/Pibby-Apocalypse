@@ -86,6 +86,13 @@ class TitleState extends MusicBeatState
 
 	public static var updateVersion:String = '';
 
+    // unlocks debug
+    // stolen from full restored lol
+	var keyCombo:Array<FlxKey> = [
+		FlxKey.UP, FlxKey.UP, FlxKey.DOWN, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT, FlxKey.LEFT, FlxKey.RIGHT, FlxKey.B, FlxKey.A, FlxKey.ENTER
+	];
+	var keyIdx = 0;
+
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
@@ -391,6 +398,23 @@ class TitleState extends MusicBeatState
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
+
+		// CHEAT CODE FOR DEBUG MODE
+		if (keyIdx <= keyCombo.length - 1)
+		{
+			if (FlxG.keys.firstJustPressed() == keyCombo[keyIdx])
+			{
+				keyIdx++;
+				if (keyIdx >= keyCombo.length)
+				{
+					Main.debug = true;
+					FlxG.sound.play(Paths.sound("glitchhit"));
+				}
+			}
+			else if (FlxG.keys.firstJustPressed() != FlxKey.NONE)
+				keyIdx = 0;
+		}
+
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 

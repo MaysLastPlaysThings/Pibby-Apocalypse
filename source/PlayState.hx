@@ -2707,22 +2707,24 @@ class PlayState extends MusicBeatState
         // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
         // just for people who wanna make custom stuff w/ the mod
         
-        #if debug
-		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-			persistentUpdate = false;
-			paused = true;
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
-		}
-        if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
-        {
-            openChartEditor();
+        if(Main.debug){
+            if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+                persistentUpdate = false;
+                paused = true;
+                cancelMusicFadeTween();
+                MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+            }
+            if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+            {
+                openChartEditor();
+            }
+            if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
+                SONG.validScore = false;
+                cpuControlled = !cpuControlled;
+                botplayTxt.visible = cpuControlled;
+            }
         }
-        if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
-            cpuControlled = !cpuControlled;
-            botplayTxt.visible = cpuControlled;
-        }
-        #end
+
 		
 		if (startedCountdown)
 		{
@@ -2962,18 +2964,20 @@ class PlayState extends MusicBeatState
 		}
 		checkEventNote();
 
-		#if debug
-		if(!endingSong && !startingSong) {
-			if (FlxG.keys.justPressed.ONE) {
-				KillNotes();
-				FlxG.sound.music.onComplete();
-			}
-			if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
-				setSongTime(Conductor.songPosition + 10000);
-				clearNotesBefore(Conductor.songPosition);
-			}
-		}
-		#end
+		if(Main.debug){
+            if(!endingSong && !startingSong) {
+                if (FlxG.keys.justPressed.ONE) {
+                    SONG.validScore = false;
+                    KillNotes();
+                    FlxG.sound.music.onComplete();
+                }
+                if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
+                    SONG.validScore = false;
+                    setSongTime(Conductor.songPosition + 10000);
+                    clearNotesBefore(Conductor.songPosition);
+                }
+            }
+        }
 
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
@@ -4235,12 +4239,11 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
             boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
-			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
-            // ^^ could combine them into one shader? wouldnt be too hard i think
 			if (ClientPrefs.shaders)
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
                     var shaders = [distortDadFNF, distortCAWMFNF];
+                    trace(dad.shader, distortCAWMFNF);
                     if(dad.shader == null)dad.shader = distortDadFNF;
                     for(shader in shaders){
                         shader.setFloat("negativity", 1.0);
