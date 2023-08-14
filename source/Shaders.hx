@@ -164,13 +164,14 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
         vec2 uv = openfl_TextureCoordv;
         
         vec4 greenScreen = vec4(0.,1.,0.,1.);
-        vec4 color = flixel_texture2D(bitmap, uv);
+        vec3 color = texture2D(bitmap, uv).rgb;
+        float alpha = flixel_texture2D(bitmap, uv).a;
         
         vec3 diff = color.xyz - greenScreen.xyz;
         float fac = smoothstep(threshold-padding,threshold+padding, dot(diff,diff));
         
-        color = mix(color, vec4(replacementColour.rgb, 1.0), 1.-fac);
-        gl_FragColor = color;
+        color = mix(color, replacementColour, 1.-fac);
+        gl_FragColor = vec4(color.rgb * alpha, alpha);
     }
 ')
     public function new(){
