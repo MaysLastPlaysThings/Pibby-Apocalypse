@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"offsets": [
+				144,
+				94
+			],
 			"loop": true,
-			"offsets": [
-				0,
-				0
-			],
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "Idle",
-			"indices": []
+			"indices": [],
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				317,
-				111
+				426,
+				192
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Hurt1",
-			"indices": []
+			"indices": [],
+			"name": "Hurt1"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				317,
-				111
+				427,
+				192
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "Hurt1",
-			"indices": []
+			"indices": [],
+			"name": "Hurt1"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				311,
-				177
+				428,
+				253
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "Hurt2",
-			"indices": []
+			"indices": [],
+			"name": "Hurt2"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				311,
-				177
+				427,
+				252
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Hurt2",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Hurt2"
 		}
 	],
 	"no_antialiasing": false,
@@ -74,5 +74,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 0.9
 }

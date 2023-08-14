@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				0,
-				0
-			],
 			"loop": true,
-			"fps": 24,
+			"offsets": [
+				195,
+				108
+			],
 			"anim": "idle",
-			"indices": [],
-			"name": "Charge"
+			"fps": 24,
+			"name": "Charge",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-449,
-				106
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-276,
+				215
+			],
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Hit"
+			"fps": 24,
+			"name": "Hit",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-362,
-				-56
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-192,
+				54
+			],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Second-Hit"
+			"fps": 24,
+			"name": "Second-Hit",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-279,
+				216
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Hit",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-193,
+				54
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Second-Hit",
+			"indices": []
 		},
 		{
 			"offsets": [
-				-449,
-				106
+				-279,
+				215
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "singUP",
+			"anim": "singLEFT-alt",
 			"indices": [],
 			"name": "Hit"
 		},
 		{
 			"offsets": [
-				-363,
-				-56
+				-195,
+				54
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "singRIGHT",
+			"anim": "singDOWN-alt",
 			"indices": [],
 			"name": "Second-Hit"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-449,
-				103
+				-280,
+				215
 			],
-			"anim": "singLEFT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "Hit",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-360,
-				-60
-			],
-			"anim": "singDOWN-alt",
-			"fps": 24,
-			"name": "Second-Hit",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-450,
-				103
-			],
 			"anim": "singUP-alt",
-			"fps": 24,
-			"name": "Hit",
-			"indices": []
+			"indices": [],
+			"name": "Hit"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-361,
-				-59
+				-192,
+				52
 			],
-			"anim": "singRIGHT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "Second-Hit",
-			"indices": []
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "Second-Hit"
 		}
 	],
 	"no_antialiasing": false,
