@@ -19,7 +19,7 @@ var corruption;
 var cameraShit;
 
 
-var dadCamZoom = 0.8;
+var dadCamZoom = -1;
 var coolStep = 0; // rare ass fix
 
 var doThunder:Bool = false;
@@ -137,12 +137,14 @@ function onCreate()
 }
 
 function onMoveCamera(focus:String)
-    {
+{
+    if(dadCamZoom != -1){   
         if (focus == 'dad') 
-			PlayState.defaultCamZoom = dadCamZoom;
+            PlayState.defaultCamZoom = dadCamZoom;
         else
             PlayState.defaultCamZoom = dadCamZoom + 0.2;
     }
+}
 
 function onStepHit(curStep:Int)
     {

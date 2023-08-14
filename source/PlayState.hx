@@ -1344,6 +1344,7 @@ class PlayState extends MusicBeatState
 					boyfriend.color = 0x859791FF;
 					finnBarThing.alpha = 0.0001;
 					scoreTxt.alpha = 1;
+                    pibbyHealthbar.visible = false;
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finncawm_reveal', 1);
@@ -4783,6 +4784,7 @@ class PlayState extends MusicBeatState
 								camOther.flash(FlxColor.WHITE, 0.3);
 							}
 						case 640:
+                            FlxTween.tween(pibbyHealthbar, {alpha: 1}, 0.25, {ease: FlxEase.quadInOut});
                             FlxTween.tween(finnBarThing, {alpha: 1}, 0.25, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4791,6 +4793,7 @@ class PlayState extends MusicBeatState
 										finnBarThing.alpha = 1;
                                         FlxTween.tween(iconP1, {alpha: 1}, 0.15, {ease: FlxEase.quadInOut});
                                         FlxTween.tween(iconP2, {alpha: 1}, 0.15, {ease: FlxEase.quadInOut});
+                                       
 									}
 							});
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
@@ -4808,7 +4811,7 @@ class PlayState extends MusicBeatState
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
-							defaultCamZoom = 0.85;
+							defaultCamZoom = 0.85; // these, weirdly, dont work ingame
 						case 672:
 							defaultCamZoom = 0.75;
 						case 720:
