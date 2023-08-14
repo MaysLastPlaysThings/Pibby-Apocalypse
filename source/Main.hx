@@ -152,7 +152,7 @@ class Main extends Sprite
 
 	private function update(e:Event):Void
 		{
-			sprite = new FlxSprite().loadGraphic(Paths.image('mouse (' + FlxG.random.int(1, 10) + ')'));
+			sprite = new FlxSprite().loadGraphic(Paths.image('cursor/mouse (' + FlxG.random.int(1, 10) + ')'));
 			FlxG.mouse.load(sprite.pixels);
 		}
 
