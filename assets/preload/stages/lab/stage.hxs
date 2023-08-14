@@ -18,44 +18,47 @@ function onCreate()
 	// add to the final array
 	add(bg);
 
-	dark = new FlxSprite(550, 100);
-	dark.loadGraphic(retrieveAsset('images/dark.png', 'image'));
-	dark.setGraphicSize(Std.int(dark.width * 1.7));
-	dark.updateHitbox();
-	dark.antialiasing = ClientPrefs.globalAntialiasing;
-	dark.active = false;
-	dark.origin.set(1000, 0);
+	if (!ClientPrefs.lowQuality)
+	{
+		dark = new FlxSprite(550, 100);
+		dark.loadGraphic(retrieveAsset('images/dark.png', 'image'));
+		dark.setGraphicSize(Std.int(dark.width * 1.7));
+		dark.updateHitbox();
+		dark.antialiasing = ClientPrefs.globalAntialiasing;
+		dark.active = false;
+		dark.origin.set(1000, 0);
 
-	// add to the final array
-	foreground.add(dark);
+		// add to the final array
+		foreground.add(dark);
 
-	light = new FlxSprite(dark.x, dark.y);
-	light.loadGraphic(retrieveAsset('images/light.png', 'image'));
-	light.setGraphicSize(Std.int(light.width * 1.7));
-	light.alpha = 0.8;
-	light.updateHitbox();
-	light.antialiasing = ClientPrefs.globalAntialiasing;
-	light.active = false;
-	light.origin.set(1000, 0);
-	flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
-	flickerTween.active = true;
+		light = new FlxSprite(dark.x, dark.y);
+		light.loadGraphic(retrieveAsset('images/light.png', 'image'));
+		light.setGraphicSize(Std.int(light.width * 1.7));
+		light.alpha = 0.8;
+		light.updateHitbox();
+		light.antialiasing = ClientPrefs.globalAntialiasing;
+		light.active = false;
+		light.origin.set(1000, 0);
+		flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
+		flickerTween.active = true;
 
-	// add to the final array
-	foreground.add(light);
+		// add to the final array
+		foreground.add(light);
 
-	bulb = new FlxSprite(dark.x-dark.width/2.45, dark.y-300);
-	bulb.loadGraphic(retrieveAsset('images/bulb.png', 'image'));
-	bulb.setGraphicSize(Std.int(bulb.width * 1.7));
-	bulb.updateHitbox();
-	bulb.antialiasing = ClientPrefs.globalAntialiasing;
-	bulb.active = false;
-	bulb.origin.set(dark.width/2, 0);
-	flickerTween2 = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
-	flickerTween2.active = true;
+		bulb = new FlxSprite(dark.x-dark.width/2.45, dark.y-300);
+		bulb.loadGraphic(retrieveAsset('images/bulb.png', 'image'));
+		bulb.setGraphicSize(Std.int(bulb.width * 1.7));
+		bulb.updateHitbox();
+		bulb.antialiasing = ClientPrefs.globalAntialiasing;
+		bulb.active = false;
+		bulb.origin.set(dark.width/2, 0);
+		flickerTween2 = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
+		flickerTween2.active = true;
 
-	// add to the final array
-	foreground.add(dark);
-	foreground.add(bulb);
+		// add to the final array
+		foreground.add(dark);
+		foreground.add(bulb);
+	}
 }
 
 function onSongStart()
@@ -63,9 +66,9 @@ function onSongStart()
 		if (PlayState.curSong == 'Mindless')
 			{
 				bg.visible = false;
-				dark.visible = false;
-				light.visible = false;
-				bulb.visible = false;
+				if (!ClientPrefs.lowQuality) dark.visible = false;
+				if (!ClientPrefs.lowQuality) light.visible = false;
+				if (!ClientPrefs.lowQuality) bulb.visible = false;
 			}
 	}
 
@@ -83,9 +86,9 @@ function onMoveCamera(focus:String)
     }
 
 function onUpdate (elapsed) {
-	light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-	dark.angle = light.angle;
-	bulb.angle = light.angle;
+	if (!ClientPrefs.lowQuality) light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
+	if (!ClientPrefs.lowQuality) dark.angle = light.angle;
+	if (!ClientPrefs.lowQuality) bulb.angle = light.angle;
 }
 
 function onStepHit(curStep:Int)
@@ -95,9 +98,9 @@ function onStepHit(curStep:Int)
 		if (PlayState.curSong == 'Mindless')
 			{
 				bg.visible = true;
-				dark.visible = true;
-				light.visible = true;
-				bulb.visible = true;
+				if (!ClientPrefs.lowQuality) dark.visible = true;
+				if (!ClientPrefs.lowQuality) light.visible = true;
+				if (!ClientPrefs.lowQuality) bulb.visible = true;
 			}
 	}
 	
@@ -105,18 +108,18 @@ function onStepHit(curStep:Int)
 	{
 		if (PlayState.curSong == 'Suffering Siblings')
 		    {
-				dark.visible = false;
-				light.visible = false;
-				bulb.visible = false;
+				if (!ClientPrefs.lowQuality) dark.visible = false;
+				if (!ClientPrefs.lowQuality) light.visible = false;
+				if (!ClientPrefs.lowQuality) bulb.visible = false;
 			}
 	}
 	if (curStep == 2336)
 	{
 		if (PlayState.curSong == 'Suffering Siblings')
 		    {
-				dark.visible = true;
-				light.visible = true;
-				bulb.visible = true;
+				if (!ClientPrefs.lowQuality) dark.visible = true;
+				if (!ClientPrefs.lowQuality) light.visible = true;
+				if (!ClientPrefs.lowQuality) bulb.visible = true;
 			}
 	}
 }
@@ -128,28 +131,28 @@ function onEvent(event:String, value1:String, value2:String)
              if (value1 == 'on') 
             {
                 bg.visible = false;
-				dark.visible = false;
-				light.visible = false;
-				bulb.visible = false;
+				if (!ClientPrefs.lowQuality) dark.visible = false;
+				if (!ClientPrefs.lowQuality) light.visible = false;
+				if (!ClientPrefs.lowQuality) bulb.visible = false;
             }
              else if (value1 == 'off')
             {
                 bg.visible = true;
-				dark.visible = true;
-				light.visible = true;
-				bulb.visible = true;
+				if (!ClientPrefs.lowQuality) dark.visible = true;
+				if (!ClientPrefs.lowQuality) light.visible = true;
+				if (!ClientPrefs.lowQuality) bulb.visible = true;
             }
         }
     }
 
 function onPause()
 {
-	flickerTween.active = false;
-	flickerTween2.active = false;
+	if (!ClientPrefs.lowQuality) flickerTween.active = false;
+	if (!ClientPrefs.lowQuality) flickerTween2.active = false;
 }
 
 function onResume()
 {
-	flickerTween.active = false;
-	flickerTween2.active = false;
+	if (!ClientPrefs.lowQuality) flickerTween.active = false;
+	if (!ClientPrefs.lowQuality) flickerTween2.active = false;
 }
