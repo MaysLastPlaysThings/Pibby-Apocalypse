@@ -1899,7 +1899,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
                                 
-							numberIntro.visible = true;
+							    numberIntro.visible = true;
                                 numberIntro.animation.play('Go');
                                 numberIntro.offset.set(98, -15);
                             }
@@ -3172,6 +3172,10 @@ class PlayState extends MusicBeatState
 
 			case 'Apple Filter':
 				if (value1.toLowerCase() == 'on') {
+                    if(touhouBG!=null){
+                        trace("DO NOT BAD APPLE TWICE!!");
+                        return;
+                    }
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -5389,6 +5393,7 @@ class PlayState extends MusicBeatState
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1439:
+                            for (yeah in 0...uiObjects.length) uiObjects.members[yeah].alpha = 1;
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
 							#else
