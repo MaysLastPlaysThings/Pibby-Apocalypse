@@ -2522,25 +2522,8 @@ class PlayState extends MusicBeatState
 				FlxMath.lerp(camFollowPos.x, camFollow.x + charAnimOffsetX, lerpVal),
 				FlxMath.lerp(camFollowPos.y, camFollow.y + charAnimOffsetY, lerpVal)
 			);
-
-/*             if(camTween != null) {
-				camTween.cancel();
-			}
-            if(camTween2 != null) {
-				camTween2.cancel();
-			}
-            camTween = FlxTween.tween(camFollowPos, {
-                x: camFollow.x + charAnimOffsetX, 
-                y: camFollow.y + charAnimOffsetY,
-                angle: camGame.angle + charAnimOffsetX}, 
-                0.4 / cameraSpeed / playbackRate, {
-                ease: FlxEase.linear
-            });
-            camTween2 = FlxTween.tween(camGame, {
-                angle: 0 - charAnimOffsetX / 16}, 
-                0.5 / cameraSpeed / playbackRate, {
-                ease: FlxEase.linear
-            }); */
+            var angleLerp:Float = CoolUtil.boundTo(CoolUtil.boundTo(elapsed * 2.4 / 0.4, 0, 1) * cameraSpeed * playbackRate, 0, 1);
+            camGame.angle = FlxMath.lerp(camGame.angle, 0 + charAnimOffsetX / 30, angleLerp);
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -3118,9 +3101,10 @@ class PlayState extends MusicBeatState
 						dad.colorTransform.redOffset = 255;
 						dad.colorTransform.greenOffset = 255;
 						if (gf != null) {
-						gf.colorTransform.blueOffset = 255;
-						gf.colorTransform.redOffset = 255;
-						gf.colorTransform.greenOffset = 255; }
+                            gf.colorTransform.blueOffset = 255;
+                            gf.colorTransform.redOffset = 255;
+                            gf.colorTransform.greenOffset = 255; 
+                        }
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					} else {
@@ -3129,7 +3113,6 @@ class PlayState extends MusicBeatState
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						if (gf != null) gf.color = FlxColor.BLACK;
-
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
@@ -3138,7 +3121,6 @@ class PlayState extends MusicBeatState
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
-    
 					reloadHealthBarColors();
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
@@ -3147,13 +3129,15 @@ class PlayState extends MusicBeatState
 					dad.colorTransform.redOffset = 0;
 					dad.colorTransform.greenOffset = 0;
 					if (gf != null) {
-					gf.colorTransform.blueOffset = 0;
-					gf.colorTransform.redOffset = 0;
-					gf.colorTransform.greenOffset = 0; }
+                        gf.colorTransform.blueOffset = 0;
+                        gf.colorTransform.redOffset = 0;
+                        gf.colorTransform.greenOffset = 0; 
+                    }
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					if (gf != null) {
-					gf.color = FlxColor.WHITE; }
+					    gf.color = FlxColor.WHITE; 
+                    }
 				}
 
 			case 'Goofy Ahh Blammed Lights':
@@ -5219,7 +5203,9 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
-							triggerEventNote('Apple Filter', 'off', '');
+							triggerEventNote('Apple Filter', 'off', 'white');
+                        case 516:
+                            triggerEventNote('Apple Filter', 'off', 'white'); //just incase
 						case 562:
 							defaultCamZoom = 0.85;
 						case 578:
