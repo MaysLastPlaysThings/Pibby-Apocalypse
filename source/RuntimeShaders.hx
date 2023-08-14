@@ -84,6 +84,7 @@ enum abstract RuntimeShaders(String) to String from String
     }
     ";
 
+    // Credits to Andromeda Engine (NebulaTheZoura) for porting from shadertoy!
     var chromShader = "
     #pragma header
     /*
