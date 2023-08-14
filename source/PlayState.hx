@@ -242,6 +242,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
+    var fullPibbyHealthbar:Bool = false; // forces it to display the 100% animation
 	var pibbyHealthbar:FlxSprite;
 
     var pibbyHealth:FlxSprite;
@@ -2529,7 +2530,11 @@ class PlayState extends MusicBeatState
         var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
         var damagePercent = 1 - healthPercent;
 
-        pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+        if(fullPibbyHealthbar)
+            pibbyHealthbar.animation.play('100Percent'); // snaps to multiples of 5
+        else
+            pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+
         // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
 
         if (health > cappedHealth) {
@@ -5473,6 +5478,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
+                            fullPibbyHealthbar = true; // FORCE THE PIBBY HEALTH BAR TO FILL
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
 						case 2610:
