@@ -916,7 +916,7 @@ class PlayState extends MusicBeatState
         for(i in 0...41){
             var indiceStart = i * 3;
             var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
-           	pibbyHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
+           	pibbyHealthbar.animation.addByIndices('${Math.floor((i/40)*100)}Percent', "healthbar", animFrames, "", 12, true);
         }
         
         pibbyHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
