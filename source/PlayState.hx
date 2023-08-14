@@ -4244,7 +4244,6 @@ class PlayState extends MusicBeatState
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
                     var shaders = [distortDadFNF, distortCAWMFNF];
-                    trace(dad.shader, distortCAWMFNF);
                     if(dad.shader == null)dad.shader = distortDadFNF;
                     for(shader in shaders){
                         shader.setFloat("negativity", 1.0);
