@@ -104,8 +104,10 @@ class PlayState extends MusicBeatState
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
     var distortFNF:FlxRuntimeShader;
+    var distortCAWMFNF:FlxRuntimeShader;
 	var distortDadFNF:FlxRuntimeShader;
 	var invertFNF:Shaders.InvertShader;
+    var glowfnf:FlxRuntimeShader;
 	var pibbyFNF:Shaders.Pibbified;
 	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
@@ -237,8 +239,10 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
-	var healthbar:FlxSprite;
+	var pibbyHealthbar:FlxSprite;
 
+    var pibbyHealth:FlxSprite;
+    
 	//finn week shit
 	var finnT:FlxSprite;
 	var finnBarThing:FlxSprite;
@@ -831,7 +835,6 @@ class PlayState extends MusicBeatState
 			timeTxt.size = 24;
 			timeTxt.y += 3;
 		}
-
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
@@ -902,11 +905,33 @@ class PlayState extends MusicBeatState
 		//healthBar.alpha = 1;
 		uiObjects.add(healthBar);
 
-		healthbar = new FlxSprite();
-		healthbar.x = 197;
-		healthbar.y = 465;
-		healthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+		pibbyHealthbar = new FlxSprite();
+        if(ClientPrefs.shaders)
+		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
+        else
+            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
 
+        pibbyHealthbar.scale.set(0.8, 0.8);
+        pibbyHealthbar.updateHitbox();
+        for(i in 0...21){
+            var indiceStart = i * 3;
+            var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
+           	pibbyHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
+        }
+        
+        pibbyHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
+        if(ClientPrefs.shaders)pibbyHealthbar.shader = new Shaders.GreenReplacementShader();
+
+		pibbyHealthbar.screenCenter(X); 
+		pibbyHealthbar.x += pibbyHealthbar.width; // moved to the right side of the screen i think
+        pibbyHealthbar.x -= 60;
+		pibbyHealthbar.y = 10;
+
+		if (ClientPrefs.downScroll)
+			pibbyHealthbar.y = FlxG.height - pibbyHealthbar.height/2 - 10;
+        
+        uiObjects.add(pibbyHealthbar);
+        
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
@@ -920,8 +945,23 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		uiObjects.add(finnBarThing);
 
+/*         switch(storyWeekName){
+            case 'finn' | 'cawm': // why is cawm its own week lol */
+                timeBar.x -= timeBarBG.width;
+                timeTxt.x -= timeBarBG.width;
+                timeBarBG.x -= timeBarBG.width;
+
+                timeBar.x += 65;
+                timeTxt.x += 65;
+                timeBarBG.x += 65;
+
+        //}
+
+
+
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
+            //pibbyHealthbar.visible = false;
 		}
 
 		if (gf != null)
@@ -1020,6 +1060,7 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
+        pibbyHealthbar.cameras = [camHUD];
 		finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 		uiObjects.cameras = [camHUD];
@@ -1177,6 +1218,8 @@ class PlayState extends MusicBeatState
 		mawFNF = new Shaders.MAWVHS();
 		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
 		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+        distortCAWMFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+        glowfnf = new FlxRuntimeShader(RuntimeShaders.glowy, null, 120);
 		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
 		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
@@ -1301,18 +1344,16 @@ class PlayState extends MusicBeatState
 					boyfriend.color = 0x859791FF;
 					finnBarThing.alpha = 0.0001;
 					scoreTxt.alpha = 1;
+                    pibbyHealthbar.alpha = 0.0001;
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finncawm_reveal', 1);
 					addCharacterToList('bfcawn', 0);
 					addCharacterToList('finncawn', 1);
-					@:privateAccess
+					if (ClientPrefs.shaders)
 					{
-						if (ClientPrefs.shaders)
-						{
-							FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
-							camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
-						}
+						FlxG.camera.pushFilter(new ShaderFilter(blurFNFZoomEdition));
+						camHUD.pushFilter(new ShaderFilter(blurFNFZoomEditionHUD));
 					}
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
@@ -1492,6 +1533,10 @@ class PlayState extends MusicBeatState
 		timeBar.createFilledBar(0xFF000000, dadColor);
 		timeBar.updateBar();
 		healthBar.updateBar();
+        if(ClientPrefs.shaders){
+            var shader:Shaders.GreenReplacementShader = cast pibbyHealthbar.shader;
+            shader.colour = boyfriendColor;
+        }
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -1687,11 +1732,10 @@ class PlayState extends MusicBeatState
         if (SONG.player1 == 'newbf')
             boyfriendGroup.add(bfIntro);
 
-        var numberIntro:FlxSprite = new FlxSprite(
-            (gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
-            (bfIntro != null ? (BF_Y + bfIntro.positionArray[1] - 300) : 135)
-        );
-        numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
+        var numberIntro:FlxSprite = new FlxSprite();
+        numberIntro.screenCenter();
+        numberIntro.x -= 200;
+        numberIntro.y -= 200;
         numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
@@ -2119,7 +2163,7 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.row = Conductor.secsToRow(daStrumTime);
 				if(noteRows[gottaHitNote?0:1][swagNote.row]==null)
-					noteRows[gottaHitNote?0:1][swagNote.row]=[];
+					noteRows[gottaHitNote?0:1][swagNote.row]=[]; // holy shit my code -neb
 				noteRows[gottaHitNote ? 0 : 1][swagNote.row].push(swagNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
@@ -2466,22 +2510,15 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
+        
+        if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
 
-		if (dodgeMisses == 0) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle3');
-		}
+        var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
+        var damagePercent = 1 - healthPercent;
 
-		else if (dodgeMisses == 1) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle2');
-		}
-
-		else if (dodgeMisses == 2) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle1');
-		}
-
+        pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+        // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
 
 		if(ClientPrefs.shaders) {
 			shaderStuff += elapsed;
@@ -2490,6 +2527,7 @@ class PlayState extends MusicBeatState
 			chromFNF.setFloat('effectTime', chromEffectTimeIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
+            distortCAWMFNF.setFloat('binaryIntensity', distortIntensity);
 			distortDadFNF.setFloat('binaryIntensity', dadGlitchIntensity);
 			pibbyFNF.uTime.value[0] += elapsed;
 			mawFNF.iTime.value[0] += elapsed;
@@ -2498,6 +2536,7 @@ class PlayState extends MusicBeatState
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
+            // thers probably a better way to do this tbh -neb
 		{
 			case "Child's Play":
 				if (gf != null)	gf.alpha = 0;
@@ -2531,24 +2570,13 @@ class PlayState extends MusicBeatState
 		}
 
 		if(!inCutscene) {
-            if(camTween != null) {
-				camTween.cancel();
-			}
-            if(camTween2 != null) {
-				camTween2.cancel();
-			}
-            camTween = FlxTween.tween(camFollowPos, {
-                x: camFollow.x + charAnimOffsetX, 
-                y: camFollow.y + charAnimOffsetY,
-                angle: camGame.angle + charAnimOffsetX}, 
-                0.4 / cameraSpeed / playbackRate, {
-                ease: FlxEase.linear
-            });
-            camTween2 = FlxTween.tween(camGame, {
-                angle: 0 - charAnimOffsetX / 16}, 
-                0.5 / cameraSpeed / playbackRate, {
-                ease: FlxEase.linear
-            });
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
+            camFollowPos.setPosition(
+				FlxMath.lerp(camFollowPos.x, camFollow.x + charAnimOffsetX, lerpVal),
+				FlxMath.lerp(camFollowPos.y, camFollow.y + charAnimOffsetY, lerpVal)
+			);
+            var angleLerp:Float = CoolUtil.boundTo(CoolUtil.boundTo(elapsed * 2.4 / 0.4, 0, 1) * cameraSpeed * playbackRate, 0, 1);
+            camGame.angle = FlxMath.lerp(camGame.angle, 0 + charAnimOffsetX / 30, angleLerp);
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -2579,11 +2607,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
-		{
-			//openChartEditor();
-		}
-
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
@@ -2597,23 +2620,26 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
-		if (storyWeekName == "gumball") {
-            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-        }else{
-            iconP1.x = 614;
-            iconP2.x = 513;
-            healthBar.visible = false;
-            healthBarBG.visible = false;
-        }
-
-		if (gf != null)
+        if (gf != null)
 		{
 			var mult:Float = FlxMath.lerp(0.8, iconP3.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP3.scale.set(mult, mult);
 			iconP3.updateHitbox();
-			iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
-		}
+			//iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
+		} 
+
+/* 		if (storyWeekName == "gumball") {
+            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+        }else{ */
+            iconP1.x = 614;
+            iconP2.x = 513;
+            if (gf != null)
+                iconP3.x = 614 + 100;
+            healthBar.visible = false;
+            healthBarBG.visible = false;
+        //}
+
 
 		if (SONG.song == "Suffering Siblings")
 		{
@@ -2679,12 +2705,27 @@ class PlayState extends MusicBeatState
 			iconP2.playAnim(iconP2.char + 'neutral', false, false);
         }
 
-		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-			persistentUpdate = false;
-			paused = true;
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
-		}
+        // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
+        // just for people who wanna make custom stuff w/ the mod
+        
+        if(Main.debug){
+            if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+                persistentUpdate = false;
+                paused = true;
+                cancelMusicFadeTween();
+                MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+            }
+            if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+            {
+                openChartEditor();
+            }
+            if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
+                SONG.validScore = false;
+                cpuControlled = !cpuControlled;
+                botplayTxt.visible = cpuControlled;
+            }
+        }
+
 		
 		if (startedCountdown)
 		{
@@ -2751,7 +2792,7 @@ class PlayState extends MusicBeatState
 		}
 		doDeathCheck();
 
-		if (dodgeMisses == 3)
+		if (dodgeMisses >= 3) // incase it somehow gets to 4 by some bug
 			{
 				health = 0;
 				doDeathCheck(true);
@@ -2780,7 +2821,8 @@ class PlayState extends MusicBeatState
 			if(!cpuControlled) {
 				keyShit();
 			} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
-				boyfriend.dance();
+				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+                    boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
 
@@ -2923,18 +2965,20 @@ class PlayState extends MusicBeatState
 		}
 		checkEventNote();
 
-		#if debug
-		if(!endingSong && !startingSong) {
-			if (FlxG.keys.justPressed.ONE) {
-				KillNotes();
-				FlxG.sound.music.onComplete();
-			}
-			if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
-				setSongTime(Conductor.songPosition + 10000);
-				clearNotesBefore(Conductor.songPosition);
-			}
-		}
-		#end
+		if(Main.debug){
+            if(!endingSong && !startingSong) {
+                if (FlxG.keys.justPressed.ONE) {
+                    SONG.validScore = false;
+                    KillNotes();
+                    FlxG.sound.music.onComplete();
+                }
+                if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
+                    SONG.validScore = false;
+                    setSongTime(Conductor.songPosition + 10000);
+                    clearNotesBefore(Conductor.songPosition);
+                }
+            }
+        }
 
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
@@ -2977,7 +3021,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
-		//MusicBeatState.switchState(new ChartingState());
+		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
 		#if desktop
@@ -3125,9 +3169,10 @@ class PlayState extends MusicBeatState
 						dad.colorTransform.redOffset = 255;
 						dad.colorTransform.greenOffset = 255;
 						if (gf != null) {
-						gf.colorTransform.blueOffset = 255;
-						gf.colorTransform.redOffset = 255;
-						gf.colorTransform.greenOffset = 255; }
+                            gf.colorTransform.blueOffset = 255;
+                            gf.colorTransform.redOffset = 255;
+                            gf.colorTransform.greenOffset = 255; 
+                        }
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					} else {
@@ -3136,12 +3181,12 @@ class PlayState extends MusicBeatState
 						boyfriend.color = FlxColor.BLACK;
 						dad.color = FlxColor.BLACK;
 						if (gf != null) gf.color = FlxColor.BLACK;
-
 						touhouBG.scrollFactor.set();
 						addBehindGF(touhouBG);
 					}
 				}
 				else{
+                    if(touhouBG==null)return; // ficks
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
@@ -3153,13 +3198,15 @@ class PlayState extends MusicBeatState
 					dad.colorTransform.redOffset = 0;
 					dad.colorTransform.greenOffset = 0;
 					if (gf != null) {
-					gf.colorTransform.blueOffset = 0;
-					gf.colorTransform.redOffset = 0;
-					gf.colorTransform.greenOffset = 0; }
+                        gf.colorTransform.blueOffset = 0;
+                        gf.colorTransform.redOffset = 0;
+                        gf.colorTransform.greenOffset = 0; 
+                    }
 					boyfriend.color = FlxColor.WHITE;
 					dad.color = FlxColor.WHITE;
 					if (gf != null) {
-					gf.color = FlxColor.WHITE; }
+					    gf.color = FlxColor.WHITE; 
+                    }
 				}
 
 			case 'Goofy Ahh Blammed Lights':
@@ -4036,7 +4083,8 @@ class PlayState extends MusicBeatState
 			}
 			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
-				boyfriend.dance();
+				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+                    boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
 		}
@@ -4192,16 +4240,18 @@ class PlayState extends MusicBeatState
 				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 			}
             boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
-			//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
 			if (ClientPrefs.shaders)
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
-					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-					for (i in 0...shaderArray.length)
-					dad.shader = shaderArray[i];
-					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-					dad.shader = null;
-				});
+                    var shaders = [distortDadFNF, distortCAWMFNF];
+                    if(dad.shader == null)dad.shader = distortDadFNF;
+                    for(shader in shaders){
+                        shader.setFloat("negativity", 1.0);
+                        new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                            shader.setFloat("negativity", 0.0);
+                            if(dad.shader == distortDadFNF)dad.shader = null;
+                        });
+                    }
 				}
 		}
 
@@ -4255,16 +4305,18 @@ class PlayState extends MusicBeatState
 					playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
 					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 					
-					//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
 					if (ClientPrefs.shaders)
 						{
 							dadGlitchIntensity = FlxG.random.float(12, 25);
-							var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-							for (i in 0...shaderArray.length)
-							jake.shader = shaderArray[i];
-							new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-							jake.shader = null;
-							});
+                            var shaders = [distortDadFNF, distortCAWMFNF];
+                            if(jake.shader == null)jake.shader = distortDadFNF;
+                            for(shader in shaders){
+                                shader.setFloat("negativity", 1.0);
+                                new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                                    shader.setFloat("negativity", 0.0);
+                                    if(jake.shader == distortDadFNF)jake.shader = null;
+                                });
+                            }
 						}
 				}
 		}
@@ -4445,6 +4497,10 @@ class PlayState extends MusicBeatState
                     healthBar.createFilledBar(dadColor, gfColor);
                     healthBar.updateBar();
                     scoreTxt.color = gfColor;
+                    if(ClientPrefs.shaders){
+                        var shader:Shaders.GreenReplacementShader = cast pibbyHealthbar.shader;
+                        shader.colour = gfColor;
+                    }
 					if (storyWeekName != "finn") {
                     if (gf != null) iconP1.changeIcon(gf.healthIcon);
                     if (iconP3 != null) iconP3.changeIcon(boyfriend.healthIcon); }
@@ -4632,6 +4688,8 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					switch (curStep)
 					{
+                        case 1:
+                            FlxTween.tween(boyfriend, {alpha: 0.5}, 0.5);
 						case 496:
 							camHUD.alpha = 0;
 							camGame.alpha = 0;
@@ -4700,7 +4758,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.shaders) {
 								for (i in 0...opponentStrums.length) {
 									if (ClientPrefs.shaders) opponentStrums.members[i].shader = distortFNF;
-								dad.shader = distortFNF;
+								dad.shader = distortCAWMFNF;
 							}
 							
 						}
@@ -4725,6 +4783,7 @@ class PlayState extends MusicBeatState
 								camOther.flash(FlxColor.WHITE, 0.3);
 							}
 						case 640:
+                            FlxTween.tween(pibbyHealthbar, {alpha: 1}, 0.25, {ease: FlxEase.quadInOut});
                             FlxTween.tween(finnBarThing, {alpha: 1}, 0.25, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4733,6 +4792,7 @@ class PlayState extends MusicBeatState
 										finnBarThing.alpha = 1;
                                         FlxTween.tween(iconP1, {alpha: 1}, 0.15, {ease: FlxEase.quadInOut});
                                         FlxTween.tween(iconP2, {alpha: 1}, 0.15, {ease: FlxEase.quadInOut});
+                                       
 									}
 							});
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
@@ -4750,7 +4810,7 @@ class PlayState extends MusicBeatState
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
-							defaultCamZoom = 0.85;
+							defaultCamZoom = 0.85; // these, weirdly, dont work ingame
 						case 672:
 							defaultCamZoom = 0.75;
 						case 720:
@@ -4765,8 +4825,8 @@ class PlayState extends MusicBeatState
 							}
 							FlxG.camera.fade(FlxColor.BLACK, 0.0000001, true);
 							boyfriendGroup.visible = true;
-							dad.x = DAD_X - 240;
-							dad.y = DAD_Y - 120;
+							dad.x = DAD_X - 200;
+							dad.y = DAD_Y - 0;
                             fuckyouDadX = dad.x;
                             fuckyouDadY = dad.y;
 						case 960:
@@ -4913,6 +4973,7 @@ class PlayState extends MusicBeatState
 									scoreTxt.alpha = 0;
                                     finnBarThing.alpha = 0;
                                     iconP1.alpha = 0;
+                                    pibbyHealthbar.alpha = 0;
                                     iconP2.alpha = 0;
 									playerStrums.forEach(yeah -> {
 										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
@@ -5213,6 +5274,7 @@ class PlayState extends MusicBeatState
 						case 505:
 							defaultCamZoom = 1.1;
 						case 514:
+                            //camGame.removeLatestFilter();
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
@@ -5221,7 +5283,9 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
-							triggerEventNote('Apple Filter', 'off', '');
+							triggerEventNote('Apple Filter', 'off', 'white');
+                        case 516:
+                            triggerEventNote('Apple Filter', 'off', 'white'); //just incase
 						case 562:
 							defaultCamZoom = 0.85;
 						case 578:

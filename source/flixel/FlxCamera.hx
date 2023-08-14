@@ -1636,6 +1636,20 @@ class FlxCamera extends FlxBasic
 	}
 
 	/**
+        * Pushes a BitmapFilter to the filter array
+        */
+	public function pushFilter(filter:BitmapFilter):Void
+	{
+		_filters.push(filter);
+	}
+
+	// honestly idk if this is even gonna work lmao
+	public function removeFilter(filter:BitmapFilter):Void
+	{
+		_filters.remove(filter);
+	}
+
+	/**
 	 * Copy the bounds, focus object, and `deadzone` info from an existing camera.
 	 *
 	 * @param   Camera  The camera you want to copy from.

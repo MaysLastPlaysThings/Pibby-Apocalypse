@@ -1,33 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="healthbar.png">
-	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- Created with Adobe Animate version 21.0.5.40714 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="health bar0000" x="0" y="0" width="473" height="49"/>
-	<SubTexture name="health bar0001" x="473" y="0" width="473" height="49"/>
-	<SubTexture name="health bar0002" x="0" y="49" width="473" height="49"/>
-	<SubTexture name="health bar0003" x="473" y="49" width="473" height="49"/>
-	<SubTexture name="health bar0004" x="0" y="98" width="473" height="49"/>
-	<SubTexture name="health bar0005" x="473" y="98" width="473" height="49"/>
-	<SubTexture name="health bar0006" x="0" y="147" width="473" height="49"/>
-	<SubTexture name="health bar0007" x="473" y="147" width="473" height="49"/>
-	<SubTexture name="health bar0008" x="0" y="196" width="473" height="49"/>
-	<SubTexture name="health bar0009" x="473" y="196" width="473" height="49"/>
-	<SubTexture name="health bar0010" x="0" y="245" width="473" height="49"/>
-	<SubTexture name="health bar0011" x="473" y="245" width="473" height="49"/>
-	<SubTexture name="health bar0012" x="0" y="294" width="473" height="49"/>
-	<SubTexture name="health bar0013" x="473" y="294" width="473" height="49"/>
-	<SubTexture name="health bar0014" x="0" y="343" width="473" height="49"/>
-	<SubTexture name="health bar0015" x="473" y="343" width="473" height="49"/>
-	<SubTexture name="health bar0016" x="0" y="392" width="473" height="49"/>
-	<SubTexture name="health bar0017" x="473" y="392" width="473" height="49"/>
-	<SubTexture name="health bar0018" x="473" y="343" width="473" height="49"/>
-	<SubTexture name="health bar0019" x="0" y="392" width="473" height="49"/>
-	<SubTexture name="health bar0020" x="0" y="441" width="473" height="49"/>
-	<SubTexture name="health bar0021" x="473" y="441" width="473" height="49"/>
-	<SubTexture name="health bar0022" x="0" y="490" width="473" height="49"/>
-	<SubTexture name="health bar0023" x="473" y="490" width="473" height="49"/>
-	<SubTexture name="health bar0024" x="0" y="539" width="473" height="49"/>
-	<SubTexture name="health bar0025" x="473" y="539" width="473" height="49"/>
-	<SubTexture name="health bar0026" x="473" y="490" width="473" height="49"/>
-	<SubTexture name="health bar0027" x="0" y="539" width="473" height="49"/>
+	<SubTexture name="healthbar0000" x="2" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0001" x="2" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0002" x="2" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0003" x="485" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0004" x="968" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0005" x="1451" y="2" width="481" height="65"/>
+	<SubTexture name="healthbar0006" x="2" y="69" width="481" height="65"/>
+	<SubTexture name="healthbar0007" x="485" y="69" width="481" height="65"/>
+	<SubTexture name="healthbar0008" x="968" y="69" width="481" height="65"/>
+	<SubTexture name="healthbar0009" x="1451" y="69" width="481" height="65"/>
+	<SubTexture name="healthbar0010" x="2" y="136" width="481" height="65"/>
+	<SubTexture name="healthbar0011" x="485" y="136" width="481" height="65"/>
+	<SubTexture name="healthbar0012" x="968" y="136" width="481" height="65"/>
+	<SubTexture name="healthbar0013" x="1451" y="136" width="481" height="65"/>
+	<SubTexture name="healthbar0014" x="2" y="203" width="481" height="65"/>
+	<SubTexture name="healthbar0015" x="485" y="203" width="481" height="65"/>
+	<SubTexture name="healthbar0016" x="968" y="203" width="481" height="65"/>
+	<SubTexture name="healthbar0017" x="1451" y="203" width="481" height="65"/>
+	<SubTexture name="healthbar0018" x="2" y="270" width="481" height="65"/>
+	<SubTexture name="healthbar0019" x="485" y="270" width="481" height="65"/>
+	<SubTexture name="healthbar0020" x="968" y="270" width="481" height="65"/>
+	<SubTexture name="healthbar0021" x="1451" y="270" width="481" height="65"/>
+	<SubTexture name="healthbar0022" x="2" y="337" width="481" height="65"/>
+	<SubTexture name="healthbar0023" x="485" y="337" width="481" height="65"/>
+	<SubTexture name="healthbar0024" x="968" y="337" width="481" height="65"/>
+	<SubTexture name="healthbar0025" x="1451" y="337" width="481" height="65"/>
+	<SubTexture name="healthbar0026" x="2" y="404" width="481" height="65"/>
+	<SubTexture name="healthbar0027" x="485" y="404" width="481" height="65"/>
+	<SubTexture name="healthbar0028" x="968" y="404" width="481" height="65"/>
+	<SubTexture name="healthbar0029" x="1451" y="404" width="481" height="65"/>
+	<SubTexture name="healthbar0030" x="2" y="471" width="481" height="65"/>
+	<SubTexture name="healthbar0031" x="485" y="471" width="481" height="65"/>
+	<SubTexture name="healthbar0032" x="968" y="471" width="481" height="65"/>
+	<SubTexture name="healthbar0033" x="1451" y="471" width="481" height="65"/>
+	<SubTexture name="healthbar0034" x="2" y="538" width="481" height="65"/>
+	<SubTexture name="healthbar0035" x="485" y="538" width="481" height="65"/>
+	<SubTexture name="healthbar0036" x="968" y="538" width="481" height="65"/>
+	<SubTexture name="healthbar0037" x="1451" y="538" width="481" height="65"/>
+	<SubTexture name="healthbar0038" x="2" y="605" width="481" height="65"/>
+	<SubTexture name="healthbar0039" x="485" y="605" width="481" height="65"/>
+	<SubTexture name="healthbar0040" x="968" y="605" width="481" height="65"/>
+	<SubTexture name="healthbar0041" x="1451" y="605" width="481" height="65"/>
+	<SubTexture name="healthbar0042" x="2" y="672" width="481" height="65"/>
+	<SubTexture name="healthbar0043" x="485" y="672" width="481" height="65"/>
+	<SubTexture name="healthbar0044" x="968" y="672" width="481" height="65"/>
+	<SubTexture name="healthbar0045" x="1451" y="672" width="481" height="65"/>
+	<SubTexture name="healthbar0046" x="2" y="739" width="481" height="65"/>
+	<SubTexture name="healthbar0047" x="485" y="739" width="481" height="65"/>
+	<SubTexture name="healthbar0048" x="968" y="739" width="481" height="65"/>
+	<SubTexture name="healthbar0049" x="1451" y="739" width="481" height="65"/>
+	<SubTexture name="healthbar0050" x="2" y="806" width="481" height="65"/>
+	<SubTexture name="healthbar0051" x="485" y="806" width="481" height="65"/>
+	<SubTexture name="healthbar0052" x="968" y="806" width="481" height="65"/>
+	<SubTexture name="healthbar0053" x="1451" y="806" width="481" height="65"/>
+	<SubTexture name="healthbar0054" x="2" y="873" width="481" height="65"/>
+	<SubTexture name="healthbar0055" x="485" y="873" width="481" height="65"/>
+	<SubTexture name="healthbar0056" x="968" y="873" width="481" height="65"/>
+	<SubTexture name="healthbar0057" x="1451" y="873" width="481" height="65"/>
+	<SubTexture name="healthbar0058" x="2" y="940" width="481" height="65"/>
+	<SubTexture name="healthbar0059" x="485" y="940" width="481" height="65"/>
+	<SubTexture name="healthbar0060" x="968" y="940" width="481" height="65"/>
+	<SubTexture name="healthbar0061" x="1451" y="940" width="481" height="65"/>
+	<SubTexture name="healthbar0062" x="2" y="1007" width="481" height="65"/>
 </TextureAtlas>

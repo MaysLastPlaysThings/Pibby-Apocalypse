@@ -256,7 +256,7 @@ class LoadingStuffLmao extends MusicBeatState {
 
         preloadedAssets = new Map<String, FlxGraphic>();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('loading'));
+        bg = new FlxSprite().loadGraphic(Paths.image('loading/loading'+FlxG.random.int(1,2)));
 		bg.screenCenter(X);
 		add(bg);
 

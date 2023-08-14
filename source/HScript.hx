@@ -43,13 +43,38 @@ class ScriptManager {
 		expressions.set("FlxRuntimeShader", FlxRuntimeShader);
 		expressions.set("RuntimeShaders", _Shaders);
 		
-		/**
-		expressions.set("importClass", Reflect.makeVarArgs(function(classes:Array<Dynamic>):Void {
-            for (i in classes) {
-                importClass(Std.string(i));
-            }
-        }));
-		**/
+		expressions.set("importClass", function(className:String, ?traceImports:Bool) //thanks troll engine :D
+            {
+                // importClass("flixel.util.FlxSort") should give you FlxSort.byValues, etc
+                // whereas importClass("scripts.Globals.*") should give you Function_Stop, Function_Continue, etc
+                // i would LIKE to do like.. flixel.util.* but idk if I can get everything in a namespace
+                var classSplit:Array<String> = className.split(".");
+                var daClassName = classSplit[classSplit.length-1]; // last one
+    
+                if (daClassName == '*'){
+                    var daClass = Type.resolveClass(className);
+    
+                    while(classSplit.length > 0 && daClass==null){
+                        daClassName = classSplit.pop();
+                        daClass = Type.resolveClass(classSplit.join("."));
+                        if(daClass!=null) break;
+                    }
+                    if(daClass!=null){
+                        for(field in Reflect.fields(daClass)){
+                            expressions.set(field, Reflect.field(daClass, field));
+                            
+                            if (traceImports == true) trace('Imported: $field, $daClass');
+                        }
+                    }else{
+                        FlxG.log.error('Could not import class $className');
+                        if (traceImports == true) trace('Could not import class $className');
+                    }
+                }else{
+                    var daClass = Type.resolveClass(className);
+                    expressions.set(daClassName, daClass);
+                    if (traceImports == true) trace('Imported: $daClassName, $daClass');
+                }
+            });
 
 		expressions.set("Math", Math);
 		expressions.set("Paths", Paths);

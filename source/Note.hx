@@ -211,6 +211,8 @@ class Note extends FlxSprite
 	{
 		super();
 
+		clipRectIgnoreScale = true; // fixes holds
+        
 		if (prevNote == null)
 			prevNote = this;
 

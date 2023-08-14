@@ -19,6 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var playingDeathSound:Bool = false;
 
 	var stageSuffix:String = "";
+    var allowedtoContinue:Bool = false;
 
 	public static var characterName:String = 'bf-dead';
 	public static var deathSoundName:String = 'fnf_loss_sfx';
@@ -94,7 +95,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
         FlxG.camera.zoom = 0.7;
 
-		if (controls.ACCEPT)
+		if (controls.ACCEPT && allowedtoContinue)
 		{
 			endBullshit();
 		}
@@ -167,6 +168,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	function coolStartDeath(?volume:Float = 1):Void
 	{
+        allowedtoContinue = true;
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
 	}
 
