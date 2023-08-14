@@ -4235,11 +4235,11 @@ class PlayState extends MusicBeatState
 			if (ClientPrefs.shaders)
 				{
 					dadGlitchIntensity = FlxG.random.float(12, 25);
-					var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-					for (i in 0...shaderArray.length)
-					dad.shader = shaderArray[i];
+					var shader = distortDadFNF;
+                    shader.setFloat("negativity", 1.0);
+					dad.shader = shader;
 					new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-					dad.shader = null;
+					shader.setFloat("negativity", 0.0);
 				});
 				}
 		}
@@ -4294,15 +4294,14 @@ class PlayState extends MusicBeatState
 					playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
 					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 					
-					//welp seems like you cant really add 2 shaders on one object so i'll just stick to the invert one
 					if (ClientPrefs.shaders)
 						{
 							dadGlitchIntensity = FlxG.random.float(12, 25);
-							var shaderArray:Array<FlxShader> = [distortDadFNF, invertFNF];
-							for (i in 0...shaderArray.length)
-							jake.shader = shaderArray[i];
+							var shader = distortDadFNF;
+							jake.shader = shader;
+                            shader.setFloat("negativity", 1.0);
 							new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-							jake.shader = null;
+							    shader.setFloat("negativity", 0.0);
 							});
 						}
 				}
