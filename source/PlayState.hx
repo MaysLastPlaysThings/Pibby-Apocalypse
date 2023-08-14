@@ -2116,7 +2116,7 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.row = Conductor.secsToRow(daStrumTime);
 				if(noteRows[gottaHitNote?0:1][swagNote.row]==null)
-					noteRows[gottaHitNote?0:1][swagNote.row]=[];
+					noteRows[gottaHitNote?0:1][swagNote.row]=[]; // holy shit my code -neb
 				noteRows[gottaHitNote ? 0 : 1][swagNote.row].push(swagNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
@@ -2463,21 +2463,9 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
-
-		if (dodgeMisses == 0) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle3');
-		}
-
-		else if (dodgeMisses == 1) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle2');
-		}
-
-		else if (dodgeMisses == 2) {
-			if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle1');
-		}
+        
+        if (curBeat % 1 == 0)
+			finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
 
 
 		if(ClientPrefs.shaders) {
@@ -2748,7 +2736,7 @@ class PlayState extends MusicBeatState
 		}
 		doDeathCheck();
 
-		if (dodgeMisses == 3)
+		if (dodgeMisses >= 3) // incase it somehow gets to 4 by some bug
 			{
 				health = 0;
 				doDeathCheck(true);

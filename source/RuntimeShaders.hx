@@ -1,3 +1,5 @@
+// what the fuck why not just make these normal shaders :sob:
+
 enum abstract RuntimeShaders(String) to String from String 
 {
     var distort = 
