@@ -2,6 +2,7 @@ package flixel;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import haxe.ds.StringMap;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.display.Sprite;
@@ -141,6 +142,8 @@ class FlxCamera extends FlxBasic
 	 * For rapid prototyping, you can use the preset deadzones (e.g. `PLATFORMER`) with `follow()`.
 	 */
 	public var deadzone:FlxRect;
+
+    var _filterMap:StringMap<BitmapFilter> = new StringMap<BitmapFilter>();
 
 	/**
 	 * Lower bound of the camera's `scroll` on the x axis.
@@ -1627,29 +1630,31 @@ class FlxCamera extends FlxBasic
 		updateFlashSpritePosition();
 	}
 
-	/**
-	 * Sets the filter array to be applied to the camera.
-	 */
-	public function setFilters(filters:Array<BitmapFilter>):Void
-	{
-		_filters = filters;
-	}
-
-	/**
-        * Pushes a BitmapFilter to the filter array
+        /**
+        * Sets the filter array to be applied to the camera.
         */
-	public function pushFilter(filter:BitmapFilter):Void
-	{
-		_filters.push(filter);
-	}
+        public function setFilters(filters:Array<BitmapFilter>):Void
+        {
+            _filters = filters;
+        }
 
-	// honestly idk if this is even gonna work lmao
-	public function removeFilter(filter:BitmapFilter):Void
-	{
-		_filters.remove(filter);
-	}
+        /**
+            * Pushes a BitmapFilter to the filter array
+            */
+        public function pushFilter(tag:String, filter:BitmapFilter):Void
+            {
+                _filters.push(filter);
+                _filterMap.set(tag, filter);
+            }
 
-	/**
+        // honestly idk if this is even gonna work lmao
+        public function removeFilter(tag:String):Void
+        {
+            var silly:BitmapFilter = _filterMap.get(tag);
+            _filters.remove(silly);
+        }
+
+        /**
 	 * Copy the bounds, focus object, and `deadzone` info from an existing camera.
 	 *
 	 * @param   Camera  The camera you want to copy from.

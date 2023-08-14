@@ -167,6 +167,9 @@ class PlayState extends MusicBeatState
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
 
+    var cappedHealth:Int = 2;
+    var isAppleLOL:Bool = false;
+
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
 	public var songSpeedType:String = "multiplicative";
@@ -239,6 +242,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
+    var fullPibbyHealthbar:Bool = false; // forces it to display the 100% animation
 	var pibbyHealthbar:FlxSprite;
 
     var pibbyHealth:FlxSprite;
@@ -909,10 +913,10 @@ class PlayState extends MusicBeatState
 
         pibbyHealthbar.scale.set(0.8, 0.8);
         pibbyHealthbar.updateHitbox();
-        for(i in 0...21){
+        for(i in 0...41){
             var indiceStart = i * 3;
             var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
-           	pibbyHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
+           	pibbyHealthbar.animation.addByIndices('${CoolUtil.snap((i/40)*100, 2.5)}Percent', "healthbar", animFrames, "", 12, true);
         }
         
         pibbyHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
@@ -1359,8 +1363,8 @@ class PlayState extends MusicBeatState
 					addCharacterToList('finncawn', 1);
 					if (ClientPrefs.shaders)
 					{
-						FlxG.camera.pushFilter(new ShaderFilter(blurFNFZoomEdition));
-						camHUD.pushFilter(new ShaderFilter(blurFNFZoomEditionHUD));
+						FlxG.camera.pushFilter("blurMoment", new ShaderFilter(blurFNFZoomEdition));
+						camHUD.pushFilter("blurMoment2", new ShaderFilter(blurFNFZoomEditionHUD));
 					}
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
@@ -1894,7 +1898,7 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.specialAnim = true;
                                 }
                                 
-							numberIntro.visible = true;
+							    numberIntro.visible = true;
                                 numberIntro.animation.play('Go');
                                 numberIntro.offset.set(98, -15);
                             }
@@ -2526,8 +2530,15 @@ class PlayState extends MusicBeatState
         var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
         var damagePercent = 1 - healthPercent;
 
-        pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
-        // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
+        if(fullPibbyHealthbar)
+            pibbyHealthbar.animation.play('100Percent'); // full bar
+        else
+            pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 2.5)}Percent'); // snaps to multiples of 2.5
+
+
+        if (health > cappedHealth) {
+            health = cappedHealth;
+        }
 
 		if(ClientPrefs.shaders) {
 			shaderStuff += elapsed;
@@ -3167,6 +3178,10 @@ class PlayState extends MusicBeatState
 
 			case 'Apple Filter':
 				if (value1.toLowerCase() == 'on') {
+                    if(touhouBG!=null){
+                        trace("DO NOT BAD APPLE TWICE!!");
+                        return;
+                    }
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -3195,6 +3210,8 @@ class PlayState extends MusicBeatState
 				}
 				else{
                     if(touhouBG==null)return; // ficks
+                    isAppleLOL = false;
+                    camGame.removeFilter("glow");
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
@@ -4491,7 +4508,7 @@ class PlayState extends MusicBeatState
 				var dodgeAnim:String = dodgeAnimations[Std.int(Math.abs(note.noteData))];
 				var shootAnim:String = shootAnimations[Std.int(Math.abs(note.noteData))];
 
-				if (note.dodgeNote)
+				if (note.dodgeNote && boyfriend.curCharacter != 'bfsword') // when bfsword he parries
 					{
 						boyfriend.playAnim(dodgeAnim, true);
 						boyfriend.specialAnim = true;
@@ -5232,8 +5249,6 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
 							triggerEventNote('Apple Filter', 'off', 'white');
-                        case 516:
-                            triggerEventNote('Apple Filter', 'off', 'white'); //just incase
 						case 562:
 							defaultCamZoom = 0.85;
 						case 578:
@@ -5308,6 +5323,7 @@ class PlayState extends MusicBeatState
 						case 1180:
 							#if VIDEOS_ALLOWED
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
+                            pibbyHealthbar.alpha = 0;
 							midSongVideo.bitmap.canSkip = false;
 							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 							midSongVideo.bitmap.finishCallback = () -> { 
@@ -5345,6 +5361,9 @@ class PlayState extends MusicBeatState
 						case 1439:
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
+                            cappedHealth = 1;
+                            health = 0.5;
+                            pibbyHealthbar.alpha = 1;
 							#else
 							blackie.alpha = 0;
 
@@ -5418,6 +5437,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
+                            fullPibbyHealthbar = true; // FORCE THE PIBBY HEALTH BAR TO FILL
 							camGame.alpha = 0;
 							camHUD.alpha = 0;
 						case 2610:
