@@ -1751,12 +1751,13 @@ class PlayState extends MusicBeatState
         numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
-
+        
         numberIntro.animation.addByPrefix('3', '3', 30, false);
         numberIntro.animation.addByPrefix('2', '2', 30, false);
         numberIntro.animation.addByPrefix('1', '1', 30, false);
         numberIntro.animation.addByPrefix('Go', 'Go', 30, false);
-
+        
+        numberIntro.animation.finishCallback((name) -> {numberIntro.visible = false;})
         add(numberIntro);
 
         //introGroup.add(numberIntro);
