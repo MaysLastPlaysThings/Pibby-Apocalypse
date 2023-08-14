@@ -5576,6 +5576,9 @@ class PlayState extends MusicBeatState
 								});
 							});
 						case 1568:
+							GameOverSubstate.characterName = 'darwindeath';
+							GameOverSubstate.deathSoundName = 'fnf_loss_sfx'; // placeholder
+							GameOverSubstate.endSoundName = 'gameOverEnd';
 							lyricTxt.text = "";
 							camGame.alpha = 1;
 							iconP3.visible = true;
