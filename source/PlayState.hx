@@ -1344,7 +1344,7 @@ class PlayState extends MusicBeatState
 					boyfriend.color = 0x859791FF;
 					finnBarThing.alpha = 0.0001;
 					scoreTxt.alpha = 1;
-                    pibbyHealthbar.visible = false;
+                    pibbyHealthbar.alpha = 0.0001;
 					boyfriendGroup.visible = false;
 					addCharacterToList('finn-sword', 1);
 					addCharacterToList('finncawm_reveal', 1);
