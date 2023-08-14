@@ -1270,6 +1270,9 @@ class PlayState extends MusicBeatState
 					midSongVideo.bitmap.stop();
 					midSongVideo.cameras = [camHUD];
 					#end
+					GameOverSubstate.characterName = 'darwindeath';
+					GameOverSubstate.deathSoundName = 'fnf_loss_sfx';
+					GameOverSubstate.endSoundName = 'gameOverEnd';
 					blackie.alpha = 1;
 					healthBar.visible = false;
 					healthBarBG.visible = false;

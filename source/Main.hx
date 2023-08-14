@@ -11,6 +11,9 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import flixel.FlxSprite;
+import openfl.text.TextFormat;
+import openfl.text.TextField;
+import Macro;
 import HScript.ScriptManager;
 using flixel.util.FlxSpriteUtil;
 
@@ -57,6 +60,7 @@ class Main extends Sprite
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
 	public static var funnyMenuMusic = 1;
+    var buildDate:TextField;
 
     public static var debug:Bool = #if debug true #else false #end;
 
@@ -140,9 +144,22 @@ class Main extends Sprite
 		}
 		#end
 
+        buildDate = new TextField();
+        buildDate.x = 10;
+        buildDate.y = 650;
+
+        var date = Macro.getBuildDate();
+        buildDate.selectable = false;
+        buildDate.mouseEnabled = false;
+        buildDate.defaultTextFormat = new TextFormat("_sans", 24, 0x9E9191);
+        buildDate.autoSize = LEFT;
+        buildDate.multiline = false;
+        buildDate.text = Macro.getBuildDate() + " Dev Build";
+        addChild(buildDate);
+
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
-		sprite = new FlxSprite().loadGraphic(Paths.image('mouse (1)'));
+		sprite = new FlxSprite().loadGraphic(Paths.image('cursor/mouse (1)'));
 
 		FlxG.mouse.load(sprite.pixels);
 
@@ -152,6 +169,12 @@ class Main extends Sprite
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 	}
+
+    @:noCompletion private override function __update(transformOnly:Bool, updateChildren:Bool):Void
+        {
+            super.__update(transformOnly, updateChildren);
+            buildDate.y = lime.app.Application.current.window.height - 70;
+        }
 
 	private function update(e:Event):Void
 		{
