@@ -106,6 +106,7 @@ class PlayState extends MusicBeatState
     var distortFNF:FlxRuntimeShader;
 	var distortDadFNF:FlxRuntimeShader;
 	var invertFNF:Shaders.InvertShader;
+    var glowfnf:FlxRuntimeShader;
 	var pibbyFNF:Shaders.Pibbified;
 	var chromFNF:FlxRuntimeShader;
 	var pincFNF:Shaders.PincushionShader;
@@ -1177,6 +1178,7 @@ class PlayState extends MusicBeatState
 		mawFNF = new Shaders.MAWVHS();
 		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
 		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+        glowfnf = new FlxRuntimeShader(RuntimeShaders.glowy, null, 120);
 		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
 		invertFNF = new Shaders.InvertShader();
 		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
@@ -1684,11 +1686,10 @@ class PlayState extends MusicBeatState
         if (SONG.player1 == 'newbf')
             boyfriendGroup.add(bfIntro);
 
-        var numberIntro:FlxSprite = new FlxSprite(
-            (gf != null && gf.curCharacter.startsWith('pibby') ? (GF_X + pibbyIntro.positionArray[0]) : 0 + (bfIntro != null ? (BF_X + bfIntro.positionArray[0] + bfIntro.animOffsets.get('3')[0]) : 770)), 
-            (bfIntro != null ? (BF_Y + bfIntro.positionArray[1] - 300) : 135)
-        );
-        numberIntro.x = (gf != null && gf.curCharacter.startsWith('pibby')) ? numberIntro.x / 2 : numberIntro.x;
+        var numberIntro:FlxSprite = new FlxSprite();
+        numberIntro.screenCenter();
+        numberIntro.x -= 200;
+        numberIntro.y -= 200;
         numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
@@ -2671,10 +2672,10 @@ class PlayState extends MusicBeatState
         }
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-			persistentUpdate = false;
-			paused = true;
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+			//persistentUpdate = false;
+			//paused = true;
+			//cancelMusicFadeTween();
+			//MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
 		
 		if (startedCountdown)
@@ -3137,6 +3138,7 @@ class PlayState extends MusicBeatState
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
+    
 					reloadHealthBarColors();
 					boyfriend.colorTransform.blueOffset = 0;
 					boyfriend.colorTransform.redOffset = 0;
@@ -4624,6 +4626,8 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					switch (curStep)
 					{
+                        case 1:
+                            FlxTween.tween(boyfriend, {alpha: 0.5}, 0.5);
 						case 496:
 							camHUD.alpha = 0;
 							camGame.alpha = 0;
@@ -5205,6 +5209,7 @@ class PlayState extends MusicBeatState
 						case 505:
 							defaultCamZoom = 1.1;
 						case 514:
+                            //camGame.removeLatestFilter();
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
