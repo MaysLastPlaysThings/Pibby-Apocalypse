@@ -2704,6 +2704,7 @@ class PlayState extends MusicBeatState
         // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
         // just for people who wanna make custom stuff w/ the mod
         
+        #if debug
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
@@ -2718,6 +2719,7 @@ class PlayState extends MusicBeatState
             cpuControlled = !cpuControlled;
             botplayTxt.visible = cpuControlled;
         }
+        #end
 		
 		if (startedCountdown)
 		{
