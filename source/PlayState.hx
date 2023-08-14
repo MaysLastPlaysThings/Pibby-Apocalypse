@@ -5395,7 +5395,6 @@ class PlayState extends MusicBeatState
 						case 1190:
 							defaultCamZoom = 0.7;
 						case 1439:
-                            for (yeah in 0...uiObjects.length) uiObjects.members[yeah].alpha = 1;
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
                             cappedHealth = 1;
