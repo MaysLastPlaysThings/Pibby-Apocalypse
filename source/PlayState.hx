@@ -4872,34 +4872,19 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1152:
-							if (ClientPrefs.flashing) {
-							    camOverlay.flash(FlxColor.WHITE, 1);
-							}
 						case 1280:
 							if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1344:
-							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1);
-							}
-						case 1408:
-							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1);
-							}
-						case 1472:
-							if (ClientPrefs.flashing) {
-								camOverlay.flash(FlxColor.WHITE, 1);
-							}
 						case 1520:
-							FlxTween.tween(camGame, {alpha: 0}, 1.18, {
+							FlxG.camera.fade(FlxColor.BLACK, 1.18);
+							/*FlxTween.tween(camGame, {alpha: 0}, 1.18, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
 									{
 										camGame.alpha = 0;
-									}});
+									}});*/
 							FlxTween.tween(camGame, {zoom: 1.1}, 1.18, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -4909,13 +4894,7 @@ class PlayState extends MusicBeatState
 									}});
 						case 1535: 
 							boyfriendGroup.visible = false;
-							FlxTween.tween(camGame, {alpha: 1}, 10, {
-								ease: FlxEase.quadInOut,
-								onComplete: 
-								function (twn:FlxTween)
-									{
-										camGame.alpha = 1;
-									}});
+							FlxG.camera.fade(FlxColor.BLACK, 10, true);
 						case 1536:
 						    if (ClientPrefs.flashing) {
 							    camOverlay.flash(FlxColor.WHITE, 2.5);
@@ -4924,7 +4903,7 @@ class PlayState extends MusicBeatState
 							dad.y = DAD_Y + 250;
 							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 
-							defaultCamZoom += 0.15; // black border fix
+							defaultCamZoom += 0.35; // black border fix
 
 							cameraSpeed = 50;
 							new FlxTimer().start(0.0461, a -> cameraSpeed = 1);
@@ -4970,6 +4949,7 @@ class PlayState extends MusicBeatState
 									timeBar.alpha = 0;
 									timeBarBG.alpha = 0;
 									timeTxt.alpha = 1;
+									timeTxt.screenCenter(X);
 									scoreTxt.alpha = 0;
                                     finnBarThing.alpha = 0;
                                     iconP1.alpha = 0;
