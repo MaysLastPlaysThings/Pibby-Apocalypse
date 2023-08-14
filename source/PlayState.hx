@@ -2536,7 +2536,6 @@ class PlayState extends MusicBeatState
 			shaderStuff += elapsed;
 
             chromFNF.setFloat('aberration', abberationShaderIntensity);
-			chromFNF.setFloat('effectTime', chromEffectTimeIntensity);
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
             distortCAWMFNF.setFloat('binaryIntensity', distortIntensity);
