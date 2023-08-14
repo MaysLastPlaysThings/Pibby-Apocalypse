@@ -913,7 +913,7 @@ class PlayState extends MusicBeatState
 
         pibbyHealthbar.scale.set(0.8, 0.8);
         pibbyHealthbar.updateHitbox();
-        for(i in 0...21){
+        for(i in 0...41){
             var indiceStart = i * 3;
             var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
            	pibbyHealthbar.animation.addByIndices('${Math.floor((i/20)*100)}Percent', "healthbar", animFrames, "", 12, true);
@@ -2531,11 +2531,10 @@ class PlayState extends MusicBeatState
         var damagePercent = 1 - healthPercent;
 
         if(fullPibbyHealthbar)
-            pibbyHealthbar.animation.play('100Percent'); // snaps to multiples of 5
+            pibbyHealthbar.animation.play('100Percent'); // full bar
         else
-            pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 5)}Percent'); // snaps to multiples of 5
+            pibbyHealthbar.animation.play('${CoolUtil.snap(damagePercent * 100, 2.5)}Percent'); // snaps to multiples of 2.5
 
-        // maybe some day I'll re-export the healthbar w/ a higher accuracy (maybe down to 2.5 insted of 5?)
 
         if (health > cappedHealth) {
             health = cappedHealth;
