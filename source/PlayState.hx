@@ -1306,13 +1306,10 @@ class PlayState extends MusicBeatState
 					addCharacterToList('finncawm_reveal', 1);
 					addCharacterToList('bfcawn', 0);
 					addCharacterToList('finncawn', 1);
-					@:privateAccess
+					if (ClientPrefs.shaders)
 					{
-						if (ClientPrefs.shaders)
-						{
-							FlxG.camera._filters.push(new ShaderFilter(blurFNFZoomEdition));
-							camHUD._filters.push(new ShaderFilter(blurFNFZoomEditionHUD));
-						}
+						FlxG.camera.pushFilter(new ShaderFilter(blurFNFZoomEdition));
+						camHUD.pushFilter(new ShaderFilter(blurFNFZoomEditionHUD));
 					}
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
