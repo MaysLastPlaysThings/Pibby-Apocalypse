@@ -907,9 +907,9 @@ class PlayState extends MusicBeatState
 
 		pibbyHealthbar = new FlxSprite();
         if(ClientPrefs.shaders)
-		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
+		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader', null, true);
         else
-            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar', null, true);
 
         pibbyHealthbar.scale.set(0.8, 0.8);
         pibbyHealthbar.updateHitbox();
@@ -935,11 +935,13 @@ class PlayState extends MusicBeatState
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
-		finnBarThing.frames = Paths.getSparrowAtlas('healthbar/iconbar');
-		finnBarThing.animation.addByPrefix('idle2', 'Icons Bar 2', 24, true);
-		finnBarThing.animation.addByPrefix('idle3', 'Icons Bar 1', 24, true);
-		finnBarThing.animation.addByPrefix('idle1', 'Icons Bar 3', 24, true);
-		finnBarThing.animation.play('idle3');
+        if(storyWeekName != 'gumball'){
+		    finnBarThing.frames = Paths.getSparrowAtlas('healthbar/iconbar', null, true);
+            finnBarThing.animation.addByPrefix('idle2', 'Icons Bar 2', 24, true);
+            finnBarThing.animation.addByPrefix('idle3', 'Icons Bar 1', 24, true);
+            finnBarThing.animation.addByPrefix('idle1', 'Icons Bar 3', 24, true);
+            finnBarThing.animation.play('idle3');
+        }
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
@@ -1747,7 +1749,7 @@ class PlayState extends MusicBeatState
         numberIntro.screenCenter();
         numberIntro.x -= 200;
         numberIntro.y -= 200;
-        numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
+        numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared', true);
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
         
@@ -2524,8 +2526,9 @@ class PlayState extends MusicBeatState
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
         
-        if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
+		if (storyWeekName != 'gumball')
+            if (curBeat % 1 == 0)
+                finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
 
         var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
         var damagePercent = 1 - healthPercent;

@@ -158,8 +158,8 @@ class FPSCounter extends TextField
 		curMemory = MemoryShit.obtainMemory();
 		if (curMemory >= peakMemory)
 			peakMemory = curMemory;
-		text += 'RAM: ${CoolUtil.formatMemory(Std.int(curMemory))} (${CoolUtil.formatMemory(Std.int(peakMemory))} peak)';
-        //text += 'VRAM: ${CoolUtil.formatMemory(Std.int())}';
+		text += 'RAM: ${CoolUtil.formatMemory(Std.int(curMemory))} (${CoolUtil.formatMemory(Std.int(peakMemory))} peak)\n';
+		//text += 'Used VRAM: ${CoolUtil.formatMemory(Std.int(FlxG.stage.context3D.totalGPUMemory))}'; // honestly not super useful
 		text += '\n';
 		if(Main.debug){
             text += '\nDEBUG INFO:\n';
@@ -173,7 +173,7 @@ class FPSCounter extends TextField
 			text += 'TEXTURE COUNT: ${Paths.uniqueRAMImages.length + Paths.uniqueVRMImages.length}\n';
 			text += '(${Paths.uniqueVRMImages.length} in VRAM)\n';
 			text += '(${Paths.uniqueRAMImages.length} in RAM)\n';
-            text += 'ESTIMATED IMAGE RAM: ${CoolUtil.formatMemory(Std.int(Paths.expectedMemoryBytes))})\n';
+            text += 'ESTIMATED IMAGE RAM: ${CoolUtil.formatMemory(Std.int(Paths.expectedMemoryBytes))})\n'; // this wont work for VRAM since VRAM handles textures differently
         }
 	}
 
