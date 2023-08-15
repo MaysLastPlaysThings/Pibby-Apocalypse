@@ -91,14 +91,9 @@ class Main extends Sprite
 			Gc.enable(true);
 			#end
 
-			FlxG.signals.postStateSwitch.add(()->{
-				optimizeGame(true);
-			});
-			FlxG.signals.preStateSwitch.add(()-> {
-				optimizeGame(false);
-			});
-			FlxG.signals.focusLost.add(()->gc()); // they don't know
-			
+			//FlxG.signals.focusLost.add(()->gc()); // they don't know
+			// ^ what is wrong with you
+             
 			FlxG.signals.preGameStart.add(() -> funnyMenuMusic = FlxG.random.bool(5) ? 2 : 1);
 		}
 	}
@@ -224,51 +219,5 @@ class Main extends Sprite
 	}
 	#end
 
-	private static function optimizeGame(post:Bool = false) // BAD WHY NOT JUST USE PSYCH'S NORMAL STUFF???
-		{
-			if(!post)
-				{
-					Paths.clearStoredMemory(true);
-					Paths.clearUnusedMemory();
-					FlxG.bitmap.dumpCache();
-					
-					gc();
-		
-					var cache = cast(Assets.cache, AssetCache);
-					for (key=>font in cache.font)
-						{
-							cache.removeFont(key); 
-							trace('removed font $key');
-						}
-					for (key=>sound in cache.sound)
-						{
-							cache.removeSound(key); 
-							trace('removed sound $key');
-						}
-						
-				} else {
-					Paths.clearUnusedMemory();
-					openfl.Assets.cache.clear('assets/songs');
-					openfl.Assets.cache.clear('assets/preload');
-					openfl.Assets.cache.clear('assets/music');
-					openfl.Assets.cache.clear('assets/videos');
-					gc();
-					trace(Math.abs(System.totalMemory / 1000000));
-				}
-		}
-
-		private static function gc() {
-			//Sys.println("The Garbage Collector Appears");
-	
-			#if cpp
-			NativeGc.compact();
-			NativeGc.run(true);
-			#elseif hl
-			Gc.major();
-			#elseif (java || neko)
-			Gc.run(true);
-			#else
-			openfl.system.System.gc();
-			#end
-		}
+    // that optimizeGame function stank up the whole mod so im removing it fuck you
 }

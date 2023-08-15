@@ -4,13 +4,13 @@ var placeog;
 function onCreate()
 {
     place = new flixel.FlxSprite(-600, -300);
-    place.loadGraphic(retrieveAsset('images/bgnoherofull.png', 'image'));
+    place.loadGraphic(retrieveAsset('images/bgnoherofull', 'image'));
     place.updateHitbox();
     place.antialiasing = ClientPrefs.globalAntialiasing;
     add(place);
 
     placeog = new flixel.FlxSprite(-600, -300);
-    placeog.loadGraphic(retrieveAsset('images/place.png', 'image'));
+    placeog.loadGraphic(retrieveAsset('images/place', 'image'));
     placeog.updateHitbox();
     placeog.antialiasing = ClientPrefs.globalAntialiasing;
     placeog.visible = false;

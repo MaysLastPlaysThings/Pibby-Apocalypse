@@ -9,7 +9,7 @@ var flickerTween2;
 function onCreate()
 {	
 	bg = new FlxSprite(400, 350);
-	bg.loadGraphic(retrieveAsset('images/bg.png', 'image'));
+	bg.loadGraphic(retrieveAsset('images/bg', 'image'));
 	bg.antialiasing = ClientPrefs.globalAntialiasing;
 	bg.setGraphicSize(Std.int(bg.width * 1.7));
 	bg.updateHitbox();
@@ -21,7 +21,7 @@ function onCreate()
 	if (!ClientPrefs.lowQuality)
 	{
 		dark = new FlxSprite(550, 100);
-		dark.loadGraphic(retrieveAsset('images/dark.png', 'image'));
+		dark.loadGraphic(retrieveAsset('images/dark', 'image'));
 		dark.setGraphicSize(Std.int(dark.width * 1.7));
 		dark.updateHitbox();
 		dark.antialiasing = ClientPrefs.globalAntialiasing;
@@ -32,7 +32,7 @@ function onCreate()
 		foreground.add(dark);
 
 		light = new FlxSprite(dark.x, dark.y);
-		light.loadGraphic(retrieveAsset('images/light.png', 'image'));
+		light.loadGraphic(retrieveAsset('images/light', 'image'));
 		light.setGraphicSize(Std.int(light.width * 1.7));
 		light.alpha = 0.8;
 		light.updateHitbox();
@@ -46,7 +46,7 @@ function onCreate()
 		foreground.add(light);
 
 		bulb = new FlxSprite(1380, -100);
-		bulb.loadGraphic(retrieveAsset('images/bulb.png', 'image'));
+		bulb.loadGraphic(retrieveAsset('images/bulb', 'image'));
 		bulb.setGraphicSize(Std.int(bulb.width * 2));
 		bulb.updateHitbox();
 		bulb.antialiasing = ClientPrefs.globalAntialiasing;
