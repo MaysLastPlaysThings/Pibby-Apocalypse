@@ -29,18 +29,6 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
-
-// stuff for optimization
-#if cpp
-import cpp.NativeGc;
-import cpp.vm.Gc;
-#elseif hl
-import hl.Gc;
-#elseif java
-import java.vm.Gc;
-#elseif neko
-import neko.vm.Gc;
-#end
 import openfl.system.System;
 import openfl.utils.AssetCache;
 import openfl.Assets;
