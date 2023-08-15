@@ -75,10 +75,6 @@ class Main extends Sprite
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 
-			#if desktop
-			Gc.enable(true);
-			#end
-
 			//FlxG.signals.focusLost.add(()->gc()); // they don't know
 			// ^ what is wrong with you
              
