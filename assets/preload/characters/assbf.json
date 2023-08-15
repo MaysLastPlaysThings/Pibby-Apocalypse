@@ -114,8 +114,8 @@
 	"no_antialiasing": false,
 	"image": "characters/assbf",
 	"position": [
-		-150,
-		400
+		-100,
+		470
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -125,9 +125,9 @@
 		209
 	],
 	"camera_position": [
-		-160,
-		30
+		-30,
+		0
 	],
 	"sing_duration": 6,
-	"scale": 1
+	"scale": 2
 }

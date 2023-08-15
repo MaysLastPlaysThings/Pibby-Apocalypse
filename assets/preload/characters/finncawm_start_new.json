@@ -59,8 +59,8 @@
 	"no_antialiasing": false,
 	"image": "characters/Fake_Finn",
 	"position": [
-		-320,
-		30
+		20,
+		320
 	],
 	"healthicon": "finn",
 	"flip_x": false,
@@ -70,9 +70,9 @@
 		161
 	],
 	"camera_position": [
-		50,
-		80
+		-280,
+		-220
 	],
 	"sing_duration": 6.1,
-	"scale": 0.75
+	"scale": 1.55
 }
