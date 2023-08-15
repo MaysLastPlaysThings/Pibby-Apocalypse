@@ -65,6 +65,7 @@ class Paths
 	];
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory() {
+        trace("clearing unused memory");
 		// clear non local assets in the tracked assets list
 		for (key in currentTrackedAssets.keys()) {
 			// if it is not currently contained within the used local assets
@@ -78,10 +79,21 @@ class Paths
 					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
-					shitInGPU.remove(key);
+                    trace("removing " + key);
+                    if (uniqueRAMImages.contains(key))uniqueRAMImages.remove(key);
+                    if (uniqueVRMImages.contains(key))uniqueVRMImages.remove(key);
 				}
 			}
 		}
+
+        trace("--images in RAM after memory clear--");
+		for (shit in uniqueRAMImages)
+            trace(shit);
+
+		trace("--images in VRAM after memory clear--");
+		for (shit in uniqueVRMImages)
+			trace(shit);
+        trace("----");
 		// run the garbage collector for good measure lmfao
 		System.gc();
 	}
@@ -98,6 +110,8 @@ class Paths
 				openfl.Assets.cache.removeBitmapData(key);
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
+                if (uniqueRAMImages.contains(key))uniqueRAMImages.remove(key);
+                if (uniqueVRMImages.contains(key))uniqueVRMImages.remove(key);
 			}
 		}
 
@@ -336,7 +350,10 @@ class Paths
 
 	// completely rewritten asset loading? fuck!
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
-    public static var shitInGPU:Array<String> = [];
+
+
+    public static var uniqueRAMImages:Array<String> = [];
+    public static var uniqueVRMImages:Array<String> = [];
     
 	public static function returnGraphic(key:String, ?library:String, throwToGPU:Bool = false, ?prefix:String = 'images')
     {
@@ -347,7 +364,7 @@ class Paths
         var bitmap:BitmapData = null;
 
         if(currentTrackedAssets.exists(path)){
-			if (throwToGPU && !shitInGPU.contains(path)){
+			if (throwToGPU && !uniqueVRMImages.contains(path)){
 				if (!localTrackedAssets.contains(path) && !dumpExclusions.contains(path))
 				{
 					// get rid of it
@@ -359,6 +376,8 @@ class Paths
 						FlxG.bitmap._cache.remove(path);
 						obj.destroy();
 						currentTrackedAssets.remove(path);
+						if (uniqueRAMImages.contains(path))uniqueRAMImages.remove(path);
+                        if (uniqueVRMImages.contains(path))uniqueVRMImages.remove(path);
 					}
 				}
             }else{
@@ -381,10 +400,14 @@ class Paths
 				bitmap.disposeImage();
                 // push shit
 				bitmap = BitmapData.fromTexture(tex);
-				shitInGPU.push(path);
-            }else
-				shitInGPU.remove(path);
+                if (!uniqueVRMImages.contains(path))uniqueVRMImages.push(path);
+				uniqueRAMImages.remove(path);
+            }else{
+				if (!uniqueRAMImages.contains(path))uniqueRAMImages.push(path);
                 
+				uniqueVRMImages.remove(path);
+            }
+
 			@:privateAccess
 			var grafic = FlxGraphic.createGraphic(bitmap, key, false, false);
 			grafic.persist = true;
