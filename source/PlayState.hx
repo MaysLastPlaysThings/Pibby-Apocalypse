@@ -3182,6 +3182,7 @@ class PlayState extends MusicBeatState
                         trace("DO NOT BAD APPLE TWICE!!");
                         return;
                     }
+                    camGame.pushFilter("glow",new ShaderFilter(glowfnf));
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
