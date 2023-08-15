@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				0,
-				0
+				-133,
+				-147
 			],
 			"loop": false,
 			"fps": 24,
@@ -13,8 +13,8 @@
 		},
 		{
 			"offsets": [
-				316,
-				0
+				198,
+				-43
 			],
 			"loop": false,
 			"fps": 24,
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				277,
-				-1
+				123,
+				-32
 			],
 			"loop": false,
 			"fps": 24,
@@ -35,8 +35,8 @@
 		},
 		{
 			"offsets": [
-				39,
-				280
+				-87,
+				119
 			],
 			"loop": false,
 			"fps": 24,
@@ -46,8 +46,8 @@
 		},
 		{
 			"offsets": [
-				31,
-				0
+				-79,
+				-43
 			],
 			"loop": false,
 			"fps": 24,
@@ -58,8 +58,8 @@
 		{
 			"loop": true,
 			"offsets": [
-				45,
-				69
+				-100,
+				-87
 			],
 			"anim": "hey",
 			"fps": 24,
@@ -69,8 +69,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				166,
-				186
+				33,
+				40
 			],
 			"anim": "cmon",
 			"fps": 24,
@@ -80,8 +80,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				282,
-				-38
+				112,
+				-79
 			],
 			"anim": "singDOWNmiss",
 			"fps": 24,
@@ -91,8 +91,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				57,
-				-2
+				-73,
+				-54
 			],
 			"anim": "singRIGHTmiss",
 			"fps": 24,
@@ -102,8 +102,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				56,
-				274
+				-89,
+				116
 			],
 			"anim": "singUPmiss",
 			"fps": 24,
@@ -113,8 +113,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				314,
-				108
+				193,
+				-47
 			],
 			"anim": "singLEFTmiss",
 			"fps": 24,
@@ -140,5 +140,5 @@
 		-20
 	],
 	"sing_duration": 5,
-	"scale": 1
+	"scale": 2
 }
