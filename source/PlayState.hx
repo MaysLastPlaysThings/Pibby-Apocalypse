@@ -2552,6 +2552,20 @@ class PlayState extends MusicBeatState
 			mawFNF.iTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
 			glitchFWFNF.setFloat('iTime', shaderStuff);
+
+            var shaders = [distortDadFNF, distortCAWMFNF]; // maybe put this somewhere else as like a "distortShaders" array? esp since its used multiple times in the code
+            // its fine rn tho so w/e
+            for(idx in 0...distortShaderTimes.length){
+                distortShaderTimes[idx] -= elapsed;
+                if(distortShaderTimes[idx] < 0)distortShaderTimes[idx] = 0;
+                if(distortShaderTimes[idx] == 0){
+                    shaders[idx].setFloat("negativity", 0.0);
+                    if(idx == 0){
+                        if(dad.shader == shaders[idx])dad.shader = null;
+                        if(jake != null && jake.shader == shaders[idx])jake.shader = null;
+                    }
+                }
+            }
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
@@ -4214,10 +4228,13 @@ class PlayState extends MusicBeatState
 		}
 		callOnLuas('noteMissPress', [direction]);
 	}
+    
+    // vv in place of FlxTimer because that shid SUCKS!!
+    var distortShaderTimes:Array<Float> = [0,0];
 
 	function opponentNoteHit(note:Note):Void
 	{
-		if (note.noteType == 'Glitch Note') {
+		if (note.noteType == 'Glitch Note' || note.noteType == 'Both Char Glitch') {
 			for (i in 0...opponentStrums.length) {
 				opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
 				opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
@@ -4231,12 +4248,14 @@ class PlayState extends MusicBeatState
 					dadGlitchIntensity = FlxG.random.float(12, 25);
                     var shaders = [distortDadFNF, distortCAWMFNF];
                     if(dad.shader == null)dad.shader = distortDadFNF;
-                    for(shader in shaders){
+                    for(idx in 0...shaders.length){
+                        var shader = shaders[idx];
                         shader.setFloat("negativity", 1.0);
-                        new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                        distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
+/*                         new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
                             shader.setFloat("negativity", 0.0);
-                            if(dad.shader == distortDadFNF)dad.shader = null;
-                        });
+                            if(dad.shader == shader && shader == distortDadFNF)dad.shader = null;
+                        }); */
                     }
 				}
 		}
@@ -4281,7 +4300,7 @@ class PlayState extends MusicBeatState
 				char = jake;
                 jakeSings = true;
 			}
-			else if (note.noteType == 'Second Char Glitch') {
+			else if (note.noteType == 'Second Char Glitch' || note.noteType == 'Both Char Glitch') {
 				char = jake;
                 jakeSings = true;
 				for (i in 0...opponentStrums.length) {
@@ -4296,12 +4315,11 @@ class PlayState extends MusicBeatState
 							dadGlitchIntensity = FlxG.random.float(12, 25);
                             var shaders = [distortDadFNF, distortCAWMFNF];
                             if(jake.shader == null)jake.shader = distortDadFNF;
-                            for(shader in shaders){
+                            for (idx in 0...shaders.length)
+                            {
+                                var shader = shaders[idx];
                                 shader.setFloat("negativity", 1.0);
-                                new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-                                    shader.setFloat("negativity", 0.0);
-                                    if(jake.shader == distortDadFNF)jake.shader = null;
-                                });
+                                distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
                             }
 						}
 				}
