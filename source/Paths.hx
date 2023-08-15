@@ -94,6 +94,7 @@ class Paths
 		for (shit in uniqueVRMImages)
 			trace(shit);
         trace("----");
+		getExpectedMemory();
 		// run the garbage collector for good measure lmfao
 		System.gc();
 	}
@@ -127,6 +128,7 @@ class Paths
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
 		openfl.Assets.cache.clear("songs");
+		getExpectedMemory();
 	}
 
 	static public var currentModDirectory:String = '';
@@ -355,6 +357,33 @@ class Paths
     public static var uniqueRAMImages:Array<String> = [];
     public static var uniqueVRMImages:Array<String> = [];
     
+	public static var expectedMemoryBytes:Float = 0;
+
+    static function getExpectedMemory(){
+        if(Main.debug){
+            expectedMemoryBytes = 0;
+
+            var processed:Array<FlxGraphic> =[];
+
+            @:privateAccess
+            for (key in FlxG.bitmap._cache.keys())
+            {
+                var obj = FlxG.bitmap._cache.get(key);
+                if (processed.contains(obj) || uniqueVRMImages.contains(key))continue;
+                expectedMemoryBytes += obj.width * obj.height * 4;
+                processed.push(obj);
+            }
+            for (key in currentTrackedAssets.keys())
+            {
+                var obj = currentTrackedAssets.get(key);
+                if (processed.contains(obj) || uniqueVRMImages.contains(key))continue;
+                expectedMemoryBytes += obj.width * obj.height * 4;
+                processed.push(obj);
+            }
+            processed = null;
+        }
+    }
+
 	public static function returnGraphic(key:String, ?library:String, throwToGPU:Bool = false, ?prefix:String = 'images')
     {
 		if (!ClientPrefs.useGPUCaching)
@@ -414,6 +443,7 @@ class Paths
 			grafic.destroyOnNoUse = false;
 			localTrackedAssets.push(path);
 			currentTrackedAssets.set(path, grafic);
+			getExpectedMemory();
 			return grafic;
         }
         return null;

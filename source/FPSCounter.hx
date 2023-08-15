@@ -1,54 +1,30 @@
-package openfl.display;
+package;
 
-import haxe.Timer;
-import openfl.events.Event;
 import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import flixel.math.FlxMath;
 import flixel.util.FlxStringUtil;
-#if gl_stats
-import openfl.display._internal.stats.Context3DStats;
-import openfl.display._internal.stats.DrawCallContext;
-#end
-#if flash
-import openfl.Lib;
-#end
 import flixel.FlxG;
-import flixel.FlxGame;
-import flixel.util.FlxColor;
 import openfl.Assets;
 #if (openfl >= "8.0.0")
 import openfl.utils.AssetType;
 #end
-import openfl.system.System;
+#if cpp
+import cpp.vm.Gc;
+#end
 
 using StringTools;
 
-/**
-	The FPS class provides an easy-to-use monitor to display
-	the current frame rate of an OpenFL project
-**/
-/*
-#if windows
-@:headerCode("
-#include <windows.h>
-#include <psapi.h>
-")
-#end*/
-#if !openfl_debug
-@:fileXml('tags="haxe,release"')
-@:noDebug
-#end
-class FPS extends TextField
+class FPSCounter extends TextField
 {
+    public static var instance:FPSCounter;
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Float;
 
 	public var curMemory:Float;
-	public var maxMemory:Float;
+	public var peakMemory:Float;
 	public var realAlpha:Float = 1;
 	public var lagging:Bool = false;
 	public var forceUpdateText(default, set):Bool = false;
@@ -59,7 +35,11 @@ class FPS extends TextField
 
 	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
 	{
-		super();
+        super();
+		if (instance!=null)
+            return;
+        
+		instance = this;
 
 		this.x = x;
 		this.y = y;
@@ -157,27 +137,29 @@ class FPS extends TextField
 	{
 		text = "FPS: " + Math.round(currentFPS);
 
-		var ms:Float = 1 / Math.round(currentFPS);
+		var ms:Float = FlxG.elapsed;
 		ms *= 1000;
 		if(Main.debug)
-		    text += ' (${FlxMath.roundDecimal(ms, 2)}ms)';
+		    text += ' (Update running at ${FlxMath.roundDecimal(ms, 2)}ms)';
 		
 
 		lagging = false;
 
-		textColor = FlxColor.fromRGBFloat(1, 1, 1, realAlpha);
+        alpha = realAlpha;
+		textColor = 0xFFFFFF;
 		if (currentFPS <= ClientPrefs.framerate / 2)
 		{
-			textColor = FlxColor.fromRGBFloat(1, 0, 0, realAlpha);
+			textColor = 0xFF0000;
 			lagging = true;
 		}
 
 		text += '\n';
 
-		curMemory = obtainMemory();
-		if (curMemory >= maxMemory)
-			maxMemory = curMemory;
-		text += 'MEM: ${CoolUtil.formatMemory(Std.int(curMemory))} / ${CoolUtil.formatMemory(Std.int(maxMemory))}';
+		curMemory = MemoryShit.obtainMemory();
+		if (curMemory >= peakMemory)
+			peakMemory = curMemory;
+		text += 'RAM: ${CoolUtil.formatMemory(Std.int(curMemory))} (${CoolUtil.formatMemory(Std.int(peakMemory))} peak)';
+        //text += 'VRAM: ${CoolUtil.formatMemory(Std.int())}';
 		text += '\n';
 		if(Main.debug){
             text += '\nDEBUG INFO:\n';
@@ -191,14 +173,11 @@ class FPS extends TextField
 			text += 'TEXTURE COUNT: ${Paths.uniqueRAMImages.length + Paths.uniqueVRMImages.length}\n';
 			text += '(${Paths.uniqueVRMImages.length} in VRAM)\n';
 			text += '(${Paths.uniqueRAMImages.length} in RAM)\n';
+            text += 'ESTIMATED IMAGE RAM: ${CoolUtil.formatMemory(Std.int(Paths.expectedMemoryBytes))})\n';
         }
 	}
-	
-	function obtainMemory():Dynamic
-	{
-		return System.totalMemory;
-	}
-	//#end
+
+    
 
 	public var textAfter:String = '';
 }
