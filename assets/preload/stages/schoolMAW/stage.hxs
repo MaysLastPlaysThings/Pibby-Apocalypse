@@ -30,35 +30,35 @@ var stupidFix;
 function onCreate()
 {
     background = new flixel.FlxSprite(0, 0);
-    background.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1.png', 'image'));
+    background.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1', 'image'));
     background.setGraphicSize(Std.int(background.width * 1.3));
     background.antialiasing = ClientPrefs.globalAntialiasing;
     background.scrollFactor.set(1, 1);
     background.updateHitbox();
 
     wall = new flixel.FlxSprite(-200, 200);
-    wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2.png', 'image'));
+    wall.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2', 'image'));
     wall.setGraphicSize(Std.int(wall.width * 1.1));
     wall.antialiasing = ClientPrefs.globalAntialiasing;
     wall.scrollFactor.set(1, 1);
     wall.updateHitbox();
 
     ch1 = new flixel.FlxSprite(100, 150);
-    ch1.loadGraphic(retrieveAsset('images/channels/chn1.png', 'image'));
+    ch1.loadGraphic(retrieveAsset('images/channels/chn1', 'image'));
     ch1.setGraphicSize(Std.int(ch1.width * 1));
     ch1.antialiasing = ClientPrefs.globalAntialiasing;
     ch1.scrollFactor.set(1, 1);
     ch1.updateHitbox();
 
     ch2 = new flixel.FlxSprite(125, -20);
-    ch2.loadGraphic(retrieveAsset('images/channels/chn2.png', 'image'));
+    ch2.loadGraphic(retrieveAsset('images/channels/chn2', 'image'));
     ch2.setGraphicSize(Std.int(ch2.width * 1));
     ch2.antialiasing = ClientPrefs.globalAntialiasing;
     ch2.scrollFactor.set(1, 1);
     ch2.updateHitbox();
 
     ch3 = new flixel.FlxSprite(100, 150);
-    ch3.loadGraphic(retrieveAsset('images/channels/chn3.png', 'image'));
+    ch3.loadGraphic(retrieveAsset('images/channels/chn3', 'image'));
     ch3.setGraphicSize(Std.int(ch1.width * 1));
     ch3.antialiasing = ClientPrefs.globalAntialiasing;
     ch3.scrollFactor.set(1, 1);
@@ -102,21 +102,21 @@ function onCreate()
         penny.animation.addByPrefix('idle', 'idle', 6, true);
 
         light = new flixel.FlxSprite(-500, 50);
-        light.loadGraphic(retrieveAsset('images/light.png', 'image'));
+        light.loadGraphic(retrieveAsset('images/light', 'image'));
         light.setGraphicSize(Std.int(light.width * 1));
         light.antialiasing = ClientPrefs.globalAntialiasing;
         light.scrollFactor.set(1, 1);
         light.updateHitbox();
 
         vignette = new flixel.FlxSprite(0, 0);
-        vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3.png', 'image'));
+        vignette.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3', 'image'));
         vignette.setGraphicSize(Std.int(vignette.width * 1.3));
         vignette.antialiasing = ClientPrefs.globalAntialiasing;
         vignette.scrollFactor.set(1, 1);
         vignette.updateHitbox();
 
         vignette2 = new flixel.FlxSprite(0, 0);
-        vignette2.loadGraphic(retrieveAsset('images/188_sin_titulo11_20230523094718.png', 'image'));
+        vignette2.loadGraphic(retrieveAsset('images/188_sin_titulo11_20230523094718', 'image'));
         vignette2.setGraphicSize(Std.int(vignette2.width * 1.3));
         vignette2.antialiasing = ClientPrefs.globalAntialiasing;
         vignette2.scrollFactor.set(1, 1);
@@ -124,49 +124,49 @@ function onCreate()
     }
 
     void = new flixel.FlxSprite(0, -200);
-    void.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-1.png', 'image'));
+    void.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-1', 'image'));
     void.setGraphicSize(Std.int(void.width * 2.5));
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
 
     house = new flixel.FlxSprite(0, -200);
-    house.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-2.png', 'image'));
+    house.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-2', 'image'));
     house.setGraphicSize(Std.int(house.width * 2.5));
     house.antialiasing = ClientPrefs.globalAntialiasing;
     house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
 
     rock = new flixel.FlxSprite(0, -200);
-    rock.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-3.png', 'image'));
+    rock.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-3', 'image'));
     rock.setGraphicSize(Std.int(rock.width * 2.5));
     rock.antialiasing = ClientPrefs.globalAntialiasing;
     rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
 
     rock2 = new flixel.FlxSprite(0, -200);
-    rock2.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-4.png', 'image'));
+    rock2.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-4', 'image'));
     rock2.setGraphicSize(Std.int(rock2.width * 2.5));
     rock2.antialiasing = ClientPrefs.globalAntialiasing;
     rock2.scrollFactor.set(1.1, 1.1);
     rock2.updateHitbox();
 
     rock3 = new flixel.FlxSprite(0, -200);
-    rock3.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-5.png', 'image'));
+    rock3.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-5', 'image'));
     rock3.setGraphicSize(Std.int(rock3.width * 2.5));
     rock3.antialiasing = ClientPrefs.globalAntialiasing;
     rock3.scrollFactor.set(0.9, 0.9);
     rock3.updateHitbox();
 
     rock4 = new flixel.FlxSprite(0, -200);
-    rock4.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-6.png', 'image'));
+    rock4.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-6', 'image'));
     rock4.setGraphicSize(Std.int(rock4.width * 2.5));
     rock4.antialiasing = ClientPrefs.globalAntialiasing;
     rock4.scrollFactor.set(0.85, 0.85);
     rock4.updateHitbox();
 
     wtf = new flixel.FlxSprite(0, -200);
-    wtf.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-7.png', 'image'));
+    wtf.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-7', 'image'));
     wtf.setGraphicSize(Std.int(wtf.width * 2.5));
     wtf.antialiasing = ClientPrefs.globalAntialiasing;
     wtf.scrollFactor.set(1, 1);

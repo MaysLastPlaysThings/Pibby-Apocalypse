@@ -392,7 +392,7 @@ class PlayState extends MusicBeatState
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
-    var beatShaderAmount:Float = 0.1;
+    var beatShaderAmount:Float = 0.05;
 
 	// Lua shit
 	public static var instance:PlayState;
@@ -907,9 +907,9 @@ class PlayState extends MusicBeatState
 
 		pibbyHealthbar = new FlxSprite();
         if(ClientPrefs.shaders)
-		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader');
+		    pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader', null, true);
         else
-            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar');
+            pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar', null, true);
 
         pibbyHealthbar.scale.set(0.8, 0.8);
         pibbyHealthbar.updateHitbox();
@@ -935,11 +935,13 @@ class PlayState extends MusicBeatState
 		finnBarThing = new FlxSprite();
 		finnBarThing.y = 565;
 		finnBarThing.x = 197;
-		finnBarThing.frames = Paths.getSparrowAtlas('healthbar/iconbar');
-		finnBarThing.animation.addByPrefix('idle2', 'Icons Bar 2', 24, true);
-		finnBarThing.animation.addByPrefix('idle3', 'Icons Bar 1', 24, true);
-		finnBarThing.animation.addByPrefix('idle1', 'Icons Bar 3', 24, true);
-		finnBarThing.animation.play('idle3');
+        if(storyWeekName != 'gumball'){
+		    finnBarThing.frames = Paths.getSparrowAtlas('healthbar/iconbar', null, true);
+            finnBarThing.animation.addByPrefix('idle2', 'Icons Bar 2', 24, true);
+            finnBarThing.animation.addByPrefix('idle3', 'Icons Bar 1', 24, true);
+            finnBarThing.animation.addByPrefix('idle1', 'Icons Bar 3', 24, true);
+            finnBarThing.animation.play('idle3');
+        }
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
@@ -1747,7 +1749,7 @@ class PlayState extends MusicBeatState
         numberIntro.screenCenter();
         numberIntro.x -= 200;
         numberIntro.y -= 200;
-        numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared');
+        numberIntro.frames = Paths.getSparrowAtlas('Numbers', 'shared', true);
         numberIntro.alpha = 0.0001;
         numberIntro.cameras = [camOverlay];
         
@@ -2524,8 +2526,9 @@ class PlayState extends MusicBeatState
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
         
-        if (curBeat % 1 == 0)
-			finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
+		if (storyWeekName != 'gumball')
+            if (curBeat % 1 == 0)
+                finnBarThing.animation.play('idle${(2 - dodgeMisses) + 1}');
 
         var healthPercent = health * 0.5; // i would do / 2 but iirc multiplication is more optimized than division in alot of cases
         var damagePercent = 1 - healthPercent;
@@ -2552,6 +2555,20 @@ class PlayState extends MusicBeatState
 			mawFNF.iTime.value[0] += elapsed;
 			blurFNF.amount.value[0] = blurIntensity;
 			glitchFWFNF.setFloat('iTime', shaderStuff);
+
+            var shaders = [distortDadFNF, distortCAWMFNF]; // maybe put this somewhere else as like a "distortShaders" array? esp since its used multiple times in the code
+            // its fine rn tho so w/e
+            for(idx in 0...distortShaderTimes.length){
+                distortShaderTimes[idx] -= elapsed;
+                if(distortShaderTimes[idx] < 0)distortShaderTimes[idx] = 0;
+                if(distortShaderTimes[idx] == 0){
+                    shaders[idx].setFloat("negativity", 0.0);
+                    if(idx == 0){
+                        if(dad.shader == shaders[idx])dad.shader = null;
+                        if(jake != null && jake.shader == shaders[idx])jake.shader = null;
+                    }
+                }
+            }
 		}
 
         switch (SONG.song) //where we kill gf schweizer :(
@@ -3071,6 +3088,8 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
+
+                FlxG.game.setFilters([]);
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -3182,6 +3201,7 @@ class PlayState extends MusicBeatState
                         trace("DO NOT BAD APPLE TWICE!!");
                         return;
                     }
+                    camGame.pushFilter("glow",new ShaderFilter(glowfnf));
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -4213,10 +4233,13 @@ class PlayState extends MusicBeatState
 		}
 		callOnLuas('noteMissPress', [direction]);
 	}
+    
+    // vv in place of FlxTimer because that shid SUCKS!!
+    var distortShaderTimes:Array<Float> = [0,0];
 
 	function opponentNoteHit(note:Note):Void
 	{
-		if (note.noteType == 'Glitch Note') {
+		if (note.noteType == 'Glitch Note' || note.noteType == 'Both Char Glitch') {
 			for (i in 0...opponentStrums.length) {
 				opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
 				opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
@@ -4230,12 +4253,14 @@ class PlayState extends MusicBeatState
 					dadGlitchIntensity = FlxG.random.float(12, 25);
                     var shaders = [distortDadFNF, distortCAWMFNF];
                     if(dad.shader == null)dad.shader = distortDadFNF;
-                    for(shader in shaders){
+                    for(idx in 0...shaders.length){
+                        var shader = shaders[idx];
                         shader.setFloat("negativity", 1.0);
-                        new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
+                        distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
+/*                         new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
                             shader.setFloat("negativity", 0.0);
-                            if(dad.shader == distortDadFNF)dad.shader = null;
-                        });
+                            if(dad.shader == shader && shader == distortDadFNF)dad.shader = null;
+                        }); */
                     }
 				}
 		}
@@ -4280,7 +4305,7 @@ class PlayState extends MusicBeatState
 				char = jake;
                 jakeSings = true;
 			}
-			else if (note.noteType == 'Second Char Glitch') {
+			else if (note.noteType == 'Second Char Glitch' || note.noteType == 'Both Char Glitch') {
 				char = jake;
                 jakeSings = true;
 				for (i in 0...opponentStrums.length) {
@@ -4295,12 +4320,11 @@ class PlayState extends MusicBeatState
 							dadGlitchIntensity = FlxG.random.float(12, 25);
                             var shaders = [distortDadFNF, distortCAWMFNF];
                             if(jake.shader == null)jake.shader = distortDadFNF;
-                            for(shader in shaders){
+                            for (idx in 0...shaders.length)
+                            {
+                                var shader = shaders[idx];
                                 shader.setFloat("negativity", 1.0);
-                                new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-                                    shader.setFloat("negativity", 0.0);
-                                    if(jake.shader == distortDadFNF)jake.shader = null;
-                                });
+                                distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
                             }
 						}
 				}

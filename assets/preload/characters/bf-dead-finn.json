@@ -1,49 +1,49 @@
 {
 	"animations": [
 		{
-			"cameraOffset": [
-				0,
-				0
-			],
-			"loop": false,
 			"offsets": [
 				217,
 				641
 			],
-			"anim": "firstDeath",
-			"fps": 24,
-			"name": "bfdies",
-			"indices": []
-		},
-		{
+			"loop": false,
 			"cameraOffset": [
 				0,
 				0
 			],
-			"loop": true,
+			"fps": 24,
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "bfdies"
+		},
+		{
 			"offsets": [
 				66,
 				309
 			],
-			"anim": "deathLoop",
-			"fps": 24,
-			"name": "deathloop",
-			"indices": []
-		},
-		{
+			"loop": true,
 			"cameraOffset": [
 				0,
 				0
 			],
-			"loop": false,
+			"fps": 24,
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "deathloop"
+		},
+		{
 			"offsets": [
 				903,
 				611
 			],
-			"anim": "deathConfirm",
+			"loop": false,
+			"cameraOffset": [
+				0,
+				0
+			],
 			"fps": 24,
-			"name": "retry",
-			"indices": []
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "retry"
 		}
 	],
 	"no_antialiasing": false,
@@ -64,5 +64,5 @@
 		-130
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 2
 }

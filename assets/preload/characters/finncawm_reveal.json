@@ -1,66 +1,66 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				-100,
 				-100
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "full-idle0",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "full-idle0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-150,
 				-199
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Left-full0",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left-full0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-242,
 				39
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Up0",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-464,
 				-97
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Right0",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right0"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-194,
 				-407
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down0"
+			"fps": 24,
+			"name": "Down0",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/finn_reveal",
 	"position": [
-		-300,
-		-160
+		-80,
+		0
 	],
 	"healthicon": "finn",
 	"flip_x": false,
@@ -70,9 +70,9 @@
 		161
 	],
 	"camera_position": [
-		-20,
-		380
+		-300,
+		190
 	],
 	"sing_duration": 6.1,
-	"scale": 0.999999999999999
+	"scale": 2
 }

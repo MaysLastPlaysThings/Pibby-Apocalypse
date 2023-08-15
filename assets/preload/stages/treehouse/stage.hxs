@@ -27,14 +27,14 @@ var doThunder:Bool = false;
 function onCreate()
 {
     bg = new flixel.FlxSprite(-800, -800);
-    bg.loadGraphic(retrieveAsset('images/back.png', 'image'));
+    bg.loadGraphic(retrieveAsset('images/back', 'image'));
     bg.scale.set(1.8, 1.8);
     bg.antialiasing = ClientPrefs.globalAntialiasing;
     bg.updateHitbox();
     bg.alpha = 0.0001;
 
     treehouse = new flixel.FlxSprite(-800, -800);
-    treehouse.loadGraphic(retrieveAsset('images/tree.png', 'image'));
+    treehouse.loadGraphic(retrieveAsset('images/tree', 'image'));
     treehouse.scale.set(1.8, 1.8);
     treehouse.antialiasing = ClientPrefs.globalAntialiasing;
     treehouse.updateHitbox();
@@ -54,52 +54,52 @@ function onCreate()
 
     
     backGlitch = new flixel.FlxSprite(750, 1500);
-    backGlitch.loadGraphic(retrieveAsset('images/reveal/BackGlitch.png', 'image'));
+    backGlitch.loadGraphic(retrieveAsset('images/reveal/BackGlitch', 'image'));
     backGlitch.updateHitbox();
     backGlitch.scale.set(0.7, 0.7);
 
     aboveGlitch = new flixel.FlxSprite(750, 1500);
-    aboveGlitch.loadGraphic(retrieveAsset('images/reveal/AboveGlitch.png', 'image'));
+    aboveGlitch.loadGraphic(retrieveAsset('images/reveal/AboveGlitch', 'image'));
     aboveGlitch.updateHitbox();
     aboveGlitch.scale.set(0.7, 0.7);
 
     hillShit = new flixel.FlxSprite(750, 1500);
-    hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff.png', 'image'));
+    hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff', 'image'));
     hillShit.updateHitbox();
     hillShit.scale.set(0.7, 0.7);
 
     particles = new flixel.FlxSprite(750, 1500);
-    particles.loadGraphic(retrieveAsset('images/reveal/Particles.png', 'image'));
+    particles.loadGraphic(retrieveAsset('images/reveal/Particles', 'image'));
     particles.updateHitbox();
     particles.scale.set(0.5, 0.5);
 
     dangling = new flixel.FlxSprite(750, 1500);
-    dangling.loadGraphic(retrieveAsset('images/reveal/Dangling.png', 'image'));
+    dangling.loadGraphic(retrieveAsset('images/reveal/Dangling', 'image'));
     dangling.updateHitbox();
     dangling.scale.set(0.7, 0.7);
 
     corruption = new flixel.FlxSprite(750, 1500);
-    corruption.loadGraphic(retrieveAsset('images/reveal/Corruption.png', 'image'));
+    corruption.loadGraphic(retrieveAsset('images/reveal/Corruption', 'image'));
     corruption.updateHitbox();
     corruption.scale.set(0.7, 0.7);
 
     outside = new flixel.FlxSprite(1150, 1450);
-    outside.loadGraphic(retrieveAsset('images/intro/IMG_8337.png', 'image'));
+    outside.loadGraphic(retrieveAsset('images/intro/IMG_8337', 'image'));
     outside.updateHitbox();
     outside.scale.set(0.7, 0.7);
 
     outside2 = new flixel.FlxSprite(1150, 1450);
-    outside2.loadGraphic(retrieveAsset('images/intro/IMG_8337.png', 'image'));
+    outside2.loadGraphic(retrieveAsset('images/intro/IMG_8337', 'image'));
     outside2.updateHitbox();
     outside2.scale.set(0.65, 0.65);
 
     idkWhatAreThatThings = new flixel.FlxSprite(1090, 1500);
-    idkWhatAreThatThings.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-2.png', 'image'));
+    idkWhatAreThatThings.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-2', 'image'));
     idkWhatAreThatThings.updateHitbox();
     idkWhatAreThatThings.scale.set(0.6, 0.6);
 
     coolGradient = new flixel.FlxSprite(1150, 1450);
-    coolGradient.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-3.png', 'image'));
+    coolGradient.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-3', 'image'));
     coolGradient.updateHitbox();
 
     backGlitch.y += 270;

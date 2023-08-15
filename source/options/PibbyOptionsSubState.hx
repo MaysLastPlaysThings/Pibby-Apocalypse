@@ -51,6 +51,15 @@ class PibbyOptionsSubState extends BaseOptionsMenu
             false); //Default value
         addOption(option);
 
+		var option:Option = new Option('GPU Caching', // Name
+			"If checked, your GPU's VRAM can be used to store some textures.\nOnly enable if you have a good graphics card!", // Description
+			'useGPUCaching', // Save data variable name
+			'bool', // Variable type
+			false); // Default value
+		addOption(option);
+
+        
+
 		var option:Option = new Option('Health Drain', //Name
 			'If unchecked, opponent will not drain your health.', //Description
 			'healthDrain', //Save data variable name

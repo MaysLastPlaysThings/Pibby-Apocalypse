@@ -40,11 +40,13 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState.instance);
         additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType):Dynamic {
+            // this is retarded lol
             switch (assetType) {
                 case IMAGE:
-                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
+/*                     var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
                     newGraphic.persist = true;
-                    return newGraphic;
+                    return newGraphic; */
+					return Paths.returnGraphic(path, null, false, 'stages/$currentStage');
                 case ATLAS:
                     var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}.png')), false, 'assets/stages/${currentStage}/${path}.png');
                     newGraphic.persist = true;
