@@ -158,7 +158,7 @@ class FPSCounter extends TextField
 		curMemory = MemoryShit.obtainMemory();
 		if (curMemory >= peakMemory)
 			peakMemory = curMemory;
-		text += 'RAM: ${CoolUtil.formatMemory(Std.int(curMemory))} (${CoolUtil.formatMemory(Std.int(peakMemory))} peak)\n';
+		text += 'RAM: ${CoolUtil.formatMemory(Std.int(curMemory))} (${CoolUtil.formatMemory(Std.int(peakMemory))} peak)';
 		//text += 'Used VRAM: ${CoolUtil.formatMemory(Std.int(FlxG.stage.context3D.totalGPUMemory))}'; // honestly not super useful
 		text += '\n';
 		if(Main.debug){
