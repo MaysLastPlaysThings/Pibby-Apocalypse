@@ -1722,8 +1722,8 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
     {
-        if (SONG.player1 == 'newbf') {
-            bfIntro = new Boyfriend(0, 0, 'bf_intro');
+        if (SONG.player1.contains('newbf')) {
+            bfIntro = new Boyfriend(0, 0, 'bf_intro'); //SOMEONE PLEASE FIX THE BF INTRO SCALING (I TRIED BUT PSYCH SCALING DOESNT GET ACCURATE ENOUGH)
             startCharacterPos(bfIntro);
             boyfriend.alpha = 0;
 
@@ -1742,7 +1742,7 @@ class PlayState extends MusicBeatState
             pibbyIntro.specialAnim = true;
         }
 
-        if (SONG.player1 == 'newbf')
+        if (SONG.player1.contains('newbf'))
             boyfriendGroup.add(bfIntro);
 
         var numberIntro:FlxSprite = new FlxSprite();
@@ -1821,7 +1821,7 @@ class PlayState extends MusicBeatState
                         numberIntro.alpha = 1;
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('3', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1843,7 +1843,7 @@ class PlayState extends MusicBeatState
                         cameraBump();
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('2', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1866,7 +1866,7 @@ class PlayState extends MusicBeatState
                         cameraBump();
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('1', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1890,7 +1890,7 @@ class PlayState extends MusicBeatState
                         cameraBump(true);
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('Go', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1906,7 +1906,7 @@ class PlayState extends MusicBeatState
                             }
                         FlxG.sound.play(Paths.sound('go'), 0.6);
                     case 4:
-                        if (SONG.player1 == 'newbf') {
+                        if (SONG.player1.contains('newbf')) {
                             boyfriend.alpha = 1;
                             bfIntro.alpha = 0;
                         }
@@ -2857,7 +2857,7 @@ class PlayState extends MusicBeatState
 			if(!cpuControlled) {
 				keyShit();
 			} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
-				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+				if(!boyfriend.curCharacter.contains('newbf') || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
                     boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
@@ -4088,7 +4088,7 @@ class PlayState extends MusicBeatState
 
 			if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
-				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+				if(!boyfriend.curCharacter.contains('newbf') || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
                     boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
