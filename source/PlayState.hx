@@ -4239,30 +4239,30 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
+        var glitching = false;
 		if (note.noteType == 'Glitch Note' || note.noteType == 'Both Char Glitch') {
-			for (i in 0...opponentStrums.length) {
-				opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-				opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+            glitching = true;
+            if(!note.isSustainNote){
+                for (i in 0...opponentStrums.length) {
+                    opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                    opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
 
-				playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
-			}
-            boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
-			if (ClientPrefs.shaders)
-				{
-					dadGlitchIntensity = FlxG.random.float(12, 25);
-                    var shaders = [distortDadFNF, distortCAWMFNF];
-                    if(dad.shader == null)dad.shader = distortDadFNF;
-                    for(idx in 0...shaders.length){
-                        var shader = shaders[idx];
-                        shader.setFloat("negativity", 1.0);
-                        distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
-/*                         new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-                            shader.setFloat("negativity", 0.0);
-                            if(dad.shader == shader && shader == distortDadFNF)dad.shader = null;
-                        }); */
+                    playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                    playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                }
+                boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
+                if (ClientPrefs.shaders)
+                    {
+                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        var shaders = [distortDadFNF, distortCAWMFNF];
+                        if(dad.shader == null)dad.shader = distortDadFNF;
+                        for(idx in 0...shaders.length){
+                            var shader = shaders[idx];
+                            shader.setFloat("negativity", 1.0);
+                            distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0275, 0.05);
+                        }
                     }
-				}
+            }
 		}
 
         jakeSings = false;
@@ -4308,27 +4308,36 @@ class PlayState extends MusicBeatState
 			else if (note.noteType == 'Second Char Glitch' || note.noteType == 'Both Char Glitch') {
 				char = jake;
                 jakeSings = true;
-				for (i in 0...opponentStrums.length) {
-					opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-					opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
-	
-					playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
-					
-					if (ClientPrefs.shaders)
-						{
-							dadGlitchIntensity = FlxG.random.float(12, 25);
-                            var shaders = [distortDadFNF, distortCAWMFNF];
-                            if(jake.shader == null)jake.shader = distortDadFNF;
-                            for (idx in 0...shaders.length)
-                            {
-                                var shader = shaders[idx];
-                                shader.setFloat("negativity", 1.0);
-                                distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
-                            }
-						}
-				}
+                glitching = true;
+                if(!note.isSustainNote){
+                    for (i in 0...opponentStrums.length) {
+                        opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                        opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+        
+                        playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                        playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                    }
+                        
+                    if (ClientPrefs.shaders)
+                    {
+                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        var shaders = [distortDadFNF, distortCAWMFNF];
+                        if(jake.shader == null)jake.shader = distortDadFNF;
+                        for (idx in 0...shaders.length)
+                        {
+                            var shader = shaders[idx];
+                            shader.setFloat("negativity", 1.0);
+                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0275, 0.05);
+                        }
+                    }
+                    
+                }
 		}
+
+        if(!glitching){
+            for(idx in 0...distortShaderTimes.length)
+                distortShaderTimes[idx] = 0; // remove the glitching
+        }
 
 			if(char != null)
 			{
@@ -4805,6 +4814,7 @@ class PlayState extends MusicBeatState
 									}
 							});
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
 								{
@@ -4819,7 +4829,7 @@ class PlayState extends MusicBeatState
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
-							defaultCamZoom = 0.85; // these, weirdly, dont work ingame
+							defaultCamZoom = 0.85;
 						case 672:
 							defaultCamZoom = 0.75;
 						case 720:
