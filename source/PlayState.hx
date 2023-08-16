@@ -4259,7 +4259,7 @@ class PlayState extends MusicBeatState
                         for(idx in 0...shaders.length){
                             var shader = shaders[idx];
                             shader.setFloat("negativity", 1.0);
-                            distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0275, 0.05);
+                            distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.085);
                         }
                     }
             }
@@ -4327,7 +4327,7 @@ class PlayState extends MusicBeatState
                         {
                             var shader = shaders[idx];
                             shader.setFloat("negativity", 1.0);
-                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0275, 0.05);
+                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.05);
                         }
                     }
                     
