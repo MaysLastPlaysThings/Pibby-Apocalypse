@@ -27,14 +27,14 @@
 				7,
 				-160
 			],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle-loop",
 			"indices": [
 				12,
 				13,
 				14
 			],
-			"fps": 24,
-			"anim": "idle-loop",
-			"loop": true,
 			"name": "finn idle"
 		}
 	],
@@ -42,7 +42,7 @@
 	"image": "characters/finnfalse",
 	"position": [
 		-150,
-		-10
+		30
 	],
 	"healthicon": "finn",
 	"flip_x": false,
