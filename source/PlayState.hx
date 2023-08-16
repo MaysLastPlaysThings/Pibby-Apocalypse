@@ -282,7 +282,6 @@ class PlayState extends MusicBeatState
 	var dadGlitchIntensity:Float;
     var abberationShaderIntensity:Float;
 	var blurIntensity:Float;
-	var chromEffectTimeIntensity:Float;
 
     var animOffsetValue:Float = 20;
 
