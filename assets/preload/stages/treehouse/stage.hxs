@@ -10,13 +10,14 @@ var coolGradient;
 var outside2;
 
 //faker stuff
-var backGlitch;
-var aboveGlitch;
+/* var backGlitch;
 var hillShit;
 var particles;
 var dangling;
 var corruption;
-var cameraShit;
+var cameraShit; */
+
+var revealBackground; // because its all on the same layer and doesnt parallax or anything, this only needs 1 image for everything
 
 
 var dadCamZoom = -1;
@@ -53,15 +54,10 @@ function onCreate()
     }
 
     
-    backGlitch = new flixel.FlxSprite(750, 1500);
-    backGlitch.loadGraphic(retrieveAsset('images/reveal/BackGlitch', 'image'));
+/*     backGlitch = new flixel.FlxSprite(750, 1500);
+    backGlitch.loadGraphic(retrieveAsset('images/reveal/glitch', 'image'));
     backGlitch.updateHitbox();
     backGlitch.scale.set(0.7, 0.7);
-
-    aboveGlitch = new flixel.FlxSprite(750, 1500);
-    aboveGlitch.loadGraphic(retrieveAsset('images/reveal/AboveGlitch', 'image'));
-    aboveGlitch.updateHitbox();
-    aboveGlitch.scale.set(0.7, 0.7);
 
     hillShit = new flixel.FlxSprite(750, 1500);
     hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff', 'image'));
@@ -81,7 +77,10 @@ function onCreate()
     corruption = new flixel.FlxSprite(750, 1500);
     corruption.loadGraphic(retrieveAsset('images/reveal/Corruption', 'image'));
     corruption.updateHitbox();
-    corruption.scale.set(0.7, 0.7);
+    corruption.scale.set(0.7, 0.7); */
+
+    revealBackground = new flixel.FlxSprite(750, 1500);
+    revealBackground.loadGraphic(retrieveAsset('images/reveal/realBackground', 'image'));
 
     outside = new flixel.FlxSprite(1150, 1450);
     outside.loadGraphic(retrieveAsset('images/intro/IMG_8337', 'image'));
@@ -102,19 +101,19 @@ function onCreate()
     coolGradient.loadGraphic(retrieveAsset('images/intro/Ilustracion_sin_titulo-3', 'image'));
     coolGradient.updateHitbox();
 
-    backGlitch.y += 270;
-    aboveGlitch.y += 270;
+    revealBackground.y += 475;
+    revealBackground.x += 675;
+/*     backGlitch.y += 270;
     hillShit.y += 270;
     particles.y += 270;
     dangling.y += 270;
-    corruption.y += 270;
+    corruption.y += 270; */
 
-    backGlitch.x += 90;
-    aboveGlitch.x += 90;
+/*     backGlitch.x += 90;
     hillShit.x += 90;
     particles.x += 90;
     dangling.x += 90;
-    corruption.x += 90;
+    corruption.x += 90; */
 
     add(bg);
     add(thunder);
@@ -123,17 +122,20 @@ function onCreate()
 
     // reveal shit cuz yes
 
-    add(backGlitch);
-    add(aboveGlitch);
+    add(revealBackground);
+    
+/*     add(backGlitch);
     add(hillShit);
     add(particles);
     add(dangling);
-    add(corruption);
+    add(corruption); */
 
     add(outside);
     add(outside2);
     add(coolGradient);
     add(idkWhatAreThatThings);
+
+    
 }
 
 function onMoveCamera(focus:String)
@@ -161,23 +163,20 @@ function onStepHit(curStep:Int)
             doThunder = false;
             dadCamZoom = 0.9;
 
-        }
-        if (curStep == 1648)
+        }else if (curStep == 1648)
         {
             outside.alpha = 0;
             outside2.alpha = 0;
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
-            backGlitch.alpha = 1;
-            aboveGlitch.alpha = 1;
+            revealBackground.alpha = 1;
+/*             backGlitch.alpha = 1;
             hillShit.alpha = 1;
             particles.alpha = 1;
             dangling.alpha = 1;
-            corruption.alpha = 1;
+            corruption.alpha = 1; */
             dadCamZoom = 0.85;
-        }
-
-        if (curStep == 628)
+        }else if (curStep == 628)
         {
             outside.alpha = 0;
             outside2.alpha = 0;
@@ -188,29 +187,27 @@ function onStepHit(curStep:Int)
             treehouse.alpha = 1;
             bg.alpha = 0;
             doThunder = true;
-        }
-        if (curStep == 896) {
+        }else if (curStep == 896) {
             dadCamZoom = 0.6;
 
-            backGlitch.alpha = 0;
-            aboveGlitch.alpha = 0;
+            revealBackground.alpha = 0;
+/*             backGlitch.alpha = 0;
             hillShit.alpha = 0;
             particles.alpha = 0;
             dangling.alpha = 0;
-            corruption.alpha = 0;
+            corruption.alpha = 0; */
             bg.alpha = 1;
-        }
-        if (curStep == 1536)
+        }else if (curStep == 1536)
             dadCamZoom = 0.8;
-        if (curStep == 1664) {
+        else if (curStep == 1664) {
             dadCamZoom = 0.6;
 
-            backGlitch.alpha = 0;
-            aboveGlitch.alpha = 0;
+            revealBackground.alpha = 0;
+/*             backGlitch.alpha = 0;
             hillShit.alpha = 0;
             particles.alpha = 0;
             dangling.alpha = 0;
-            corruption.alpha = 0;
+            corruption.alpha = 0; */
 
             thunder.alpha = 1;
             treehouse.alpha = 1;

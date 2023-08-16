@@ -776,14 +776,17 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.3;
 			}
 
-		finnT = new FlxSprite();
-		finnT.x = -260;
-		finnT.y = -180;
-		finnT.frames = Paths.getSparrowAtlas('characters/Finn_Transformation');
-		finnT.animation.addByPrefix('cutscene', 'FINN-CUTSCENE', 24, false);
-		finnT.alpha = 0.0001;
-		finnT.scrollFactor.set();
-		add(finnT);
+            // WHY ISTHIS ALWAYS LOADED??
+        if(SONG.song.toLowerCase() == 'mindless'){
+            finnT = new FlxSprite();
+            finnT.x = -260;
+            finnT.y = -180;
+            finnT.frames = Paths.getSparrowAtlas('characters/Finn_Transformation', null, true); // btw to make smth utilise GPU you add true as its final argument, and if GPU caching is on it'll put it in VRAM
+            finnT.animation.addByPrefix('cutscene', 'FINN-CUTSCENE', 24, false);
+            finnT.alpha = 0.0001;
+            finnT.scrollFactor.set();
+            add(finnT);
+        }
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
@@ -1063,7 +1066,7 @@ class PlayState extends MusicBeatState
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
         pibbyHealthbar.cameras = [camHUD];
-		finnT.cameras = [camHUD];
+        if(SONG.song.toLowerCase() == 'mindless')finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 
 		// if (SONG.song == 'South')
@@ -1348,7 +1351,6 @@ class PlayState extends MusicBeatState
 					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
 					camShitforReveal.screenCenter(XY);
 					camShitforReveal.cameras = [camOther];
-					camShitforReveal.scale.set(0.9, 0.9);
 					add(camShitforReveal);
 
 					blackie.alpha = 1;
