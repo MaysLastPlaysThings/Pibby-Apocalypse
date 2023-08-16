@@ -775,14 +775,17 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.3;
 			}
 
-		finnT = new FlxSprite();
-		finnT.x = -260;
-		finnT.y = -180;
-		finnT.frames = Paths.getSparrowAtlas('characters/Finn_Transformation');
-		finnT.animation.addByPrefix('cutscene', 'FINN-CUTSCENE', 24, false);
-		finnT.alpha = 0.0001;
-		finnT.scrollFactor.set();
-		add(finnT);
+            // WHY ISTHIS ALWAYS LOADED??
+        if(SONG.song.toLowerCase() == 'mindless'){
+            finnT = new FlxSprite();
+            finnT.x = -260;
+            finnT.y = -180;
+            finnT.frames = Paths.getSparrowAtlas('characters/Finn_Transformation', null, true); // btw to make smth utilise GPU you add true as its final argument, and if GPU caching is on it'll put it in VRAM
+            finnT.animation.addByPrefix('cutscene', 'FINN-CUTSCENE', 24, false);
+            finnT.alpha = 0.0001;
+            finnT.scrollFactor.set();
+            add(finnT);
+        }
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
@@ -1062,7 +1065,7 @@ class PlayState extends MusicBeatState
 		lyricTxt.cameras = [camOther];
 		finnBarThing.cameras = [camHUD];
         pibbyHealthbar.cameras = [camHUD];
-		finnT.cameras = [camHUD];
+        if(SONG.song.toLowerCase() == 'mindless')finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 
 		// if (SONG.song == 'South')
@@ -1347,7 +1350,6 @@ class PlayState extends MusicBeatState
 					camShitforReveal = new FlxSprite(0, 0).loadGraphic(Paths.image('CameraShtuff'));
 					camShitforReveal.screenCenter(XY);
 					camShitforReveal.cameras = [camOther];
-					camShitforReveal.scale.set(0.9, 0.9);
 					add(camShitforReveal);
 
 					blackie.alpha = 1;
@@ -1721,8 +1723,8 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
     {
-        if (SONG.player1 == 'newbf') {
-            bfIntro = new Boyfriend(0, 0, 'bf_intro');
+        if (SONG.player1.contains('newbf')) {
+            bfIntro = new Boyfriend(0, 0, 'bf_intro'); //SOMEONE PLEASE FIX THE BF INTRO SCALING (I TRIED BUT PSYCH SCALING DOESNT GET ACCURATE ENOUGH)
             startCharacterPos(bfIntro);
             boyfriend.alpha = 0;
 
@@ -1741,7 +1743,7 @@ class PlayState extends MusicBeatState
             pibbyIntro.specialAnim = true;
         }
 
-        if (SONG.player1 == 'newbf')
+        if (SONG.player1.contains('newbf'))
             boyfriendGroup.add(bfIntro);
 
         var numberIntro:FlxSprite = new FlxSprite();
@@ -1820,7 +1822,7 @@ class PlayState extends MusicBeatState
                         numberIntro.alpha = 1;
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('3', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1842,7 +1844,7 @@ class PlayState extends MusicBeatState
                         cameraBump();
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('2', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1865,7 +1867,7 @@ class PlayState extends MusicBeatState
                         cameraBump();
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('1', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1889,7 +1891,7 @@ class PlayState extends MusicBeatState
                         cameraBump(true);
                         if (bfIntro != null)
                             {
-                                if (SONG.player1 == 'newbf') {
+                                if (SONG.player1.contains('newbf')) {
                                     bfIntro.playAnim('Go', true);
                                     bfIntro.specialAnim = true;
                                 }
@@ -1905,7 +1907,7 @@ class PlayState extends MusicBeatState
                             }
                         FlxG.sound.play(Paths.sound('go'), 0.6);
                     case 4:
-                        if (SONG.player1 == 'newbf') {
+                        if (SONG.player1.contains('newbf')) {
                             boyfriend.alpha = 1;
                             bfIntro.alpha = 0;
                         }
@@ -2856,7 +2858,7 @@ class PlayState extends MusicBeatState
 			if(!cpuControlled) {
 				keyShit();
 			} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
-				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+				if(!boyfriend.curCharacter.contains('newbf') || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
                     boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
@@ -3068,6 +3070,7 @@ class PlayState extends MusicBeatState
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
+            FlxG.camera.setFilters([]);
 			newStage.onGameOver();
 			var ret:Dynamic = callOnLuas('onGameOver', [], false);
 			if(ret != FunkinLua.Function_Stop) {
@@ -3088,7 +3091,6 @@ class PlayState extends MusicBeatState
 					timer.active = true;
 				}
 
-                FlxG.game.setFilters([]);
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -4087,7 +4089,7 @@ class PlayState extends MusicBeatState
 
 			if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
-				if(boyfriend.curCharacter != 'newbf' || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
+				if(!boyfriend.curCharacter.contains('newbf') || boyfriend.animation.curAnim.finished) // so that newbf will always finish his directional poses, because they return to idle and it looks cool :)
                     boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
@@ -4238,30 +4240,30 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
+        var glitching = false;
 		if (note.noteType == 'Glitch Note' || note.noteType == 'Both Char Glitch') {
-			for (i in 0...opponentStrums.length) {
-				opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-				opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+            glitching = true;
+            if(!note.isSustainNote){
+                for (i in 0...opponentStrums.length) {
+                    opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                    opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
 
-				playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-				playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
-			}
-            boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
-			if (ClientPrefs.shaders)
-				{
-					dadGlitchIntensity = FlxG.random.float(12, 25);
-                    var shaders = [distortDadFNF, distortCAWMFNF];
-                    if(dad.shader == null)dad.shader = distortDadFNF;
-                    for(idx in 0...shaders.length){
-                        var shader = shaders[idx];
-                        shader.setFloat("negativity", 1.0);
-                        distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
-/*                         new FlxTimer().start(FlxG.random.float(0.0775, 0.1025), function(tmr:FlxTimer) {
-                            shader.setFloat("negativity", 0.0);
-                            if(dad.shader == shader && shader == distortDadFNF)dad.shader = null;
-                        }); */
+                    playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                    playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                }
+                boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
+                if (ClientPrefs.shaders)
+                    {
+                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        var shaders = [distortDadFNF, distortCAWMFNF];
+                        if(dad.shader == null)dad.shader = distortDadFNF;
+                        for(idx in 0...shaders.length){
+                            var shader = shaders[idx];
+                            shader.setFloat("negativity", 1.0);
+                            distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.085);
+                        }
                     }
-				}
+            }
 		}
 
         jakeSings = false;
@@ -4307,27 +4309,36 @@ class PlayState extends MusicBeatState
 			else if (note.noteType == 'Second Char Glitch' || note.noteType == 'Both Char Glitch') {
 				char = jake;
                 jakeSings = true;
-				for (i in 0...opponentStrums.length) {
-					opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-					opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
-	
-					playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-					playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
-					
-					if (ClientPrefs.shaders)
-						{
-							dadGlitchIntensity = FlxG.random.float(12, 25);
-                            var shaders = [distortDadFNF, distortCAWMFNF];
-                            if(jake.shader == null)jake.shader = distortDadFNF;
-                            for (idx in 0...shaders.length)
-                            {
-                                var shader = shaders[idx];
-                                shader.setFloat("negativity", 1.0);
-                                distortShaderTimes[idx] = FlxG.random.float(0.0775, 0.1025);
-                            }
-						}
-				}
+                glitching = true;
+                if(!note.isSustainNote){
+                    for (i in 0...opponentStrums.length) {
+                        opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                        opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+        
+                        playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                        playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                    }
+                        
+                    if (ClientPrefs.shaders)
+                    {
+                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        var shaders = [distortDadFNF, distortCAWMFNF];
+                        if(jake.shader == null)jake.shader = distortDadFNF;
+                        for (idx in 0...shaders.length)
+                        {
+                            var shader = shaders[idx];
+                            shader.setFloat("negativity", 1.0);
+                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.085);
+                        }
+                    }
+                    
+                }
 		}
+
+        if(!glitching){
+            for(idx in 0...distortShaderTimes.length)
+                distortShaderTimes[idx] = 0; // remove the glitching
+        }
 
 			if(char != null)
 			{
@@ -4804,6 +4815,7 @@ class PlayState extends MusicBeatState
 									}
 							});
 							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
 								{
@@ -4818,7 +4830,7 @@ class PlayState extends MusicBeatState
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
-							defaultCamZoom = 0.85; // these, weirdly, dont work ingame
+							defaultCamZoom = 0.85;
 						case 672:
 							defaultCamZoom = 0.75;
 						case 720:

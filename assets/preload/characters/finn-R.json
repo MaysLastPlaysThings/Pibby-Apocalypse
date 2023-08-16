@@ -3,7 +3,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				284,
+				330,
 				-99
 			],
 			"fps": 24,
@@ -14,7 +14,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				30,
+				70,
 				-130
 			],
 			"fps": 24,
@@ -25,7 +25,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-36,
+				14,
 				130
 			],
 			"fps": 24,
@@ -36,7 +36,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-130,
+				-60,
 				7
 			],
 			"fps": 24,
@@ -59,8 +59,8 @@
 	"no_antialiasing": false,
 	"image": "characters/Finn-CN",
 	"position": [
-		-200,
-		50
+		-130,
+		120
 	],
 	"healthicon": "finn",
 	"flip_x": false,
@@ -70,9 +70,9 @@
 		179
 	],
 	"camera_position": [
-		100,
-		0
+		20,
+		-120
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.5
 }
