@@ -4327,7 +4327,7 @@ class PlayState extends MusicBeatState
                         {
                             var shader = shaders[idx];
                             shader.setFloat("negativity", 1.0);
-                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.05);
+                        distortShaderTimes[idx] = (note.sustainLength > 0 ? note.sustainLength/1000 : 0) + FlxG.random.float(0.0475, 0.085);
                         }
                     }
                     
