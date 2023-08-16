@@ -75,6 +75,7 @@ class Main extends Sprite
 
 			//FlxG.signals.focusLost.add(()->gc()); // they don't know
 			// ^ what is wrong with you
+			// terrible mental health i never took a break from fnf the last 2 years
              
 			FlxG.signals.preGameStart.add(() -> funnyMenuMusic = FlxG.random.bool(5) ? 2 : 1);
 		}
