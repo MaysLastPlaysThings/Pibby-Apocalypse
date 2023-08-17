@@ -1286,13 +1286,13 @@ class PlayState extends MusicBeatState
 					blackie.alpha = 1;
 					defaultCamZoom = 1.7;
 					if (ClientPrefs.gore) {
-                        GameOverSubstate.characterName = 'bf-dead';
+                        GameOverSubstate.characterName = 'gumdead';
 						GameOverSubstate.deathSoundName = 'bfgumballdeath';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
 				case 'Retcon': 
 					if (ClientPrefs.gore) {
-                        GameOverSubstate.characterName = 'bf-dead';
+                        GameOverSubstate.characterName = 'gumdead';
 						GameOverSubstate.deathSoundName = 'bfgumballdeath';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
@@ -1318,7 +1318,7 @@ class PlayState extends MusicBeatState
 					healthDrain = false;
 					for (i in 0...opponentStrums.length) opponentStrums.members[i].shader = null;
 					if (ClientPrefs.gore) {
-                        GameOverSubstate.characterName = 'bf-dead';
+                        GameOverSubstate.characterName = 'gumdead';
 						GameOverSubstate.deathSoundName = 'bfgumballdeath';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
