@@ -9,11 +9,19 @@ var glitch;
 var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
 var velocityShitHehe = 1;
 
+// making them variables so its less confusing and stuff 
+var charColors = [0x8f8f8f, 0xBFE5BA]; // default, glitch part
+var houseColors = [0x8f8f8f, 0x9ADA91]; // also with rock3 and rock4
+var rockColors = [0xbababa, 0xB8D4B5]; // only for the rock the characters are on
+var coolThingColors = [0xc4c0c0, 0xC1CEAA]; // wtf - forgor, 2023
+
 function onCreate()
 {
     void = new flixel.FlxSprite(0, -200);
-    void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1', 'image'));
-    void.setGraphicSize(Std.int(void.width * 2.5));
+    void.frames = retrieveAsset('images/void', 'atlas');
+    void.animation.addByPrefix('idle', 'idle', 24, true);
+    void.animation.play('idle');
+    void.setGraphicSize(Std.int(void.width * 1.7));
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
@@ -32,6 +40,7 @@ function onCreate()
     house.antialiasing = ClientPrefs.globalAntialiasing;
     house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
+    house.color = houseColors[0];
 
     rock = new flixel.FlxSprite(0, -200);
     rock.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3', 'image'));
@@ -39,6 +48,7 @@ function onCreate()
     rock.antialiasing = ClientPrefs.globalAntialiasing;
     rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
+    rock.color = rockColors[0];
 
     if (!ClientPrefs.lowQuality)
     {
@@ -55,6 +65,7 @@ function onCreate()
         rock3.antialiasing = ClientPrefs.globalAntialiasing;
         rock3.scrollFactor.set(0.9, 0.9);
         rock3.updateHitbox();
+        rock3.color = houseColors[0];
 
         rock4 = new flixel.FlxSprite(0, -200);
         rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6', 'image'));
@@ -62,6 +73,7 @@ function onCreate()
         rock4.antialiasing = ClientPrefs.globalAntialiasing;
         rock4.scrollFactor.set(0.85, 0.85);
         rock4.updateHitbox();
+        rock4.color = houseColors[0];
 
         wtf = new flixel.FlxSprite(0, -200);
         wtf.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-7', 'image'));
@@ -69,6 +81,7 @@ function onCreate()
         wtf.antialiasing = ClientPrefs.globalAntialiasing;
         wtf.scrollFactor.set(1, 1);
         wtf.updateHitbox();
+        wtf.color = coolThingColors[0];
     }
 
     tweenLoopAngle(house, 4, -4, 6, 6);
@@ -95,6 +108,13 @@ function onCreate()
     if (!ClientPrefs.lowQuality) add(wtf);
 }
 
+function onSongStart()
+{
+    PlayState.boyfriend.color = charColors[0];
+    PlayState.dad.color = charColors[0];
+    PlayState.gf.color = charColors[0];
+}
+
 function onStepHit(curStep) {
     if (glitch != null) {
         glitch.animation.play('spin');
@@ -104,9 +124,18 @@ function onStepHit(curStep) {
     {
         glitch.alpha = 1;
         velocityShitHehe = 2;
-        PlayState.boyfriend.color = 0xe6ffe3;
-        PlayState.dad.color = 0xe6ffe3;
-        PlayState.gf.color = 0xe6ffe3;
+        PlayState.boyfriend.color = charColors[1];
+        PlayState.dad.color = charColors[1];
+        PlayState.gf.color = charColors[1];
+        house.color = houseColors[1];
+        rock.color = rockColors[1];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[1];
+                rock4.color = houseColors[1];
+                wtf.color = coolThingColors[1];
+            }
     }
 
     if (curStep == 768)
@@ -114,37 +143,77 @@ function onStepHit(curStep) {
         FlxTween.tween(glitch, {alpha: 0.0001}, 0.5, {
             ease: FlxEase.quadInOut
             });
-        PlayState.boyfriend.color = 0xFFFFFF;
-        PlayState.dad.color = 0xFFFFFF;
-        PlayState.gf.color = 0xFFFFFF;
+        PlayState.boyfriend.color = charColors[0];
+        PlayState.dad.color = charColors[0];
+        PlayState.gf.color = charColors[0];
         velocityShitHehe = 1;
+
+        house.color = houseColors[0];
+        rock.color = rockColors[0];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[0];
+                rock4.color = houseColors[0];
+                wtf.color = coolThingColors[0];
+            }
     }
 
     if (curStep == 1024)
     {
         glitch.alpha = 1;
         velocityShitHehe = 2;
-        PlayState.boyfriend.color = 0xe6ffe3;
-        PlayState.dad.color = 0xe6ffe3;
-        PlayState.gf.color = 0xe6ffe3;
+        PlayState.boyfriend.color = charColors[1];
+        PlayState.dad.color = charColors[1];
+        PlayState.gf.color = charColors[1];
+
+        house.color = houseColors[1];
+        rock.color = rockColors[1];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[1];
+                rock4.color = houseColors[1];
+                wtf.color = coolThingColors[1];
+            }
     }
 
     if (curStep == 1280)
     {
         glitch.alpha = 0;
         velocityShitHehe = 5;
-        PlayState.boyfriend.color = 0xFFFFFF;
-        PlayState.dad.color = 0xFFFFFF;
-        PlayState.gf.color = 0xFFFFFF;
+        PlayState.boyfriend.color = charColors[0];
+        PlayState.dad.color = charColors[0];
+        PlayState.gf.color = charColors[0];
+
+        house.color = houseColors[0];
+        rock.color = rockColors[0];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[0];
+                rock4.color = houseColors[0];
+                wtf.color = coolThingColors[0];
+            }
     }
 
     if (curStep == 1536)
     {
         glitch.alpha = 1;
         velocityShitHehe = 10;
-        PlayState.boyfriend.color = 0xe6ffe3;
-        PlayState.dad.color = 0xe6ffe3;
-        PlayState.gf.color = 0xe6ffe3;
+        PlayState.boyfriend.color = charColors[1];
+        PlayState.dad.color = charColors[1];
+        PlayState.gf.color = charColors[1];
+
+        house.color = houseColors[1];
+        rock.color = rockColors[1];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[1];
+                rock4.color = houseColors[1];
+                wtf.color = coolThingColors[1];
+            }
     }
 
     if (curStep == 1792)
@@ -152,19 +221,39 @@ function onStepHit(curStep) {
         FlxTween.tween(glitch, {alpha: 0.0001}, 1, {
             ease: FlxEase.quadInOut
             });
-            PlayState.boyfriend.color = 0xFFFFFF;
-            PlayState.dad.color = 0xFFFFFF;
-            PlayState.gf.color = 0xFFFFFF;
+            PlayState.boyfriend.color = charColors[0];
+            PlayState.dad.color = charColors[0];
+            PlayState.gf.color = charColors[0];
         velocityShitHehe = 1;
+
+        house.color = houseColors[0];
+        rock.color = rockColors[0];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[0];
+                rock4.color = houseColors[0];
+                wtf.color = coolThingColors[0];
+            }
     }
 
     if (curStep == 1824)
     {
         glitch.alpha = 1;
         velocityShitHehe = 10;
-        PlayState.boyfriend.color = 0xe6ffe3;
-        PlayState.dad.color = 0xe6ffe3;
-        PlayState.gf.color = 0xe6ffe3;
+        PlayState.boyfriend.color = charColors[1];
+        PlayState.dad.color = charColors[1];
+        PlayState.gf.color = charColors[1];
+
+        house.color = houseColors[1];
+        rock.color = rockColors[1];
+
+        if (!ClientPrefs.lowQuality)
+            {
+                rock3.color = houseColors[1];
+                rock4.color = houseColors[1];
+                wtf.color = coolThingColors[1];
+            }
     }
 }
 

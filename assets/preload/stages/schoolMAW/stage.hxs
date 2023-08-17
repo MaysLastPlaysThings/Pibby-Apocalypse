@@ -25,7 +25,12 @@ var rock3;
 var rock4;
 var wtf;
 var glitch;
-var stupidFix; 
+var stupidFix;
+
+var charColors = [0x8f8f8f, 0xBFE5BA]; // default, glitch part
+var houseColors = [0x8f8f8f, 0x9ADA91]; // also with rock3 and rock4
+var rockColors = [0xbababa, 0xB8D4B5]; // only for the rock the characters are on
+var coolThingColors = [0xc4c0c0, 0xC1CEAA]; // wtf - forgor, 2023
 
 function onCreate()
 {
@@ -63,6 +68,7 @@ function onCreate()
     ch3.antialiasing = ClientPrefs.globalAntialiasing;
     ch3.scrollFactor.set(1, 1);
     ch3.updateHitbox();
+    ch3.scale.x += 0.2; // just in case....
 
     if (!ClientPrefs.lowQuality)
     {
@@ -124,11 +130,14 @@ function onCreate()
     }
 
     void = new flixel.FlxSprite(0, -200);
-    void.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-1', 'image'));
-    void.setGraphicSize(Std.int(void.width * 2.5));
+    void.frames = retrieveAsset('images/void/void', 'atlas');
+    void.animation.addByPrefix('idle', 'idle', 24, true);
+    void.animation.play('idle');
+    void.setGraphicSize(Std.int(void.width * 1.7));
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
+    add(void);
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-2', 'image'));
@@ -136,6 +145,7 @@ function onCreate()
     house.antialiasing = ClientPrefs.globalAntialiasing;
     house.scrollFactor.set(0.85, 0.85);
     house.updateHitbox();
+    house.color = houseColors[0];
 
     rock = new flixel.FlxSprite(0, -200);
     rock.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-3', 'image'));
@@ -143,53 +153,56 @@ function onCreate()
     rock.antialiasing = ClientPrefs.globalAntialiasing;
     rock.scrollFactor.set(1, 1);
     rock.updateHitbox();
+    rock.color = rockColors[0];
 
-    rock2 = new flixel.FlxSprite(0, -200);
-    rock2.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-4', 'image'));
-    rock2.setGraphicSize(Std.int(rock2.width * 2.5));
-    rock2.antialiasing = ClientPrefs.globalAntialiasing;
-    rock2.scrollFactor.set(1.1, 1.1);
-    rock2.updateHitbox();
+    if (!ClientPrefs.lowQuality)
+    {
+        rock2 = new flixel.FlxSprite(0, -200);
+        rock2.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-4', 'image'));
+        rock2.setGraphicSize(Std.int(rock2.width * 2.5));
+        rock2.antialiasing = ClientPrefs.globalAntialiasing;
+        rock2.scrollFactor.set(1.1, 1.1);
+        rock2.updateHitbox();
 
-    rock3 = new flixel.FlxSprite(0, -200);
-    rock3.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-5', 'image'));
-    rock3.setGraphicSize(Std.int(rock3.width * 2.5));
-    rock3.antialiasing = ClientPrefs.globalAntialiasing;
-    rock3.scrollFactor.set(0.9, 0.9);
-    rock3.updateHitbox();
+        rock3 = new flixel.FlxSprite(0, -200);
+        rock3.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-5', 'image'));
+        rock3.setGraphicSize(Std.int(rock3.width * 2.5));
+        rock3.antialiasing = ClientPrefs.globalAntialiasing;
+        rock3.scrollFactor.set(0.9, 0.9);
+        rock3.updateHitbox();
+        rock3.color = houseColors[0];
 
-    rock4 = new flixel.FlxSprite(0, -200);
-    rock4.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-6', 'image'));
-    rock4.setGraphicSize(Std.int(rock4.width * 2.5));
-    rock4.antialiasing = ClientPrefs.globalAntialiasing;
-    rock4.scrollFactor.set(0.85, 0.85);
-    rock4.updateHitbox();
+        rock4 = new flixel.FlxSprite(0, -200);
+        rock4.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-6', 'image'));
+        rock4.setGraphicSize(Std.int(rock4.width * 2.5));
+        rock4.antialiasing = ClientPrefs.globalAntialiasing;
+        rock4.scrollFactor.set(0.85, 0.85);
+        rock4.updateHitbox();
+        rock4.color = houseColors[0];
 
-    wtf = new flixel.FlxSprite(0, -200);
-    wtf.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-7', 'image'));
-    wtf.setGraphicSize(Std.int(wtf.width * 2.5));
-    wtf.antialiasing = ClientPrefs.globalAntialiasing;
-    wtf.scrollFactor.set(1, 1);
-    wtf.updateHitbox();
-
-    glitch = new flixel.FlxSprite(0, -200);
-    glitch.frames = retrieveAsset('images/void/gumballglitchbg', 'ATLAS');
-    glitch.animation.addByPrefix('spin', 'spin', 24, true);
-    glitch.setGraphicSize(Std.int(glitch.width * 2.5));
-    glitch.scrollFactor.set(1, 1);
-    glitch.updateHitbox();
+        wtf = new flixel.FlxSprite(0, -200);
+        wtf.loadGraphic(retrieveAsset('images/void/Ilustracion_sin_titulo-7', 'image'));
+        wtf.setGraphicSize(Std.int(wtf.width * 2.5));
+        wtf.antialiasing = ClientPrefs.globalAntialiasing;
+        wtf.scrollFactor.set(1, 1);
+        wtf.updateHitbox();
+        wtf.color = coolThingColors[0];
+    }
 
     tweenLoopAngle(house, 4, -4, 6, 6);
-    tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
-    tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
-    tweenLoopAngle(rock3, 360, 0, 30, 30);
-    tweenLoopAngle(wtf, 2, -2, 5, 5);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock3, 360, 0, 30, 30);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(wtf, 2, -2, 5, 5);
 
-    FlxTween.tween(rock4, {angle: 360}, 30, {
+    if (!ClientPrefs.lowQuality) 
+    {
+        FlxTween.tween(rock4, {angle: 360}, 30, {
         ease: FlxEase.sineInOut
-    });
+        });
+    }
 
-    stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
+    if (!ClientPrefs.lowQuality) stupidFix = FlxTween.tween(wtf, {y: wtf.y}, 1);
 
     add(background);
     if (!ClientPrefs.lowQuality) add(daGloop5);
@@ -363,19 +376,26 @@ function onStepHit(curStep:Int)
         if (curStep == 2688)
             {
                 add(void);
-                add(rock4);
-                add(rock3);
-                add(rock2);
+                add(glitch);
+                if (!ClientPrefs.lowQuality) add(rock4);
+                if (!ClientPrefs.lowQuality) add(rock3);
+                if (!ClientPrefs.lowQuality) add(rock2);
                 add(house);
                 add(rock);
-                add(wtf);
-                add(glitch);
+                if (!ClientPrefs.lowQuality) add(wtf);
+
+                ch1.visible = false;
+                ch2.visible = false;
+                ch3.visible = false;
                 PlayState.gf.x = 1670;
                 PlayState.gf.y = 900;
                 PlayState.dad.x = 900;
                 PlayState.dad.y = 740;
                 PlayState.boyfriend.x = 1570;
                 PlayState.boyfriend.y = 800;
+                PlayState.boyfriend.color = charColors[0];
+                PlayState.dad.color = charColors[0];
+                PlayState.gf.color = charColors[0];
             }
     }
 
