@@ -4416,7 +4416,7 @@ class PlayState extends MusicBeatState
         newStage.opponentNoteHit(notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote);
         if (!note.gfNote) {
 			if (!note.isSustainNote) {
-				if (FlxG.random.int(0, 1) < 0.01) {
+				if (FlxG.random.int(0, 1) == 0) {
 					glitchShaderIntensity = FlxG.random.float(0.2, 0.7);
 				}
 			}
@@ -5363,22 +5363,6 @@ class PlayState extends MusicBeatState
 							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 							midSongVideo.bitmap.finishCallback = () -> { 
 								canPause = true;
-								if (ClientPrefs.shaders) 
-									{
-										playerStrums.forEach(strum -> strum.shader = distortFNF);
-									}
-									// pizza tower scoutdigo reference
-									boyfriend.color = 0xbababa;
-									dad.color = 0xbababa;
-
-								if (!ClientPrefs.lowQuality)
-									{
-										var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-										vig.scrollFactor.set();
-										vig.cameras = [camOther];
-										vig.screenCenter();
-										add(vig);
-									}
 							};
 							#else
 							blackie.alpha = 1;
@@ -5393,38 +5377,36 @@ class PlayState extends MusicBeatState
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
-						case 1439:
-							#if VIDEOS_ALLOWED
-							midSongVideo.destroy();
                             cappedHealth = 1;
                             health = 0.5;
-                            pibbyHealthbar.alpha = 1;
-							#else
-							blackie.alpha = 0;
-
-							if (ClientPrefs.shaders) 
-								{
-									playerStrums.forEach(strum -> strum.shader = distortFNF);
-								}
-								// pizza tower scoutdigo reference
-								boyfriend.color = 0xbababa;
-								dad.color = 0xbababa;
-
-							if (!ClientPrefs.lowQuality)
-								{
-									var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
-									vig.scrollFactor.set();
-									vig.cameras = [camOther];
-									vig.screenCenter();
-									add(vig);
-								}
-							#end
-						case 1442:
-							triggerEventNote('Cinematics', 'on', '1');
+						case 1440:
+                            triggerEventNote('Cinematics', 'on', '1');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-						case 1706:
+                            pibbyHealthbar.alpha = 1;
+                            
+							#if VIDEOS_ALLOWED
+							midSongVideo.destroy();
+							blackie.alpha = 0;
+							#end
+
+                        if (ClientPrefs.shaders) 
+                            playerStrums.forEach(strum -> strum.shader = distortFNF);
+
+                        boyfriend.color = 0xbababa;
+                        dad.color = 0xbababa;
+                        
+
+                        if (!ClientPrefs.lowQuality)
+                        {
+                            var vig:FlxSprite = new FlxSprite().loadGraphic(Paths.image('vignette'));
+                            vig.scrollFactor.set();
+                            vig.cameras = [camOther];
+                            vig.screenCenter();
+                            add(vig);
+                        }
+                    case 1706:
 							triggerEventNote('Cinematics', 'off', '1');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -7189,7 +7171,7 @@ class PlayState extends MusicBeatState
 									camHUD.zoom += 0.03 * camZoomingMult;
 								}
 						}
-					if (curStep >= 1442 && curStep <= 1822 && ClientPrefs.camZooms)
+					if (curStep >= 1440 && curStep <= 1822 && ClientPrefs.camZooms)
 						{
 							if (curBeat % 1 == 0)
 								{
