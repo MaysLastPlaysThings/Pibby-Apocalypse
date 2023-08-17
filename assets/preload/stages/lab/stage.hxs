@@ -20,7 +20,7 @@ function onCreate()
 
 	if (!ClientPrefs.lowQuality || !ClientPrefs.flashing)
 	{
-        bulb = new FlxSprite(1120, -400);
+        bulb = new FlxSprite(1120, -475);
 		bulb.loadGraphic(retrieveAsset('images/bulb', 'image'));
 		bulb.setGraphicSize(Std.int(bulb.width * 2));
 		bulb.updateHitbox();
@@ -29,14 +29,14 @@ function onCreate()
 		bulb.centerOrigin();
         bulb.origin.set(bulb.origin.x, bulb.origin.y -= bulb.height/2);
 
-		dark = new FlxSprite(550, -100);
+		dark = new FlxSprite(550, 35);
 		dark.loadGraphic(retrieveAsset('images/dark', 'image'));
 		dark.setGraphicSize(Std.int(dark.width * 1.7));
 		dark.updateHitbox();
 		dark.antialiasing = ClientPrefs.globalAntialiasing;
 		dark.active = false;
         dark.centerOrigin();
-		dark.origin.set(dark.origin.x, dark.origin.y -= dark.height/2);
+		dark.origin.set(dark.origin.x, -250);
 
         var objects = [dark, bulb];
         for (object in objects) {
@@ -55,7 +55,7 @@ function onCreate()
 		light.antialiasing = ClientPrefs.globalAntialiasing;
 		light.active = false;
         light.centerOrigin();
-		light.origin.set(light.origin.x, light.origin.y -= dark.height/2);
+		light.origin.set(light.origin.x, -250);
 		flickerTween = FlxTween.tween(light, {alpha: 0}, 0.25, {ease: FlxEase.bounceInOut, type: 4});
 		flickerTween.active = true;
 
@@ -93,10 +93,17 @@ function onMoveCamera(focus:String)
     }
 
 function onUpdate (elapsed) {
-    if (!ClientPrefs.lowQuality || !ClientPrefs.flashing) bg.alpha -= Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) / 1200;
-	if (!ClientPrefs.lowQuality || !ClientPrefs.flashing) light.angle = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 5;
-	if (!ClientPrefs.lowQuality || !ClientPrefs.flashing) dark.angle = light.angle;
-	if (!ClientPrefs.lowQuality || !ClientPrefs.flashing) bulb.angle = light.angle;
+    if (!ClientPrefs.lowQuality || !ClientPrefs.flashing){ 
+        var a = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0);
+        bg.alpha -= Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) / 1200;
+        light.angle = a * 5;
+        dark.angle = light.angle;
+        bulb.angle = light.angle;
+
+        dark.x = 450 - (a * 45);
+        light.x = 450 - (a * 45);
+    }
+    
 }
 
 function onStepHit(curStep:Int)
