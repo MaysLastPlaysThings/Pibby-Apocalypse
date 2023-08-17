@@ -20,7 +20,7 @@ enum abstract AssetType(String) to String {
     var SOUND = 'sound';
 }
 
-class StageConstructor extends FlxTypedGroup<FlxBasic>
+class ScriptConstructor extends FlxTypedGroup<FlxBasic>
 {
     // Attach some metadata to the new Stage
     var newStage : Script;
@@ -28,7 +28,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
 
 
     // Incase you aren't aware already of what this is gonna do, its basically just gonna allow for hscript functionality with stages lol.
-    public function new(currentStage : String)
+    public function new(dir : String, file : String)
     {
         super();
 
@@ -46,12 +46,12 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
 /*                     var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
                     newGraphic.persist = true;
                     return newGraphic; */
-					return Paths.returnGraphic(path, null, false, 'stages/$currentStage');
+					return Paths.returnGraphic(path, null, false, dir);
                 case ATLAS:
-                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}.png')), false, 'assets/stages/${currentStage}/${path}.png');
+                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/${dir}/${path}.png')), false, 'assets/${dir}/${path}.png');
                     newGraphic.persist = true;
 
-                    var newSparrow = FlxAtlasFrames.fromSparrow(newGraphic, File.getContent('assets/stages/${currentStage}/${path}.xml'));
+                    var newSparrow = FlxAtlasFrames.fromSparrow(newGraphic, File.getContent('assets/${dir}/${path}.xml'));
                     //trace(newSparrow);
                     return newSparrow;
                 case SOUND:
@@ -74,7 +74,7 @@ class StageConstructor extends FlxTypedGroup<FlxBasic>
             PlayState.instance.addTextToDebug(text, FlxColor.RED);
         });
 
-        newStage = ScriptManager.loadScript('assets/stages/${currentStage}/stage.hxs', null, additionalParams);
+        newStage = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
 
         if (newStage != null && newStage.exists("onCreate"))
             newStage.get("onCreate")();
