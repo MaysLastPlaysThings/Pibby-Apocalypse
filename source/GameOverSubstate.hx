@@ -63,6 +63,8 @@ class GameOverSubstate extends MusicBeatSubstate
             case "bf-dead-jake":
                 camX -= 250;
                 camY += 300;
+            case "gumdead":
+                camX -= 250;
          }
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);

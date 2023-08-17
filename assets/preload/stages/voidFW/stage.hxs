@@ -256,7 +256,7 @@ function makeShitInsane(object, xThing, timerRandom1, timerRandom2)
 
 function onStepHit(curStep)
 {
-    if (curStep == 1442)
+    if (curStep == 1438)
     {
         void.visible = false;
         if (!ClientPrefs.lowQuality) wtf.visible = false;
