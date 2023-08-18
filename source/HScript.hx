@@ -160,9 +160,6 @@ class ScriptManager {
 			weak: FlxPoint.weak
 		});
 
-        expressions.set("getScript", PlayState.instance.getScript);
-		expressions.set("getScriptVar", PlayState.instance.getScript);
-
 		expressions.set("Math", Math);
 		expressions.set("Paths", Paths);
 		expressions.set("Std", Std);
