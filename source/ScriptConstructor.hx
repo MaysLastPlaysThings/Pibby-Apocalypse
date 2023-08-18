@@ -48,7 +48,7 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
                 case ATLAS:
 					return Paths.getSparrowAtlas(path, null, useGPU == null ? true : useGPU, dir);
                 case SOUND:
-                    // SOUNDS ARE NOT DONE, RETURNS NULL
+                    // SOUNDS ARE NOT DONE, RETURNS NULL/
                     return null;
                 case TEXT:
                     return Paths.getContent('assets/$dir/$path');
