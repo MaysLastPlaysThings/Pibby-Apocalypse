@@ -1,25 +1,3 @@
-var bg;
-var treehouse;
-var thunder;
-var rain;
-
-// intro stuff
-var outside;
-var idkWhatAreThatThings;
-var coolGradient;
-var outside2;
-
-//faker stuff
-/* var backGlitch;
-var hillShit;
-var particles;
-var dangling;
-var corruption;
-var cameraShit; */
-
-var revealBackground; // because its all on the same layer and doesnt parallax or anything, this only needs 1 image for everything
-
-
 var dadCamZoom = -1;
 var coolStep = 0; // rare ass fix
 

@@ -1,6 +1,3 @@
-var place;
-var placeog;
-
 function onCreate()
 {
     place = new flixel.FlxSprite(-600, -300);

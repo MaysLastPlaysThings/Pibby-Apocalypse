@@ -1,24 +1,3 @@
-var void;
-var house;
-var rock;
-var rock2;
-var rock3;
-var rock4;
-var wtf;
-var glitch;
-var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk, hscript is fucking weird man) (Another grammatical fix by Zero :trol:)
-
-// darwin start to get consumed by the darkness (tragedy)
-var voidb;
-var scaryGlitchAhh;
-var moreGlitchWaaa;
-var moreGlitchWaaaButBehindTheRock;
-var houseb;
-var rockb;
-var rock2b;
-var rock3b;
-var rock4b;
-var wtfb;
 var timerShit = 7;
 var shaderTime = 0;
 var stupidFix2electricboogaloo;

@@ -1,4 +1,5 @@
-function onCreate()
+function onCreatePost()
 {	
     trace("it loaded? wow");
+    trace('also is this visible? ${getScript('lab').get('bg').visible}');
 }
