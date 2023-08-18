@@ -234,6 +234,8 @@ class PlayState extends MusicBeatState
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
+    public var _scriptMap:StringMap<ScriptConstructor> = new StringMap<ScriptConstructor>();
+
 	public var camZooming:Bool = false;
 	public var camZoomingMult:Float = 1;
 	public var camZoomingDecay:Float = 1;
@@ -417,7 +419,7 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
-	public static var newStage:ScriptConstructor;
+	public static var stage:ScriptConstructor;
 
     var defaultOpponentStrum:Array<{x:Float, y:Float}> = [];
     var defaultPlayerStrum:Array<{x:Float, y:Float}> = [];
@@ -546,9 +548,10 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		
 		curStage = SONG.stage;
-		newStage = new ScriptConstructor('stages/${curStage}','stage');
-        allScripts.push(newStage);
-		add(newStage);
+		stage = new ScriptConstructor('stages/${curStage}','stage');
+        _scriptMap.set(curStage, stage);
+        allScripts.push(stage);
+		add(stage);
 		SONG.stage = curStage;
 
         var daPath:String = 'assets/stages/${curStage}/scripts';
@@ -560,8 +563,9 @@ class PlayState extends MusicBeatState
                     var fileFixed:String = file;
                     if (lastIndex != -1) {
                         var fileFixed:String = file.substr(0, lastIndex);
-                        trace('loading additional script ${file}');
+                        trace('Currently loading additional script ${file}');
                         var daScript:ScriptConstructor = new ScriptConstructor('stages/${curStage}/scripts', fileFixed);
+                        _scriptMap.set(file, daScript);
                         allScripts.push(daScript);
                         add(daScript);
                     }

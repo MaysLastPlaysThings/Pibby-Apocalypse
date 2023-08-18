@@ -23,7 +23,7 @@ enum abstract AssetType(String) to String {
 class ScriptConstructor extends FlxTypedGroup<FlxBasic>
 {
     // Attach some metadata to the new Stage
-    var newStage : Script;
+    var script:Script;
     public var foreground : FlxTypedGroup<FlxBasic>;
 
 
@@ -74,82 +74,87 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
             PlayState.instance.addTextToDebug(text, FlxColor.RED);
         });
 
-        newStage = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
+        additionalParams.set('getScript', function(scriptTag:String) {
+            var wowza:Script = PlayState.instance._scriptMap.get(scriptTag).script;
+            return wowza;
+        });
 
-        if (newStage != null && newStage.exists("onCreate"))
-            newStage.get("onCreate")();
+        script = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
+
+        if (script != null && script.exists("onCreate"))
+            script.get("onCreate")();
     }
 
     override function update(elapsed:Float) 
         {
             super.update(elapsed);
-            if (newStage != null && newStage.exists("onUpdate"))
-                newStage.get("onUpdate")(elapsed);
+            if (script != null && script.exists("onUpdate"))
+                script.get("onUpdate")(elapsed);
         }
 
     public function onCreatePost()
-        if (newStage != null && newStage.exists("onCreatePost"))
-            newStage.get("onCreatePost")();
+        if (script != null && script.exists("onCreatePost"))
+            script.get("onCreatePost")();
 
     public function onUpdatePost(elapsed:Float)
-        if (newStage != null && newStage.exists("onUpdatePost"))
-            newStage.get("onUpdatePost")(elapsed);
+        if (script != null && script.exists("onUpdatePost"))
+            script.get("onUpdatePost")(elapsed);
 
     public function onEvent(event:String, value1:String, value2:String)
-        if (newStage != null && newStage.exists("onEvent"))
-            newStage.get("onEvent")(event, value1, value2);
+        if (script != null && script.exists("onEvent"))
+            script.get("onEvent")(event, value1, value2);
 
     public function opponentNoteHit(index:Int, dir:Float, noteType:String, isSus:Bool)
-        if (newStage != null && newStage.exists("opponentNoteHit"))
-            newStage.get("opponentNoteHit")(index, dir, noteType, isSus);
+        if (script != null && script.exists("opponentNoteHit"))
+            script.get("opponentNoteHit")(index, dir, noteType, isSus);
 
     public function goodNoteHit(index:Int, dir:Float, noteType:String, isSus:Bool)
-        if (newStage != null && newStage.exists("goodNoteHit"))
-            newStage.get("goodNoteHit")(index, dir, noteType, isSus);
+        if (script != null && script.exists("goodNoteHit"))
+            script.get("goodNoteHit")(index, dir, noteType, isSus);
 
     public function noteMiss(note:Note)
-        if (newStage != null && newStage.exists("noteMiss"))
-            newStage.get("noteMiss")(note);
+        if (script != null && script.exists("noteMiss"))
+            script.get("noteMiss")(note);
 
     public function onStepHit(curStep : Int)
-        if (newStage != null && newStage.exists("onStepHit"))
-            newStage.get("onStepHit")(curStep);
+        if (script != null && script.exists("onStepHit"))
+            script.get("onStepHit")(curStep);
     
     public function onBeatHit(curBeat : Int)
-        if (newStage != null && newStage.exists("onBeatHit"))
-            newStage.get("onBeatHit")(curBeat);
+        if (script != null && script.exists("onBeatHit"))
+            script.get("onBeatHit")(curBeat);
     public function onStartCountdown()
-        if (newStage != null && newStage.exists("onStartCountdown"))
-            newStage.get("onStartCountdown")();
+        if (script != null && script.exists("onStartCountdown"))
+            script.get("onStartCountdown")();
     public function onSongStart()
-        if (newStage != null && newStage.exists("onSongStart"))
-            newStage.get("onSongStart")();
+        if (script != null && script.exists("onSongStart"))
+            script.get("onSongStart")();
     public function onEndSong()
-        if (newStage != null && newStage.exists("onEndSong"))
-            newStage.get("onEndSong")();
+        if (script != null && script.exists("onEndSong"))
+            script.get("onEndSong")();
     public function onPause()
-        if (newStage != null && newStage.exists("onPause"))
+        if (script != null && script.exists("onPause"))
             {
-                newStage.get("onPause")();
+                script.get("onPause")();
                 FlxTween.globalManager.forEach(function( tween : FlxTween ) {
                     tween.active = false;
                 });
             }
     public function onResume()
-        if (newStage != null && newStage.exists("onResume"))
+        if (script != null && script.exists("onResume"))
             {
-                newStage.get("onResume")();
+                script.get("onResume")();
                 FlxTween.globalManager.forEach(function( tween : FlxTween ) {
                     tween.active = true;
                 });
             }
     public function onGameOver()
-        if (newStage != null && newStage.exists("onGameOver"))
-            newStage.get("onGameOver")();
+        if (script != null && script.exists("onGameOver"))
+            script.get("onGameOver")();
     public function onMoveCamera(focus : String)
-        if (newStage != null && newStage.exists("onMoveCamera"))
-            newStage.get("onMoveCamera")(focus);
+        if (script != null && script.exists("onMoveCamera"))
+            script.get("onMoveCamera")(focus);
     public function onCountdownTick(counter : Int)
-        if (newStage != null && newStage.exists("onCountdownTick"))
-            newStage.get("onCountdownTick")(counter);
+        if (script != null && script.exists("onCountdownTick"))
+            script.get("onCountdownTick")(counter);
 }
