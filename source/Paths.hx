@@ -311,18 +311,19 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String, ?throwToGPU:Bool = false, ?prefix:String):FlxAtlasFrames
+	inline static public function getSparrowAtlas(key:String, ?library:String, throwToGPU:Bool = false, ?prefix:String = 'images'):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
 		var imageLoaded:FlxGraphic = returnGraphic(key, library, throwToGPU, prefix);
 		var xmlExists:Bool = false;
-		if(FileSystem.exists(modsXml(key))) {
+		if(FileSystem.exists(modsXml(key, prefix))) {
 			xmlExists = true;
 		}
 
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)),
+			(xmlExists ? File.getContent(modsXml(key, prefix)) : file('$prefix/$key.xml', library)));
 		#else
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library), file('$prefix/$key.xml', library));
 		#end
 	}
 
@@ -542,8 +543,8 @@ class Paths
 		return modFolders('images/' + key + '.png');
 	}
 
-	inline static public function modsXml(key:String) {
-		return modFolders('images/' + key + '.xml');
+	inline static public function modsXml(key:String, ?prefix:String='images') {
+		return modFolders('$prefix/' + key + '.xml');
 	}
 
 	inline static public function modsTxt(key:String) {

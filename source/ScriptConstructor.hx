@@ -46,7 +46,7 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
                 case IMAGE:
 					return Paths.returnGraphic(path, null, false, dir);
                 case ATLAS:
-					return Paths.getSparrowAtlas(path, null, false, dir);
+					return Paths.getSparrowAtlas(path, null, true, dir);
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
