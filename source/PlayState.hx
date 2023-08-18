@@ -5528,7 +5528,7 @@ class PlayState extends MusicBeatState
 									playerStrums.forEach(playerNotes -> playerNotes.alpha = 0);
 								}
 							});
-						case 2695:
+						case 2715:
 							if (ClientPrefs.flashing) {
 								camOther.flash(FlxColor.WHITE, 1);
 							}
