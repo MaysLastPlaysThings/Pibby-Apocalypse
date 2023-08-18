@@ -74,8 +74,12 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
 
         script = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
 
-        if (script != null && script.exists("onCreate"))
-            script.get("onCreate")();
+        try{
+            if (script != null && script.exists("onCreate"))
+                script.get("onCreate")();
+        }catch(e:Dynamic){
+            trace(e);
+        }
     }
 
     override function update(elapsed:Float) 

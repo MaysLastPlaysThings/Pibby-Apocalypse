@@ -207,7 +207,12 @@ class Script {
 				scriptInterpreter.variables.set(key, additionalParamaters.get(key));
 			}
 		}
-		scriptInterpreter.execute(content);
+
+        try{
+		    scriptInterpreter.execute(content);
+        }catch(e:Dynamic){
+            trace("hscript error on execute: " + e.message);
+        }
 	}
 
 	// This is our way of getting a field
