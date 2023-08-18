@@ -311,10 +311,10 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String, ?throwToGPU:Bool = false):FlxAtlasFrames
+	inline static public function getSparrowAtlas(key:String, ?library:String, ?throwToGPU:Bool = false, ?prefix:String):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = returnGraphic(key, throwToGPU);
+		var imageLoaded:FlxGraphic = returnGraphic(key, library, throwToGPU, prefix);
 		var xmlExists:Bool = false;
 		if(FileSystem.exists(modsXml(key))) {
 			xmlExists = true;
@@ -448,6 +448,25 @@ class Paths
         }
         return null;
     }
+
+	inline static public function modsShaderFragment(key:String, ?library:String)
+		return modFolders('shaders/' + key + '.frag');
+
+	inline static public function modsShaderVertex(key:String, ?library:String)
+		return modFolders('shaders/' + key + '.vert');
+
+	inline static public function getContent(asset:String):Null<String>
+	{
+		#if sys
+		if (FileSystem.exists(asset))
+			return File.getContent(asset);
+		#else
+		if (Assets.exists(asset))
+			return Assets.getText(asset);
+		#end
+
+		return null;
+	}
 
 	/* 	
     public static function returnGraphic(key:String, ?library:String) {

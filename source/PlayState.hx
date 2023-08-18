@@ -234,7 +234,9 @@ class PlayState extends MusicBeatState
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
-    public var _scriptMap:StringMap<ScriptConstructor> = new StringMap<ScriptConstructor>();
+    var _scriptMap:Map<String, HScript.Script> = new Map<String, HScript.Script>();
+    public function getScript(n:String)return _scriptMap.get(n);
+    public function getScriptVar(n:String, f:String)return getScript(n).get(f);
 
 	public var camZooming:Bool = false;
 	public var camZoomingMult:Float = 1;
@@ -549,7 +551,7 @@ class PlayState extends MusicBeatState
 		
 		curStage = SONG.stage;
 		stage = new ScriptConstructor('stages/${curStage}','stage');
-        _scriptMap.set(curStage, stage);
+        _scriptMap.set(curStage, stage.script);
         allScripts.push(stage);
 		add(stage);
 		SONG.stage = curStage;
@@ -565,7 +567,7 @@ class PlayState extends MusicBeatState
                         var fileFixed:String = file.substr(0, lastIndex);
                         trace('Currently loading additional script ${file}');
                         var daScript:ScriptConstructor = new ScriptConstructor('stages/${curStage}/scripts', fileFixed);
-                        _scriptMap.set(file, daScript);
+                        _scriptMap.set(file, daScript.script);
                         allScripts.push(daScript);
                         add(daScript);
                     }

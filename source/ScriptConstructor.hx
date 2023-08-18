@@ -18,12 +18,13 @@ enum abstract AssetType(String) to String {
     var IMAGE = 'image';
     var ATLAS = 'atlas';
     var SOUND = 'sound';
+    var TEXT = 'text';
 }
 
 class ScriptConstructor extends FlxTypedGroup<FlxBasic>
 {
     // Attach some metadata to the new Stage
-    var script:Script;
+    public var script:Script;
     public var foreground : FlxTypedGroup<FlxBasic>;
 
 
@@ -43,20 +44,14 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
             // this is retarded lol
             switch (assetType) {
                 case IMAGE:
-/*                     var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/stages/${currentStage}/${path}')), false, 'assets/stages/${currentStage}/${path}');
-                    newGraphic.persist = true;
-                    return newGraphic; */
 					return Paths.returnGraphic(path, null, false, dir);
                 case ATLAS:
-                    var newGraphic : FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes('assets/${dir}/${path}.png')), false, 'assets/${dir}/${path}.png');
-                    newGraphic.persist = true;
-
-                    var newSparrow = FlxAtlasFrames.fromSparrow(newGraphic, File.getContent('assets/${dir}/${path}.xml'));
-                    //trace(newSparrow);
-                    return newSparrow;
+					return Paths.getSparrowAtlas(path, null, false, dir);
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
+                case TEXT:
+                    return Paths.getContent('assets/$dir/$path');
             }
         });
 
@@ -74,10 +69,8 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
             PlayState.instance.addTextToDebug(text, FlxColor.RED);
         });
 
-        additionalParams.set('getScript', function(scriptTag:String) {
-            var wowza:Script = PlayState.instance._scriptMap.get(scriptTag).script;
-            return wowza;
-        });
+		additionalParams.set('getScript', PlayState.instance.getScript);
+		additionalParams.set('getScriptVar', PlayState.instance.getScriptVar);
 
         script = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
 

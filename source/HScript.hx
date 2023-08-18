@@ -1,3 +1,4 @@
+import flixel.math.FlxPoint;
 import flixel.addons.display.FlxRuntimeShader;
 #if sys
 import sys.FileSystem;
@@ -33,7 +34,8 @@ class ScriptManager {
 		expressions = new StringMap<Dynamic>();
 
 		// Setup all of the stuff that we will need for our stuff
-		expressions.set("FlxG", FlxG);
+		expressions.set("Paths", Paths);
+        expressions.set("FlxG", FlxG);
 		expressions.set("FlxTween", FlxTween);
 		expressions.set("FlxEase", FlxEase);
 		expressions.set("FlxSprite", FlxSprite);
@@ -42,6 +44,25 @@ class ScriptManager {
         expressions.set("ClientPrefs", ClientPrefs);
 		expressions.set("FlxRuntimeShader", FlxRuntimeShader);
 		expressions.set("RuntimeShaders", _Shaders);
+		expressions.set("newShader", function(fragFile:String = null, vertFile:String = null)
+		{ // returns a FlxRuntimeShader but with file names lol
+			var runtime:FlxRuntimeShader = null;
+
+			try
+			{
+				runtime = new FlxRuntimeShader(fragFile == null ? null : Paths.getContent(Paths.modsShaderFragment(fragFile)),
+					vertFile == null ? null : Paths.getContent(Paths.modsShaderVertex(vertFile)));
+			}
+			catch (e:Dynamic)
+			{
+				trace("Shader compilation error:" + e.message);
+			}
+
+			return runtime == null ? new FlxRuntimeShader() : runtime;
+		});
+
+        
+
 		
 		expressions.set("importClass", function(className:String, ?traceImports:Bool) //thanks troll engine :D
             {
@@ -75,6 +96,72 @@ class ScriptManager {
                     if (traceImports == true) trace('Imported: $daClassName, $daClass');
                 }
             });
+
+		// FlxColor is an abstract so you can't pass it to hscript
+		expressions.set("FlxColor", {
+			// These aren't part of FlxColor but i thought they could be useful
+			// honestly we should replace source/flixel/FlxColor.hx or w/e with one with these funcs
+
+			toRGBArray: (color:FlxColor) ->
+			{
+				return [color.red, color.green, color.blue];
+			},
+			lerp: (from:FlxColor, to:FlxColor, ratio:Float) ->
+			{
+				return FlxColor.fromRGBFloat(FlxMath.lerp(from.redFloat, to.redFloat, ratio), FlxMath.lerp(from.greenFloat, to.greenFloat, ratio),
+					FlxMath.lerp(from.blueFloat, to.blueFloat, ratio), FlxMath.lerp(from.alphaFloat, to.alphaFloat, ratio));
+			},
+
+			////
+			set_hue: (color:FlxColor, hue:Float) ->
+			{
+				color.hue = hue;
+				return color;
+			},
+			set_saturation: (color:FlxColor, saturation:Float) ->
+			{
+				color.saturation = saturation;
+				return color;
+			},
+			set_brightness: (color:FlxColor, brightness:Float) ->
+			{
+				color.brightness = brightness;
+				return color;
+			},
+
+			fromCMYK: FlxColor.fromCMYK,
+			fromHSL: FlxColor.fromHSL,
+			fromHSB: FlxColor.fromHSB,
+			fromInt: FlxColor.fromInt,
+			fromRGBFloat: FlxColor.fromRGBFloat,
+			fromString: FlxColor.fromString,
+			fromRGB: FlxColor.fromRGB,
+
+			TRANSPARENT: 0x00000000,
+			WHITE: 0xFFFFFFFF,
+			GRAY: 0xFF808080,
+			BLACK: 0xFF000000,
+
+			GREEN: 0xFF008000,
+			LIME: 0xFF00FF00,
+			YELLOW: 0xFFFFFF00,
+			ORANGE: 0xFFFFA500,
+			RED: 0xFFFF0000,
+			PURPLE: 0xFF800080,
+			BLUE: 0xFF0000FF,
+			BROWN: 0xFF8B4513,
+			PINK: 0xFFFFC0CB,
+			MAGENTA: 0xFFFF00FF,
+			CYAN: 0xFF00FFFF,
+		});
+		// Same for FlxPoint
+		expressions.set("FlxPoint", {
+			get: FlxPoint.get,
+			weak: FlxPoint.weak
+		});
+
+        expressions.set("getScript", PlayState.instance.getScript);
+		expressions.set("getScriptVar", PlayState.instance.getScript);
 
 		expressions.set("Math", Math);
 		expressions.set("Paths", Paths);
