@@ -40,13 +40,13 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
         additionalParams.set('stage', this);
         additionalParams.set('foreground', foreground);
         additionalParams.set('PlayState', PlayState.instance);
-        additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType):Dynamic {
+        additionalParams.set('retrieveAsset', function(path : String, assetType : AssetType, ?useGPU:Bool):Dynamic {
             // this is retarded lol
             switch (assetType) {
                 case IMAGE:
-					return Paths.returnGraphic(path, null, false, dir);
+					return Paths.returnGraphic(path, null, useGPU == null ? false : useGPU, dir);
                 case ATLAS:
-					return Paths.getSparrowAtlas(path, null, true, dir);
+					return Paths.getSparrowAtlas(path, null, useGPU == null ? true : useGPU, dir);
                 case SOUND:
                     // SOUNDS ARE NOT DONE, RETURNS NULL
                     return null;
