@@ -1,12 +1,3 @@
-var void;
-var house;
-var rock;
-var rock2;
-var rock3;
-var rock4;
-var wtf;
-var glitch;
-var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
 var velocityShitHehe = 1;
 
 // making them variables so its less confusing and stuff 

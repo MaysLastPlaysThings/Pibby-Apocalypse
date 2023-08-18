@@ -1,32 +1,3 @@
-var background;
-var wall;
-var vignette;
-var vignette2;
-var light;
-var ch1;
-var ch2;
-var ch3;
-
-// the thingies that yeah they cool totally 102%
-var daGloop;
-var daGloop2;
-var daGloop3;
-var daGloop4;
-var daGloop5;
-
-//PENNY MY BELOVED - schweizer
-var penny;
-
-var void;
-var house;
-var rock;
-var rock2;
-var rock3;
-var rock4;
-var wtf;
-var glitch;
-var stupidFix;
-
 var charColors = [0x8f8f8f, 0xBFE5BA]; // default, glitch part
 var houseColors = [0x8f8f8f, 0x9ADA91]; // also with rock3 and rock4
 var rockColors = [0xbababa, 0xB8D4B5]; // only for the rock the characters are on
@@ -376,7 +347,6 @@ function onStepHit(curStep:Int)
         if (curStep == 2688)
             {
                 add(void);
-                add(glitch);
                 if (!ClientPrefs.lowQuality) add(rock4);
                 if (!ClientPrefs.lowQuality) add(rock3);
                 if (!ClientPrefs.lowQuality) add(rock2);
