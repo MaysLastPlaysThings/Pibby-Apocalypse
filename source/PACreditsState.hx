@@ -28,11 +28,11 @@ using StringTools;
 
 class PACreditsState extends MusicBeatState
 {
-	var curSelected: Int = -1;
+	var curSelected:Int = -1;
 
-	private var shaderIntensity: Float;
+	private var shaderIntensity:Float;
 
-	private var roleSections: Array<String> = [
+	private var roleSections:Array<String> = [
 		"DIRECTORS",
 		"COMPOSERS",
 		"CODERS",
@@ -42,11 +42,13 @@ class PACreditsState extends MusicBeatState
 		"MISCELLANEOUS"
 	];
 
-	var bg: FlxSprite;
-	var creditsText: FlxText;
-	var currentGroup: FlxText;
+	var currentRole:Int = 0;
 
-	var pibbyFNF: Shaders.Pibbified;
+	var bg:FlxSprite;
+	var creditsText:FlxText;
+	var currentGroup:FlxText;
+
+	var pibbyFNF:Shaders.Pibbified;
 
 	override function create()
 	{
@@ -71,7 +73,7 @@ class PACreditsState extends MusicBeatState
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
 
-		currentGroup = new FlxText(0, 60, 0, "DIRECTORS", 70);
+		currentGroup = new FlxText(0, 60, 0, roleSections[currentRole], 70);
 		currentGroup.setFormat(Paths.font("menuBUTTONS.ttf"), 70, FlxColor.WHITE, LEFT);
 		currentGroup.screenCenter(X);
 		add(currentGroup);
