@@ -70,6 +70,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var threatPercent:Int;
+    var glitchFWFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
 
 	var bg:FlxSprite;
     var arrowL:FlxSprite;
@@ -87,6 +88,10 @@ class FreeplayState extends MusicBeatState
 	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null, 120);
 
 	var canPress = false;
+	var saveY:Float;
+	var saveHeroY:Float;
+
+    var allowGlitch:Bool = false;
 
 	override function create()
 	{
@@ -147,6 +152,8 @@ class FreeplayState extends MusicBeatState
         bg.antialiasing = ClientPrefs.globalAntialiasing;
         add(bg);
         bg.screenCenter();
+        
+        saveY = FlxG.camera.y;
 
 		threat = new FlxSprite().loadGraphic(Paths.image('fpmenu/threatLevel'));
 		threat.antialiasing = ClientPrefs.globalAntialiasing;
@@ -269,8 +276,10 @@ class FreeplayState extends MusicBeatState
         noHeroIntro.frames = Paths.getSparrowAtlas('noherocutscenefirst', 'shared');
         noHeroIntro.animation.addByPrefix('finnJumpscareMomento', 'play003', 24, true);
         noHeroIntro.animation.play('finnJumpscareMomento',true);
+        noHeroIntro.scrollFactor.set();
 
         add(noHeroIntro);
+        saveHeroY = noHeroIntro.y;
         noHeroIntro.alpha = 0.001;
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
@@ -342,6 +351,7 @@ class FreeplayState extends MusicBeatState
 	public static var vocals:FlxSound = null;
 	var holdTime:Float = 0;
 	var gradientSineThing:Float = 0;
+    var shaderStuff:Float = 0;
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music.volume < 0.7)
@@ -355,8 +365,14 @@ class FreeplayState extends MusicBeatState
 			}
 
 		if(ClientPrefs.shaders) {
+            if (allowGlitch) {
+                shaderStuff += elapsed;
+            }else{
+                shaderStuff = 0;
+            }
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
+            glitchFWFNF.setFloat('iTime', shaderStuff);
 		}
 
 		if (FlxG.sound.music != null)
@@ -457,7 +473,6 @@ class FreeplayState extends MusicBeatState
 		}
 
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
-
 		if (controls.BACK)
 		{
 			persistentUpdate = false;
@@ -495,13 +510,44 @@ class FreeplayState extends MusicBeatState
 
         if (controls.UI_UP_P) {
             pressed += 1;
+            var funnyNum:Int = 20;
             noHeroIntro.alpha += pressed/40;
+            FlxG.camera.y += funnyNum;
+            noHeroIntro.y -= funnyNum;
+            var fuckNum:Int;
+            allowGlitch = true;
+            new FlxTimer().start(0.35, function(tmr:FlxTimer) {
+                allowGlitch = false;
+            });
+            if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF), new ShaderFilter(glitchFWFNF)]);
+            var gameObjects = [bg, arrowL, arrowR, arrows, image, stagebox, stagebox_L, stagebox_R, threat, levelBarBG, gradient];
+            for(index in 0...gameObjects.length){
+                fuckNum = Std.int(100*pressed);
+                if (gameObjects[index] != null && gameObjects[index].exists) {
+                    gameObjects[index].offset.x = 0 + FlxG.random.int(-fuckNum, fuckNum);
+                    gameObjects[index].offset.y = 0 + FlxG.random.int(-fuckNum, fuckNum);
+                }else{
+                    continue;
+                }
+            }
             FlxG.sound.music.volume -= pressed/10;
-            FlxG.sound.play(Paths.sound('confirmMenu'),3*pressed);
+            FlxG.sound.play(Paths.sound('glitchhit', 'shared'),10*pressed);
             if (!isResetTimerRunning) {
                 resetSecretTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
                     pressed = 0;
                     FlxTween.tween(noHeroIntro, {alpha: 0.001}, 0.25, {ease: FlxEase.quadInOut});
+                    if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+                    FlxG.camera.y = saveY;
+                    noHeroIntro.y = saveHeroY;
+                    var gameObjects = [bg, arrowL, arrowR, arrows, image, stagebox, stagebox_L, stagebox_R, threat, levelBarBG, gradient];
+                    for(index in 0...gameObjects.length){
+                        if (gameObjects[index] != null && gameObjects[index].exists) {
+                            gameObjects[index].offset.x = 0;
+                            gameObjects[index].offset.y = 0;
+                        }else{
+                            continue;
+                        }
+                    }
                     FlxG.sound.music.volume = 1;
                     isResetTimerRunning = false;
                 });

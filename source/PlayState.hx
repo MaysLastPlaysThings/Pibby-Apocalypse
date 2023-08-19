@@ -2213,7 +2213,7 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.row = Conductor.secsToRow(daStrumTime);
 				if(noteRows[gottaHitNote?0:1][swagNote.row]==null)
-					noteRows[gottaHitNote?0:1][swagNote.row]=[]; // holy shit my code -neb
+					noteRows[gottaHitNote?0:1][swagNote.row]=[]; // holy shit my code -neb 
 				noteRows[gottaHitNote ? 0 : 1][swagNote.row].push(swagNote);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
@@ -4303,9 +4303,6 @@ class PlayState extends MusicBeatState
                 for (i in 0...opponentStrums.length) {
                     opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
                     opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
-
-                    playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-                    playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
                 }
                 boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
                 if (ClientPrefs.shaders)
@@ -4321,6 +4318,10 @@ class PlayState extends MusicBeatState
                     }
             }
 		}
+
+        if (dad.curCharacter == 'finn-slash' && !note.isSustainNote) {
+            iconP2.scale.set(1.4, 1.4);
+        }
 
         jakeSings = false;
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
@@ -4370,9 +4371,6 @@ class PlayState extends MusicBeatState
                     for (i in 0...opponentStrums.length) {
                         opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
                         opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
-        
-                        playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-                        playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
                     }
                         
                     if (ClientPrefs.shaders)
@@ -4434,9 +4432,6 @@ class PlayState extends MusicBeatState
 											{
 												opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
 												opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
-
-												playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-												playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
 											}
                                         }
                                     }
@@ -4518,7 +4513,6 @@ class PlayState extends MusicBeatState
 							if(boyfriend.animation.getByName('hurt') != null && dad.animation.getByName('attack') != null) {
 								boyfriend.playAnim('dodge', true);
 								boyfriend.specialAnim = true;
-
 								dad.playAnim('attack', true);
 								dad.specialAnim = true;
 
@@ -4602,6 +4596,9 @@ class PlayState extends MusicBeatState
 
 				if (note.dodgeNote && boyfriend.curCharacter != 'bfsword') // when bfsword he parries
 					{
+                        if (!note.isSustainNote) {
+                            iconP1.scale.set(1.4, 1.4);
+                        }
 						boyfriend.playAnim(dodgeAnim, true);
 						boyfriend.specialAnim = true;
 						boyfriend.holdTimer = 0;
@@ -4609,6 +4606,9 @@ class PlayState extends MusicBeatState
 
 				else if (note.attackNote)
 					{
+                        if (!note.isSustainNote) {
+                            iconP1.scale.set(1.4, 1.4);
+                        }
 						boyfriend.playAnim(shootAnim, true);
 						boyfriend.specialAnim = true;
 						boyfriend.holdTimer = 0;
