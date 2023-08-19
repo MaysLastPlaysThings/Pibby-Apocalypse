@@ -4340,14 +4340,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(!note.gfNote) {
-                if (healthDrain) {
-                    if (health > 0.1) {
-                        health -= 0.0125;
-                    }
-                }
-            }
-
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 			if (note.gfNote) {
@@ -4407,51 +4399,87 @@ class PlayState extends MusicBeatState
                     }
                 }
 
-				// TODO: maybe move this all away into a seperate function
-					if (!note.isSustainNote && noteRows[note.mustPress ? 0 : 1][note.row] != null && noteRows[note.mustPress ? 0 : 1][note.row].length > 1)
-					{
-						// potentially have jump anims?
-						var chord = noteRows[note.mustPress ? 0 : 1][note.row];
-						var animNote = chord[0];
-						var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
-						if (char.mostRecentRow != note.row)
-							char.playAnim(realAnim, true);
+                var chord = noteRows[note.mustPress ? 0 : 1][note.row];
 
-						if (note != animNote)
-							if (!note.gfNote) {
-								if (health > 0.5) {
-                                    if (healthDrain) {
-                                        health -= FlxG.random.float(0.075, 0.2);
-                                    }
-								}
-                                if (ClientPrefs.screenGlitch) {
-                                    if (FlxG.random.float(0, 1) < 0.5) {
-                                        camGame.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
-                                    } else{
-                                        camHUD.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
-                                        for (i in 0...opponentStrums.length) {
-                                            if (canShakeNote)
-											{
-												opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
-												opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+				if (!note.isSustainNote && chord != null && chord.length > 1)
+                {
+                    // potentially have jump anims?
+                    
+                    var animNote = chord[0];
+                    var realAnim = singAnimations[Std.int(Math.abs(animNote.noteData))] + altAnim;
+                    if (char.mostRecentRow != note.row){
+                        if (note.bothCharSing)
+                        {
+                            dad.playAnim(realAnim, true);
+                            jake.playAnim(realAnim, true);
+                        }else
+                            char.playAnim(realAnim, true);
+                        
+                    }
 
-												playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
-												playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
-											}
+                    if (note == animNote){
+                        if (!note.gfNote) {
+                            if (healthDrain) {
+								var damage:Float = 0.05 * chord.length; // 0.05 per note in the "chord" (so on a jump its 0.1, a hand its 0.15 and a quad 0.2)
+                                if (health > 0.01){
+                                    if(health - damage > 0.01)
+                                        health -= damage;
+                                    else
+                                        health = 0.01;
+                                }
+
+                                
+                            }
+                            if (ClientPrefs.screenGlitch) {
+                                if (FlxG.random.float(0, 1) < 0.5) {
+                                    camGame.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
+                                } else{
+                                    camHUD.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
+                                    for (i in 0...opponentStrums.length) {
+                                        if (canShakeNote)
+                                        {
+                                            opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                                            opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
+
+                                            playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                                            playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
                                         }
                                     }
                                 }
-							}
+                            }else{
+                                if (FlxG.random.float(0, 1) > 0.5) { 
+                                    for (i in 0...opponentStrums.length) {
+                                        if (canShakeNote)
+                                        {
+                                            opponentStrums.members[i].x = defaultOpponentStrum[i].x + FlxG.random.int(-8, 8);
+                                            opponentStrums.members[i].y = defaultOpponentStrum[i].y + FlxG.random.int(-8, 8);
 
-						char.mostRecentRow = note.row;
-					}
-					else if (note.bothCharSing)
-						{
-							dad.playAnim(animToPlay, true);
-							jake.playAnim(animToPlay, true);
-						}
-					else
-						char.playAnim(animToPlay, true);
+                                            playerStrums.members[i].x = defaultPlayerStrum[i].x + FlxG.random.int(-8, 8);
+                                            playerStrums.members[i].y = defaultPlayerStrum[i].y + FlxG.random.int(-8, 8);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    char.mostRecentRow = note.row;
+                }else{     
+                    if(!note.gfNote) {
+                        if (healthDrain) {
+                            if (health > 0.0125) {
+                                health -= 0.0125;
+                            }
+                        }
+                    }
+                    if (note.bothCharSing)
+                    {
+                        dad.playAnim(animToPlay, true);
+                        jake.playAnim(animToPlay, true);
+                    }
+                    else
+                        char.playAnim(animToPlay, true);
+                }
 			}
 		}
 
