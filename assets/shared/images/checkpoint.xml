@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="checkpoint.png">
+	<!-- Created with Adobe Animate version 23.0.1.70 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="checkpointAnim instance 10000" x="2782" y="1051" width="447" height="112" frameX="0" frameY="-1315" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10001" x="2782" y="878" width="325" height="173" frameX="-80" frameY="-1227" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10002" x="404" y="1052" width="628" height="294" frameX="-152" frameY="-1110" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10003" x="2588" y="0" width="775" height="421" frameX="-164" frameY="-1027" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10004" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10005" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10006" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10007" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10008" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10009" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10010" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10011" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10012" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10013" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10014" x="1301" y="438" width="762" height="408" frameX="-171" frameY="-1033" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10015" x="2588" y="421" width="691" height="457" frameX="-206" frameY="-1009" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10016" x="2588" y="421" width="691" height="457" frameX="-206" frameY="-1009" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10017" x="404" y="658" width="749" height="394" frameX="-177" frameY="-1040" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10018" x="2782" y="1472" width="825" height="204" frameX="-211" frameY="-1121" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10019" x="0" y="1350" width="884" height="287" frameX="-242" frameY="-1069" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10020" x="1301" y="0" width="790" height="438" frameX="-368" frameY="-888" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10021" x="0" y="0" width="719" height="615" frameX="-558" frameY="-600" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10022" x="719" y="0" width="582" height="658" frameX="-869" frameY="-384" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10023" x="2091" y="0" width="497" height="691" frameX="-1055" frameY="-251" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10024" x="3363" y="0" width="442" height="715" frameX="-1174" frameY="-165" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10025" x="0" y="615" width="404" height="735" frameX="-1254" frameY="-104" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10026" x="2063" y="691" width="378" height="748" frameX="-1308" frameY="-63" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10027" x="3279" y="715" width="362" height="757" frameX="-1343" frameY="-36" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10028" x="3641" y="715" width="353" height="763" frameX="-1365" frameY="-18" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10029" x="1153" y="846" width="346" height="767" frameX="-1379" frameY="-7" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10030" x="1499" y="846" width="344" height="768" frameX="-1385" frameY="-2" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10031" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10032" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10033" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10034" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10035" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+	<SubTexture name="checkpointAnim instance 10036" x="2441" y="878" width="341" height="769" frameX="-1388" frameY="0" frameWidth="1729" frameHeight="1466"/>
+</TextureAtlas>
