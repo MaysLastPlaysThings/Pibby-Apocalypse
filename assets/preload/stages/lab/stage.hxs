@@ -1,11 +1,3 @@
-var bg;
-var dark;
-var light;
-var bulb;
-var stageCurtains;
-var flickerTween;
-var objects;
-
 function onCreate()
 {	
 	bg = new FlxSprite(400, 350);

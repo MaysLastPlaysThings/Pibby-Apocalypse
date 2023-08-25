@@ -1,19 +1,10 @@
-var void;
-var house;
-var rock;
-var rock2;
-var rock3;
-var rock4;
-var wtf;
-var glitch;
-var stupidFix; //cuz apparently there needs to be a defined tween to pause the other tweens (idk I dont know hscript man)
 var velocityShitHehe = 1;
 
 // making them variables so its less confusing and stuff 
-var charColors = [0x8f8f8f, 0xBFE5BA]; // default, glitch part
-var houseColors = [0x8f8f8f, 0x9ADA91]; // also with rock3 and rock4
-var rockColors = [0xbababa, 0xB8D4B5]; // only for the rock the characters are on
-var coolThingColors = [0xc4c0c0, 0xC1CEAA]; // wtf - forgor, 2023
+var charColors = [0xFF8f8f8f, 0xFFBFE5BA]; // default, glitch part
+var houseColors = [0xFF8f8f8f, 0xFF9ADA91]; // also with rock3 and rock4
+var rockColors = [0xFFbababa, 0xFFB8D4B5]; // only for the rock the characters are on
+var coolThingColors = [0xFFc4c0c0, 0xFFC1CEAA]; // wtf - forgor, 2023
 
 function onCreate()
 {
@@ -142,21 +133,21 @@ function onStepHit(curStep) {
     {
         FlxTween.tween(glitch, {alpha: 0.0001}, 0.5, {
             ease: FlxEase.quadInOut
-            });
-        PlayState.boyfriend.color = charColors[0];
-        PlayState.dad.color = charColors[0];
-        PlayState.gf.color = charColors[0];
-        velocityShitHehe = 1;
-
-        house.color = houseColors[0];
-        rock.color = rockColors[0];
+        });
+        FlxTween.color(PlayState.boyfriend, 0.5, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(PlayState.dad, 0.5, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(PlayState.gf, 0.5, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(house, 0.5, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(rock, 0.5, rockColors[1], rockColors[0], {ease: FlxEase.quadInOut } );
 
         if (!ClientPrefs.lowQuality)
-            {
-                rock3.color = houseColors[0];
-                rock4.color = houseColors[0];
-                wtf.color = coolThingColors[0];
-            }
+        {
+            FlxTween.color(rock3, 0.5, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+            FlxTween.color(rock4, 0.5, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+            FlxTween.color(wtf, 0.5, coolThingColors[1], coolThingColors[0], {ease: FlxEase.quadInOut } );
+        }
+
+        velocityShitHehe = 1;
     }
 
     if (curStep == 1024)
@@ -171,11 +162,11 @@ function onStepHit(curStep) {
         rock.color = rockColors[1];
 
         if (!ClientPrefs.lowQuality)
-            {
-                rock3.color = houseColors[1];
-                rock4.color = houseColors[1];
-                wtf.color = coolThingColors[1];
-            }
+        {
+            rock3.color = houseColors[1];
+            rock4.color = houseColors[1];
+            wtf.color = coolThingColors[1];
+        }
     }
 
     if (curStep == 1280)
@@ -190,11 +181,11 @@ function onStepHit(curStep) {
         rock.color = rockColors[0];
 
         if (!ClientPrefs.lowQuality)
-            {
-                rock3.color = houseColors[0];
-                rock4.color = houseColors[0];
-                wtf.color = coolThingColors[0];
-            }
+        {
+            rock3.color = houseColors[0];
+            rock4.color = houseColors[0];
+            wtf.color = coolThingColors[0];
+        }
     }
 
     if (curStep == 1536)
@@ -220,21 +211,22 @@ function onStepHit(curStep) {
     {
         FlxTween.tween(glitch, {alpha: 0.0001}, 1, {
             ease: FlxEase.quadInOut
-            });
-            PlayState.boyfriend.color = charColors[0];
-            PlayState.dad.color = charColors[0];
-            PlayState.gf.color = charColors[0];
-        velocityShitHehe = 1;
-
-        house.color = houseColors[0];
-        rock.color = rockColors[0];
+        });
+        FlxTween.color(PlayState.boyfriend, 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(PlayState.dad, 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(PlayState.gf, 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(house, 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+        FlxTween.color(rock, 1, rockColors[1], rockColors[0], {ease: FlxEase.quadInOut } );
 
         if (!ClientPrefs.lowQuality)
-            {
-                rock3.color = houseColors[0];
-                rock4.color = houseColors[0];
-                wtf.color = coolThingColors[0];
-            }
+        {
+            FlxTween.color(rock3, 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+            FlxTween.color(rock4, 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+            FlxTween.color(wtf, 1, coolThingColors[1], coolThingColors[0], {ease: FlxEase.quadInOut } );
+        }
+
+        velocityShitHehe = 1;
+
     }
 
     if (curStep == 1824)

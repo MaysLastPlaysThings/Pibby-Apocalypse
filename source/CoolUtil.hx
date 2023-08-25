@@ -51,7 +51,7 @@ class CoolUtil
 				case "Brotherly Love":
 					artist = 'Kylevi';
 				case "Suffering Siblings":
-					artist = 'Awe ft. Saster';
+					artist = 'Awe ft. Saster & JustShxdowLel';
 				case "Come Along With Me":
 					artist = 'Awe';
 				case "Child's Play":
