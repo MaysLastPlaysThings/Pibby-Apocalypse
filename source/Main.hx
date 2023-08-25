@@ -121,18 +121,21 @@ class Main extends Sprite
 		}
 		#end
 
-        buildDate = new TextField();
-        buildDate.x = 10;
-        buildDate.y = 650;
+        if (debug)
+		{
+			buildDate = new TextField();
+			buildDate.x = 10;
+			buildDate.y = 650;
 
-        var date = Macro.getBuildDate();
-        buildDate.selectable = false;
-        buildDate.mouseEnabled = false;
-        buildDate.defaultTextFormat = new TextFormat("_sans", 24, 0x9E9191);
-        buildDate.autoSize = LEFT;
-        buildDate.multiline = false;
-        buildDate.text = Macro.getBuildDate() + " Dev Build";
-        addChild(buildDate);
+			var date = Macro.getBuildDate();
+			buildDate.selectable = false;
+			buildDate.mouseEnabled = false;
+			buildDate.defaultTextFormat = new TextFormat("_sans", 24, 0x9E9191);
+			buildDate.autoSize = LEFT;
+			buildDate.multiline = false;
+			buildDate.text = Macro.getBuildDate() + " Dev Build";
+			addChild(buildDate);
+		}
 
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
@@ -150,7 +153,7 @@ class Main extends Sprite
     @:noCompletion private override function __update(transformOnly:Bool, updateChildren:Bool):Void
         {
             super.__update(transformOnly, updateChildren);
-            buildDate.y = lime.app.Application.current.window.height - 70;
+            if (debug && buildDate != null) buildDate.y = lime.app.Application.current.window.height - 70;
         }
 
 	private function update(e:Event):Void

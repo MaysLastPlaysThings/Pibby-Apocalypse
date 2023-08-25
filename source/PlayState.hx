@@ -5310,6 +5310,7 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
+							boyfriend.y += 42;
 							triggerEventNote('Camera Follow Pos', '1520', '970');
 							triggerEventNote('Cinematics', 'on', '10.11');
 							camHUD.alpha = 0;
@@ -5335,6 +5336,7 @@ class PlayState extends MusicBeatState
 								camOverlay.flash(FlxColor.WHITE, 1.5);
 							}
 							defaultCamZoom = 0.7;
+							// dad.y += 50;
 						case 515:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1.5);
