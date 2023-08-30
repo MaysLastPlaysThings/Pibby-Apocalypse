@@ -29,13 +29,7 @@ import haxe.Json;
 using StringTools;
 
 typedef CreditsData = {
-	directors:Array<Dynamic>,
-	composers:Array<Dynamic>,
-	coders:Array<Dynamic>,
-	artists:Array<Dynamic>,
-	charters:Array<Dynamic>,
-	animators:Array<Dynamic>,
-	misc:Array<Dynamic>
+	people:Array<Dynamic>
 }
 
 class PACreditsState extends MusicBeatState
@@ -46,20 +40,7 @@ class PACreditsState extends MusicBeatState
 
 	private var shaderIntensity:Float;
 
-	private var roleSections:Array<String> = [
-		"DIRECTORS",
-		"COMPOSERS",
-		"CODERS",
-		"ARTISTS",
-		"CHARTERS",
-		"ANIMATORS",
-		"MISCELLANEOUS"
-	];
-
 	private var people:Array<Dynamic> = []; // push people to this depending on the role
-
-	var currentRole:Int = 0;
-
 	var bg:FlxSprite;
 	var creditsText:FlxText;
 	var currentGroup:FlxText;
@@ -88,6 +69,7 @@ class PACreditsState extends MusicBeatState
 		pibbyFNF = new Shaders.Pibbified();
 
 		creditData = getCreditJson('credits');
+		people = creditData.people;
 
 		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
 
@@ -119,9 +101,9 @@ class PACreditsState extends MusicBeatState
 		add(quoteText);
 
 		for (i in 0... people.length) {
-			var creditSpr = new FlxSprite(0, 0).loadGraphic(Paths.image('pacredits/people/' + roleSections[currentRole] + '/' + people[i][1] + '/' + people[i][1]));
+			var creditSpr = new FlxSprite(0, 0).loadGraphic(Paths.image('pacredits/people/' + currentGroup.text + '/' + people[i][1] + '/' + people[i][1]));
 			creditSpr.screenCenter();
-			creditSpr.x = creditSpr.pixels.width + 30;
+			creditSpr.x += 150;
 			creditGrp.add(creditSpr);
 			creditSpr.ID = i;
 		}
@@ -133,8 +115,6 @@ class PACreditsState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		currentGroup.text = roleSections[currentRole];
-
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
 				shaderIntensity = FlxG.random.float(0.2, 0.3);
@@ -158,16 +138,6 @@ class PACreditsState extends MusicBeatState
 				quitting = true;
 			}
 			super.update(elapsed);
-
-		if (controls.UI_UP_P) {
-			changeRole(-1);
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-		}
-
-		if (controls.UI_DOWN_P) {
-			changeRole(1);
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-		}
 
 		if (controls.UI_LEFT_P) {
 			changeSelection(-1);
@@ -204,27 +174,8 @@ class PACreditsState extends MusicBeatState
 				item.screenCenter(X);
 			}
 		}
-	}
 
-	function changeRole(thing:Int) {
-		currentRole += thing;
-
-		if (currentRole < 0)
-			currentRole = roleSections.length - 1;
-		if (currentRole >= roleSections.length)
-			currentRole = 0;
-
-		// ada understanding json files jumpscare
-		for (i in 0... roleSections.length) {
-			switch(roleSections[i]) {
-				case 'DIRECTORS':
-					people.splice(0, people.length);
-					people = creditData.directors;
-				case 'CODERS':
-					people.splice(0, people.length);
-					people = creditData.coders;
-			}
-		}
+		currentGroup.text = people[curSelected][6];
 	}
 
 	override function destroy() {

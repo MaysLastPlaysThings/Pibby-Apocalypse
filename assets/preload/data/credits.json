@@ -1,11 +1,7 @@
 {
-    "directors": [
-        ["Requiem Zero", "Zero", "Mod owner", "youtube.com/@Requiem_Zero", "twitter.com/Requiem_Zero", "IM GONNA FUCKING RIP YOU APART"],
-        ["but why miiim", "Zero", "Mod owner", "youtube.com/@Requiem_Zero", "twitter.com/Requiem_Zero", "IM GONNA FUCKING RIP YOU APART"]
-    ],
-
-    "coders": [
-        ["Aaron", "Aaron", "Random coder I'm using to test", "youtube.com/@idontknow", "twitter.com/noidea", "IMAGINE dying, sotru"],
-        ["ADA", "ADA", "Bahahaha", "youtube.com/@ada_funni", "twitter.com/ADA_Funni", "but like this is not real right"]
+    "people": [
+        ["Requiem Zero", "Zero", "Mod owner", "youtube.com/@Requiem_Zero", "twitter.com/Requiem_Zero", "IM GONNA FUCKING RIP YOU APART", "DIRECTORS"],
+        ["funnymanBAUDAS70", "Baudas", "Mod owner", "youtube.com/@BAUDAS70", "twitter.com/BAUDAS70", "the funnyman", "DIRECTORS"],
+        ["not the fuynnyman", "Baudas", "Mod owner", "youtube.com/@BAUDAS70", "twitter.com/BAUDAS70", "the funnyman", "ARTISTS"]
     ]
 }
