@@ -223,14 +223,6 @@ class PlayState extends MusicBeatState
     var fuckyouDadY:Float;
     var fuckyouDadX:Float;
 
-	// sexy checkpoint code!!1!!111
-	public static var curCheckpoint:Float = 0;
-	public static var checkpointTime:Float = 0;
-	public static var checkpointArray:Array<Float> = [];
-
-	var checkpointSpr:FlxSprite;
-	public var checkpointMarkers:FlxTypedGroup<FlxSprite>;
-
 	//Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
 	public var camFollowPos:FlxObject;
@@ -862,12 +854,6 @@ class PlayState extends MusicBeatState
 		add(timeBar);
 		add(timeTxt);
 
-		checkpointSpr = new FlxSprite(0, 0);
-		checkpointSpr.frames = Paths.getSparrowAtlas('checkpoint');
-		checkpointSpr.animation.addByPrefix('checkpoint', 'checkpointAnim', 24, false);
-		checkpointSpr.screenCenter();
-		add(checkpointSpr);
-
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
@@ -1085,7 +1071,6 @@ class PlayState extends MusicBeatState
 		warning.cameras = [camOther];
 		cinematicdown.cameras = [camOverlay];
 		cinematicup.cameras = [camOverlay];
-		checkpointSpr.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -3521,19 +3506,6 @@ class PlayState extends MusicBeatState
 				} else {
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
-
-			case 'Set Checkpoint':
-				FlxG.sound.play(Paths.sound('SSCheckpoint' + FlxG.random.int(0, 1)));
-
-				curCheckpoint++;
-				checkpointTime = FlxG.sound.music.time;
-				checkpointArray.push(checkpointTime);
-
-				checkpointSpr.animation.play('checkpoint', true);
-
-				// Checkpoint array thing is for the time bar (if we can actually add markers that way)
-
-				trace('current checkpoint is: ' + curCheckpoint, 'song time is: ' + FlxG.sound.music.time, 'fuck off suffering siblings');
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -7607,13 +7579,5 @@ class PlayState extends MusicBeatState
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
-	}
-
-	public function ssFuckOff() {
-		bfIntro.visible = false;
-		pibbyIntro.visible = false;
-
-		boyfriend.visible = true;
-		gf.visible = true;
 	}
 }

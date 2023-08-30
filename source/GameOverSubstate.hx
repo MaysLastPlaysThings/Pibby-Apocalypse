@@ -186,10 +186,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
-					PlayState.startOnTime = PlayState.checkpointTime;
-					PauseSubState.restartSong(true);
 					MusicBeatState.resetState();
-					PlayState.instance.ssFuckOff();
 				});
 			});
 			PlayState.instance.callOnLuas('onGameOverConfirm', [true]);
