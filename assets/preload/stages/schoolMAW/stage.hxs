@@ -1,4 +1,4 @@
-var charColors = [0x8f8f8f, 0xBFE5BA]; // default, glitch part
+var charColors = [0xff969494, 0xBFE5BA]; // default, glitch part
 var houseColors = [0x8f8f8f, 0x9ADA91]; // also with rock3 and rock4
 var rockColors = [0xbababa, 0xB8D4B5]; // only for the rock the characters are on
 var coolThingColors = [0xc4c0c0, 0xC1CEAA]; // wtf - forgor, 2023

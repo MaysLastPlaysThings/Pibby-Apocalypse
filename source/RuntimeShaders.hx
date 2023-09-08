@@ -5,9 +5,10 @@ enum abstract RuntimeShaders(String) to String from String
     var distort = 
     "#pragma header
 
-    uniform float binaryIntensity;
+    uniform float binaryIntensity = 1000.0;
     uniform float negativity;
-    void main() {
+    
+    void main(){
         vec2 uv = openfl_TextureCoordv.xy;
         
         // get snapped position
@@ -29,11 +30,10 @@ enum abstract RuntimeShaders(String) to String from String
     
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
-
-        // invert and apply colour
-        vec4 txColour = flixel_texture2D(bitmap, vec2(rx, ry));
-        vec4 inverted = vec4((vec3(1.) - txColour.rgb) * txColour.a, txColour.a);
-        gl_FragColor = mix(txColour, inverted, negativity);
+    
+        vec4 color = flixel_texture2D(bitmap, vec2(rx, ry));
+    
+        gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
     }
     ";
     

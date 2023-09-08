@@ -2,7 +2,7 @@
 	"animations": [
 		{
 			"offsets": [
-				-100,
+				-99,
 				-100
 			],
 			"loop": true,
@@ -70,7 +70,7 @@
 		161
 	],
 	"camera_position": [
-		-300,
+		-280,
 		190
 	],
 	"sing_duration": 6.1,

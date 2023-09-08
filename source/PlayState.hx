@@ -939,7 +939,7 @@ class PlayState extends MusicBeatState
         else
             pibbyHealthbar.frames = Paths.getSparrowAtlas('healthbar/healthbar', null, true);
 
-        pibbyHealthbar.scale.set(0.8, 0.8);
+        pibbyHealthbar.scale.set(1, 1);
         pibbyHealthbar.updateHitbox();
         for(i in 0...41){
             var indiceStart = i * 3;
@@ -950,13 +950,7 @@ class PlayState extends MusicBeatState
         pibbyHealthbar.animation.play("50Percent",true); // 50% damage, cus hp starts at half (1 / 2)
         if(ClientPrefs.shaders)pibbyHealthbar.shader = new Shaders.GreenReplacementShader();
 
-		pibbyHealthbar.screenCenter(X); 
-		pibbyHealthbar.x += pibbyHealthbar.width; // moved to the right side of the screen i think
-        pibbyHealthbar.x -= 60;
-		pibbyHealthbar.y = 10;
-
-		if (ClientPrefs.downScroll)
-			pibbyHealthbar.y = FlxG.height - pibbyHealthbar.height/2 - 10;
+		pibbyHealthbar.x = 65; 
         
         add(pibbyHealthbar);
         
@@ -975,23 +969,11 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
 		add(finnBarThing);
 
-/*         switch(storyWeekName){
-            case 'finn' | 'cawm': // why is cawm its own week lol */
-                timeBar.x -= timeBarBG.width;
-                timeTxt.x -= timeBarBG.width;
-                timeBarBG.x -= timeBarBG.width;
-
-                timeBar.x += 65;
-                timeTxt.x += 65;
-                timeBarBG.x += 65;
-
-        //}
-
-
-
 		if (storyWeekName == "gumball") {
 			finnBarThing.visible = false;
             //pibbyHealthbar.visible = false;
+			healthBar.visible = false;
+            healthBarBG.visible = false;
 		}
 
 		if (gf != null)
@@ -1031,6 +1013,11 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 
 		reloadHealthBarColors();
+
+		pibbyHealthbar.y = iconP1.y + 50;
+
+		if (ClientPrefs.downScroll)
+			pibbyHealthbar.y = iconP1.y;
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 20, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -2705,17 +2692,24 @@ class PlayState extends MusicBeatState
 			//iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		} 
 
-/* 		if (storyWeekName == "gumball") {
-            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-        }else{ */
+ 		if (storyWeekName == "gumball") {
+			iconP1.x = 530;
+            iconP2.x = 50;
+			if (gf != null)
+                iconP3.x = 530 + 75;
+			scoreTxt.y = healthBar.y;
+			scoreTxt.x = 340;
+        } 
+		else		
+		{
             iconP1.x = 614;
             iconP2.x = 513;
             if (gf != null)
                 iconP3.x = 614 + 100;
             healthBar.visible = false;
             healthBarBG.visible = false;
-        //}
+			pibbyHealthbar.visible = false;
+        }
 
 
 		if (SONG.song == "Suffering Siblings")
@@ -6103,7 +6097,7 @@ class PlayState extends MusicBeatState
 										defaultCamZoom = 0.7;
 									}
 							});
-							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							triggerEventNote('Camera Follow Pos', '1830', '1100');
 							camHUD.alpha = 0;
 							triggerEventNote('Cinematics', 'on', '0.00075');
 							camOther.fade(FlxColor.BLACK, 9.33, true);
@@ -6327,7 +6321,7 @@ class PlayState extends MusicBeatState
 						case 2006:
 							defaultCamZoom = 0.9;
 						case 2049:
-							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							triggerEventNote('Camera Follow Pos', '1830', '1100');
 							FlxTween.tween(camGame, {zoom: 0.8}, 1.65, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
@@ -6357,7 +6351,7 @@ class PlayState extends MusicBeatState
 									}
 							});
 						case 2066:
-							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							triggerEventNote('Camera Follow Pos', '1830', '1100');
 						case 2071:
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing){
@@ -6367,7 +6361,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-							triggerEventNote('Camera Follow Pos', '1950', '1100');
+							triggerEventNote('Camera Follow Pos', '1830', '1100');
 							gf.alpha = 0.0001;
 							jake.alpha = 0.0001;
 							theBlackness.alpha = 1;
@@ -6619,7 +6613,7 @@ class PlayState extends MusicBeatState
 							jake.alpha = 0.0001;
 						case 3392:
 							camGame.alpha = 1;
-							defaultCamZoom = 0.8;
+							defaultCamZoom = 0.7;
 							if (ClientPrefs.flashing){
 								camOverlay.flash(FlxColor.WHITE, 0.4);
 							}
