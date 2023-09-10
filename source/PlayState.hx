@@ -1252,7 +1252,6 @@ class PlayState extends MusicBeatState
         distortFNF.setFloat("negativity", 0.0);
         distortCAWMFNF.setFloat("negativity", 0.0);
 
-        distortDadFNF.setFloat("binaryIntensity", 1000.0);
         distortFNF.setFloat("binaryIntensity", 1000.0);
         distortCAWMFNF.setFloat("binaryIntensity", 1000.0);
         
@@ -4301,7 +4300,7 @@ class PlayState extends MusicBeatState
                 boyfriendColor = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]); //WHAT THE FUCK
                 if (ClientPrefs.shaders)
                     {
-                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        dadGlitchIntensity = FlxG.random.float(-1, -0.5);
                         var shaders = [distortDadFNF, distortCAWMFNF];
                         if(dad.shader == null)dad.shader = distortDadFNF;
                         for(idx in 0...shaders.length){
@@ -4369,7 +4368,7 @@ class PlayState extends MusicBeatState
                         
                     if (ClientPrefs.shaders)
                     {
-                        dadGlitchIntensity = FlxG.random.float(12, 25);
+                        dadGlitchIntensity = FlxG.random.float(-1, -0.5);
                         var shaders = [distortDadFNF, distortCAWMFNF];
                         if(jake.shader == null)jake.shader = distortDadFNF;
                         for (idx in 0...shaders.length)
