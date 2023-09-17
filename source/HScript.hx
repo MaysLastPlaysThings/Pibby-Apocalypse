@@ -243,4 +243,5 @@ class _Shaders {
 	public static var dayybloomshader = RuntimeShaders.dayybloomshader;
 	public static var distort = RuntimeShaders.distort;
 	public static var monitor = RuntimeShaders.monitor;
+	public static var pixel = RuntimeShaders.pixel;
 }

@@ -1,3 +1,22 @@
+var background;
+var wall;
+var vignette;
+var vignette2;
+var light;
+
+// the thingies that yeah they cool totally 102%
+var daGloop;
+var daGloop2;
+var daGloop3;
+var daGloop4;
+var daGloop5;
+
+//PENNY MY BELOVED - schweizer
+var penny;
+
+// SHADERS GRAH!!!!!! - jason 
+var pixel;
+
 function onCreate()
 {
     background = new flixel.FlxSprite(0, 0);
@@ -7,6 +26,9 @@ function onCreate()
     background.scrollFactor.set(1, 1);
     background.updateHitbox();
 
+    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel.setFloat('size', 10);
+
     if (!ClientPrefs.lowQuality)
     {
         daGloop = new flixel.FlxSprite();
@@ -15,6 +37,7 @@ function onCreate()
         daGloop.scale.set(1.5, 1.5);
         daGloop.frames = retrieveAsset('images/topgoop', 'atlas');
         daGloop.animation.addByPrefix('topey', 'gooey', 24, false);
+        if(ClientPrefs.shaders) daGloop.shader = pixel;
 
         daGloop2 = new flixel.FlxSprite();
         daGloop2.x = 1450;
@@ -22,6 +45,7 @@ function onCreate()
         daGloop2.scale.set(1.5, 1.5);
         daGloop2.frames = retrieveAsset('images/secondtopgoop', 'atlas');
         daGloop2.animation.addByPrefix('topey2', 'gooey', 24, false);
+        if(ClientPrefs.shaders) daGloop2.shader = pixel;
 
         daGloop4 = new flixel.FlxSprite();
         daGloop4.x = 910;
@@ -29,6 +53,7 @@ function onCreate()
         daGloop4.scale.set(1.7, 1.7);
         daGloop4.frames = retrieveAsset('images/droplet', 'atlas');
         daGloop4.animation.addByPrefix('dropey', 'gooey', 24, false);
+        if(ClientPrefs.shaders) daGloop4.shader = pixel;
 
         daGloop5 = new flixel.FlxSprite();
         daGloop5.x = 715;
@@ -36,6 +61,7 @@ function onCreate()
         daGloop5.scale.set(1.7, 1.7);
         daGloop5.frames = retrieveAsset('images/sinkgoop', 'atlas');
         daGloop5.animation.addByPrefix('sinkey', 'gooey', 24, false);
+        if(ClientPrefs.shaders) daGloop5.shader = pixel;
 
         penny = new flixel.FlxSprite();
         penny.x = 800;
@@ -162,13 +188,13 @@ function onBeatHit(curBeat:Int)
 
 function doGoo()
     {
-        daGloop5.animation.play('sinkey');
-        daGloop4.animation.play('dropey');
-        daGloop2.animation.play('topey2');
-        daGloop.animation.play('topey');
+        if (!ClientPrefs.lowQuality) daGloop5.animation.play('sinkey');
+        if (!ClientPrefs.lowQuality) daGloop4.animation.play('dropey');
+        if (!ClientPrefs.lowQuality) daGloop2.animation.play('topey2');
+        if (!ClientPrefs.lowQuality) daGloop.animation.play('topey');
     }
 
 function ponny()
     {
-        penny.animation.play('idle');
+        if (!ClientPrefs.lowQuality) penny.animation.play('idle');
     }
