@@ -1,7 +1,7 @@
 var velocityShitHehe = 1;
 
 // making them variables so its less confusing and stuff 
-var charColors = [0xFF8f8f8f, 0xFFBFE5BA]; // default, glitch part
+var charColors = [0xff969494, 0xFFBFE5BA]; // default, glitch part
 var houseColors = [0xFF8f8f8f, 0xFF9ADA91]; // also with rock3 and rock4
 var rockColors = [0xFFbababa, 0xFFB8D4B5]; // only for the rock the characters are on
 var coolThingColors = [0xFFc4c0c0, 0xFFC1CEAA]; // wtf - forgor, 2023
