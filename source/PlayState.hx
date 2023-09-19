@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.text.FlxTypeText;
 import Achievements;
 import Conductor.Rating;
 import DialogueBoxPsych;
@@ -360,6 +361,10 @@ class PlayState extends MusicBeatState
 	public var boyfriendCameraOffset:Array<Float> = null;
 	public var opponentCameraOffset:Array<Float> = null;
 	public var girlfriendCameraOffset:Array<Float> = null;
+
+	// "jason fucking use pibbySing" 
+	// SHUT UP MAN IT TOOK ME HOURS TO REALIZE HOW TO FIX THIS FOR MAW BEFORE DISCOVERING THAT VAR
+	var hiCameraPleaseFocusOnGfPleaseAndThankYou = false;
 
 	#if desktop
 	// Discord RPC variables
@@ -4609,7 +4614,10 @@ class PlayState extends MusicBeatState
                             focusedCharacter=boyfriend;
                         }
                     }else{
-                        focusedCharacter=boyfriend;
+						/*if (SONG.notes[Std.int(curStep / 16)] != null && SONG.notes[Std.int(curStep / 16)].gfSection && gf != null)
+							focusedCharacter = gf;
+						else*/ // this shit doesn't work im gonna kms
+                        	focusedCharacter = boyfriend;
                     }
                 }
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
@@ -5656,22 +5664,22 @@ class PlayState extends MusicBeatState
 
 							lyricTxt.color = FlxColor.fromRGB(255, 120, 75);
 							camGame.alpha = 0;
-							lyricTxt.text = "GUMBALL!";
+							lyricTxt.text = 'GUMBALL!';
 						case 1560:
 							lyricTxt.color = FlxColor.fromRGB(82, 165, 235);
-							lyricTxt.text = "D";
+							lyricTxt.text = 'D';
 							new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
-								lyricTxt.text = "D-D";
+								lyricTxt.text = 'D-D';
 								new FlxTimer().start(0.0375, function(tmr:FlxTimer) {
-									lyricTxt.text = "D-D-D";
+									lyricTxt.text = 'D-D-D';
 									new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
-										lyricTxt.text = "D-D-D-D";
+										lyricTxt.text = 'D-D-D-D';
 										new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
-											lyricTxt.text = "D-D-D-D-D";
+											lyricTxt.text = 'D-D-D-D-D';
 											new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
-												lyricTxt.text = "D-D-D-D-D";
+												lyricTxt.text = 'D-D-D-D-D-D';
 												new FlxTimer().start(0.01875, function(tmr:FlxTimer) {
-													lyricTxt.text = "DARWIN?";
+													lyricTxt.text = 'DARWIN?';
 												});
 											});
 										});
@@ -5682,7 +5690,8 @@ class PlayState extends MusicBeatState
 							GameOverSubstate.characterName = 'darwindeath';
 							GameOverSubstate.deathSoundName = 'fnf_loss_sfx'; // placeholder
 							GameOverSubstate.endSoundName = 'gameOverEnd';
-							lyricTxt.text = "";
+							hiCameraPleaseFocusOnGfPleaseAndThankYou = true;
+							lyricTxt.text = '';
 							camGame.alpha = 1;
 							iconP3.visible = true;
 							triggerEventNote('Apple Filter', 'on', 'white');
@@ -5740,7 +5749,7 @@ class PlayState extends MusicBeatState
 										lyricTxt.alpha = 1;
 									}
 							});
-							lyricTxt.text = "THE DARKNESS...";
+							lyricTxt.text = 'THE DARKNESS...';
 							new FlxTimer().start(0.675, function(tmr:FlxTimer) {
 								FlxTween.tween(lyricTxt, {alpha: 0}, 0.05, {
 									ease: FlxEase.linear,
@@ -5776,6 +5785,7 @@ class PlayState extends MusicBeatState
 								});
 							});
 						case 2144:
+							lyricTxt.text = '';
 							iconP3.visible = false;
 							changeChannel(1);
 							for (i in 0...opponentStrums.length) {
@@ -7483,6 +7493,9 @@ class PlayState extends MusicBeatState
 			{
 				moveCameraSection();
 			}
+
+			if (hiCameraPleaseFocusOnGfPleaseAndThankYou && gf != null)
+				focusedCharacter = gf;
 
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
 			{
