@@ -46,22 +46,31 @@ class CoolUtil
 			{
 				case "Mindless":
 					artist = 'Sevc_Ext_277';
+
 				case "Blessed by Swords":
 					artist = 'Lettush';
+
 				case "Brotherly Love":
 					artist = 'Kylevi';
+
 				case "Suffering Siblings":
-					artist = 'Awe ft. Saster & JustShxdowLel';
+					artist = 'Awe (ft. Saster & JustShxdowLel)';
+
 				case "Come Along With Me":
 					artist = 'Awe';
+
 				case "Child's Play":
 					artist = 'Yoosuf Meekail';
+
 				case "My Amazing World":
 					artist = 'Corn';
+
 				case "Retcon":
 					artist = 'Rareblin ft. Pattydecaffy';
+
 				case "Forgotten World":
 					artist = 'Awe';
+
 				case "No Hero Remix":
 					artist = 'Rundown';
 			}
