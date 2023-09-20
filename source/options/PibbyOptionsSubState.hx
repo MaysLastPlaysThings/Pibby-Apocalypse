@@ -36,6 +36,15 @@ class PibbyOptionsSubState extends BaseOptionsMenu
 		title = 'Pibby Apocalypse';
 		rpcTitle = 'Pibby Settings Menu'; //for Discord Rich Presence
 
+        /*
+        var option:Option = new Option('RaiperStyle Cinema HUD',
+        "Makes the HUD *Raiper Style*.\n(For peole who don't get the reference it makes your HUD widescreen.)\nTHIS WILL FUCK YOUR PC BEYOND BELIEF.",
+        "widescreen",
+        "bool",
+        false);
+        addOption(option);
+        */
+
         var option:Option = new Option('Shaders', //Name
             'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description
             'shaders', //Save data variable name
