@@ -28,6 +28,8 @@ import haxe.Json;
 
 import flixel.input.mouse.FlxMouseEvent;
 
+import flixel.ui.FlxBar;
+
 using StringTools;
 
 // CreditsData: name, icon, description, youtube, twitter, quote, role
@@ -52,6 +54,8 @@ class PACreditsState extends MusicBeatState
 
 	var pibbyFNF:Shaders.Pibbified;
 	var creditSpr:FlxSprite;
+
+	var creditBar:FlxBar; // this is to show how close you are to the end lol
 
 	function getCreditJson(path:String):CreditsData {
 		var json:String = null;
@@ -140,9 +144,9 @@ class PACreditsState extends MusicBeatState
 		});
 
 		twitter.scale.x = 0.3;
-		youtube.scale.x = 0.08;
-
 		twitter.scale.y = 0.3;
+
+		youtube.scale.x = 0.08;
 		youtube.scale.y = 0.08;
 
 		twitter.updateHitbox();
@@ -152,7 +156,32 @@ class PACreditsState extends MusicBeatState
 		twitter.setPosition(youtube.x - youtube.width, youtube.y);
 
 		super.create();
+
+/*		var thenum:Int;
+		for (i in 0... people.length) {
+			for (i in 1... 2) {
+				thenum = i;
+			}
+			precacheImage('pacreditarts/' + people[i][1] + thenum);
+		}
+
+*/
+
+		if (people != null) {
+			quoteText.text = people[curSelected][0] + ' - ' + people[curSelected][2] + '\n"' + people[curSelected][5] + '"';
+		}
+
+		currentGroup.text = people[curSelected][6];
+
+		creditBar = new FlxBar(30, 10, LEFT_TO_RIGHT, 650, 10, this, "curSelected", 0, people.length - 1, true);
+		creditBar.createFilledBar(0xFF583A7A, 0xFF09080C);
+		add(creditBar);
 	}
+
+/*	function precacheImage(name:String) {
+		Paths.returnGraphic(name);
+	}
+*/
 
 	var quitting:Bool = false;
 	var holdTime:Float = 0;
