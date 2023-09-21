@@ -233,6 +233,8 @@ class FreeplayState extends MusicBeatState
 			gradient.alpha = 0;
 			gradient.antialiasing = ClientPrefs.globalAntialiasing;
 			add(gradient);
+
+			FlxTween.tween(gradient, {alpha: 1}, 1, {ease: FlxEase.sineInOut, type: FlxTweenType.PINGPONG});
 		}
 
 		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Freeplay Theme - By Doge ♪", 8);
@@ -379,7 +381,6 @@ class FreeplayState extends MusicBeatState
 			Conductor.songPosition = FlxG.sound.music.time;
 
 		gradientSineThing += 180 * elapsed;
-		if (!ClientPrefs.lowQuality && gradient != null) gradient.alpha = 1 - Math.sin((Math.PI * gradientSineThing) / 250);
 
 		bg.animation.play('idle');
 
@@ -580,8 +581,6 @@ class FreeplayState extends MusicBeatState
 
 	override function beatHit() {
 		super.beatHit();
-
-		if (ClientPrefs.camZooms) FlxG.camera.zoom += .035;
 	}
 
 	public static function destroyFreeplayVocals() {
