@@ -38,6 +38,7 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
     public static var useGPUCaching:Bool = false;
+	public static var widescreen:Bool = false;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,

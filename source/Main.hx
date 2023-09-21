@@ -39,7 +39,7 @@ class Main extends Sprite
 	var sprite:FlxSprite;
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = /*LoadingStuffLmao*/ TitleState; // The FlxState the game starts with.
+	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
     // Loading screen doesnt do anything except inflate the memory lol
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
@@ -108,6 +108,8 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
+		FlxG.scaleMode = new flixel.system.scaleModes.FillScaleMode();
+
 		ScriptManager.init();
 		InputFormatter.loadKeys();
 
@@ -147,6 +149,14 @@ class Main extends Sprite
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
+
+		if (ClientPrefs.widescreen) {
+			FlxG.resizeWindow(1666, 690);
+			FlxG.resizeGame(1666, 690);
+		} else {
+			FlxG.resizeWindow(1280, 720);
+			FlxG.resizeGame(1280, 720);
+		}
 	}
 
     @:noCompletion private override function __update(transformOnly:Bool, updateChildren:Bool):Void

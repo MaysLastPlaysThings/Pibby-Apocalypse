@@ -137,6 +137,14 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
+		if (ClientPrefs.widescreen) {
+			FlxG.resizeWindow(1666, 690);
+			FlxG.resizeGame(1666, 690);
+		} else {
+			FlxG.resizeWindow(1280, 720);
+			FlxG.resizeGame(1280, 720);
+		}
+
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);

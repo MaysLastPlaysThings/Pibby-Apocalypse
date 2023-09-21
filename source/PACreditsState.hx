@@ -26,15 +26,20 @@ import openfl.filters.ShaderFilter;
 
 import haxe.Json;
 
+import flixel.input.mouse.FlxMouseEvent;
+
+import flixel.ui.FlxBar;
+
 using StringTools;
 
+// CreditsData: name, icon, description, youtube, twitter, quote, role
 typedef CreditsData = {
 	people:Array<Dynamic>
 }
 
 class PACreditsState extends MusicBeatState
 {
-	var curSelected:Int = -1;
+	var curSelected:Int = 0;
 
 	var creditData:CreditsData;
 
@@ -47,9 +52,10 @@ class PACreditsState extends MusicBeatState
 
 	var quoteText:FlxText;
 
-	var creditGrp:FlxTypedGroup<FlxSprite>;
-
 	var pibbyFNF:Shaders.Pibbified;
+	var creditSpr:FlxSprite;
+
+	var creditBar:FlxBar; // this is to show how close you are to the end lol
 
 	function getCreditJson(path:String):CreditsData {
 		var json:String = null;
@@ -85,36 +91,104 @@ class PACreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		creditGrp = new FlxTypedGroup<FlxSprite>();
-
 		creditsText = new FlxText(20, 20, 0, "< CREDITS", 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
 
-		currentGroup = new FlxText(0, 60, 0, "", 70);
-		currentGroup.setFormat(Paths.font("menuBUTTONS.ttf"), 70, FlxColor.WHITE, LEFT);
-		currentGroup.screenCenter(X);
+		currentGroup = new FlxText(0, 0, 0, "", 70);
+		currentGroup.setFormat(Paths.font("menuBUTTONS.ttf"), 70, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+		currentGroup.borderSize = 1.5;
+		currentGroup.screenCenter();
 		add(currentGroup);
 
-		quoteText = new FlxText(20, 150, 0, "", 30);
-		quoteText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
+		quoteText = new FlxText(20, 0, 0, "", 20);
+		quoteText.setFormat(Paths.font("menuBUTTONS.ttf"), 20, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+		quoteText.borderSize = 1.5;
+		quoteText.screenCenter();
 		add(quoteText);
 
-		for (i in 0... people.length) {
-			var creditSpr = new FlxSprite(0, 0).loadGraphic(Paths.image('pacredits/people/' + currentGroup.text + '/' + people[i][1] + '/' + people[i][1]));
-			creditSpr.screenCenter();
-			creditSpr.x += 150;
-			creditGrp.add(creditSpr);
-			creditSpr.ID = i;
-		}
-		
+		currentGroup.x -= 600;
+		quoteText.x -= 600;
+
+		currentGroup.y -= 35;
+		quoteText.y += 35;
+
+		creditSpr = new FlxSprite(0, 0);
+		add(creditSpr);
+		creditSpr.scale.set(0.4, 0.4);
+		creditSpr.updateHitbox();
+		creditSpr.screenCenter();
+		creditSpr.x -= 80;
+		creditSpr.y -= 800;
+
+		var twitter:FlxSprite = new FlxSprite(0, 0, Paths.image('pacredits/twitter'));
+		add(twitter);
+		twitter.alpha = 0.6;
+		FlxMouseEvent.add(twitter, function(spr:FlxSprite) {
+			CoolUtil.browserLoad('https://' + people[curSelected][4]);
+		}, null, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 1}, 0.15);
+		}, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 0.6}, 0.25);
+		});
+
+		var youtube:FlxSprite = new FlxSprite(0, 0, Paths.image('pacredits/youtube'));
+		add(youtube);
+		youtube.alpha = 0.6;
+		FlxMouseEvent.add(youtube, function(spr:FlxSprite) {
+			CoolUtil.browserLoad('https://' + people[curSelected][3]);
+		}, null, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 1}, 0.15);
+		}, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 0.6}, 0.25);
+		});
+
+		twitter.scale.x = 0.3;
+		twitter.scale.y = 0.3;
+
+		youtube.scale.x = 0.08;
+		youtube.scale.y = 0.08;
+
+		twitter.updateHitbox();
+		youtube.updateHitbox();
+
+		youtube.setPosition(150, FlxG.height - 130);
+		twitter.setPosition(youtube.x - youtube.width, youtube.y);
+
 		super.create();
+
+/*		var thenum:Int;
+		for (i in 0... people.length) {
+			for (i in 1... 2) {
+				thenum = i;
+			}
+			precacheImage('pacreditarts/' + people[i][1] + thenum);
+		}
+
+*/
+
+		if (people != null) {
+			quoteText.text = people[curSelected][0] + ' - ' + people[curSelected][2] + '\n"' + people[curSelected][5] + '"';
+		}
+
+		currentGroup.text = people[curSelected][6];
+
+		creditBar = new FlxBar(30, 10, LEFT_TO_RIGHT, 1210, 10, this, "curSelected", 0, people.length - 1, true);
+		creditBar.createFilledBar(0xFF583A7A, 0xFF09080C);
+		add(creditBar);
 	}
+
+/*	function precacheImage(name:String) {
+		Paths.returnGraphic(name);
+	}
+*/
 
 	var quitting:Bool = false;
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+		creditSpr.loadGraphic(Paths.image('pacreditarts/' + people[curSelected][1] + FlxG.random.int(1, 2)));
+
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
 				shaderIntensity = FlxG.random.float(0.2, 0.3);
@@ -161,18 +235,7 @@ class PACreditsState extends MusicBeatState
 			curSelected = 0;
 
 		if (people != null) {
-			quoteText.text = people[curSelected][0] + '\n' + people[curSelected][5];
-		}
-
-		for (item in creditGrp.members)
-		{
-			item.alpha = 0;
-
-			if (item.ID == curSelected)
-			{
-				item.alpha = 1;
-				item.screenCenter(X);
-			}
+			quoteText.text = people[curSelected][0] + ' - ' + people[curSelected][2] + '\n"' + people[curSelected][5] + '"';
 		}
 
 		currentGroup.text = people[curSelected][6];
