@@ -188,7 +188,7 @@ class MainMenuState extends MusicBeatState
 		aweTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(aweTxt);
 
-        verTxt = new FlxText(0, FlxG.height - 65, 0, 'PIBBY APOCALYPSE - HOTFIX V0.5', 8);
+        verTxt = new FlxText(0, FlxG.height - 65, 0, 'PIBBY APOCALYPSE DEMO - V0.7 [HOTFIX]', 8);
 		verTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		verTxt.alpha = 1;
 		verTxt.antialiasing = ClientPrefs.globalAntialiasing;
