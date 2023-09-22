@@ -69,6 +69,8 @@ class PACreditsState extends MusicBeatState
 		return null;
 	}
 
+	var funnyTween:FlxTween;
+
 	override function create()
 	{
 		FlxG.game.filtersEnabled = true;
@@ -91,7 +93,9 @@ class PACreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		creditsText = new FlxText(20, 20, 0, "< CREDITS", 30);
+		var shit:Array<Dynamic> = ClientPrefs.keyBinds.get('back');
+
+		creditsText = new FlxText(20, 20, 0, shit[0] + '/' + shit[1] + ': BACK', 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
 
@@ -120,6 +124,22 @@ class PACreditsState extends MusicBeatState
 		creditSpr.screenCenter();
 		creditSpr.x -= 80;
 		creditSpr.y -= 800;
+		creditSpr.alpha = 0.6;
+
+		FlxMouseEvent.add(creditSpr, function(spr:FlxSprite) {
+			spr.scale.x += 0.1;
+			spr.scale.y += 0.1;
+			if (funnyTween != null && spr.scale.x != 0.4) {
+				funnyTween.cancel();
+				spr.scale.x = 0.5;
+				spr.scale.y = 0.5;
+			}
+			funnyTween = FlxTween.tween(spr, {"scale.x": spr.scale.x - 0.1, "scale.y": spr.scale.y - 0.1}, 0.25, {ease: FlxEase.circOut});
+		}, null, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 1}, 0.15);
+		}, function(spr:FlxSprite) {
+			FlxTween.tween(spr, {alpha: 0.6}, 0.25);
+		});
 
 		var twitter:FlxSprite = new FlxSprite(0, 0, Paths.image('pacredits/twitter'));
 		add(twitter);
