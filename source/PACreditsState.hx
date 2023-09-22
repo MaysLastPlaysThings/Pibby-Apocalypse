@@ -12,6 +12,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
+import flixel.input.keyboard.FlxKey;
 import flixel.tweens.FlxEase;
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -93,9 +94,7 @@ class PACreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		var shit:Array<Dynamic> = ClientPrefs.keyBinds.get('back');
-
-		creditsText = new FlxText(20, 20, 0, shit[0] + '/' + shit[1] + ': BACK', 30);
+		creditsText = new FlxText(20, 20, 0, '< BACK', 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
 		add(creditsText);
 
