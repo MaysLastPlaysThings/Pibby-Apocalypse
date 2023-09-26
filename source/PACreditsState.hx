@@ -41,6 +41,7 @@ typedef CreditsData = {
 class PACreditsState extends MusicBeatState
 {
 	var curSelected:Int = 0;
+	var progress:Float = 0;
 
 	var creditData:CreditsData;
 
@@ -192,7 +193,7 @@ class PACreditsState extends MusicBeatState
 
 		currentGroup.text = people[curSelected][6];
 
-		creditBar = new FlxBar(30, 10, LEFT_TO_RIGHT, 1210, 10, this, "curSelected", 0, people.length - 1, true);
+		creditBar = new FlxBar(30, 10, LEFT_TO_RIGHT, 1210, 10, this, "progress", 0, people.length - 1, true);
 		creditBar.createFilledBar(0xFF583A7A, 0xFF09080C);
 		add(creditBar);
 	}
@@ -241,6 +242,8 @@ class PACreditsState extends MusicBeatState
 			changeSelection(1);
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
+
+		progress = FlxMath.lerp(progress, curSelected, CoolUtil.boundTo(elapsed * 15, 0, 1));
 	}
 
 	var targetY:Float;
