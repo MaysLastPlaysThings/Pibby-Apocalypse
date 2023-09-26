@@ -243,7 +243,7 @@ class PACreditsState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 
-		progress = FlxMath.lerp(progress, curSelected, CoolUtil.boundTo(elapsed * 15, 0, 1));
+		progress = FlxMath.lerp(progress, curSelected, CoolUtil.boundTo(elapsed * 5, 0, 1));
 	}
 
 	var targetY:Float;
