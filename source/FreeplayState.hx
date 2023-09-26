@@ -52,6 +52,7 @@ class FreeplayState extends MusicBeatState
 	var artistText:FlxTypeText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
+	var threatLerp:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
@@ -220,7 +221,7 @@ class FreeplayState extends MusicBeatState
 		add(levelBarBG);
 
 		levelBar = new FlxBar(levelBarBG.x + 4, levelBarBG.y + 4, LEFT_TO_RIGHT, Std.int(levelBarBG.width - 8), Std.int(levelBarBG.height - 8), this,
-			'threatPercent', 0, 100);
+			'threatLerp', 0, 100);
 		levelBar.scrollFactor.set();
 		levelBar.createFilledBar(0x00000000, FlxColor.WHITE, true);
 		levelBar.antialiasing = ClientPrefs.globalAntialiasing;
@@ -474,6 +475,8 @@ class FreeplayState extends MusicBeatState
 		}
 
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+		threatLerp = FlxMath.lerp(threatLerp, threatPercent, CoolUtil.boundTo(elapsed * 4, 0, 1));
+
 		if (controls.BACK)
 		{
 			persistentUpdate = false;
@@ -718,7 +721,8 @@ class FreeplayState extends MusicBeatState
 
 		image.loadGraphic(Paths.image('fpmenu/stage/' + songs[curSelected].songName));
 
-		FlxTween.tween(this, {threatPercent: songs[curSelected].threatLevel}, 0.7, {ease: FlxEase.quadInOut});
+		threatPercent = songs[curSelected].threatLevel;
+
 		levelBar.updateBar();
 	}
 
