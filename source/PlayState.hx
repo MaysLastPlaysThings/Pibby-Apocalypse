@@ -6127,6 +6127,9 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 1:
+							// so like for a second where after the flash the camera movement still transitions
+							// so here's a really tiny fix (idk how to elaborate this)
+							cameraSpeed = 50;
 							FlxTween.tween(camGame, {zoom: 0.7}, 0.00075, {
 								ease: FlxEase.linear,
 								onComplete: 
@@ -6138,7 +6141,7 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Camera Follow Pos', '1830', '1100');
 							camHUD.alpha = 0;
 							triggerEventNote('Cinematics', 'on', '0.00075');
-							camOther.fade(FlxColor.BLACK, 9.33, true);
+							camOther.fade(FlxColor.BLACK, 9.33, true, () -> cameraSpeed = 2);
 						case 128:
 							triggerEventNote('Camera Follow Pos', '', '');
 							triggerEventNote('Cinematics', 'off', '1');
