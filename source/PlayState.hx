@@ -1450,11 +1450,11 @@ class PlayState extends MusicBeatState
 						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'No Hero Remix': 
-					blackie.alpha = 1;
+					camGame.fade(FlxColor.BLACK, 0.000001);
+					camHUD.alpha = 0;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
-					iconP1.visible = false;
-					iconP2.visible = false;
+					iconP2.color = 0x000000;
 					scoreTxt.visible = false;
 					finnBarThing.alpha = 0.001;
 					GameOverSubstate.characterName = 'assbf';
@@ -1783,7 +1783,7 @@ class PlayState extends MusicBeatState
 		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 
 		if (isFinal) {
-			camHUD.alpha = (SONG.song == 'Suffering Siblings' || storyWeekName == 'gumball' ? 0 : 1);
+			camHUD.alpha = (SONG.song == 'Suffering Siblings' || SONG.song == 'No Hero Remix' || storyWeekName == 'gumball' ? 0 : 1);
 
             if (ClientPrefs.flashing) {
 			    camHUD.flash(FlxColor.WHITE, 0.25);
@@ -2753,7 +2753,7 @@ class PlayState extends MusicBeatState
 			//iconP3.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP3.scale.x) / 2 - iconOffset;
 		} 
 
- 		if (storyWeekName == "gumball") {
+ 		if (storyWeekName == "gumball" || SONG.song == 'No Hero Remix') {
 			iconP1.x = 530;
             iconP2.x = 50;
 			if (gf != null)
@@ -6719,7 +6719,8 @@ class PlayState extends MusicBeatState
 							}
 
 						case 32: 
-							blackie.alpha = 0;
+							camGame.fade(FlxColor.BLACK, 0.000001, true);
+							camHUD.alpha = 1;
 							remove(noHeroIntro);
 							noHeroIntro.destroy();
 							noHeroIntro = null;
@@ -6737,23 +6738,28 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.sineInOut});
+							iconP2.color = 0xFFFFFF;
 
 						case 294 | 422 | 645 | 774 | 1110: 
 							defaultCamZoom = 1;
+							camGame.zoom = 1;
 
 						case 298 | 426 | 649 | 778 | 1114: 
 							defaultCamZoom = 1.1;
+							camGame.zoom = 1.1;
 
 						case 302 | 430 | 656 | 784 | 1118: 
 							defaultCamZoom = 0.8;
-							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							// if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 
 						case 306 | 434: 
 							defaultCamZoom = 1;
+							camGame.zoom = 1.1;
 
 						case 310 | 438: 
 							defaultCamZoom = 1.1;
-							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							camGame.zoom = 1.1;
+							//if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 
 						case 320 | 724: 
 							defaultCamZoom = 0.85;
@@ -6778,9 +6784,8 @@ class PlayState extends MusicBeatState
 							timeTxt.alpha = 0.001;
 							timeBar.alpha = 0.001;
 							timeBarBG.alpha = 0.001;
-							pibbyHealthbar.alpha = 0.001;
 							if (cnlogo != null) cnlogo.alpha = 0;
-							
+							animOffsetValue = 0;
 
 						case 592: 
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
@@ -6793,6 +6798,7 @@ class PlayState extends MusicBeatState
 							pibbyHealthbar.alpha = 1;
 							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = distortFNF);
 							if (cnlogo != null) cnlogo.alpha = 0.5;
+							animOffsetValue = 20;
 
 						case 720: 
 							defaultCamZoom = 1.05;
@@ -6818,7 +6824,7 @@ class PlayState extends MusicBeatState
 
 						case 990: 
 							defaultCamZoom = 1.55;
-							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+							// if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 
 						case 994: 
 							defaultCamZoom = 1.25;
