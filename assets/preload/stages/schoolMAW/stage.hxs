@@ -267,16 +267,8 @@ function onEvent(event:String, value1:String, value2:String)
 
 function onSongStart()
     {
-        if (PlayState.dad.curCharacter == 'gumball')
-            {
-                PlayState.dad.x = 400;
-                PlayState.dad.y = 450;
-            }
-        else
-            {
                 PlayState.dad.x = 300;
-                PlayState.dad.y = 550;
-            }
+                PlayState.dad.y = 450;
     }
 
 function onStepHit(curStep:Int)
@@ -447,13 +439,13 @@ function onBeatHit(curBeat:Int)
 
 function doGoo()
     {
-        daGloop5.animation.play('sinkey');
-        daGloop4.animation.play('dropey');
-        daGloop2.animation.play('topey2');
-        daGloop.animation.play('topey');
+        if (!ClientPrefs.lowQuality) daGloop5.animation.play('sinkey');
+        if (!ClientPrefs.lowQuality) daGloop4.animation.play('dropey');
+        if (!ClientPrefs.lowQuality) daGloop2.animation.play('topey2');
+        if (!ClientPrefs.lowQuality) daGloop.animation.play('topey');
     }
 
 function ponny()
     {
-        penny.animation.play('idle');
+        if (!ClientPrefs.lowQuality) penny.animation.play('idle');
     }

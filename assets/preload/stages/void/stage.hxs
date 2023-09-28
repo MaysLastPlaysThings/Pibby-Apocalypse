@@ -8,13 +8,13 @@ var coolThingColors = [0xFFc4c0c0, 0xFFC1CEAA]; // wtf - forgor, 2023
 
 function onCreate()
 {
-    void = new flixel.FlxSprite(0, -200);
+    void = new flixel.FlxSprite(-80, -200);
     void.frames = retrieveAsset('images/void', 'atlas');
     void.animation.addByPrefix('idle', 'idle', 24, true);
     void.animation.play('idle');
     void.setGraphicSize(Std.int(void.width * 1.7));
     void.antialiasing = ClientPrefs.globalAntialiasing;
-    void.scrollFactor.set(0.6, 0.6);
+    void.scrollFactor.set(0.4, 0.4);
     void.updateHitbox();
 
     glitch = new flixel.FlxSprite();
@@ -25,11 +25,11 @@ function onCreate()
     glitch.frames = retrieveAsset('images/gumballglitchbg', 'atlas');
     glitch.animation.addByPrefix('spin', 'spin', 24, false);
 
-    house = new flixel.FlxSprite(0, -200);
+    house = new flixel.FlxSprite(0, -00);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2', 'image'));
     house.setGraphicSize(Std.int(house.width * 2.5));
     house.antialiasing = ClientPrefs.globalAntialiasing;
-    house.scrollFactor.set(0.85, 0.85);
+    house.scrollFactor.set(0.75, 1.06);
     house.updateHitbox();
     house.color = houseColors[0];
 
@@ -47,7 +47,7 @@ function onCreate()
         rock2.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-4', 'image'));
         rock2.setGraphicSize(Std.int(rock2.width * 2.5));
         rock2.antialiasing = ClientPrefs.globalAntialiasing;
-        rock2.scrollFactor.set(1.1, 1.1);
+        rock2.scrollFactor.set(1.3, 0.7);
         rock2.updateHitbox();
 
         rock3 = new flixel.FlxSprite(0, -200);
@@ -62,7 +62,7 @@ function onCreate()
         rock4.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-6', 'image'));
         rock4.setGraphicSize(Std.int(rock4.width * 2.5));
         rock4.antialiasing = ClientPrefs.globalAntialiasing;
-        rock4.scrollFactor.set(0.85, 0.85);
+        rock4.scrollFactor.set(0.65, 1.08);
         rock4.updateHitbox();
         rock4.color = houseColors[0];
 
@@ -76,7 +76,6 @@ function onCreate()
     }
 
     tweenLoopAngle(house, 4, -4, 6, 6);
-    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock, -0.5, 0.5, 2.5, 2.5);
     if (!ClientPrefs.lowQuality) tweenLoopAngle(rock2, -2, 1.2, 2.5, 2.5);
     if (!ClientPrefs.lowQuality) tweenLoopAngle(rock3, 360, 0, 30, 30);
     if (!ClientPrefs.lowQuality) tweenLoopAngle(wtf, 2, -2, 5, 5);
@@ -96,7 +95,13 @@ function onCreate()
     if (!ClientPrefs.lowQuality) add(rock2);
     add(house);
     add(rock);
-    if (!ClientPrefs.lowQuality) add(wtf);
+    if (!ClientPrefs.lowQuality) foreground.add(wtf);
+}
+
+function onCreatePost()
+{
+    PlayState.boyfriend.origin.set(0, 200);
+    PlayState.gf.origin.set(0, 200);
 }
 
 function onSongStart()
@@ -104,11 +109,39 @@ function onSongStart()
     PlayState.boyfriend.color = charColors[0];
     PlayState.dad.color = charColors[0];
     PlayState.gf.color = charColors[0];
+
+    tweenLoopAngle(PlayState.boyfriend, -2.1, 2.1, 2.5, 2.5);
+    tweenLoopAngle(PlayState.dad, -2.1, 2.1, 2.5, 2.5);
+    tweenLoopAngle(PlayState.gf, -2.1, 2.1, 2.5, 2.5);
+    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock, -0.8, 0.8, 2.5, 2.5);
+
+    PlayState.camHUD.angle = -20;
+    PlayState.camHUD.y -= 300;
 }
+
+function onEvent(event:String, value1:String, value2:String)
+    {
+        if (event == 'Apple Filter')
+        {
+            if (value1 == 'on') 
+            {
+                if (!ClientPrefs.lowQuality) wtf.visible = false;
+
+                tweenLoopAngle(PlayState.boyfriend, 0, 0, 0.00001, 0.00001);
+                tweenLoopAngle(PlayState.dad, 0, 0, 0.00001, 0.00001);
+                tweenLoopAngle(PlayState.gf, 0, 0, 0.00001, 0.00001);
+            }
+        }
+    }
 
 function onStepHit(curStep) {
     if (glitch != null) {
         glitch.animation.play('spin');
+    }
+
+    if (curStep == 247)
+    {
+        FlxTween.tween(PlayState.camHUD, {angle: 0, y: PlayState.camHUD.y + 300}, 2, {ease: FlxEase.expoOut});
     }
 
     if (curStep == 512)

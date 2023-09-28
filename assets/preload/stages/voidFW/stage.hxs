@@ -2,10 +2,14 @@ var timerShit = 7;
 var shaderTime = 0;
 var stupidFix2electricboogaloo;
 var coolShader;
+var pixel;
 
 function onCreate()
 {
     coolShader = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.file, null, 120);
+
+    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel.setFloat('size', 10);
 
     void = new flixel.FlxSprite(0, -200);
     void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1', 'image'));
@@ -84,6 +88,7 @@ function onCreate()
         scaryGlitchAhh.scrollFactor.set(0.6, 0.6);
         scaryGlitchAhh.updateHitbox();
         scaryGlitchAhh.visible = false;
+        if (ClientPrefs.shaders) scaryGlitchAhh.shader = pixel;
 
         moreGlitchWaaaButBehindTheRock = new flixel.FlxSprite(0, -200);
         moreGlitchWaaaButBehindTheRock.loadGraphic(retrieveAsset('images/void3/2b', 'image'));
@@ -92,6 +97,7 @@ function onCreate()
         moreGlitchWaaaButBehindTheRock.scrollFactor.set(0.6, 0.6);
         moreGlitchWaaaButBehindTheRock.updateHitbox();
         moreGlitchWaaaButBehindTheRock.visible = false;
+        if (ClientPrefs.shaders) moreGlitchWaaaButBehindTheRock.shader = pixel;
     }
 
     houseb = new flixel.FlxSprite(0, -200);
@@ -150,6 +156,7 @@ function onCreate()
         moreGlitchWaaa.scrollFactor.set(1.1, 1.1);
         moreGlitchWaaa.updateHitbox();
         moreGlitchWaaa.visible = false;
+        if (ClientPrefs.shaders) moreGlitchWaaa.shader = pixel;
     }
 
     tweenLoopAngle(house, 4, -4, 6, 6);
@@ -256,6 +263,12 @@ function onStepHit(curStep)
         if (!ClientPrefs.lowQuality) moreGlitchWaaa.visible = true;
         if (!ClientPrefs.lowQuality) moreGlitchWaaaButBehindTheRock.visible = true;
     }
+}
+
+function onBeatHit(curBeat)
+{
+    // this looks lazy asf but can't do anything else
+    pixel.setFloat('size', FlxG.random.int(5, 15));
 }
 
 function onPause() {
