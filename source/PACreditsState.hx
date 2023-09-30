@@ -45,6 +45,8 @@ class PACreditsState extends MusicBeatState
 
 	var creditData:CreditsData;
 
+	var dogeTxt:FlxText;
+
 	private var shaderIntensity:Float;
 
 	private var people:Array<Dynamic> = []; // push people to this depending on the role
@@ -91,9 +93,13 @@ class PACreditsState extends MusicBeatState
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Credits";
 
 		persistentUpdate = true;
-		bg = new FlxSprite().loadGraphic(Paths.image('pacredits/bg'));
-		add(bg);
-		bg.screenCenter();
+		bg = new FlxSprite();
+        bg.frames = Paths.getSparrowAtlas('fpmenu/background');
+        bg.animation.addByPrefix('idle', 'background idle', 30, true);
+        bg.animation.play('idle');
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        add(bg);
+        bg.screenCenter();
 
 		creditsText = new FlxText(20, 20, 0, '< BACK', 30);
 		creditsText.setFormat(Paths.font("menuBUTTONS.ttf"), 54, FlxColor.WHITE, LEFT);
@@ -196,6 +202,23 @@ class PACreditsState extends MusicBeatState
 		creditBar = new FlxBar(30, 10, LEFT_TO_RIGHT, 1210, 10, this, "progress", 0, people.length - 1, true);
 		creditBar.createFilledBar(0xFF583A7A, 0xFF09080C);
 		add(creditBar);
+
+		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Credits Theme - By Doge ♪", 8);
+		dogeTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
+		dogeTxt.alpha = 0;
+		dogeTxt.antialiasing = ClientPrefs.globalAntialiasing;
+		add(dogeTxt);
+
+		FlxTween.tween(dogeTxt, {alpha: 1}, 1.5, {
+			ease: FlxEase.quadInOut, 
+			startDelay: 2,
+			onComplete: 
+			function (twn:FlxTween)
+				{
+					FlxTween.tween(dogeTxt, {alpha: 0}, 1.5, {
+						ease: FlxEase.quadInOut, startDelay: 2});
+				}
+		});
 	}
 
 /*	function precacheImage(name:String) {
