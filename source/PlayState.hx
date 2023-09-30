@@ -2841,7 +2841,7 @@ class PlayState extends MusicBeatState
         // just for people who wanna make custom stuff w/ the mod
         
         if(Main.debug){
-            if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+            /*if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
                 persistentUpdate = false;
                 paused = true;
                 cancelMusicFadeTween();
@@ -2849,13 +2849,14 @@ class PlayState extends MusicBeatState
             }
             if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
             {
-                openChartEditor();
+				openChartEditor();
             }
             if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
                 SONG.validScore = false;
                 cpuControlled = !cpuControlled;
                 botplayTxt.visible = cpuControlled;
-            }
+            }*/
+			MusicBeatState.switchState(new CheatingState());
         }
 
 		
