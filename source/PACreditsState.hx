@@ -133,14 +133,8 @@ class PACreditsState extends MusicBeatState
 		creditSpr.alpha = 0.6;
 
 		FlxMouseEvent.add(creditSpr, function(spr:FlxSprite) {
-			spr.scale.x += 0.1;
-			spr.scale.y += 0.1;
-			if (funnyTween != null && spr.scale.x != 0.4) {
-				funnyTween.cancel();
-				spr.scale.x = 0.5;
-				spr.scale.y = 0.5;
-			}
-			funnyTween = FlxTween.tween(spr, {"scale.x": spr.scale.x - 0.1, "scale.y": spr.scale.y - 0.1}, 0.25, {ease: FlxEase.circOut});
+			spr.scale.x += 0.04;
+			spr.scale.y = spr.scale.x; // so it doesnt fuck up
 		}, null, function(spr:FlxSprite) {
 			FlxTween.tween(spr, {alpha: 1}, 0.15);
 		}, function(spr:FlxSprite) {
@@ -266,7 +260,9 @@ class PACreditsState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 
-		progress = FlxMath.lerp(progress, curSelected, CoolUtil.boundTo(elapsed * 5, 0, 1));
+		progress = FlxMath.lerp(progress, curSelected, CoolUtil.boundTo(elapsed * 20, 0, 1));
+		creditSpr.scale.x = FlxMath.lerp(creditSpr.scale.x, 0.4, CoolUtil.boundTo(elapsed * 3.8, 0, 1));
+		creditSpr.scale.y = FlxMath.lerp(creditSpr.scale.y, 0.4, CoolUtil.boundTo(elapsed * 3.8, 0, 1));
 	}
 
 	var targetY:Float;
