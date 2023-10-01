@@ -12,8 +12,10 @@ function onCreate()
     pixel.setFloat('size', 10);
 
     void = new flixel.FlxSprite(0, -200);
-    void.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-1', 'image'));
-    void.setGraphicSize(Std.int(void.width * 2.5));
+    void.frames = retrieveAsset('images/void', 'atlas');
+    void.animation.addByPrefix('idle', 'idle', 24, true);
+    void.animation.play('idle');
+    void.setGraphicSize(Std.int(void.width * 1.7));
     void.antialiasing = ClientPrefs.globalAntialiasing;
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
@@ -262,6 +264,14 @@ function onStepHit(curStep)
         if (!ClientPrefs.lowQuality) scaryGlitchAhh.visible = true;
         if (!ClientPrefs.lowQuality) moreGlitchWaaa.visible = true;
         if (!ClientPrefs.lowQuality) moreGlitchWaaaButBehindTheRock.visible = true;
+    }
+    if (curStep == 516)
+    {
+        PlayState.boyfriend.color = 0xffa8a4a4;
+        PlayState.dad.color = 0xffa8a4a4;
+        if (PlayState.gf != null) {
+        PlayState.gf.color = 0xffa8a4a4;
+        }
     }
 }
 

@@ -182,7 +182,7 @@ class MainMenuState extends MusicBeatState
 		);
 
 
-		aweTxt = new FlxText(0, FlxG.height - 35, 0, '♪ Now Playing: Menu Theme ${Main.funnyMenuMusic == 2 ? '(Alt)' : ''} - By ${Main.funnyMenuMusic == 2 ? 'Sodukoru' : 'GoddessAwe'} ♪', 8);
+		aweTxt = new FlxText(0, FlxG.height - 35, 0, 'Now Playing: Menu Theme ${Main.funnyMenuMusic == 2 ? '(Alt)' : ''} - By ${Main.funnyMenuMusic == 2 ? 'Sodukoru' : 'GoddessAwe'} ♪', 8);
 		aweTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
 		aweTxt.alpha = 1;
 		aweTxt.antialiasing = ClientPrefs.globalAntialiasing;

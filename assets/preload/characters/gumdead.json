@@ -1,37 +1,37 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				382,
 				398
 			],
-			"anim": "firstDeath",
+			"loop": false,
 			"fps": 24,
-			"name": "death gum",
-			"indices": []
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "death gum"
 		},
 		{
-			"loop": true,
 			"offsets": [
-				66,
+				69,
 				309
 			],
-			"anim": "deathLoop",
+			"loop": true,
 			"fps": 24,
-			"name": "retry loop",
-			"indices": []
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "retry loop"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				66,
+				69,
 				308
 			],
-			"anim": "deathConfirm",
+			"loop": false,
 			"fps": 24,
-			"name": "retry0",
-			"indices": []
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "retry0"
 		}
 	],
 	"no_antialiasing": false,
@@ -48,8 +48,8 @@
 		209
 	],
 	"camera_position": [
-		290,
-		-290
+		450,
+		-130
 	],
 	"sing_duration": 4,
 	"scale": 0.999999999999999

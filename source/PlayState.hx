@@ -2840,7 +2840,7 @@ class PlayState extends MusicBeatState
         // maybe we should allow this if they enter a special debug code on like the title screen or sum shit, instead of #if debugging it
         // just for people who wanna make custom stuff w/ the mod
         
-        if(Main.debug){
+        if(Main.debug) {
             if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
                 persistentUpdate = false;
                 paused = true;
@@ -2849,7 +2849,7 @@ class PlayState extends MusicBeatState
             }
             if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
             {
-                openChartEditor();
+				openChartEditor();
             }
             if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
                 SONG.validScore = false;
@@ -2857,6 +2857,31 @@ class PlayState extends MusicBeatState
                 botplayTxt.visible = cpuControlled;
             }
         }
+		else
+		{
+			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+				MusicBeatState.switchState(new CheatingState());
+				persistentUpdate = false;
+				paused = true;
+				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
+            }
+            if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+            {
+				MusicBeatState.switchState(new CheatingState());
+				persistentUpdate = false;
+				paused = true;
+				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
+            }
+            if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
+				MusicBeatState.switchState(new CheatingState());
+				persistentUpdate = false;
+				paused = true;
+				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
+            }
+		}
 
 		
 		if (startedCountdown)

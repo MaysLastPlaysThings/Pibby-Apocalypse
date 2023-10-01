@@ -108,15 +108,11 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
-		FlxG.scaleMode = new flixel.system.scaleModes.FillScaleMode();
-
 		ScriptManager.init();
 		InputFormatter.loadKeys();
 
 		#if !mobile
 		addChild(new FPSCounter(10, 3, 0xFFFFFF));
-		Lib.current.stage.align = "tl";
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if(FPSCounter.instance != null) {
 			FPSCounter.instance.visible = ClientPrefs.showFPS;
 		}
@@ -149,14 +145,6 @@ class Main extends Sprite
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
-
-		if (ClientPrefs.widescreen) {
-			FlxG.resizeWindow(1666, 690);
-			FlxG.resizeGame(1666, 690);
-		} else {
-			FlxG.resizeWindow(1280, 720);
-			FlxG.resizeGame(1280, 720);
-		}
 	}
 
     @:noCompletion private override function __update(transformOnly:Bool, updateChildren:Bool):Void

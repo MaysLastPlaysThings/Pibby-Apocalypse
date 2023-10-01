@@ -54,7 +54,7 @@ class CoolUtil
 					artist = 'Kylevi';
 
 				case "Suffering Siblings":
-					artist = 'Awe (ft. Saster & JustShxdowLel)';
+					artist = 'Awe (ft. Saster)';
 
 				case "Come Along With Me":
 					artist = 'Awe';

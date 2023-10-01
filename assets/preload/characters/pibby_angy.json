@@ -1,0 +1,158 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				33,
+				-6
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "cmon",
+			"indices": [],
+			"name": "Cmon"
+		},
+		{
+			"offsets": [
+				48,
+				-227
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "MissD"
+		},
+		{
+			"offsets": [
+				-153,
+				56
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "MissR"
+		},
+		{
+			"offsets": [
+				-138,
+				102
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "MissU"
+		},
+		{
+			"offsets": [
+				68,
+				33
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "MissL"
+		},
+		{
+			"offsets": [
+				-133,
+				-147
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle alt"
+		},
+		{
+			"offsets": [
+				68,
+				-100
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left Alt"
+		},
+		{
+			"offsets": [
+				103,
+				-82
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down Alt"
+		},
+		{
+			"offsets": [
+				43,
+				-112
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up Alt"
+		},
+		{
+			"offsets": [
+				-79,
+				-173
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right Alt"
+		},
+		{
+			"offsets": [
+				-260,
+				-180
+			],
+			"indices": [
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13
+			],
+			"fps": 24,
+			"anim": "idle-alt",
+			"loop": true,
+			"name": "Idle"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Pibby_Angy",
+	"position": [
+		-150,
+		260
+	],
+	"healthicon": "pibby",
+	"flip_x": false,
+	"healthbar_colors": [
+		238,
+		97,
+		170
+	],
+	"camera_position": [
+		-420,
+		-20
+	],
+	"sing_duration": 5,
+	"scale": 1.5
+}

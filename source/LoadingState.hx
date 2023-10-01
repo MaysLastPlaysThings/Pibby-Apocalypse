@@ -26,7 +26,8 @@ class LoadingState extends MusicBeatState
 	// I'd recommend doing it on both actually lol
 	
 	// TO DO: Make this easier
-	
+
+	var funkay:FlxSprite;
 	var target:FlxState;
 	var stopMusic = false;
 	var directory:String;
@@ -41,14 +42,13 @@ class LoadingState extends MusicBeatState
 		this.directory = directory;
 	}
 
-	var funkay:FlxSprite;
 	var loadBar:FlxSprite;
 	override function create()
 	{
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png', IMAGE));
-		funkay.setGraphicSize(0, FlxG.height);
+		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image('loading/loading' + FlxG.random.int(1, 2)));
+		funkay.setGraphicSize(FlxG.width, FlxG.height);
 		funkay.updateHitbox();
 		funkay.antialiasing = ClientPrefs.globalAntialiasing;
 		add(funkay);
