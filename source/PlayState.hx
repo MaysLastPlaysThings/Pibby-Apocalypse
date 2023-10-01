@@ -2864,6 +2864,7 @@ class PlayState extends MusicBeatState
 				persistentUpdate = false;
 				paused = true;
 				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
             }
             if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
             {
@@ -2871,12 +2872,14 @@ class PlayState extends MusicBeatState
 				persistentUpdate = false;
 				paused = true;
 				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
             }
             if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
 				MusicBeatState.switchState(new CheatingState());
 				persistentUpdate = false;
 				paused = true;
 				cancelMusicFadeTween();
+				FlxG.sound.music.stop();
             }
 		}
 
