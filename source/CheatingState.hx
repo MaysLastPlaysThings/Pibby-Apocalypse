@@ -61,7 +61,10 @@ class CheatingState extends MusicBeatState
             video.playVideo(filepath);
             video.finishCallback = function()
             {
-                MusicBeatState.switchState(new FreeplayState());
+                #if windows
+                lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn', 'Cheating is not allowed!');
+                Sys.exit(1);
+                #end
                 return;
             }
             #else
