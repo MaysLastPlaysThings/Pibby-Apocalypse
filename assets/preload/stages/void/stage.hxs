@@ -113,7 +113,7 @@ function onSongStart()
     tweenLoopAngle(PlayState.boyfriend, -2.1, 2.1, 2.5, 2.5);
     tweenLoopAngle(PlayState.dad, -2.1, 2.1, 2.5, 2.5);
     tweenLoopAngle(PlayState.gf, -2.1, 2.1, 2.5, 2.5);
-    if (!ClientPrefs.lowQuality) tweenLoopAngle(rock, -0.8, 0.8, 2.5, 2.5);
+    tweenLoopAngle(rock, -0.8, 0.8, 2.5, 2.5);
 
     PlayState.camHUD.angle = -20;
     PlayState.camHUD.y -= 300;

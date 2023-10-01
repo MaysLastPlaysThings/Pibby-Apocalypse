@@ -6780,25 +6780,20 @@ class PlayState extends MusicBeatState
 							camHUD.filtersEnabled = false;
 							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = null);
 							timeTxt.font = Paths.font('vcr.ttf');
-							// game hates me and doesnt want to go back to its position after the part smh
-							timeTxt.alpha = 0.001;
-							timeBar.alpha = 0.001;
-							timeBarBG.alpha = 0.001;
 							if (cnlogo != null) cnlogo.alpha = 0;
 							animOffsetValue = 0;
+							// camGame.enableAngleFix = false;
 
 						case 592: 
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
 							FlxG.camera.filtersEnabled = true;
 							camHUD.filtersEnabled = true;
-							timeTxt.alpha = 1;
-							timeBar.alpha = 1;
-							timeBarBG.alpha = 1;
 							timeTxt.font = Paths.font('finn.ttf');
 							pibbyHealthbar.alpha = 1;
 							if (ClientPrefs.shaders) opponentStrums.forEach(yeah -> yeah.shader = distortFNF);
 							if (cnlogo != null) cnlogo.alpha = 0.5;
 							animOffsetValue = 20;
+							// camGame.enableAngleFix = true;
 
 						case 720: 
 							defaultCamZoom = 1.05;
