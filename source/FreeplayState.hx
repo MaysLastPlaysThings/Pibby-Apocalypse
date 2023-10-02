@@ -103,10 +103,10 @@ class FreeplayState extends MusicBeatState
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
 
-		FlxG.game.filtersEnabled = true;
+		FlxG.camera.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
-		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(pibbyFNF)]);
 
 		Conductor.bpm = 100;
 
@@ -523,7 +523,7 @@ class FreeplayState extends MusicBeatState
             new FlxTimer().start(0.35, function(tmr:FlxTimer) {
                 allowGlitch = false;
             });
-            if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF), new ShaderFilter(glitchFWFNF)]);
+            if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(pibbyFNF), new ShaderFilter(glitchFWFNF)]);
             var gameObjects = [bg, arrowL, arrowR, arrows, image, stagebox, stagebox_L, stagebox_R, threat, levelBarBG, gradient];
             for(index in 0...gameObjects.length){
                 fuckNum = Std.int(100*pressed);
@@ -540,7 +540,7 @@ class FreeplayState extends MusicBeatState
                 resetSecretTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
                     pressed = 0;
                     FlxTween.tween(noHeroIntro, {alpha: 0.001}, 0.25, {ease: FlxEase.quadInOut});
-                    if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+                    if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(pibbyFNF)]);
                     FlxG.camera.y = saveY;
                     noHeroIntro.y = saveHeroY;
                     var gameObjects = [bg, arrowL, arrowR, arrows, image, stagebox, stagebox_L, stagebox_R, threat, levelBarBG, gradient];
@@ -597,7 +597,7 @@ class FreeplayState extends MusicBeatState
 	override function destroy() {
 		super.destroy();
 
-		FlxG.game.setFilters([]);
+		FlxG.camera.setFilters([]);
 	}
 
 	function changeDiff(change:Int = 0)

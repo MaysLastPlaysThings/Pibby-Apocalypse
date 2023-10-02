@@ -1419,7 +1419,8 @@ class PlayState extends MusicBeatState
 					camShitforReveal.cameras = [camOther];
 					add(camShitforReveal);
 
-					blackie.alpha = 1;
+					camGame.fade(FlxColor.BLACK, 0.000001);
+					camHUD.alpha = 0;
 					iconP2.alpha = 0.0001;
 					iconP1.alpha = 0.0001;
 					boyfriend.color = 0x859791FF;
@@ -1783,7 +1784,7 @@ class PlayState extends MusicBeatState
 		cameraHUDBumpTween = FlxTween.tween(camHUD, {zoom : isFinal ? 1 : camHUD.zoom - 0.05}, 0.4, {ease: FlxEase.quartOut});
 
 		if (isFinal) {
-			camHUD.alpha = (SONG.song == 'Suffering Siblings' || SONG.song == 'No Hero Remix' || storyWeekName == 'gumball' ? 0 : 1);
+			camHUD.alpha = (SONG.song == 'Suffering Siblings' || SONG.song == 'No Hero Remix' || SONG.song == 'Come Along With Me' || storyWeekName == 'gumball' ? 0 : 1);
 
             if (ClientPrefs.flashing) {
 			    camHUD.flash(FlxColor.WHITE, 0.25);
@@ -2880,6 +2881,19 @@ class PlayState extends MusicBeatState
 				paused = true;
 				cancelMusicFadeTween();
 				FlxG.sound.music.stop();
+            }
+			if (FlxG.keys.justPressed.SIX && !endingSong && !inCutscene) {
+				canPause = false;
+				FlxTween.tween(FlxG.sound.music, {pitch: 0.001}, 6, {onComplete: e -> FlxG.sound.music.stop()});
+				FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom + 0.6}, 6);
+				FlxTween.tween(camHUD, {alpha: 0}, 5);
+				FlxTween.tween(vocals, {pitch: 0.001}, 6, {onComplete: e -> vocals.stop()});
+				FlxG.sound.music.fadeOut(6.5);
+				vocals.fadeOut(6.5);
+				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
+					FlxG.sound.music.stop();
+					new FlxTimer().start(2, e -> MusicBeatState.switchState(new FreeplayState()));
+				});
             }
 		}
 
@@ -4877,7 +4891,7 @@ class PlayState extends MusicBeatState
 									}
 							});
 						case 36:
-							FlxTween.tween(blackie, {alpha: 0}, 5);
+							camGame.fade(FlxColor.BLACK, 5, true);
 							for (i in 0...opponentStrums.length) {
 								opponentStrums.members[i].visible = false;
 								opponentStrums.members[i].alpha = 0;
@@ -5307,7 +5321,7 @@ class PlayState extends MusicBeatState
 							camOther.fade(FlxColor.BLACK, 10.67, true);
 						case 64:
 							FlxTween.tween(camGame, {zoom: 1.4}, 9.33, {
-								ease: FlxEase.linear,
+								ease: FlxEase.smoothStepInOut,
 								onComplete: 
 								function (twn:FlxTween)
 									{
@@ -5322,7 +5336,7 @@ class PlayState extends MusicBeatState
 							}
 						case 352:
 							FlxTween.tween(camGame, {zoom: 1.4}, 5.33, {
-								ease: FlxEase.linear,
+								ease: FlxEase.smoothStepInOut,
 								onComplete: 
 								function (twn:FlxTween)
 									{

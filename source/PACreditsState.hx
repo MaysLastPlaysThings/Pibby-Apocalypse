@@ -83,7 +83,7 @@ class PACreditsState extends MusicBeatState
 		creditData = getCreditJson('credits');
 		people = creditData.people;
 
-		if (ClientPrefs.shaders) FlxG.game.setFilters([new ShaderFilter(pibbyFNF)]);
+		if (ClientPrefs.shaders) FlxG.camera.setFilters([new ShaderFilter(pibbyFNF)]);
 
 		#if desktop
 		// Updating Discord Rich Presence
