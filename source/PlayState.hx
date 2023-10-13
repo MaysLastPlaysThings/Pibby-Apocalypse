@@ -2860,26 +2860,44 @@ class PlayState extends MusicBeatState
 		else
 		{
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-				MusicBeatState.switchState(new CheatingState());
-				persistentUpdate = false;
-				paused = true;
-				cancelMusicFadeTween();
-				FlxG.sound.music.stop();
+				canPause = false;
+				FlxTween.tween(FlxG.sound.music, {pitch: 0.001}, 6, {onComplete: e -> FlxG.sound.music.stop()});
+				FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom + 0.6}, 6);
+				FlxTween.tween(camHUD, {alpha: 0}, 5);
+				FlxTween.tween(vocals, {pitch: 0.001}, 6, {onComplete: e -> vocals.stop()});
+				FlxG.sound.music.fadeOut(6.5);
+				vocals.fadeOut(6.5);
+				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
+					FlxG.sound.music.stop();
+					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+				});
             }
             if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
             {
-				MusicBeatState.switchState(new CheatingState());
-				persistentUpdate = false;
-				paused = true;
-				cancelMusicFadeTween();
-				FlxG.sound.music.stop();
+				canPause = false;
+				FlxTween.tween(FlxG.sound.music, {pitch: 0.001}, 6, {onComplete: e -> FlxG.sound.music.stop()});
+				FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom + 0.6}, 6);
+				FlxTween.tween(camHUD, {alpha: 0}, 5);
+				FlxTween.tween(vocals, {pitch: 0.001}, 6, {onComplete: e -> vocals.stop()});
+				FlxG.sound.music.fadeOut(6.5);
+				vocals.fadeOut(6.5);
+				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
+					FlxG.sound.music.stop();
+					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+				});
             }
             if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
-				MusicBeatState.switchState(new CheatingState());
-				persistentUpdate = false;
-				paused = true;
-				cancelMusicFadeTween();
-				FlxG.sound.music.stop();
+				canPause = false;
+				FlxTween.tween(FlxG.sound.music, {pitch: 0.001}, 6, {onComplete: e -> FlxG.sound.music.stop()});
+				FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom + 0.6}, 6);
+				FlxTween.tween(camHUD, {alpha: 0}, 5);
+				FlxTween.tween(vocals, {pitch: 0.001}, 6, {onComplete: e -> vocals.stop()});
+				FlxG.sound.music.fadeOut(6.5);
+				vocals.fadeOut(6.5);
+				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
+					FlxG.sound.music.stop();
+					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+				});
             }
 			if (FlxG.keys.justPressed.SIX && !endingSong && !inCutscene) {
 				canPause = false;
@@ -2891,7 +2909,7 @@ class PlayState extends MusicBeatState
 				vocals.fadeOut(6.5);
 				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new FreeplayState()));
+					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
 				});
             }
 		}
@@ -3330,7 +3348,8 @@ class PlayState extends MusicBeatState
                 if (value1.toLowerCase() == 'on') {
                     FlxTween.tween(cinematicup, { y: 0}, val2, {ease: FlxEase.cubeOut});
                     FlxTween.tween(cinematicdown, { y: FlxG.height - 100}, val2, {ease: FlxEase.cubeOut});
-                }else{
+                }
+				else {
                     FlxTween.tween(cinematicup, { y: -100}, val2, {ease: FlxEase.cubeOut});
                     FlxTween.tween(cinematicdown, { y: FlxG.height}, val2, {ease: FlxEase.cubeOut});
                 }
