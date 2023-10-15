@@ -95,6 +95,7 @@ class PlayState extends MusicBeatState
 	var channelTxt:FlxText;
 
 	public var midSongVideo:#if VIDEOS_ALLOWED VideoSprite #else Dynamic #end;
+	public var cheatingVideo:#if VIDEOS_ALLOWED VideoSprite #else Dynamic #end;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -569,6 +570,9 @@ class PlayState extends MusicBeatState
 			cnlogo.updateHitbox();
 			if(ClientPrefs.downScroll) cnlogo.y -= 530;
 		}
+
+		// video precachinggggggg
+		Paths.video('Cheating_is_a_sin');
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
@@ -1706,6 +1710,48 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
+	public function youCheatedRah()
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var filepath:String = Paths.video('Cheating_is_a_sin');
+		#if sys
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file!!');
+			MusicBeatState.switchState(new FreeplayState());
+			return;
+		}
+
+		cheatingVideo.camera = camOther;
+		cheatingVideo.playVideo(filepath);
+		cheatingVideo.bitmap.canSkip = false;
+		cheatingVideo.scale.set(0.705, 0.705);
+		cheatingVideo.x -= 300;
+		cheatingVideo.y -= 170;
+		cheatingVideo.openingCallback = () -> {
+			persistentUpdate = false;
+			camOther.fade(0x000000, 3, true);
+		}
+		cheatingVideo.finishCallback = function()
+		{
+			persistentUpdate = true;
+			#if windows
+			lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn', 'Cheating is not allowed!');
+			#end
+			health = -500;
+			doDeathCheck(true);
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		MusicBeatState.switchState(new FreeplayState());
+		return;
+		#end
+	}
 	
 	public function startVideo(name:String)
 	{
@@ -1905,7 +1951,10 @@ class PlayState extends MusicBeatState
                                 if (gf != null && gf.curCharacter.startsWith('pibby')) {
                                     pibbyIntro.playAnim('3', true);
                                     pibbyIntro.specialAnim = true;
-                                }
+								}
+								
+								if (gf != null && gf.curCharacter.startsWith('darwin'))
+									gf.dance((FlxG.random.bool(25)) ? 'idle-blink' : 'idle');
 
 								// goes back to the default speed
 								if (curStage == 'school') cameraSpeed = 1;
@@ -1931,6 +1980,9 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.playAnim('2', true);
                                     pibbyIntro.specialAnim = true;
                                 }
+
+								if (gf != null && gf.curCharacter.startsWith('darwin'))
+									gf.dance((FlxG.random.bool(25)) ? 'idle-blink' : 'idle');
                             }
 						numberIntro.visible = true;
 						numberIntro.animation.play('2');
@@ -1953,6 +2005,9 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.playAnim('1', true);
                                     pibbyIntro.specialAnim = true;
 								}
+
+								if (gf != null && gf.curCharacter.startsWith('darwin'))
+									gf.dance((FlxG.random.bool(25)) ? 'idle-blink' : 'idle');
                             }
 						numberIntro.visible = true;
 						numberIntro.animation.play('1');
@@ -1976,6 +2031,9 @@ class PlayState extends MusicBeatState
                                     pibbyIntro.playAnim('Go', true);
                                     pibbyIntro.specialAnim = true;
                                 }
+
+								if (gf != null && gf.curCharacter.startsWith('darwin'))
+									gf.dance((FlxG.random.bool(25)) ? 'idle-blink' : 'idle');
                                 
 							    numberIntro.visible = true;
                                 numberIntro.animation.play('Go');
@@ -2203,6 +2261,11 @@ class PlayState extends MusicBeatState
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
+
+		#if VIDEOS_ALLOWED
+		cheatingVideo = new VideoSprite();
+		add(cheatingVideo);
+		#end
 
 		var noteData:Array<SwagSection>;
 
@@ -2890,9 +2953,9 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(vocals, {pitch: 0.001}, 6, {onComplete: e -> vocals.stop()});
 				FlxG.sound.music.fadeOut(6.5);
 				vocals.fadeOut(6.5);
-				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
+				camOther.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new FreeplayState()));
+					new FlxTimer().start(1, e -> youCheatedRah());
 				});
             }
 		}
@@ -6954,7 +7017,7 @@ class PlayState extends MusicBeatState
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
-			gf.dance();
+			gf.dance((FlxG.random.bool(25) && gf.animation.curAnim.finished && (gf.curCharacter == 'darwin-noremote' || gf.curCharacter == 'darwinretcon')) ? 'idle-blink' : 'idle');
 		}
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
 		{

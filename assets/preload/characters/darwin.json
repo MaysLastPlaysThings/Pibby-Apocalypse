@@ -1,17 +1,6 @@
 {
 	"animations": [
 		{
-			"loop": true,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "idle",
-			"fps": 24,
-			"name": "Darwin Idle",
-			"indices": []
-		},
-		{
 			"loop": false,
 			"offsets": [
 				83,
@@ -60,10 +49,10 @@
 				0,
 				-32
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singDOWNmiss",
-			"loop": false,
+			"indices": [],
 			"name": "Down-miss0"
 		},
 		{
@@ -71,10 +60,10 @@
 				82,
 				2
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFTmiss",
-			"loop": false,
+			"indices": [],
 			"name": "Left-Miss0"
 		},
 		{
@@ -82,10 +71,10 @@
 				-34,
 				90
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singUPmiss",
-			"loop": false,
+			"indices": [],
 			"name": "Up-miss0"
 		},
 		{
@@ -93,11 +82,59 @@
 				-30,
 				10
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"loop": false,
+			"indices": [],
 			"name": "Right-miss0"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Darwin Idle",
+			"indices": [
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12
+			]
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				22
+			],
+			"fps": 24,
+			"anim": "idle-blink",
+			"loop": false,
+			"name": "Darwin Idle"
 		}
 	],
 	"no_antialiasing": false,
