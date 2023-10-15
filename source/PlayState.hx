@@ -1741,10 +1741,9 @@ class PlayState extends MusicBeatState
 		{
 			persistentUpdate = true;
 			#if windows
-			lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn', 'Cheating is not allowed!');
+			lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn');
 			#end
-			health = -500;
-			doDeathCheck(true);
+			Sys.exit(0);
 		}
 		#else
 		FlxG.log.warn('Platform not supported!');
@@ -2933,7 +2932,7 @@ class PlayState extends MusicBeatState
 				vocals.fadeOut(6.5);
 				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+					new FlxTimer().start(2, e -> youCheatedRah());
 				});
             }
             if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
@@ -2947,7 +2946,7 @@ class PlayState extends MusicBeatState
 				vocals.fadeOut(6.5);
 				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+					new FlxTimer().start(2, e -> youCheatedRah());
 				});
             }
             if (FlxG.keys.justPressed.NINE && !endingSong && !inCutscene) {
@@ -2960,7 +2959,7 @@ class PlayState extends MusicBeatState
 				vocals.fadeOut(6.5);
 				FlxG.camera.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+					new FlxTimer().start(2, e -> youCheatedRah());
 				});
             }
 			if (FlxG.keys.justPressed.SIX && !endingSong && !inCutscene) {
@@ -2973,7 +2972,7 @@ class PlayState extends MusicBeatState
 				vocals.fadeOut(6.5);
 				camOther.fade(FlxColor.BLACK, 6, false, () -> {
 					FlxG.sound.music.stop();
-					new FlxTimer().start(2, e -> MusicBeatState.switchState(new CheatingState()));
+					new FlxTimer().start(2, e -> youCheatedRah());
 				});
             }
 		}
