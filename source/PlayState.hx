@@ -7039,7 +7039,8 @@ class PlayState extends MusicBeatState
 		}
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
 		{
-			boyfriend.dance();
+			// idk why is the blinking slower it has the same setup smh
+			boyfriend.dance((FlxG.random.bool(25) && boyfriend.animation.curAnim.finished && (boyfriend.curCharacter == 'darwin-noremote' || boyfriend.curCharacter == 'darwinretcon')) ? 'idle-blink' : 'idle');
 		}
 		if (curBeat % dad.danceEveryNumBeats == 0 && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 		{
