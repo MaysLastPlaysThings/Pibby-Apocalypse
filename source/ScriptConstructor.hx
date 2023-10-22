@@ -27,7 +27,6 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
     public var script:Script;
     public var foreground : FlxTypedGroup<FlxBasic>;
 
-
     // Incase you aren't aware already of what this is gonna do, its basically just gonna allow for hscript functionality with stages lol.
     public function new(dir : String, file : String)
     {
@@ -48,8 +47,10 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
                 case ATLAS:
 					return Paths.getSparrowAtlas(path, null, useGPU == null ? true : useGPU, dir);
                 case SOUND:
-                    // SOUNDS ARE NOT DONE, RETURNS NULL/
-                    return null;
+                    var daLibrary:String = null; // not tested cus why tf are we using sound in the first place
+                    if (StringTools.endsWith(path, '_shared')) daLibrary = 'shared';
+                
+                    return Paths.sound(path, daLibrary);
                 case TEXT:
                     return Paths.getContent('assets/$dir/$path');
             }

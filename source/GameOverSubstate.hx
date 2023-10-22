@@ -10,6 +10,8 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
+using StringTools;
+
 class GameOverSubstate extends MusicBeatSubstate
 {
 	public var boyfriend:Boyfriend;
@@ -17,6 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = true;
 	var playingDeathSound:Bool = false;
+	var defaultCamZoom = 0.7;
 
 	var stageSuffix:String = "";
     var allowedtoContinue:Bool = false;
@@ -66,7 +69,10 @@ class GameOverSubstate extends MusicBeatSubstate
                 camX -= 250;
                 camY += 300;
             case "gumdead":
-                camX -= 250;
+                camX -= 420;
+			/*case 'pibby-dead':
+				FlxG.camera.zoom += 3;
+			this shit aint working man :broken_heart:*/
          }
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
@@ -88,7 +94,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 
         FlxG.camera.snapToTarget();
-
 	}
 
 	var isFollowingAlready:Bool = false;
@@ -97,7 +102,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super.update(elapsed);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
-        FlxG.camera.zoom = 0.7;
+		FlxG.camera.zoom = defaultCamZoom;
 
 		if (controls.ACCEPT && allowedtoContinue)
 		{
@@ -173,6 +178,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	function coolStartDeath(?volume:Float = 1):Void
 	{
         allowedtoContinue = true;
+		if (characterName == 'pibby-dead') FlxTween.tween(this, {defaultCamZoom: 1.3}, 10, {ease: FlxEase.quadInOut});
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
 	}
 

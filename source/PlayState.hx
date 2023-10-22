@@ -1369,9 +1369,10 @@ class PlayState extends MusicBeatState
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
                     if (ClientPrefs.gore) {
-                        GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
-						GameOverSubstate.endSoundName = 'gffinnrevive';
+                        GameOverSubstate.characterName = 'pibby-dead';
+						GameOverSubstate.deathSoundName = 'glitchhit';
+						GameOverSubstate.soundLibraryStart = 'shared';
+						GameOverSubstate.endSoundName = 'gameOverEnd';
                     }
 				case 'Brotherly Love': 
                     if (ClientPrefs.gore) {
@@ -3309,6 +3310,9 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
+
+				FlxG.camera.zoom = 0.7;
+				defaultCamZoom = 0.7;
 
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
