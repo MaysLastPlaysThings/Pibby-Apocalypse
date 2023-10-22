@@ -3398,6 +3398,7 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+					abberationShaderIntensity = beatShaderAmount;
 				}
 
 			case 'Set Chromatic Amount':
@@ -6853,6 +6854,8 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(camHUD, {alpha: 0}, 1, {ease: FlxEase.sineInOut})
 							});
 
+						case 176 | 180 | 184: camGame.zoom += 0.05;
+
 						case 192:
 							triggerEventNote('Cinematics', 'off', '1');
 							triggerEventNote('Apple Filter', 'off', 'white');
@@ -6860,11 +6863,11 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.sineInOut});
 							iconP2.color = 0xFFFFFF;
 
-						case 294 | 422 | 645 | 774 | 1110: 
+						case 294 | 422 | 646 | 774 | 1110: 
 							defaultCamZoom = 1;
 							camGame.zoom = 1;
 
-						case 298 | 426 | 649 | 778 | 1114: 
+						case 298 | 426 | 650 | 778 | 1114: 
 							defaultCamZoom = 1.1;
 							camGame.zoom = 1.1;
 
@@ -6884,6 +6887,12 @@ class PlayState extends MusicBeatState
 						case 320 | 724: 
 							defaultCamZoom = 0.85;
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 368 | 400: 
+							defaultCamZoom += 0.15; 
+
+						case 384 | 416:
+							defaultCamZoom -= 0.15;
 
 						case 448: 
 							defaultCamZoom = 0.85;
@@ -7589,7 +7598,7 @@ class PlayState extends MusicBeatState
 
 				case 'No Hero Remix':
 					// rest of the zoom events are on the song json because haxe hates me
-					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648) ||
+					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 592 && curStep < 648) ||
 						(curStep >= 592 && curStep < 645) || (curStep >= 656 && curStep < 719) || (curStep >= 725 && curStep < 773))
 					{
 						if (curBeat % 1 == 0 && ClientPrefs.camZooms)
