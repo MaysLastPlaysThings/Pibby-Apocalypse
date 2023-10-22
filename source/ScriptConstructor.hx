@@ -72,7 +72,7 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
 		additionalParams.set('getScript', PlayState.instance.getScript);
 		additionalParams.set('getScriptVar', PlayState.instance.getScriptVar);
 
-        script = ScriptManager.loadScript('assets/${dir}/${file}.hxs', null, additionalParams);
+        script = ScriptManager.loadScript('assets/${dir}/${file}.hx', null, additionalParams); // Change the file extension here to change what file extension scripts use.
 
         try{
             if (script != null && script.exists("onCreate"))

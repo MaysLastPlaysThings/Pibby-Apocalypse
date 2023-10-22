@@ -1063,7 +1063,7 @@ class PlayState extends MusicBeatState
 		pibbyHealthbar.y = iconP1.y + 50;
 
 		if (ClientPrefs.downScroll)
-			pibbyHealthbar.y = iconP1.y;
+			pibbyHealthbar.y = iconP1.y + 50;
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 20, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1352,6 +1352,7 @@ class PlayState extends MusicBeatState
 					camHUD.alpha = 0;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
+					pibbyHealthbar.visible = false;
 					iconP1.visible = false; 
 					iconP2.visible = false;
 					scoreTxt.visible = false;
@@ -4495,6 +4496,8 @@ class PlayState extends MusicBeatState
             }
 		}
 
+		iconP2.scale.set(1.2, 1.2);
+		
         if (dad.curCharacter == 'finn-slash' && !note.isSustainNote) {
             iconP2.scale.set(1.4, 1.4);
         }
@@ -4520,7 +4523,27 @@ class PlayState extends MusicBeatState
 			if(!note.gfNote) {
                 if (healthDrain) {
                     if (health > 0.1) {
-                        health -= 0.0125;
+						switch (SONG.song)
+						{
+							case "Child's Play":
+								health -= 0.0075;
+							case "My Amazing World":
+								health -= 0.0150;
+							case "Retcon":
+								health -= 0.0175;
+							case "Forgotten World":
+								health -= 0.02;
+							case "Mindless":
+								health -= 0.03;
+							case "Blessed by Swords":
+								health -= 0.0325;
+							case "Brotherly Love":
+								health -= 0.025;
+							case "Suffering Siblings":
+								health -= 0.035;
+							case "Come Along With Me":
+								health -= 0.0225;
+						}
                     }
                 }
             }
@@ -4530,6 +4553,13 @@ class PlayState extends MusicBeatState
 			if (note.gfNote) {
 				char = gf;
                 jakeSings = true;
+				iconP3.scale.set(1.1, 1.1);
+				iconP3.updateHitbox();
+				if (SONG.song == "Suffering Siblings")
+					{
+						iconJake.scale.set(1.1, 1.1);
+						iconJake.updateHitbox();
+					}		
 			}
 			else if(note.char2note) {
 				char = jake;
@@ -4724,7 +4754,8 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
-
+			
+			iconP1.scale.set(1.2, 1.2);
 			health += note.hitHealth * healthGain;
 
             if (!note.gfNote) {
@@ -4798,6 +4829,11 @@ class PlayState extends MusicBeatState
 					if(gf != null)
 					{
                         pibbySings = true;
+						if (SONG.song == "Suffering Siblings")
+							{
+								iconPibby.scale.set(1.1, 1.1);
+								iconPibby.updateHitbox();
+							}				
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;
 					}
@@ -5947,10 +5983,10 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if(ClientPrefs.shaders) {
-                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
-							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
-							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
-							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF)]);
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camOverlay.setFilters([new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF),new ShaderFilter(ntscFNF)]);
 							}
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
@@ -7022,22 +7058,6 @@ class PlayState extends MusicBeatState
         for (hScript in allScripts) {
 		    hScript.onBeatHit(curBeat);
         }
-
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
-        if (gf != null) 
-			{
-				iconP3.scale.set(1, 1);
-				iconP3.updateHitbox();
-			}
-		
-		if (SONG.song == "Suffering Siblings")
-			{
-				iconPibby.scale.set(1, 1);
-				iconPibby.updateHitbox();
-				iconJake.scale.set(1, 1);
-				iconJake.updateHitbox();
-			}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

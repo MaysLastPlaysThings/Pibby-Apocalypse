@@ -106,6 +106,7 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
+		ClientPrefs.getGameplaySetting('botplay', false);
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
 		ScriptManager.init();
