@@ -4494,6 +4494,8 @@ class PlayState extends MusicBeatState
             }
 		}
 
+		iconP2.scale.set(1.2, 1.2);
+		
         if (dad.curCharacter == 'finn-slash' && !note.isSustainNote) {
             iconP2.scale.set(1.4, 1.4);
         }
@@ -4529,6 +4531,13 @@ class PlayState extends MusicBeatState
 			if (note.gfNote) {
 				char = gf;
                 jakeSings = true;
+				iconP3.scale.set(1.1, 1.1);
+				iconP3.updateHitbox();
+				if (SONG.song == "Suffering Siblings")
+					{
+						iconJake.scale.set(1.1, 1.1);
+						iconJake.updateHitbox();
+					}		
 			}
 			else if(note.char2note) {
 				char = jake;
@@ -4723,7 +4732,8 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
-
+			
+			iconP1.scale.set(1.2, 1.2);
 			health += note.hitHealth * healthGain;
 
             if (!note.gfNote) {
@@ -4797,6 +4807,11 @@ class PlayState extends MusicBeatState
 					if(gf != null)
 					{
                         pibbySings = true;
+						if (SONG.song == "Suffering Siblings")
+							{
+								iconPibby.scale.set(1.1, 1.1);
+								iconPibby.updateHitbox();
+							}				
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;
 					}
@@ -7013,22 +7028,6 @@ class PlayState extends MusicBeatState
         for (hScript in allScripts) {
 		    hScript.onBeatHit(curBeat);
         }
-
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
-        if (gf != null) 
-			{
-				iconP3.scale.set(1, 1);
-				iconP3.updateHitbox();
-			}
-		
-		if (SONG.song == "Suffering Siblings")
-			{
-				iconPibby.scale.set(1, 1);
-				iconPibby.updateHitbox();
-				iconJake.scale.set(1, 1);
-				iconJake.updateHitbox();
-			}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
