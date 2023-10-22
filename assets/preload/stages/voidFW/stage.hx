@@ -32,6 +32,7 @@ function onCreate()
     void.scrollFactor.set(0.6, 0.6);
     void.updateHitbox();
     void.color = 0xdbdbdb;
+    if (ClientPrefs.shaders) void.shader = coolShader;
 
     house = new flixel.FlxSprite(0, -200);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-3', 'image'));
