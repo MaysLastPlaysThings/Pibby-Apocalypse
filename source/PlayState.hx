@@ -3297,13 +3297,21 @@ class PlayState extends MusicBeatState
 				boyfriend.stunned = true;
 				deathCounter++;
 
+				boyfriendGroup.alpha = 0.00001;
+				gfGroup.alpha = 0.00001;
+				dadGroup.alpha = 0.00001;
+				for (allCams in FlxG.cameras.list)
+					allCams.alpha = 0;
+
+				camGame.alpha = 1;
+
 				paused = true;
 
 				vocals.stop();
 				FlxG.sound.music.stop();
 
 				persistentUpdate = false;
-				persistentDraw = false;
+				// persistentDraw = false;
 				for (tween in modchartTweens) {
 					tween.active = true;
 				}

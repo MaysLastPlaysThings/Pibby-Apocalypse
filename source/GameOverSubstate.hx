@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -54,6 +55,11 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		PlayState.instance.setOnLuas('inGameOver', true);
 		Conductor.songPosition = 0;
+
+		var blackness = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+			-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 4, FlxColor.BLACK);
+		blackness.scrollFactor.set();
+		add(blackness);
 
 		boyfriend = new Boyfriend(x, y, characterName);
 		boyfriend.x += boyfriend.positionArray[0];
