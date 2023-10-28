@@ -1012,7 +1012,7 @@ class PlayState extends MusicBeatState
         }
 		finnBarThing.scrollFactor.set();
 		finnBarThing.alpha = ClientPrefs.healthBarAlpha;
-		if(ClientPrefs.downScroll) finnBarThing.y = 0.11;
+		if(ClientPrefs.downScroll) finnBarThing.y = 0.12;
 		add(finnBarThing);
 
 		if (storyWeekName == "gumball") {
@@ -4533,7 +4533,7 @@ class PlayState extends MusicBeatState
                 jakeSings = true;
 				iconP3.scale.set(1.1, 1.1);
 				iconP3.updateHitbox();
-				if (SONG.song == "Suffering Siblings")
+				if (jakeSings)
 					{
 						iconJake.scale.set(1.1, 1.1);
 						iconJake.updateHitbox();
@@ -4807,8 +4807,9 @@ class PlayState extends MusicBeatState
 					if(gf != null)
 					{
                         pibbySings = true;
-						if (SONG.song == "Suffering Siblings")
+						if (pibbySings)
 							{
+								iconP1.scale.set(1, 1);
 								iconPibby.scale.set(1.1, 1.1);
 								iconPibby.updateHitbox();
 							}				
