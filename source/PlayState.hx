@@ -1063,7 +1063,7 @@ class PlayState extends MusicBeatState
 		pibbyHealthbar.y = iconP1.y + 50;
 
 		if (ClientPrefs.downScroll)
-			pibbyHealthbar.y = iconP1.y;
+			pibbyHealthbar.y = iconP1.y + 50;
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 20, boyfriendColor, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1352,6 +1352,7 @@ class PlayState extends MusicBeatState
 					camHUD.alpha = 0;
 					healthBar.visible = false;
 					healthBarBG.visible = false;
+					pibbyHealthbar.visible = false;
 					iconP1.visible = false; 
 					iconP2.visible = false;
 					scoreTxt.visible = false;
@@ -1367,27 +1368,27 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
-                    if (ClientPrefs.gore) {
-                        GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
-						GameOverSubstate.endSoundName = 'gffinnrevive';
-                    }
+                        GameOverSubstate.characterName = 'pibby-dead';
+						GameOverSubstate.deathSoundName = 'glitchhit';
+						GameOverSubstate.soundLibraryStart = 'shared';
+						GameOverSubstate.endSoundName = 'gameOverEnd';
 				case 'Brotherly Love': 
                     if (ClientPrefs.gore) {
 					    /*GameOverSubstate.characterName = 'bf-dead-jake';
 						GameOverSubstate.deathSoundName = 'bfjakedeath';*/
 
 						// im sorry but i fucking hate how badly the spritesheet was exported to even look buggy asf so yeah too bad L for jake
-						GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
+						GameOverSubstate.characterName = 'bf-dead-jake';
+						GameOverSubstate.deathSoundName = 'bfjakedeath';
 						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'Suffering Siblings': 
                     if (ClientPrefs.gore) {
 					    //GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
-						GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
-						GameOverSubstate.endSoundName = 'gffinnrevive';
+						GameOverSubstate.characterName = 'deathscreen';
+						GameOverSubstate.deathSoundName = 'glitchshit';
+						GameOverSubstate.soundLibraryStart = 'shared';
+						GameOverSubstate.endSoundName = 'gameOverEnd';
 
 						/*if (GameOverSubstate.characterName == 'bf-dead-jake')
 							GameOverSubstate.deathSoundName = 'bfjakedeath';
@@ -3295,19 +3296,30 @@ class PlayState extends MusicBeatState
 				boyfriend.stunned = true;
 				deathCounter++;
 
+				boyfriendGroup.alpha = 0.00001;
+				gfGroup.alpha = 0.00001;
+				dadGroup.alpha = 0.00001;
+				for (allCams in FlxG.cameras.list)
+					allCams.alpha = 0;
+
+				camGame.alpha = 1;
+
 				paused = true;
 
 				vocals.stop();
 				FlxG.sound.music.stop();
 
 				persistentUpdate = false;
-				persistentDraw = false;
+				// persistentDraw = false;
 				for (tween in modchartTweens) {
 					tween.active = true;
 				}
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
+
+				FlxG.camera.zoom = 0.7;
+				defaultCamZoom = 0.7;
 
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
@@ -3398,6 +3410,7 @@ class PlayState extends MusicBeatState
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
+					abberationShaderIntensity = beatShaderAmount;
 				}
 
 			case 'Set Chromatic Amount':
@@ -4521,7 +4534,27 @@ class PlayState extends MusicBeatState
 			if(!note.gfNote) {
                 if (healthDrain) {
                     if (health > 0.1) {
-                        health -= 0.0125;
+						switch (SONG.song)
+						{
+							case "Child's Play":
+								health -= 0.0075;
+							case "My Amazing World":
+								health -= 0.0150;
+							case "Retcon":
+								health -= 0.0175;
+							case "Forgotten World":
+								health -= 0.02;
+							case "Mindless":
+								health -= 0.03;
+							case "Blessed by Swords":
+								health -= 0.0325;
+							case "Brotherly Love":
+								health -= 0.025;
+							case "Suffering Siblings":
+								health -= 0.035;
+							case "Come Along With Me":
+								health -= 0.0225;
+						}
                     }
                 }
             }
@@ -5962,13 +5995,13 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
 							if(ClientPrefs.shaders) {
-                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
-							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
-							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
-							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF)]);
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camOverlay.setFilters([new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
+							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF),new ShaderFilter(ntscFNF)]);
 							}
 							if (ClientPrefs.flashing)
-								camOverlay.flash(FlxColor.WHITE, 1);
+								camOther.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'off', '1');
 							dad.y += 30;
 						case 2176:
@@ -6869,6 +6902,8 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(camHUD, {alpha: 0}, 1, {ease: FlxEase.sineInOut})
 							});
 
+						case 176 | 180 | 184: camGame.zoom += 0.05;
+
 						case 192:
 							triggerEventNote('Cinematics', 'off', '1');
 							triggerEventNote('Apple Filter', 'off', 'white');
@@ -6876,11 +6911,11 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.sineInOut});
 							iconP2.color = 0xFFFFFF;
 
-						case 294 | 422 | 645 | 774 | 1110: 
+						case 294 | 422 | 646 | 774 | 1110: 
 							defaultCamZoom = 1;
 							camGame.zoom = 1;
 
-						case 298 | 426 | 649 | 778 | 1114: 
+						case 298 | 426 | 650 | 778 | 1114: 
 							defaultCamZoom = 1.1;
 							camGame.zoom = 1.1;
 
@@ -6900,6 +6935,12 @@ class PlayState extends MusicBeatState
 						case 320 | 724: 
 							defaultCamZoom = 0.85;
 							if (ClientPrefs.flashing) camGame.flash(FlxColor.WHITE, 1);
+
+						case 368 | 400: 
+							defaultCamZoom += 0.15; 
+
+						case 384 | 416:
+							defaultCamZoom -= 0.15;
 
 						case 448: 
 							defaultCamZoom = 0.85;
@@ -7589,7 +7630,7 @@ class PlayState extends MusicBeatState
 
 				case 'No Hero Remix':
 					// rest of the zoom events are on the song json because haxe hates me
-					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 464 && curStep < 648) ||
+					if ((curStep >= 192 && curStep < 296) || (curStep >= 320 && curStep < 424) || (curStep >= 592 && curStep < 648) ||
 						(curStep >= 592 && curStep < 645) || (curStep >= 656 && curStep < 719) || (curStep >= 725 && curStep < 773))
 					{
 						if (curBeat % 1 == 0 && ClientPrefs.camZooms)

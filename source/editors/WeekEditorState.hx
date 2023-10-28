@@ -681,6 +681,9 @@ class WeekEditorFreeplayState extends MusicBeatState
 			if(sender == bgColorStepperR || sender == bgColorStepperG || sender == bgColorStepperB) {
 				updateBG();
 			}
+			if (sender == threatInput) {
+				weekFile.songs[curSelected][3] = threatInput.value;
+			}
 		}
 	}
 
@@ -748,7 +751,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Pibby Apocalypse";
 
-		threatInput = new FlxUINumericStepper(10, 40, 20, 255, 0, 255, 0);
+		threatInput = new FlxUINumericStepper(10, 40, 15, 75, 0, 150, 0);
 
 		tab_group.add(new FlxText(10, threatInput.y - 18, 0, "Song's threat level:"));
 		tab_group.add(threatInput);
@@ -759,7 +762,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		weekFile.songs[curSelected][2][0] = Math.round(bgColorStepperR.value);
 		weekFile.songs[curSelected][2][1] = Math.round(bgColorStepperG.value);
 		weekFile.songs[curSelected][2][2] = Math.round(bgColorStepperB.value);
-		weekFile.songs[curSelected][3] = threatInput.value;
+		weekFile.songs[curSelected][3] = Math.round(threatInput.value);
 		bg.color = FlxColor.fromRGB(weekFile.songs[curSelected][2][0], weekFile.songs[curSelected][2][1], weekFile.songs[curSelected][2][2]);
 	}
 
@@ -800,7 +803,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		bgColorStepperR.value = Math.round(weekFile.songs[curSelected][2][0]);
 		bgColorStepperG.value = Math.round(weekFile.songs[curSelected][2][1]);
 		bgColorStepperB.value = Math.round(weekFile.songs[curSelected][2][2]);
-		threatInput.value = weekFile.songs[curSelected][3];
+		threatInput.value = Math.round(weekFile.songs[curSelected][3]);
 		updateBG();
 	}
 

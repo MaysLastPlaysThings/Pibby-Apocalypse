@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -10,13 +11,17 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
+using StringTools;
+
 class GameOverSubstate extends MusicBeatSubstate
 {
 	public var boyfriend:Boyfriend;
+	public var pobby:Character;
 	var camFollow:FlxPoint;
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = true;
 	var playingDeathSound:Bool = false;
+	var defaultCamZoom = 0.7;
 
 	var stageSuffix:String = "";
     var allowedtoContinue:Bool = false;
@@ -52,21 +57,39 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.setOnLuas('inGameOver', true);
 		Conductor.songPosition = 0;
 
+		var blackness = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+			-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 4, FlxColor.BLACK);
+		blackness.scrollFactor.set();
+		add(blackness);
+
 		boyfriend = new Boyfriend(x, y, characterName);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
+
+		pobby = new Boyfriend(x, y, "pibby-dead");
+		pobby.x += (pobby.positionArray[0] + 1800);
+		pobby.y += (pobby.positionArray[1] + 480);
+		pobby.alpha = 0.0001;
+		pobby.scale.set(1, 1);
+		add(pobby);
 
         camX = boyfriend.getGraphicMidpoint().x;
         camY = boyfriend.getGraphicMidpoint().y;
         camY -= boyfriend.height/3;
 
         switch(characterName) {
+			default:
+				pobby.alpha = 0.0001;
             case "bf-dead-jake":
                 camX -= 250;
                 camY += 300;
             case "gumdead":
-                camX -= 250;
+                camX -= 420;
+			case "deathscreen":
+				pobby.alpha = 1;
+				camY += 260;
+				camX -= 300;
          }
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
@@ -79,6 +102,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		boyfriend.playAnim('firstDeath');
+		pobby.playAnim('firstDeath');
 
         // hi nebula was here :3
 
@@ -88,7 +112,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 
         FlxG.camera.snapToTarget();
-
 	}
 
 	var isFollowingAlready:Bool = false;
@@ -97,7 +120,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super.update(elapsed);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
-        FlxG.camera.zoom = 0.7;
+		FlxG.camera.zoom = defaultCamZoom;
 
 		if (controls.ACCEPT && allowedtoContinue)
 		{
@@ -173,6 +196,9 @@ class GameOverSubstate extends MusicBeatSubstate
 	function coolStartDeath(?volume:Float = 1):Void
 	{
         allowedtoContinue = true;
+		if (characterName == 'pibby-dead') {
+			FlxTween.tween(this, {defaultCamZoom: 1.3}, 10, {ease: FlxEase.quadInOut});
+		}
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
 	}
 
@@ -182,6 +208,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			isEnding = true;
 			boyfriend.playAnim('deathConfirm', true);
+			pobby.playAnim('deathConfirm', true);
+			if (pobby.alpha == 1 && pobby.animation.curAnim.name == 'deathConfirm' && pobby.animation.curAnim.finished) {
+				pobby.alpha = 0.0001;
+				if (boyfriend.animation.curAnim.finished) boyfriend.alpha = 0.0001;
+			}
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.sound(endSoundName));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
