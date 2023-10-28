@@ -1378,8 +1378,8 @@ class PlayState extends MusicBeatState
 						GameOverSubstate.deathSoundName = 'bfjakedeath';*/
 
 						// im sorry but i fucking hate how badly the spritesheet was exported to even look buggy asf so yeah too bad L for jake
-						GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
+						GameOverSubstate.characterName = 'bf-dead-jake';
+						GameOverSubstate.deathSoundName = 'bfjakedeath';
 						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
 				case 'Suffering Siblings': 
