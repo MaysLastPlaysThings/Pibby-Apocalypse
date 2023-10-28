@@ -100,9 +100,7 @@
 	<assets path="assets/fonts" embed='true'/>
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<!-- USES 5.3.1 FOR THE PARALLAX SHIT -->
-	<haxelib name="flixel" version="5.3.1" />
-	<haxelib name="parallaxlt" version="0.0.0" />
+	<haxelib name="flixel" version="5.2.2" />
 	<haxedev set='webgl' />
 
 	<!--In case you want to use the addons package-->
