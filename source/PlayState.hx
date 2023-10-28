@@ -1368,12 +1368,10 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
-                    if (ClientPrefs.gore) {
                         GameOverSubstate.characterName = 'pibby-dead';
 						GameOverSubstate.deathSoundName = 'glitchhit';
 						GameOverSubstate.soundLibraryStart = 'shared';
 						GameOverSubstate.endSoundName = 'gameOverEnd';
-                    }
 				case 'Brotherly Love': 
                     if (ClientPrefs.gore) {
 					    /*GameOverSubstate.characterName = 'bf-dead-jake';
@@ -1387,9 +1385,10 @@ class PlayState extends MusicBeatState
 				case 'Suffering Siblings': 
                     if (ClientPrefs.gore) {
 					    //GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
-						GameOverSubstate.characterName = 'bf-dead-finn';
-						GameOverSubstate.deathSoundName = 'bffinndeath';
-						GameOverSubstate.endSoundName = 'gffinnrevive';
+						GameOverSubstate.characterName = 'deathscreen';
+						GameOverSubstate.deathSoundName = 'glitchshit';
+						GameOverSubstate.soundLibraryStart = 'shared';
+						GameOverSubstate.endSoundName = 'gameOverEnd';
 
 						/*if (GameOverSubstate.characterName == 'bf-dead-jake')
 							GameOverSubstate.deathSoundName = 'bfjakedeath';
@@ -6001,7 +6000,7 @@ class PlayState extends MusicBeatState
 							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF),new ShaderFilter(ntscFNF)]);
 							}
 							if (ClientPrefs.flashing)
-								camOverlay.flash(FlxColor.WHITE, 1);
+								camOther.flash(FlxColor.WHITE, 1);
 							triggerEventNote('Cinematics', 'off', '1');
 							dad.y += 30;
 						case 2176:
