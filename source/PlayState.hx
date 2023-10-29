@@ -4569,8 +4569,9 @@ class PlayState extends MusicBeatState
                 jakeSings = true;
 				iconP3.scale.set(1.1, 1.1);
 				iconP3.updateHitbox();
-				if (jakeSings)
+				if (jakeSings && iconJake != null)
 					{
+						
 						iconJake.scale.set(1.1, 1.1);
 						iconJake.updateHitbox();
 					}		
@@ -4846,8 +4847,16 @@ class PlayState extends MusicBeatState
 						if (pibbySings)
 							{
 								iconP1.scale.set(1, 1);
-								iconPibby.scale.set(1.1, 1.1);
-								iconPibby.updateHitbox();
+								if (iconPibby != null)
+								{
+									iconPibby.scale.set(1.1, 1.1);
+									iconPibby.updateHitbox();
+								}
+								else
+								{
+									iconP3.scale.set(1.1, 1.1);
+									iconP3.updateHitbox();
+								}
 							}				
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;

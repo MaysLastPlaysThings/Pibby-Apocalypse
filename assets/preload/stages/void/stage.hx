@@ -23,9 +23,9 @@ function onCreate()
     glitch.y = 800;
     glitch.scale.set(5, 5);
     glitch.frames = retrieveAsset('images/gumballglitchbg', 'atlas');
-    glitch.animation.addByPrefix('spin', 'spin', 24, false);
+    glitch.animation.addByPrefix('spin', 'spin', 9, false);
 
-    house = new flixel.FlxSprite(0, -00);
+    house = new flixel.FlxSprite(0, -0);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2', 'image'));
     house.setGraphicSize(Std.int(house.width * 2.5));
     house.antialiasing = ClientPrefs.globalAntialiasing;
