@@ -23,7 +23,7 @@ function onCreate()
     glitch.y = 800;
     glitch.scale.set(5, 5);
     glitch.frames = retrieveAsset('images/gumballglitchbg', 'atlas');
-    glitch.animation.addByPrefix('spin', 'spin', 9, false);
+    glitch.animation.addByPrefix('spin', 'spin', 15, false);
 
     house = new flixel.FlxSprite(0, -0);
     house.loadGraphic(retrieveAsset('images/Ilustracion_sin_titulo-2', 'image'));
