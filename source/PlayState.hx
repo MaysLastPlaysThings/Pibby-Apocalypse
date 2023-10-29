@@ -589,6 +589,9 @@ class PlayState extends MusicBeatState
 		
 		curStage = SONG.stage;
 		stage = new ScriptConstructor('stages/${curStage}','stage');
+		@:privateAccess {
+			stage.script.scriptInterpreter.curExpr.line = 0;
+		}
         _scriptMap.set(curStage, stage.script);
         allScripts.push(stage);
 		add(stage);
@@ -6160,7 +6163,20 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1.3;
                             triggerEventNote('Cinematics', 'on', '18.525');
 							camOther.fade(FlxColor.BLACK, 18.525, true);
-							FlxTween.tween(camGame, {zoom: 0.7}, 18.525, {
+							FlxTween.tween(camGame, {zoom: 0.9}, 18.525, {
+								ease: FlxEase.quadInOut,
+								onComplete: 
+								function (twn:FlxTween)
+									{
+										defaultCamZoom = 0.9;
+									}
+							});
+
+						case 248:
+							camFollow.x = 1050;
+							camFollow.y = ( (dad.y + opponentCameraOffset[1]) + (boyfriend.y + boyfriendCameraOffset[1]) ) / 2;
+                            isCameraOnForcedPos = true;
+							FlxTween.tween(camGame, {zoom: 0.7}, 0.675, {
 								ease: FlxEase.quadInOut,
 								onComplete: 
 								function (twn:FlxTween)
@@ -6168,13 +6184,13 @@ class PlayState extends MusicBeatState
 										defaultCamZoom = 0.7;
 									}
 							});
-
-						case 248:
-                            triggerEventNote('Cinematics', 'off', '0.675');
+							triggerEventNote('Cinematics', 'off', '0.675');
 							FlxTween.tween(camHUD, {alpha: 1}, 2, {ease: FlxEase.cubeOut});
 						case 256:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
+							defaultCamZoom = 0.7;
+							isCameraOnForcedPos = false;
 						case 384:
 							if (ClientPrefs.flashing)
 								camOverlay.flash(FlxColor.WHITE, 1);
