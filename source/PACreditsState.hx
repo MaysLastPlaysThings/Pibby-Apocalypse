@@ -87,7 +87,7 @@ class PACreditsState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("🧑 | In the Credits", null);
 		#end
 
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Credits";
@@ -175,6 +175,12 @@ class PACreditsState extends MusicBeatState
 		youtube.setPosition(150, FlxG.height - 130);
 		twitter.setPosition(youtube.x - youtube.width, youtube.y);
 
+		for (person in people)
+			{
+				Paths.returnGraphic('pacreditarts/' + person[1] + 1, null, true);
+				Paths.returnGraphic('pacreditarts/' + person[1] + 2, null, true);
+			}
+
 		super.create();
 
 /*		var thenum:Int;
@@ -224,7 +230,7 @@ class PACreditsState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		creditSpr.loadGraphic(Paths.image('pacreditarts/' + people[curSelected][1] + FlxG.random.int(1, 2)));
+		creditSpr.loadGraphic(Paths.returnGraphic('pacreditarts/' + people[curSelected][1] + FlxG.random.int(1, 2), null, true));
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
