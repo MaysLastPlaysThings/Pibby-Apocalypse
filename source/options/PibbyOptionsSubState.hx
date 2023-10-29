@@ -34,7 +34,7 @@ class PibbyOptionsSubState extends BaseOptionsMenu
 	public function new()
 	{
 		title = 'Pibby Apocalypse';
-		rpcTitle = 'Pibby Settings Menu'; //for Discord Rich Presence
+		rpcTitle = '🎮 | Pibby Settings Menu'; //for Discord Rich Presence
 
         /*
         var option:Option = new Option('RaiperStyle Cinema HUD',

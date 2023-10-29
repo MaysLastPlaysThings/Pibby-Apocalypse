@@ -372,6 +372,7 @@ class PlayState extends MusicBeatState
 	var storyDifficultyText:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
+	private var largeKey: String = "";
 	#end
 
 	var touhouBG:FlxSprite;
@@ -1256,9 +1257,27 @@ class PlayState extends MusicBeatState
 
 		precacheList.set('alphabet', 'image');
 	
+		switch(SONG.song.replace('-', ' '))
+		{
+			case "Mindless" | "Brotherly Love" | "Blessed By Swords" | "Suffering Siblings":
+				largeKey = "adventuretimeothers";
+			case "Come Along With Me":
+				largeKey = "cawm";
+			case "Childs Play":
+				largeKey = "childsplay";
+			case "Forgotten World":
+				largeKey = "forgottenworld";
+			case "My Amazing World":
+				largeKey = "maw";
+			case "Retcon":
+				largeKey = "retcon";
+			default:
+				largeKey = "https://i.imgur.com/j1NOFU9.gif";
+		}
+
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -2214,7 +2233,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength, largeKey);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2603,11 +2622,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset, largeKey);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
 			}
 			#end
 		}
@@ -2622,11 +2641,11 @@ class PlayState extends MusicBeatState
         {
             if (Conductor.songPosition > 0.0)
             {
-                DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+                DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset, largeKey);
             }
             else
             {
-                DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+                DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
             }
         }
         #end
@@ -2640,7 +2659,7 @@ class PlayState extends MusicBeatState
         #if desktop
         if (health > 0 && !paused)
         {
-            DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+            DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
         }
         #end
         super.onFocusLost();
@@ -3269,7 +3288,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
 		#end
 	}
 
@@ -3330,7 +3349,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-                DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+                DiscordClient.changePresence("Game Over - " + detailsText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
 				#end
 				isDead = true;
 				return true;
