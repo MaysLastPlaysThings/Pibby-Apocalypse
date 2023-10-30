@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.2 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="Jake_Loop.png" width="4837" height="4162">
+	<SubTexture name="death looop0000" x="2037.6" y="2764.2" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="retry0000" x="0" y="0" width="1043.3999999999999" height="553.1999999999999" frameX="-37.199999999999996" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0001" x="0" y="553.1999999999999" width="1026.6" height="553.1999999999999" frameX="-54" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0009" x="1043.3999999999999" y="0" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0011" x="0" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0014" x="1018.8" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0003" x="0" y="1660.2" width="1018.8" height="553.1999999999999" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="death looop0014" x="1026.6" y="553.8" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0015" x="1018.8" y="1660.2" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0016" x="2037.6" y="1106.3999999999999" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0018" x="2045.3999999999999" y="553.8" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0030" x="2062.2" y="0" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0031" x="2037.6" y="1659" width="1018.8" height="552.6" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="retry0002" x="2037.6" y="2211.6" width="1018.8" height="552.6" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0005" x="1018.8" y="2212.7999999999997" width="1018.8" height="552.6" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0007" x="0" y="2213.4" width="1018.8" height="552.6" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="death looop0001" x="1018.8" y="2765.4" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0002" x="0" y="2766" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0003" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="retry0021" x="3064.2" y="552.6" width="830.4" height="439.8" frameX="-0.6" frameY="-66.6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0020" x="3081" y="0" width="832.1999999999999" height="438.59999999999997" frameX="-1.2" frameY="-66.6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0025" x="3056.4" y="1658.3999999999999" width="814.1999999999999" height="444" frameX="-17.4" frameY="-67.2" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0023" x="3056.4" y="2102.4" width="823.8" height="438" frameX="-8.4" frameY="-66.6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0027" x="3056.4" y="2540.4" width="781.8" height="447" frameX="-48.6" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0019" x="3056.4" y="2987.4" width="820.1999999999999" height="426" frameX="-10.799999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0039" x="2037.6" y="3316.2" width="765.6" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0041" x="1018.8" y="3317.4" width="765.6" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0037" x="0" y="3318" width="765" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0043" x="2803.2" y="3413.4" width="765" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0047" x="3870.6" y="1658.3999999999999" width="765.6" height="439.2" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0045" x="3838.2" y="2540.4" width="765" height="439.2" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0035" x="3880.2" y="2097.6" width="763.8" height="438" frameX="-67.2" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0031" x="3894.6" y="438.59999999999997" width="762.6" height="438.59999999999997" frameX="-67.8" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0033" x="3913.2" y="0" width="762.6" height="438" frameX="-68.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0029" x="4075.2" y="877.1999999999999" width="761.4" height="438.59999999999997" frameX="-69.6" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0049" x="1784.3999999999999" y="3756" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0051" x="765" y="3757.2" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0053" x="0" y="3757.7999999999997" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0054" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0074" x="3876.6" y="2979.6" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0064" x="4123.2" y="3373.7999999999997" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0069" x="4123.2" y="3768" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0079" x="1026.6" y="553.1999999999999" width="0.6" height="0.6" frameX="-0" frameY="-0" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="death looop0004" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0005" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0006" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0007" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0008" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0009" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0010" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0011" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0012" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0013" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0017" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0019" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0020" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0021" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0022" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0023" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0024" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0025" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0026" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0027" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0028" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0029" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0032" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="death looop0033" x="3056.4" y="1106.3999999999999" width="1018.8" height="552" frameX="-0" frameY="-6.6" frameWidth="1018.8" frameHeight="559.8"/>
+	<SubTexture name="retry0004" x="0" y="1660.2" width="1018.8" height="553.1999999999999" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0006" x="1018.8" y="2212.7999999999997" width="1018.8" height="552.6" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0008" x="0" y="2213.4" width="1018.8" height="552.6" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0010" x="1043.3999999999999" y="0" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0012" x="0" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0013" x="0" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0015" x="1018.8" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0016" x="1018.8" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0017" x="1018.8" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0018" x="1018.8" y="1106.3999999999999" width="1018.8" height="553.8" frameX="-61.8" frameY="-6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0022" x="3064.2" y="552.6" width="830.4" height="439.8" frameX="-0.6" frameY="-66.6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0024" x="3056.4" y="2102.4" width="823.8" height="438" frameX="-8.4" frameY="-66.6" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0026" x="3056.4" y="1658.3999999999999" width="814.1999999999999" height="444" frameX="-17.4" frameY="-67.2" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0028" x="3056.4" y="2540.4" width="781.8" height="447" frameX="-48.6" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0030" x="4075.2" y="877.1999999999999" width="761.4" height="438.59999999999997" frameX="-69.6" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0032" x="3894.6" y="438.59999999999997" width="762.6" height="438.59999999999997" frameX="-67.8" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0034" x="3913.2" y="0" width="762.6" height="438" frameX="-68.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0036" x="3880.2" y="2097.6" width="763.8" height="438" frameX="-67.2" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0038" x="0" y="3318" width="765" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0040" x="2037.6" y="3316.2" width="765.6" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0042" x="1018.8" y="3317.4" width="765.6" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0044" x="2803.2" y="3413.4" width="765" height="439.8" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0046" x="3838.2" y="2540.4" width="765" height="439.2" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0048" x="3870.6" y="1658.3999999999999" width="765.6" height="439.2" frameX="-65.39999999999999" frameY="-67.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0050" x="1784.3999999999999" y="3756" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0052" x="765" y="3757.2" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0055" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0056" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0057" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0058" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0059" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0060" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0061" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0062" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0063" x="3568.2" y="3413.4" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0065" x="4123.2" y="3373.7999999999997" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0066" x="4123.2" y="3373.7999999999997" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0067" x="4123.2" y="3373.7999999999997" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0068" x="4123.2" y="3373.7999999999997" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0070" x="4123.2" y="3768" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0071" x="4123.2" y="3768" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0072" x="4123.2" y="3768" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0073" x="4123.2" y="3768" width="554.4" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0075" x="3876.6" y="2979.6" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0076" x="3876.6" y="2979.6" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0077" x="3876.6" y="2979.6" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+	<SubTexture name="retry0078" x="3876.6" y="2979.6" width="555" height="394.2" frameX="-65.39999999999999" frameY="-112.8" frameWidth="1080.6" frameHeight="559.8"/>
+</TextureAtlas>

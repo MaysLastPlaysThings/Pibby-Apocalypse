@@ -35,11 +35,6 @@ class CheatingState extends MusicBeatState
         super.create();   
     }
 
-    override public function update(elapsed:Float) 
-    {
-        super.update(elapsed);
-    }
-
 	public function startVideo(name:String)
         {
             #if VIDEOS_ALLOWED
