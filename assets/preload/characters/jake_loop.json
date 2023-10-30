@@ -1,0 +1,41 @@
+{
+    "animations": [{
+            "offsets": [
+                56,
+                26
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "deathConfirm",
+            "indices": [],
+            "name": "retry"
+        },
+        {
+            "loop": true,
+            "offsets": [-66,
+                25
+            ],
+            "anim": "deathLoop",
+            "fps": 24,
+            "name": "death looop",
+            "indices": []
+        }
+    ],
+    "no_antialiasing": false,
+    "image": "characters/Jake_Loop",
+    "position": [-400,
+        100
+    ],
+    "healthicon": "bf",
+    "flip_x": true,
+    "healthbar_colors": [
+        49,
+        176,
+        209
+    ],
+    "camera_position": [
+        0, -200
+    ],
+    "sing_duration": 4,
+    "scale": 2
+}
