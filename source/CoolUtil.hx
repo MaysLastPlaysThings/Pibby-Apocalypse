@@ -66,7 +66,7 @@ class CoolUtil
 					artist = 'Corn';
 
 				case "Retcon":
-					artist = 'Rareblin ft. Pattydecaffy';
+					artist = 'Rareblin (ft. Pattydecaffy)';
 
 				case "Forgotten World":
 					artist = 'Awe';

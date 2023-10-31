@@ -83,12 +83,21 @@ class PibbyOptionsSubState extends BaseOptionsMenu
             true); //Default value
         addOption(option);
 
-        var option:Option = new Option('Death Gore', //Name
+        var option:Option = new Option('Death & Gore', //Name
             "If unchecked, deaths won't have gore and will be replaced with the normal death", //Description
             'gore', //Save data variable name
             'bool', //Variable type
             true); //Default value
         addOption(option);
+
+        var option:Option = new Option('Autopause',
+            "Makes it so that you can tab out of the game window\nand have your game pause.",
+            'autopause',
+            'bool',
+            true);
+        addOption(option);
+
+
 
         for (i in 0...20) { //funny blank options
             var option:Option = new Option(' ', //Name
