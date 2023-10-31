@@ -33,39 +33,38 @@ function onCreate()
         thunder.animation.addByPrefix('thunder', 'LIGHTNING', 24, false);
         thunder.alpha = 0.0001;
         thunder.scrollFactor.set(1,1);//I'm not offsetting the thunder one of you dumbasses set the thunder scroll 0 (if you want thunder do it) --Tormented
+
+        backGlitch = new flixel.FlxSprite(750, 1500);
+        backGlitch.loadGraphic(retrieveAsset('images/reveal/glitch', 'image'));
+        backGlitch.updateHitbox();
+        backGlitch.scale.set(0.7, 0.7);
+        backGlitch.scrollFactor.set();
+
+        hillShit = new flixel.FlxSprite(750, 1500);
+        hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff', 'image'));
+        hillShit.updateHitbox();
+        hillShit.scale.set(0.7, 0.7);
+        hillShit.scrollFactor.set(0.65, 0.65);
+
+        particles = new flixel.FlxSprite(750, 1500);
+        particles.loadGraphic(retrieveAsset('images/reveal/Particles', 'image'));
+        particles.updateHitbox();
+        particles.scale.set(0.5, 0.5);
+        particles.alpha = 0;
+
+        dangling = new flixel.FlxSprite(750, 1500);
+        dangling.loadGraphic(retrieveAsset('images/reveal/Dangling', 'image'));
+        dangling.updateHitbox();
+        dangling.scale.set(0.7, 0.7);
+        dangling.scrollFactor.set(0.85, 0.85);
+
+        corruption = new flixel.FlxSprite(750, 1500);
+        corruption.loadGraphic(retrieveAsset('images/reveal/Corruption', 'image'));
+        corruption.updateHitbox();
+        corruption.scale.set(0.7, 0.7); 
+        corruption.alpha = 0;
+        if (ClientPrefs.shaders) corruption.shader = pixel;
     }
-
-    
-    backGlitch = new flixel.FlxSprite(750, 1500);
-    backGlitch.loadGraphic(retrieveAsset('images/reveal/glitch', 'image'));
-    backGlitch.updateHitbox();
-    backGlitch.scale.set(0.7, 0.7);
-    backGlitch.scrollFactor.set();
-
-    hillShit = new flixel.FlxSprite(750, 1500);
-    hillShit.loadGraphic(retrieveAsset('images/reveal/HillStuff', 'image'));
-    hillShit.updateHitbox();
-    hillShit.scale.set(0.7, 0.7);
-    hillShit.scrollFactor.set(0.65, 0.65);
-
-    particles = new flixel.FlxSprite(750, 1500);
-    particles.loadGraphic(retrieveAsset('images/reveal/Particles', 'image'));
-    particles.updateHitbox();
-    particles.scale.set(0.5, 0.5);
-    particles.alpha = 0;
-
-    dangling = new flixel.FlxSprite(750, 1500);
-    dangling.loadGraphic(retrieveAsset('images/reveal/Dangling', 'image'));
-    dangling.updateHitbox();
-    dangling.scale.set(0.7, 0.7);
-    dangling.scrollFactor.set(0.85, 0.85);
-
-    corruption = new flixel.FlxSprite(750, 1500);
-    corruption.loadGraphic(retrieveAsset('images/reveal/Corruption', 'image'));
-    corruption.updateHitbox();
-    corruption.scale.set(0.7, 0.7); 
-    corruption.alpha = 0;
-    if (ClientPrefs.shaders) corruption.shader = pixel;
 
     revealBackground = new flixel.FlxSprite(750, 1500);
     revealBackground.loadGraphic(retrieveAsset('images/reveal/realBackground', 'image'));
@@ -91,31 +90,34 @@ function onCreate()
 
     revealBackground.y += 475;
     revealBackground.x += 675;
-    backGlitch.y -= 1910;
-    hillShit.y -= 425;
-    particles.y += 270;
-    dangling.y -= 110;
-    corruption.y += 270;
+    if (!ClientPrefs.lowQuality)
+        {
+            backGlitch.y -= 1910;
+            hillShit.y -= 425;
+            particles.y += 270;
+            dangling.y -= 110;
+            corruption.y += 270;
 
-    backGlitch.x -= 1580;
-    hillShit.x -= 490;
-    particles.x += 130;
-    dangling.x -= 210;
-    corruption.x += 150;
+            backGlitch.x -= 1580;
+            hillShit.x -= 490;
+            particles.x += 130;
+            dangling.x -= 210;
+            corruption.x += 150;
+        }
 
     add(bg);
-    add(thunder);
+    if (!ClientPrefs.lowQuality) add(thunder);
     add(treehouse);
-    add(thunder);
+    if (!ClientPrefs.lowQuality) add(thunder);
 
     // reveal shit cuz yes
 
     // add(revealBackground);
-    add(backGlitch);
-    add(hillShit);
-    foreground.add(particles);
-    add(dangling);
-    foreground.add(corruption);
+    if (!ClientPrefs.lowQuality) add(backGlitch);
+    if (!ClientPrefs.lowQuality) add(hillShit);
+    if (!ClientPrefs.lowQuality) foreground.add(particles);
+    if (!ClientPrefs.lowQuality) add(dangling);
+    if (!ClientPrefs.lowQuality) foreground.add(corruption);
 
     add(outside);
     add(outside2);
@@ -142,7 +144,7 @@ function onStepHit(curStep:Int)
             outside2.alpha = 1;
             coolGradient.alpha = 1;
             idkWhatAreThatThings.alpha = 1;
-            thunder.alpha = 0;
+            if (!ClientPrefs.lowQuality) thunder.alpha = 0;
             treehouse.alpha = 0;
             bg.alpha = 0;
             doThunder = false;
@@ -155,11 +157,11 @@ function onStepHit(curStep:Int)
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
 
-            backGlitch.alpha = 1;
-            hillShit.alpha = 1;
-            particles.alpha = 1;
-            dangling.alpha = 1;
-            corruption.alpha = 1;
+            if (!ClientPrefs.lowQuality) backGlitch.alpha = 1;
+            if (!ClientPrefs.lowQuality) hillShit.alpha = 1;
+            if (!ClientPrefs.lowQuality) particles.alpha = 1;
+            if (!ClientPrefs.lowQuality) dangling.alpha = 1;
+            if (!ClientPrefs.lowQuality) corruption.alpha = 1;
 
             dadCamZoom = 0.85;
         }else if (curStep == 628)
@@ -168,9 +170,9 @@ function onStepHit(curStep:Int)
             outside2.alpha = 0;
             coolGradient.alpha = 0;
             idkWhatAreThatThings.alpha = 0;
-            FlxTween.tween(corruption, {alpha: 1}, 3);
+            if (!ClientPrefs.lowQuality) FlxTween.tween(corruption, {alpha: 1}, 3);
 
-            thunder.alpha = 1;
+            if (!ClientPrefs.lowQuality) thunder.alpha = 1;
             treehouse.alpha = 1;
             bg.alpha = 0;
             doThunder = true;
@@ -179,11 +181,11 @@ function onStepHit(curStep:Int)
             dadCamZoom = 0.6;
 
             // revealBackground.alpha = 0;
-            backGlitch.alpha = 0;
-            hillShit.alpha = 0;
-            particles.alpha = 0;
-            dangling.alpha = 0;
-            corruption.alpha = 0;
+            if (!ClientPrefs.lowQuality) backGlitch.alpha = 0;
+            if (!ClientPrefs.lowQuality) hillShit.alpha = 0;
+            if (!ClientPrefs.lowQuality) particles.alpha = 0;
+            if (!ClientPrefs.lowQuality) dangling.alpha = 0;
+            if (!ClientPrefs.lowQuality) corruption.alpha = 0;
             
             bg.alpha = 1;
         }else if (curStep == 1536)
@@ -192,13 +194,13 @@ function onStepHit(curStep:Int)
             dadCamZoom = 0.6;
 
             // revealBackground.alpha = 0;
-            backGlitch.alpha = 0;
-            hillShit.alpha = 0;
-            particles.alpha = 0;
-            dangling.alpha = 0;
-            corruption.alpha = 0;
+            if (!ClientPrefs.lowQuality) backGlitch.alpha = 0;
+            if (!ClientPrefs.lowQuality) hillShit.alpha = 0;
+            if (!ClientPrefs.lowQuality) particles.alpha = 0;
+            if (!ClientPrefs.lowQuality) dangling.alpha = 0;
+            if (!ClientPrefs.lowQuality) corruption.alpha = 0;
 
-            thunder.alpha = 1;
+            if (!ClientPrefs.lowQuality) thunder.alpha = 1;
             treehouse.alpha = 1;
             bg.alpha = 1;
             doThunder = true;
@@ -216,9 +218,8 @@ function onBeatHit(curBeat:Int)
 
 function lightningStrike()
     {
-        thunder.alpha = 1;
-        thunder.animation.play('thunder');
-        thunder.animation.finishCallback = function()
-            thunder.alpha = 0.0001;
-
+        if (!ClientPrefs.lowQuality) thunder.alpha = 1;
+        if (!ClientPrefs.lowQuality) thunder.animation.play('thunder');
+        if (!ClientPrefs.lowQuality) thunder.animation.finishCallback = function()
+        if (!ClientPrefs.lowQuality) thunder.alpha = 0.0001;
     }
