@@ -2771,7 +2771,7 @@ class PlayState extends MusicBeatState
 		var charAnimOffsetX:Float = 0;
 		var charAnimOffsetY:Float = 0;
 		if(focusedCharacter!=null){
-			if(focusedCharacter.animation.curAnim!=null){
+			if(focusedCharacter.animation.curAnim!=null && !isCameraOnForcedPos){
 				switch (focusedCharacter.animation.curAnim.name.substring(4)){
 					case 'UP' | 'UP-alt' | 'UPmiss':
 						charAnimOffsetY -= animOffsetValue;
@@ -5999,11 +5999,12 @@ class PlayState extends MusicBeatState
 							lyricTxt.text = "";
 							defaultCamZoom = 0.8;
 							triggerEventNote('Apple Filter', 'off', 'white');
+							dad.x += 150;
 							if(ClientPrefs.shaders) {
-                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
-							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
-							camOverlay.setFilters([new ShaderFilter(crtFNF),new ShaderFilter(ntscFNF)]);
-							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF),new ShaderFilter(ntscFNF)]);
+                            camOther.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
+							camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF)]);
+							camOverlay.setFilters([new ShaderFilter(crtFNF)]);
+							camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF),new ShaderFilter(crtFNF),new ShaderFilter(mawFNF)]);
 							}
 							if (ClientPrefs.flashing)
 								camOther.flash(FlxColor.WHITE, 1);
@@ -7679,6 +7680,9 @@ class PlayState extends MusicBeatState
 		setOnLuas('curBeat', curBeat); //DAWGG?????
 		callOnLuas('onBeatHit', []);
 
+		if (hiCameraPleaseFocusOnGfPleaseAndThankYou && gf != null)
+			focusedCharacter = gf;
+
         if(ClientPrefs.killyourself && camZooming) { //FOR THE FUNNY
             if (curBeat % 2 == 0) {
                 angleshit = anglevar;
@@ -7727,9 +7731,6 @@ class PlayState extends MusicBeatState
 			{
 				moveCameraSection();
 			}
-
-			if (hiCameraPleaseFocusOnGfPleaseAndThankYou && gf != null)
-				focusedCharacter = gf;
 
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
 			{
