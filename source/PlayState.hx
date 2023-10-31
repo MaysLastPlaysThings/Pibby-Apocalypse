@@ -1860,10 +1860,19 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var introCharacter = 'bf_intro';
 	public function startCountdown():Void
     {
         if (SONG.player1.contains('newbf')) {
-            bfIntro = new Boyfriend(0, 0, SONG.song == 'Retcon' ? 'bf_intro_but_retcon' : 'bf_intro'); //SOMEONE PLEASE FIX THE BF INTRO SCALING (I TRIED BUT PSYCH SCALING DOESNT GET ACCURATE ENOUGH)
+			switch (SONG.song)
+			{
+				case "Child's Play" | 'My Amazing World': introCharacter = 'bf_intro_gumball';
+				case 'Retcon': introCharacter = 'bf_intro_but_retcon';
+				case 'Mindless' | "Blessed by Swords" | 'Brotherly Love' | 'Suffering Siblings': introCharacter = 'bf_intro_finn';
+				default: introCharacter = 'bf_intro';
+			}
+			trace('current bf intro char: $introCharacter');
+            bfIntro = new Boyfriend(0, 0, introCharacter); //SOMEONE PLEASE FIX THE BF INTRO SCALING (I TRIED BUT PSYCH SCALING DOESNT GET ACCURATE ENOUGH)
 			// news flash the bf intro scaling is fixed yay!!!!
             startCharacterPos(bfIntro);
             boyfriend.alpha = 0;
