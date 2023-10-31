@@ -1349,13 +1349,13 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 1.7;
 					if (ClientPrefs.gore) {
                         GameOverSubstate.characterName = 'gumdead';
-						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.deathSoundName = 'new_gumball_death';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
 				case 'Retcon': 
 					if (ClientPrefs.gore) {
                         GameOverSubstate.characterName = 'gumdead';
-						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.deathSoundName = 'new_gumball_death';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
 				case 'Forgotten World':
@@ -1384,7 +1384,7 @@ class PlayState extends MusicBeatState
 					for (i in 0...opponentStrums.length) opponentStrums.members[i].shader = null;
 					if (ClientPrefs.gore) {
                         GameOverSubstate.characterName = 'gumdead';
-						GameOverSubstate.deathSoundName = 'bfgumballdeath';
+						GameOverSubstate.deathSoundName = 'new_gumball_death';
 						GameOverSubstate.endSoundName = 'gfgumballrevive';
                     }
 				case 'Blessed by Swords':
