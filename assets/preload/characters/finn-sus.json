@@ -1,77 +1,77 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				283,
 				-6
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Left"
+			"fps": 24,
+			"name": "Left",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				32,
 				250
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down"
+			"fps": 24,
+			"name": "Down",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				279,
 				223
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Up"
+			"fps": 24,
+			"name": "Up",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				145,
 				95
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Right"
+			"fps": 24,
+			"name": "Right",
+			"indices": []
 		},
 		{
+			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": true,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Idle"
+			"fps": 24,
+			"name": "Idle",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/Finn-Impostor",
 	"position": [
-		0,
-		330
+		-100,
+		250
 	],
-	"healthicon": "dad",
+	"healthicon": "finn",
 	"flip_x": false,
 	"healthbar_colors": [
-		175,
-		102,
-		206
+		168,
+		160,
+		179
 	],
 	"camera_position": [
-		0,
-		-200
+		-80,
+		-120
 	],
 	"sing_duration": 6.1,
 	"scale": 1

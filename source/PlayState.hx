@@ -796,7 +796,7 @@ class PlayState extends MusicBeatState
 		    dadGroup.add(jake);
 		}
 
-		dad = new Character(0, 0, SONG.player2);
+		dad = new Character(0, 0, ClientPrefs.killyourself && SONG.song == 'Suffering Siblings' ? 'finn-sus' : SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
