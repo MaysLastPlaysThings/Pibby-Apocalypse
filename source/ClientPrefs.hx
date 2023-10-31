@@ -39,6 +39,7 @@ class ClientPrefs {
 	public static var comboStacking = true;
     public static var useGPUCaching:Bool = false;
 	public static var widescreen:Bool = false;
+	public static var autopause:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -101,6 +102,9 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.autopause = autopause;
+		FlxG.autoPause = FlxG.save.data.autopause;
+
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -153,6 +157,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.autopause != null) {
+			autopause = FlxG.save.data.autopause;
+		}
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}

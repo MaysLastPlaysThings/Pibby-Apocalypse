@@ -135,7 +135,6 @@ class Main extends Sprite
 			addChild(buildDate);
 		}
 
-		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
 		sprite = new FlxSprite().loadGraphic(Paths.image('cursor/mouse (1)'));
 

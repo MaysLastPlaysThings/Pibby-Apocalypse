@@ -91,6 +91,7 @@
 	
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 	<assets path="hero.txt" rename='NO HERO REMIX CAN BE ACCESSED.txt' />
+	<assets path="README.txt" rename='README.txt' />
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO

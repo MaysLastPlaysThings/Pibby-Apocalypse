@@ -325,7 +325,7 @@ class MainMenuState extends MusicBeatState
 									FlxG.sound.playMusic(Paths.music('fpmenu'));
 								case 'CREDITS':
 									//credits aint done i just did this to make testing easier
-									MusicBeatState.switchState(new PACreditsState());
+									LoadingState.loadAndSwitchState(new PACreditsState());
 									FlxG.sound.playMusic(Paths.music('creditsmenu'));
 
                                     //Lib.getURL(new URLRequest('https://gamebanana.com/wips/73842'));

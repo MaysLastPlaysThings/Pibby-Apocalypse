@@ -1,37 +1,84 @@
 {
     "people": [
         ["funnymanBAUDAS70", "Baudas", "The guy no one talks about.\nOwner, director, and main artist.\nCarried the mod on the art department.", "youtube.com/@BAUDAS70", "x.com/BAUDAS70", "the funnyman", "DIRECTORS"],
+
         ["Requiem Zero", "NZero", "The reason we stay motivated. Best director ever & owns the mod.", "youtube.com/@Requiem_Zero", "x.com/Requiem_ZeroX", "IM GONNA FUCKING RIP YOU APART", "DIRECTORS"],
-        ["kylevi", "Kylevi", "BROTHERLY LOVE IS SO GOOD GRAHHHHH.\nCo-director, composer.\nAlso a mastering god.", "youtube.com/@thekylevi", "x.com/TheKylevi", "imagine kylevi-ing frfr", "DIRECTORS"],
+
+        ["Kylevi", "Kylevi", "BROTHERLY LOVE IS SO GOOD GRAHHHHH.\nCo-director, composer.\nAlso a mastering god.", "youtube.com/@thekylevi", "x.com/TheKylevi", "imagine kylevi-ing frfr", "DIRECTORS"],
+
         ["Awe", "Awe", "Come on, you know who this is.\nMade 'Suffering Siblings' and 'Forgotten World'.", "youtube.com/@awe9037", "x.com/GoddessAwe", "awe motif (REAL)", "DIRECTORS"],
+
         ["Brave", "Brave", "Peak animator, and co-director.\nAnimated the Jake and Gumball sprites.", "youtube.com/@", "x.com/", "Why am i here", "DIRECTORS"],
-        ["Aaron", "Aaron", "The man behind the scenes. Lead programmer.\nProgrammed the Hscript system, and helped a lot with optimization. Also assisted with some songs, backgrounds, and menus!", "youtube.com/@voxov_tired", "x.com/voxov_tired", "hi im aaron I love to program n hang with friends in my freetime :3", "PROGRAMMERS"],
-        ["Tormented", "Tormented", "Programmer.\nCoded a lot of the really cool stuff you see throughout the mod.", "youtube.com/@", "x.com/TormentProgram", "pibby = cringe (he's joking guys)", "PROGRAMMERS"],
+
+
+
+        ["Aaron", "Aaron", "The man behind the scenes. Lead programmer.\nProgrammed the Hscript system, and helped a lot with optimization.\n\nAlso assisted with some songs, backgrounds, and menus!", "youtube.com/@voxov_tired", "x.com/voxov_tired", "hi im aaron I love to program n hang with friends in my freetime :3", "PROGRAMMERS"],
+
+        ["Tormented", "Tormented", "Programmer.\nCoded a lot of the really cool stuff you see throughout the mod.", "youtube.com/@Tormented", "x.com/TormentProgram", "pibby = cringe (he's joking guys)", "PROGRAMMERS"],
+
         ["JustJasonLol", "Jason", "The other lead programmer.\nBasically carried the coding for the hotfix. (we thank you justjasonlol)", "youtube.com/@Jason_Lol", "x.com/JustJasonLol_", "What the what", "PROGRAMMERS"],
+
         ["Schweizer", "Schweizer", "the schkrunkly.\nProgrammer.\nCoded most of the song events you see in the mod, alongside other stuff, like menus.", "youtube.com/@", "x.com/", "how do our brains remember that we forgot something,\nbut we can't remember what that thing was - shower thoughts Schweizer", "PROGRAMMERS"],
+
         ["Tinny", "Tinny", "Programmer.\nHelped code for the demo with CAWM, and the credits menu.", "youtube.com/@_tinny_355", "x.com/Tinny239283", "fue mi pene", "PROGRAMMERS"],
-        ["ADA_Funni", "Placeholder", "Programmer.\nProgrammed this menu, also helped with bugfixing in Forgotten World.", "youtube.com/@ada_funni", "x.com/ADA_Funni", "this fnf mod is sponsored by raid shadow legends, also shoutout to dogtroid", "PROGRAMMERS"],
+
+        ["ADA_Funni", "Placeholder", "Programmer.\nProgrammed this menu, also helped with bug-fixing in Forgotten World\nand some minor details elsewhere.", "youtube.com/@ada_funni", "x.com/ADA_Funni", "this is legit the best time\ni've ever had working on an fnf mod;\ni couldn't have asked for a better team to work with\n\nalso shoutout to dogtroid", "PROGRAMMERS"],
+
+
+
         ["Yoosuf Meekail", "Yoosuf", "We all love CP\n\n\n\n(Child's Play)", "youtube.com/@YoosufMeekail", "x.com/YoosufMeekail", "a quote", "MUSICIANS"],
+
+        ["IAmDaDogeOfTheFuture", "Doge", "Made the song for this menu, and the freeplay menu.\nAlso, hero that appears to be fallen.", "www.youtube.com/@iamdadogeofdafuture", "x.com/@theguymanthing1", "I'm dead", "MUSICIANS"],
+
         ["Corn", "Corn", "Made 'My Amazing World'. On FL Studio. MOBILE.", "youtube.com/@--Corn520", "x.com/", "I lov yogurt green tea ;D", "MUSICIANS"],
-        ["Rareblin", "Rareblin", "'The among us guy'.\nMade 'Retcon', alongside Pattydecaffy.", "youtube.com/Rareblin", "x.com/uncommonblin", "no quote :(", "MUSICIANS"],
-        ["SevcExt277", "Sevc", "Made 'Mindless'.", "youtube.com/@sevcext277", "x.com/SevcExt277", "no quote :(", "MUSICIANS"],
+
+        ["Rareblin", "Rareblin", "'The among us guy'.\nMade 'Retcon', alongside Pattydecaffy.", "youtube.com/Rareblin", "x.com/uncommonblin", "subscribe to aleonepic", "MUSICIANS"],
+
+        ["Sevc_Ext_277", "Sevc", "Made 'Mindless'.", "youtube.com/@sevcext277", "x.com/SevcExt277", "no quote :(", "MUSICIANS"],
+
         ["Lettush", "Lettush", "Made 'Blessed By Swords'.", "youtube.com/@vtm1ns", "x.com/vtm1ns", "Because I am all out of MONEEEEEEY!!!!!", "MUSICIANS"],
+
+
         ["Just Nick", "Nick", "Artist.\nHelped on the credit portraits.", "youtube.com/@justnickY15", "x.com/", "no quote :(", "ARTISTS"],
+
         ["N O M I E", "Nomie", "Concept Artist", "youtube.com/@", "x.com/NomDomeStudios", "art is harder than me meat", "ARTISTS"],
+
         ["Nazmee Jafaar", "Nazmee", "Icon and general artist.\nMade icons and a few backgrounds", "youtube.com/@nazmee1964", "x.com/NazmehJaafar", "I'm le Nazmee and I'm Forklift certified", "ARTISTS"],
+
         ["RaiperStyle", "Raiper", "VFX Artist.", "youtube.com/@", "x.com/Helluvabossmod", "no quote :(", "ARTISTS"],
+
         ["L-C", "LC", "PEAK ARTIST!!\nHelped on the credit portraits, as well as some concept art.", "youtube.com/@", "x.com/Lord_380", "Let the colors consume you", "ARTISTS"],
+
+
+
         ["Vurn", "Vurn", "W Animator.\nMade the BF design and animated it, aswell as other cool stuff\nlike the death screens >:].", "youtube.com/@", "x.com/", "i love ripping bf into a gorey mess", "ANIMATORS"],
+
         ["Bonk", "Bonk", "Another W Animator.\nAnimated lots of stuff.", "youtube.com/@", "x.com/", "no quote :(", "ANIMATORS"],
+
+        ["Waze", "Waze", "The waze-est Waze of them all.\nCooked all the way.", "youtube.com/@waze_lol", "x.com/waze_retirated", "I hate Adobe grr, fuck you, but I love so much sawa, thanks for inspiring me", "ANIMATORS"],
+
         ["Alex", "Alex", "ANOTHER W Animator.\nAnimated faker Gumball, corrupted Gumball's laugh, and Finn's CAWM faker sprites\nAlso drew Jake's poses.", "youtube.com/@AlexDraw0_", "x.com/AlexDraw_", "Im Alex and i love cats (Fuck Jake sprite)", "ANIMATORS"],
+
         ["Dul", "Dul", "YET ANOTHER W ANIMATOR?!.\nAnimated Finn's Mindless transformation.", "youtube.com/@Dul2", "x.com/DulSuffering", "a person who thinks all the time has nothing to think about except thoughts", "ANIMATORS"],
+
         ["Kwispy", "Kwispy", "ANOTHER ONE?!?!?!?.\nArtist, animator, and musician.\nAnimated the B&W CAWM sprites (both BF and Finn)", "youtube.com/@kwispy5210", "x.com/I_AmKwispy", "HOW DID I GET HERE???", "ANIMATORS"],
+
         ["Cruz", "Cruz", "Last but not least.\nAnimator.", "youtube.com/@", "x.com/", "went from staying up at 3 am to see something pa related to working on the mod", "ANIMATORS"],
+
+
+
         ["Enderrot", "Placeholder", "Charter and one of the OG members.\nCharted 'SS', 'CAWM' and 'FW'.", "youtube.com/@enderrot3350", "x.com/Enderrot", "never thought I would work on a mod like this lmao", "CHARTERS"],
+
         ["Fidy", "Fidy", "Charter.\nCharted 'MAW', and 'Retcon'.", "youtube.com/@Fidy50", "x.com/50Fidy", "no quote :(", "CHARTERS"],
+
         ["Fakeburritos", "Fakeburritos", "Charter.\nCharted 'Child's Play'.", "youtube.com/@", "x.com/", "no quote :(", "CHARTERS"],
+
         ["Silver", "Silver", "Charter.", "youtube.com/@ShiniSilver", "x.com/ShiniSilver", "no quote :(", "CHARTERS"],
+
         ["NightmareXoNIX", "Nightmare", "Charter.\nCharted 'Child's Play'.", "youtube.com/@", "x.com/", "no quote :(", "CHARTERS"],
+
+
+
         ["M4", "M4", "Playtester.", "youtube.com/@", "x.com/", "no quote :(", "PLAYTESTERS"]
     ]
 }
