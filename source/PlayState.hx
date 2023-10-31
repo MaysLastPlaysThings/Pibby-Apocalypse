@@ -4538,10 +4538,6 @@ class PlayState extends MusicBeatState
             }
 		}
 
-        if (dad.curCharacter == 'finn-slash' && !note.isSustainNote) {
-            iconP2.scale.set(1.4, 1.4);
-        }
-
         jakeSings = false;
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
@@ -4592,14 +4588,7 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 			if (note.gfNote) {
 				char = gf;
-                jakeSings = true;
-				iconP3.scale.set(1.1, 1.1);
-				iconP3.updateHitbox();
-				if (SONG.song == "Suffering Siblings")
-					{
-						iconJake.scale.set(1.1, 1.1);
-						iconJake.updateHitbox();
-					}		
+                jakeSings = true;	
 			}
 			else if(note.char2note) {
 				char = jake;
@@ -4845,9 +4834,6 @@ class PlayState extends MusicBeatState
 
 				if (note.dodgeNote && boyfriend.curCharacter != 'bfsword') // when bfsword he parries
 					{
-                        if (!note.isSustainNote) {
-                            iconP1.scale.set(1.4, 1.4);
-                        }
 						boyfriend.playAnim(dodgeAnim, true);
 						boyfriend.specialAnim = true;
 						boyfriend.holdTimer = 0;
@@ -4855,9 +4841,6 @@ class PlayState extends MusicBeatState
 
 				else if (note.attackNote)
 					{
-                        if (!note.isSustainNote) {
-                            iconP1.scale.set(1.4, 1.4);
-                        }
 						boyfriend.playAnim(shootAnim, true);
 						boyfriend.specialAnim = true;
 						boyfriend.holdTimer = 0;
@@ -4867,12 +4850,7 @@ class PlayState extends MusicBeatState
 				{
 					if(gf != null)
 					{
-                        pibbySings = true;
-						if (SONG.song == "Suffering Siblings")
-							{
-								iconPibby.scale.set(1.1, 1.1);
-								iconPibby.updateHitbox();
-							}				
+                        pibbySings = true;		
 						gf.playAnim(animToPlay + note.animSuffix, true);
 						gf.holdTimer = 0;
 					}
