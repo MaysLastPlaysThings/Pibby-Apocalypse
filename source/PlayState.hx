@@ -3467,7 +3467,7 @@ class PlayState extends MusicBeatState
                         trace("DO NOT BAD APPLE TWICE!!");
                         return;
                     }
-                    if (ClientPrefs.shaders) camGame.pushFilter("glow",new ShaderFilter(glowfnf));
+                    if (ClientPrefs.shaders || !ClientPrefs.lowQuality) camGame.pushFilter("glow",new ShaderFilter(glowfnf));
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -3497,7 +3497,7 @@ class PlayState extends MusicBeatState
 				else{
                     if(touhouBG==null)return; // ficks
                     isAppleLOL = false;
-                    if (ClientPrefs.shaders) camGame.removeFilter("glow");
+                    if (ClientPrefs.shaders || !ClientPrefs.lowQuality) camGame.removeFilter("glow");
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
