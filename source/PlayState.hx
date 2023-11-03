@@ -5269,10 +5269,12 @@ class PlayState extends MusicBeatState
                                     iconP1.alpha = 0;
                                     pibbyHealthbar.alpha = 0;
                                     iconP2.alpha = 0;
+									if (!ClientPrefs.middleScroll) {
+										if (!ClientPrefs.downScroll) {
 									playerStrums.forEach(yeah -> {
-										if (!ClientPrefs.downScroll || !ClientPrefs.middleScroll) FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
+										FlxTween.tween(yeah, {x: yeah.x - 620}, 2.1, {ease: FlxEase.quadInOut});
 									});
-								}});
+								}}}});
 							}
 						case 2176:
 							for (i in 0...playerStrums.length) {
