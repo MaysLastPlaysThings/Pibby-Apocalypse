@@ -270,9 +270,6 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (FlxG.keys.justPressed.SEVEN) {
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
 
 			if (FlxG.keys.anyJustPressed([LEFT, A]))
 			{

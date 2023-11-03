@@ -118,6 +118,7 @@ function onCreate()
     if (!ClientPrefs.lowQuality) foreground.add(particles);
     if (!ClientPrefs.lowQuality) add(dangling);
     if (!ClientPrefs.lowQuality) foreground.add(corruption);
+    if (ClientPrefs.lowQuality) add(revealBackground);
 
     add(outside);
     add(outside2);
@@ -180,7 +181,7 @@ function onStepHit(curStep:Int)
         }else if (curStep == 896) {
             dadCamZoom = 0.6;
 
-            // revealBackground.alpha = 0;
+            if (ClientPrefs.lowQuality) revealBackground.alpha = 0;
             if (!ClientPrefs.lowQuality) backGlitch.alpha = 0;
             if (!ClientPrefs.lowQuality) hillShit.alpha = 0;
             if (!ClientPrefs.lowQuality) particles.alpha = 0;
@@ -190,10 +191,13 @@ function onStepHit(curStep:Int)
             bg.alpha = 1;
         }else if (curStep == 1536)
             dadCamZoom = 0.8;
+        else if (curStep == 1648) {
+            if (ClientPrefs.lowQuality) revealBackground.alpha = 1;
+        }
         else if (curStep == 1664) {
             dadCamZoom = 0.6;
 
-            // revealBackground.alpha = 0;
+            if (ClientPrefs.lowQuality) revealBackground.alpha = 0;
             if (!ClientPrefs.lowQuality) backGlitch.alpha = 0;
             if (!ClientPrefs.lowQuality) hillShit.alpha = 0;
             if (!ClientPrefs.lowQuality) particles.alpha = 0;
