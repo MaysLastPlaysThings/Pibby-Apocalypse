@@ -3352,6 +3352,12 @@ class PlayState extends MusicBeatState
 				FlxG.camera.zoom = 0.7;
 				defaultCamZoom = 0.7;
 
+				// emergency for ficks
+				var emergencyBlackness = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+					-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 4, FlxColor.BLACK);
+					emergencyBlackness.scrollFactor.set();
+				add(emergencyBlackness);
+
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
