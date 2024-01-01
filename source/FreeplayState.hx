@@ -26,9 +26,6 @@ import WeekData;
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
 #end
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
 
 using StringTools;
 

@@ -13,10 +13,6 @@ import flixel.FlxSubState;
 import haxe.Json;
 import haxe.format.JsonParser;
 import Alphabet;
-#if sys
-import sys.FileSystem;
-import sys.io.File;
-#end
 import openfl.utils.Assets;
 
 using StringTools;
@@ -91,21 +87,8 @@ class DialogueCharacter extends FlxSprite
 		var characterPath:String = 'images/dialogue/' + character + '.json';
 		var rawJson = null;
 
-		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
-			path = Paths.getPreloadPath(characterPath);
-		}
-
-		if(!FileSystem.exists(path)) {
-			path = Paths.getPreloadPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
-		}
-		rawJson = File.getContent(path);
-
-		#else
 		var path:String = Paths.getPreloadPath(characterPath);
 		rawJson = Assets.getText(path);
-		#end
 		
 		jsonFile = cast Json.parse(rawJson);
 	}
@@ -515,12 +498,6 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	}
 
 	public static function parseDialogue(path:String):DialogueFile {
-		#if MODS_ALLOWED
-		if(FileSystem.exists(path))
-		{
-			return cast Json.parse(File.getContent(path));
-		}
-		#end
 		return cast Json.parse(Assets.getText(path));
 	}
 

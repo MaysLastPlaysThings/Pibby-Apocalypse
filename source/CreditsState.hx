@@ -13,10 +13,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-#if MODS_ALLOWED
-import sys.FileSystem;
-import sys.io.File;
-#end
 import lime.utils.Assets;
 
 using StringTools;
@@ -262,31 +258,6 @@ class CreditsState extends MusicBeatState
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 	}
-
-	#if MODS_ALLOWED
-	private var modsAdded:Array<String> = [];
-	function pushModCreditsToList(folder:String)
-	{
-		if(modsAdded.contains(folder)) return;
-
-		var creditsFile:String = null;
-		if(folder != null && folder.trim().length > 0) creditsFile = Paths.mods(folder + '/data/credits.txt');
-		else creditsFile = Paths.mods('data/credits.txt');
-
-		if (FileSystem.exists(creditsFile))
-		{
-			var firstarray:Array<String> = File.getContent(creditsFile).split('\n');
-			for(i in firstarray)
-			{
-				var arr:Array<String> = i.replace('\\n', '\n').split("::");
-				if(arr.length >= 5) arr.push(folder);
-				creditsStuff.push(arr);
-			}
-			creditsStuff.push(['']);
-		}
-		modsAdded.push(folder);
-	}
-	#end
 
 	function getCurrentBGColor() {
 		var bgColor:String = creditsStuff[curSelected][4];
