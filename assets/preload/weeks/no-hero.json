@@ -1,0 +1,33 @@
+{
+	"songs": [
+		[
+			"No Hero Remix",
+			"dad",
+			[
+				146,
+				113,
+				253
+			],
+			83
+		]
+	],
+	"hiddenUntilUnlocked": true,
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"difficulties": "Normal",
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"storyName": "Your New Week",
+	"weekName": "Custom Week",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "e",
+	"startUnlocked": false
+}
