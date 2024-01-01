@@ -174,7 +174,11 @@ class NotesSubState extends MusicBeatSubstate
 
 		if (controls.BACK || (changingNote && controls.ACCEPT)) {
 			if(!changingNote) {
-				close();
+		  #if desktop
+			close();
+			#else
+			FlxG.resetState();
+			#end
 			} else {
 				changeSelection();
 			}
