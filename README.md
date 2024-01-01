@@ -24,3 +24,4 @@ extra note don't use this repo to mobile ports there are already some good ones 
 
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
+Also if you do decide to use the messy ass code presented here, at least try to credit us, alr thank you :3 ~ ADA_Funni
