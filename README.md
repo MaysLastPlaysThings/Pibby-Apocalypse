@@ -14,5 +14,8 @@ jason- i loved that part when gumball said "don't you get it darwin, this is my 
 im posting old SS
 https://cdn.discordapp.com/attachments/1122329162879864904/1147295681699127468/FINN_wip.mp3?ex=65a1bbde&is=658f46de&hm=6e79e31dd5269b017a34839b24c77c55b345fa4ca12ff179dec76b722b67e9ca&
 
+man fuck you aaron im posting old cawm then :( 
+https://cdn.discordapp.com/attachments/1135696460214698104/1191251532155469824/CAWMold.ogg?ex=65a4c271&is=65924d71&hm=a446264e6fb364be6c55f7bd7f571830151a0d8eeebab5aacde98321025b30a5&
+
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
