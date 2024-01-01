@@ -458,7 +458,7 @@ class Paths
 
 	inline static public function getContent(asset:String):Null<String>
 	{
-		#if sys
+		#if windows 
 		if (FileSystem.exists(asset))
 			return File.getContent(asset);
 		#else
@@ -506,7 +506,7 @@ class Paths
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
 		#if MODS_ALLOWED
-			currentTrackedSounds.set(gottenPath, Sound.fromFile('./' + gottenPath));
+			currentTrackedSounds.set(gottenPath, Sound.fromFile(gottenPath));
 		#else
 		{
 			var folder:String = '';
