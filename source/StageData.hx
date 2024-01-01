@@ -6,11 +6,6 @@ import haxe.io.Bytes;
 import haxe.io.Encoding;
 import Song;
 import openfl.utils.Assets;
-#if sys
-import sys.io.File;
-import sys.FileSystem;
-#end
-
 using StringTools;
 
 // The data that should be inside of the JSON structure
@@ -48,8 +43,6 @@ class StageData {
 
 		if ( Assets.exists(path) ) 
 			rawJson = Assets.getText(path);
-		else if ( FileSystem.exists(path) )
-			rawJson = File.getContent(path);
 		else
 			rawJson = null;
 
