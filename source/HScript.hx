@@ -19,6 +19,7 @@ import flixel.FlxBasic;
 import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 import openfl.display.BlendMode;
+import openfl.utils.Assets;
 
 using StringTools;
 
@@ -176,10 +177,10 @@ class ScriptManager {
 	
 	public static function loadScript(path : String, ?library : String, ?additionalParamaters : StringMap<Dynamic>):Script {
 		var newScript : Script = null;
-		if (FileSystem.exists(path)) {
+		if (Assets.exists(path)) {
 			trace('Currently loading script path ${path}');
-			try { scriptParser.parseString(File.getContent(path), path); } catch( e : Dynamic ) { trace(e); return null; }
-			newScript = new Script(scriptParser.parseString(File.getContent(path), path), additionalParamaters);
+			try { scriptParser.parseString(Assets.getText(path), path); } catch( e : Dynamic ) { trace(e); return null; }
+			newScript = new Script(scriptParser.parseString(Assets.getText(path), path), additionalParamaters);
 			return newScript;
 		} else {
 			trace('The path ${path}, is not a valid path');
