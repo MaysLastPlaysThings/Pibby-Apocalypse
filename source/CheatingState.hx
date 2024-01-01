@@ -59,6 +59,9 @@ class CheatingState extends MusicBeatState
                 #if windows
                 lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn', 'Cheating is not allowed!');
                 Sys.exit(1);
+                #else
+                lime.app.Application.current.window.alert('Our game, our rules, Player.' + '\n- Finn', 'Cheating is not allowed!');
+                Sys.exit(1);
                 #end
                 return;
             }
