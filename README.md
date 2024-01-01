@@ -11,5 +11,8 @@ aaron- dont listen to this guy above ^ he smells
 
 jason- i loved that part when gumball said "don't you get it darwin, this is my amazing world!". i truly cried
 
+im posting old SS
+https://cdn.discordapp.com/attachments/1122329162879864904/1147295681699127468/FINN_wip.mp3?ex=65a1bbde&is=658f46de&hm=6e79e31dd5269b017a34839b24c77c55b345fa4ca12ff179dec76b722b67e9ca&
+
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
