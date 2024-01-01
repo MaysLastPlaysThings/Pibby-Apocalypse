@@ -107,17 +107,19 @@ class Main extends Sprite
 	
 		ClientPrefs.loadDefaultKeys();
 		ClientPrefs.getGameplaySetting('botplay', false);
+    #if desktop
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
+	  #else
+		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, false));
+    #end
 
 		ScriptManager.init();
 		InputFormatter.loadKeys();
 
-		#if !mobile
 		addChild(new FPSCounter(10, 3, 0xFFFFFF));
 		if(FPSCounter.instance != null) {
 			FPSCounter.instance.visible = ClientPrefs.showFPS;
 		}
-		#end
 
         if (debug)
 		{
