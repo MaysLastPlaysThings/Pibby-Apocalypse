@@ -5,5 +5,7 @@ but if you were interested in how the demo was programmed from december to novem
 
 jason- guys you should totally check out the oldest commits for old PA media thats cool totally not buggy trust me !!
 
+tormented- i hate pibby check out my mods fr!)!(
+
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
