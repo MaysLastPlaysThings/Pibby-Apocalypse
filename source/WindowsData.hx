@@ -15,7 +15,7 @@ package;
 #include <dwmapi.h>
 #include <winuser.h>
 ')
-#elseif linux
+#elseif android
 @:headerCode("#include <stdio.h>")
 #end
 class WindowsData
@@ -26,7 +26,7 @@ class WindowsData
 		GetPhysicallyInstalledSystemMemory(&allocatedRAM);
 		return (allocatedRAM / 1024);
 	")
-	#elseif linux
+	#elseif android 
 	@:functionCode('
 		FILE *meminfo = fopen("/proc/meminfo", "r");
 
