@@ -9,5 +9,7 @@ tormented- i hate pibby check out my mods fr!)!(
 
 aaron- dont listen to this guy above ^ he smells
 
+jason- i loved that part when gumball said "don't you get it darwin, this is my amazing world!". i truly cried
+
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
