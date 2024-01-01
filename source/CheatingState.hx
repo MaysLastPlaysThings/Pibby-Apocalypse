@@ -61,8 +61,6 @@ class CheatingState extends MusicBeatState
                 Sys.exit(1);
                 #end
 
-
-
                 return;
             }
             #else
