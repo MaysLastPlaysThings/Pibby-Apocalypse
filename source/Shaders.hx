@@ -1101,7 +1101,7 @@ class InvertShader extends FlxShader
     @:glFragmentSource('
     #pragma header
 
-    uniform float binaryIntensity;
+    binaryIntensity;
     uniform float negativity;
     
     void main(){
@@ -1135,6 +1135,8 @@ class InvertShader extends FlxShader
   
     public function new()
 	{
+                binaryIntensity.value = [1000.0];
+
 		super();
 	}
 }
