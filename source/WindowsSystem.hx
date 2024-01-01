@@ -17,7 +17,7 @@ Code Has Been Done By Chromasen And Erizur For Dave And Bambi.
 
 #pragma comment(lib, "Dwmapi")
 #pragma comment(lib, "Shell32.lib")')
-#elseif linux
+#elseif android
 @:cppFileCode('
 #include <stdlib.h>
 #include <stdio.h>
@@ -92,7 +92,7 @@ class WindowsSystem
 
         return Shell_NotifyIcon(NIM_MODIFY, &m_NID);
     ')
-    #elseif linux
+    #elseif android
     @:functionCode('
         std::string cmd = "notify-send -u normal \'";
         cmd += title.c_str();
