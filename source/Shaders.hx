@@ -202,7 +202,7 @@ class MAWVHS extends FlxShader {
     
     float noise(vec2 p)
     {
-        float s = texture(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
+        float s = texture2D(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
         s *= s;
         return s;
     }
@@ -482,7 +482,7 @@ void main()
 	var topPrefix:String = "";
 
 	public function new() {
-		topPrefix = "#version 120\n\n";
+		topPrefix = "#version 60\n\n";
 		__glSourceDirty = true;
 
 		super();
@@ -623,7 +623,7 @@ class ReflectionShader extends FlxShader
   
     #pragma header
 
-    uniform float reflectionY = 0.36;
+    uniform float reflectionY;
 
 
     vec4 color = vec4(1.0);
@@ -1101,7 +1101,7 @@ class InvertShader extends FlxShader
     @:glFragmentSource('
     #pragma header
 
-    uniform float binaryIntensity = 1000.0;
+    uniform float binaryIntensity;
     uniform float negativity;
     
     void main(){
