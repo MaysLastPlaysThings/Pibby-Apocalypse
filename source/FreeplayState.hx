@@ -201,14 +201,14 @@ class FreeplayState extends MusicBeatState
 
 		songText = new FlxTypeText(image.x, image.y + 35, Std.int(FlxG.width * 1), "");
 		songText.antialiasing = ClientPrefs.globalAntialiasing;
-		songText.setFormat(Paths.font("menuBUTTONS.ttf"), 64, FlxColor.WHITE, CENTER);
+		songText.setFormat(Paths.font("mum.ttf"), 64, FlxColor.WHITE, CENTER);
 		if (!ClientPrefs.lowQuality) songText.blend = ADD;
 		if (ClientPrefs.shaders) songText.shader = bloomFNF;
 		add(songText);
 
 		artistText = new FlxTypeText(songText.x, songText.y + 80, Std.int(FlxG.width * 1), "");
 		artistText.antialiasing = ClientPrefs.globalAntialiasing;
-		artistText.setFormat(Paths.font("menuBUTTONS.ttf"), 36, FlxColor.WHITE, CENTER);
+		artistText.setFormat(Paths.font("type.ttf"), 36, FlxColor.WHITE, CENTER);
 		if (!ClientPrefs.lowQuality) artistText.blend = ADD;
 		if (ClientPrefs.shaders) artistText.shader = bloomFNF;
 		add(artistText);
@@ -236,7 +236,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		dogeTxt = new FlxText(0, FlxG.height - 50, 0, "♪ Now Playing: Freeplay Theme - By Doge ♪", 8);
-		dogeTxt.setFormat(Paths.font("menuBUTTONS.ttf"), 24, FlxColor.WHITE, LEFT);
+		dogeTxt.setFormat(Paths.font("mum.ttf"), 24, FlxColor.WHITE, LEFT);
 		dogeTxt.alpha = 0;
 		dogeTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(dogeTxt);
@@ -358,11 +358,6 @@ class FreeplayState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
-
-		if (FlxG.random.int(0, 1) < 0.01) 
-			{
-				shaderIntensity = FlxG.random.float(0.2, 0.3);
-			}
 
 		if(ClientPrefs.shaders) {
             if (allowGlitch) {
@@ -584,6 +579,15 @@ class FreeplayState extends MusicBeatState
 		super.beatHit();
 	}
 
+	override function stepHit() {
+		super.stepHit();
+		if (FlxG.random.int(0, 1) < 0.01) 
+			{
+				shaderIntensity = FlxG.random.float(0.2, 0.3);
+			}
+			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+	}
+
 	public static function destroyFreeplayVocals() {
 		if(vocals != null) {
 			vocals.stop();
@@ -708,7 +712,7 @@ class FreeplayState extends MusicBeatState
 
 		songText.revive();
 		songText.resetText(songs[curSelected].songName.toUpperCase());
-		songText.start(0.04, true);
+		songText.start(0.1, true);
 		songText.alpha = 1;
 		songText.completeCallback = function() {
 			artistText.alpha = 1;

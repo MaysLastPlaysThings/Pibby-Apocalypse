@@ -20,5 +20,7 @@ https://cdn.discordapp.com/attachments/1135696460214698104/1191251532155469824/C
 okay that is IT, old gameplay in january
 https://cdn.discordapp.com/attachments/1135696460214698104/1191250840242114600/2023_01_29_14_44_06.mov?ex=65a4c1cc&is=65924ccc&hm=d461895390d1306447a5a5e3605d861d5763645f7ef166e297c553252c0e2db7&
 
+extra note don't use this repo to mobile ports there are already some good ones over there please and thank you :))
+
 https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
 
