@@ -41,11 +41,8 @@ class CheatingState extends MusicBeatState
             inCutscene = true;
     
             var filepath:String = Paths.video(name);
-            #if sys
-            if(!FileSystem.exists(filepath))
-            #else
+      
             if(!OpenFlAssets.exists(filepath))
-            #end
             {
                 FlxG.log.warn('Couldnt find video file: ' + name);
                 MusicBeatState.switchState(new FreeplayState());
@@ -56,10 +53,10 @@ class CheatingState extends MusicBeatState
             video.playVideo(filepath);
             video.finishCallback = function()
             {
-                #if windows
-                lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn', 'Cheating is not allowed!');
+                //#if windows
+                lime.app.Application.current.window.alert('Our game, our rules\n- Finn', 'Cheating is not allowed!');
                 Sys.exit(1);
-                #end
+                //#end
 
                 return;
             }
