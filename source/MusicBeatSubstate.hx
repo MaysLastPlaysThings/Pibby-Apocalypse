@@ -33,62 +33,57 @@ class MusicBeatSubstate extends FlxSubState
 		return PlayerSettings.player1.controls;
 
 		#if mobile
-			var virtualPad:FlxVirtualPad;
-				var trackedInputsVirtualPad:Array<FlxActionInput> = [];
+		var virtualPad:FlxVirtualPad;
+		var trackedInputsVirtualPad:Array<FlxActionInput> = [];
 
-					public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
-						{
-									if (virtualPad != null)
-												removeVirtualPad();
+		public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+		{
+			if (virtualPad != null)
+			removeVirtualPad();
 
-														virtualPad = new FlxVirtualPad(DPad, Action);
-																add(virtualPad);
+			virtualPad = new FlxVirtualPad(DPad, Action);
+			add(virtualPad);
 
-																		controls.setVirtualPadUI(virtualPad, DPad, Action);
-																				trackedInputsVirtualPad = controls.trackedInputsUI;
-																						controls.trackedInputsUI = [];
-						}
+			controls.setVirtualPadUI(virtualPad, DPad, Action);
+			trackedInputsVirtualPad = controls.trackedInputsUI;
+			controls.trackedInputsUI = [];
+		}
 
-							public function removeVirtualPad()
-								{
-											if (trackedInputsVirtualPad.length > 0)
-														controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+		public function removeVirtualPad()
+		{
+			if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
-																if (virtualPad != null)
-																			remove(virtualPad);
-								}
+			if (virtualPad != null)
+			remove(virtualPad);
+		}
 
-									public function addVirtualPadCamera(DefaultDrawTarget:Bool = true)
-										{
-													if (virtualPad != null)
-															{
-																			var camControls:FlxCamera = new FlxCamera();
-																						FlxG.cameras.add(camControls, DefaultDrawTarget);
-																									camControls.bgColor.alpha = 0;
-																												virtualPad.cameras = [camControls];
-															}
-										}
-											#end
+		public function addVirtualPadCamera(DefaultDrawTarget:Bool = true)
+		{
+			if (virtualPad != null)
+			{
+				var camControls:FlxCamera = new FlxCamera();
+				FlxG.cameras.add(camControls, DefaultDrawTarget);
+				camControls.bgColor.alpha = 0;
+				virtualPad.cameras = [camControls];
+			}
+		}
+		#end
 
-												override function destroy()
-													{
-																#if mobile
-																		if (trackedInputsVirtualPad.length > 0)
-																					controls.removeVirtualControlsInput(trackedInputsVirtualPad);
-																							#end
+		override function destroy()
+		{
+			#if mobile
+			if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+			#end
 
-																									super.destroy();
+			super.destroy();
 
-																											#if mobile
-																													if (virtualPad != null)
-																																virtualPad = FlxDestroyUtil.destroy(virtualPad);
-																																		#end
-													}
-													}
-															}
-										}
-								}
-						}
+			#if mobile
+			if (virtualPad != null)
+			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+			#end
+		}
 
 	override function create() {
 		FlxSprite.defaultAntialiasing = ClientPrefs.globalAntialiasing;

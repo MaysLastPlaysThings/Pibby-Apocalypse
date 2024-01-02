@@ -35,8 +35,8 @@ class ClientPrefs {
 	public static var controllerMode:Bool = #if desktop false #else true #end;
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
-	public static var hitboxalpha:String = 0.2;
-	public static var padalpha:String = 0.5;
+	public static var hitboxalpha:Float = 0.2;
+	public static var padalpha:Float = 0.5;
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
     public static var useGPUCaching:Bool = false;
