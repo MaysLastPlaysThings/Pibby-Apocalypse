@@ -1131,6 +1131,11 @@ class PlayState extends MusicBeatState
         if(SONG.song.toLowerCase() == 'mindless')finnT.cameras = [camHUD];
 		channelTxt.cameras = [camOther];
 
+   #if mobile
+   addMobileControls(false);
+   mobileControls.visible = false;
+   #end
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1863,6 +1868,10 @@ class PlayState extends MusicBeatState
 	var introCharacter = 'bf_intro';
 	public function startCountdown():Void
     {
+     #if mobile
+     mobileControls.visible = true;
+     #end
+ 
         if (SONG.player1.contains('newbf')) {
 			switch (SONG.song)
 			{
@@ -2816,7 +2825,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if (controls.PAUSE #if mobile || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
             for (hScript in allScripts) {
 			    hScript.onPause();
@@ -3830,6 +3839,9 @@ class PlayState extends MusicBeatState
 	public var transitioning = false;
 	public function endSong():Void
 	{
+	  #if mobile
+	  mobileControls.visible = false;
+	  #end
 		//Should kill you if you tried to cheat
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
