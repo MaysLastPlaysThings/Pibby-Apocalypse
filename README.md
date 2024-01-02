@@ -24,5 +24,6 @@ https://cdn.discordapp.com/attachments/1135696460214698104/1191250840242114600/2
 
 extra note don't use this repo to mobile ports there are already some good ones over there please and thank you :))
 
-https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
+Also if you do decide to use the messy ass code presented here, at least try to credit us, alr thank you :3 ~ ADA_Funni
 
+https://github.com/TormentedProgram/Pibby-Apocalypse/assets/98182734/eea9c65e-a541-4b7a-b852-7f145335cc75
