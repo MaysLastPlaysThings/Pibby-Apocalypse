@@ -118,6 +118,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 
         FlxG.camera.snapToTarget();
+
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
 	}
 
 	var isFollowingAlready:Bool = false;
