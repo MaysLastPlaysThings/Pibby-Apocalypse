@@ -119,6 +119,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(grpMenuShit);
 
 		regenMenu();
+
+		#if mobile
+		addVirtualPad(UP_DOWN, A);
+		addVirtualPadCamera(false);
+		#end
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 

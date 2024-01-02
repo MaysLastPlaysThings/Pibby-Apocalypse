@@ -10,6 +10,9 @@ enum abstract RuntimeShaders(String) to String from String
     uniform float negativity;
     
     void main(){
+
+        #pragma body
+
         vec2 uv = openfl_TextureCoordv.xy;
         
         // get snapped position
@@ -37,7 +40,7 @@ enum abstract RuntimeShaders(String) to String from String
         gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
     }
     ";
-    
+	
     var glowy = "
     //SHADERTOY PORT FIX
     #pragma header
@@ -56,30 +59,32 @@ enum abstract RuntimeShaders(String) to String from String
 
     void mainImage()
     {
+       #pragma body
+
        vec4 sum = vec4(0);
        vec2 texcoord = fragCoord.xy/iResolution.xy;
        int j;
        int i;
     
-       sum += texture(iChannel0, vec2(texcoord.x - 4.0*blurSize, texcoord.y)) * 0.05;
-       sum += texture(iChannel0, vec2(texcoord.x - 3.0*blurSize, texcoord.y)) * 0.09;
-       sum += texture(iChannel0, vec2(texcoord.x - 2.0*blurSize, texcoord.y)) * 0.12;
-       sum += texture(iChannel0, vec2(texcoord.x - blurSize, texcoord.y)) * 0.15;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y)) * 0.16;
-       sum += texture(iChannel0, vec2(texcoord.x + blurSize, texcoord.y)) * 0.15;
-       sum += texture(iChannel0, vec2(texcoord.x + 2.0*blurSize, texcoord.y)) * 0.12;
-       sum += texture(iChannel0, vec2(texcoord.x + 3.0*blurSize, texcoord.y)) * 0.09;
-       sum += texture(iChannel0, vec2(texcoord.x + 4.0*blurSize, texcoord.y)) * 0.05;
+       sum += texture2D(iChannel0, vec2(texcoord.x - 4.0*blurSize, texcoord.y)) * 0.05;
+       sum += texture2D(iChannel0, vec2(texcoord.x - 3.0*blurSize, texcoord.y)) * 0.09;
+       sum += texture2D(iChannel0, vec2(texcoord.x - 2.0*blurSize, texcoord.y)) * 0.12;
+       sum += texture2D(iChannel0, vec2(texcoord.x - blurSize, texcoord.y)) * 0.15;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y)) * 0.16;
+       sum += texture2D(iChannel0, vec2(texcoord.x + blurSize, texcoord.y)) * 0.15;
+       sum += texture2D(iChannel0, vec2(texcoord.x + 2.0*blurSize, texcoord.y)) * 0.12;
+       sum += texture2D(iChannel0, vec2(texcoord.x + 3.0*blurSize, texcoord.y)) * 0.09;
+       sum += texture2D(iChannel0, vec2(texcoord.x + 4.0*blurSize, texcoord.y)) * 0.05;
         
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y - 4.0*blurSize)) * 0.05;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y - 3.0*blurSize)) * 0.09;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y - 2.0*blurSize)) * 0.12;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y - blurSize)) * 0.15;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y)) * 0.16;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y + blurSize)) * 0.15;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y + 2.0*blurSize)) * 0.12;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y + 3.0*blurSize)) * 0.09;
-       sum += texture(iChannel0, vec2(texcoord.x, texcoord.y + 4.0*blurSize)) * 0.05;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y - 4.0*blurSize)) * 0.05;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y - 3.0*blurSize)) * 0.09;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y - 2.0*blurSize)) * 0.12;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y - blurSize)) * 0.15;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y)) * 0.16;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y + blurSize)) * 0.15;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y + 2.0*blurSize)) * 0.12;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y + 3.0*blurSize)) * 0.09;
+       sum += texture2D(iChannel0, vec2(texcoord.x, texcoord.y + 4.0*blurSize)) * 0.05;
     
        fragColor = sum*intensity + texture(iChannel0, texcoord); 
     }
@@ -104,6 +109,9 @@ enum abstract RuntimeShaders(String) to String from String
     }
     
     void main() {
+
+        #pragma body
+
         vec2 uv = openfl_TextureCoordv; //openfl_TextureCoordv.xy*2. / openfl_TextureSize.xy-vec2(1.);
         
         vec2 trueAberration = aberration * pow((uv - 0.5), vec2(3.0, 3.0));
@@ -122,6 +130,8 @@ enum abstract RuntimeShaders(String) to String from String
     float zoom = 1;
     void main()
     {
+        #pragma body
+
         vec2 uv = openfl_TextureCoordv;
         uv = (uv-.5)*2.;
         uv *= zoom;
@@ -182,12 +192,12 @@ enum abstract RuntimeShaders(String) to String from String
     float ex = (cos(d)*Size*i)/openfl_TextureSize.x;
     float why = (sin(d)*Size*i)/openfl_TextureSize.y;
 
-    Color += flixel_texture2D( bitmap, uv+vec2(ex,why));	
+    Color += flixel_texture2D(bitmap, uv+vec2(ex,why));	
         }
     }
         
     Color /= (dim * Quality) * Directions - 15.0;
-    vec4 bloom =  (flixel_texture2D( bitmap, uv)/ dim)+Color;
+    vec4 bloom =  (flixel_texture2D(bitmap, uv)/ dim)+Color;
 
     gl_FragColor = bloom;
 
@@ -208,7 +218,7 @@ enum abstract RuntimeShaders(String) to String from String
     uniform float focusPower; // 10.0
 
     #define focusDetail 7.0
-    void mainImage( out vec4 fragColor, in vec2 fragCoord )
+    void mainImage(out vec4 fragColor, in vec2 fragCoord )
     {
         vec2 uv = fragCoord.xy / iResolution.xy;
         vec2 pos = vec2(posX, posY);
@@ -218,7 +228,7 @@ enum abstract RuntimeShaders(String) to String from String
 
         for (int i=0; i< int(focusDetail); i++) {
             float power = 1.0 - focusPower * (1.0/iResolution.x) * float(i);
-            outColor += texture(iChannel0, focus * power + pos);
+            outColor += texture2D(iChannel0, focus * power + pos);
         }
         
         outColor *= 1.0 / focusDetail;
@@ -292,7 +302,7 @@ enum abstract RuntimeShaders(String) to String from String
         vec2 a = vec2(uv.x * (iResolution.x / iResolution.y), uv.y);
         vec2 uv2 = vec2(a.x / iResolution.x, exp(a.y));
         vec2 id = floor(uv * 8.0);
-        //id.x /= floor(texture(iChannel0, vec2(id / 8.0)).r * 8.0);
+        //id.x /= floor(texture2D(iChannel0, vec2(id / 8.0)).r * 8.0);
 
         // Generate shift amplitude
         float shift = glitchAmplitude * pow(fbm(uv2, int(rand(id) * 6.), glitchBlockiness, glitchNarrowness), glitchMinimizer);
@@ -303,9 +313,9 @@ enum abstract RuntimeShaders(String) to String from String
         shift = smoothstep(0.00001, 0.2, shift);
         
         // Apply glitch and RGB shift
-        float colR = texture(iChannel0, vec2(uv.x + shift, uv.y)).r * (1. - shift) ;
-        float colG = texture(iChannel0, vec2(uv.x - shift, uv.y)).g * (1. - shift) + rand(id) * shift;
-        float colB = texture(iChannel0, vec2(uv.x - shift, uv.y)).b * (1. - shift);
+        float colR = texture2D(iChannel0, vec2(uv.x + shift, uv.y)).r * (1. - shift) ;
+        float colG = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).g * (1. - shift) + rand(id) * shift;
+        float colB = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).b * (1. - shift);
         // Mix with the scanline effect
         vec3 f = vec3(colR, colG, colB) - (0.1 * scanline);
         
@@ -411,7 +421,7 @@ enum abstract RuntimeShaders(String) to String from String
 		vec2 coordinates = fragCoord.xy/iResolution.xy;
 		vec2 pixelSize = vec2(size/iResolution.x, size/iResolution.y);
 		vec2 position = floor(coordinates/pixelSize)*pixelSize;
-		vec4 finalColor = texture(iChannel0, position);
+		vec4 finalColor = texture2D(iChannel0, position);
 		fragColor = finalColor;
 	}";
 }

@@ -120,7 +120,7 @@ class GameOverSubstate extends MusicBeatSubstate
         FlxG.camera.snapToTarget();
 
 		addVirtualPad(NONE, A_B);
-		addVirtualPadCamera();
+		addVirtualPadCamera(false);
 	}
 
 	var isFollowingAlready:Bool = false;
