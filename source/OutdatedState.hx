@@ -18,6 +18,11 @@ class OutdatedState extends MusicBeatState
 	var warnText:FlxText;
 	override function create()
 	{
+     #if mobile
+	 addVirtualPad(NONE, A_B);
+	 addVirtualPadCamera(false);
+	 #end
+
 		super.create();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
