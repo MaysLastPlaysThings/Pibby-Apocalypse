@@ -32,9 +32,11 @@ class ClientPrefs {
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = false;
+	public static var controllerMode:Bool = #if desktop false #else true #end;
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
+	public static var hitboxalpha:String = 0.2;
+	public static var padalpha:String = 0.5;
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
     public static var useGPUCaching:Bool = false;
@@ -143,6 +145,8 @@ class ClientPrefs {
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
+		FlxG.save.data.hitboxalpha = hitboxalpha;
+		FlxG.save.data.padalpha = padalpha;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
 		FlxG.save.data.useGPUCaching = useGPUCaching;
@@ -272,6 +276,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
+		}
+		if(FlxG.save.data.hitboxalpha != null) {
+			hitboxalpha = FlxG.save.data.hitboxalpha;
+		}
+		if(FlxG.save.data.padalpha != null) {
+			padalpha = FlxG.save.data.padalpha;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
