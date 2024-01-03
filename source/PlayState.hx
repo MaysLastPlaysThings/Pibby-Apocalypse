@@ -1768,9 +1768,7 @@ class PlayState extends MusicBeatState
 		cheatingVideo.finishCallback = function()
 		{
 			persistentUpdate = true;
-			#if windows
-			lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn');
-			#end
+			lime.app.Application.current.window.alert('Our game, our rules, ' + '.' + '\n- Finn');
 			Sys.exit(0);
 		}
 		#else
