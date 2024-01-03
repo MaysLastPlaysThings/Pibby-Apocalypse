@@ -29,7 +29,7 @@ class Paths
 	inline public static var VIDEO_EXT = "mp4";
 
 	public static function excludeAsset(key:String) {
-		if (!dumpExclusions.contins(key))
+		if (!dumpExclusions.contains(key))
 			dumpExclusions.push(key);
 	}
 
