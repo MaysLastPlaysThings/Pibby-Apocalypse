@@ -7,8 +7,8 @@
 * [MaysLastPlay](https://youtube.com/@MaysLastPlay) - First Porter
 * [MarioMaster](https://youtube.com/@MarioMaster39) - Second Porter
 * [FNF BR](https://youtube.com/@FNF-BR) - Third Porter
-* [Idklool](https://youtube.com/@idklool121) - Fourth Coder
-* [MateusX02](https://youtube.com/@mateusx02)
+* [Idklool](https://youtube.com/@idklool121) - Fourth Porter
+* [MateusX02](https://youtube.com/@mateusx02) - Fifth Porter
 
 ### Special Thanks
 * [MAJigsaw](https://github.com/MAJigsaw77) - AndroidTools Creator
