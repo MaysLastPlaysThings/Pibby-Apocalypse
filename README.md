@@ -2,12 +2,16 @@
 
 ## Note: This port is done for fun and to let everyone play og mod on mobile (not recreations or mods folder ports).
 
+### Port Credits:
 
+* [MaysLastPlay](https://youtube.com/@MaysLastPlay) - First Porter
+* [MarioMaster](https://youtube.com/@MarioMaster39) - Second Porter
+* [FNF BR](https://youtube.com/@FNF-BR) - Third Porter
+* [Idklool](https://youtube.com/@idklool121) - Fourth Coder
+* [MateusX02](https://youtube.com/@mateusx02)
 
-
-
-
-
+### Special Thanks
+* [MAJigsaw](https://github.com/MAJigsaw77) - AndroidTools Creator
 
 # OG Pibby Apocalypse Source Code Things:
 aaron- yes this is legit the source code, most of it is a mess, and i dont think any of us expect this to be salvageable,
