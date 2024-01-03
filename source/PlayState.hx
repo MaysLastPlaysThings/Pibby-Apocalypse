@@ -535,6 +535,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
+    #end
 
 		cnlogo = new BGSprite('cnlogo', 990, 600, 0, 0);
 		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.17));
@@ -572,6 +573,10 @@ class PlayState extends MusicBeatState
 			if(ClientPrefs.downScroll) cnlogo.y -= 530;
 		}
 
+		// video precachinggggggg
+		Paths.video('Cheating_is_a_sin');
+
+    #if desktop
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
@@ -581,9 +586,6 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 		#end
-
-		// video precachinggggggg
-		Paths.video('Cheating_is_a_sin');
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
