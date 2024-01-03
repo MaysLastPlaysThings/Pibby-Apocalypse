@@ -37,11 +37,11 @@ class Log
 			if (throwErrors)
 			{
 			        #if android
-                    if (!FileSystem.exists(/*Generic.returnPath() +*/ 'logs'))
-					FileSystem.createDirectory(/*Generic.returnPath() +*/ 'logs');
+                    if (!FileSystem.exists(Asset2File.getPath() + 'logs'))
+					FileSystem.createDirectory(Asset2File.getPath() + 'logs');
 
-				File.saveContent(/*Generic.returnPath()
-					+*/ 'logs/'
+				File.saveContent(Asset2File.getPath()
+					+ 'logs/'
 					+ Lib.application.meta.get('file')
 					+ '-'
 					+ Date.now().toString().replace(' ', '-').replace(':', "'")

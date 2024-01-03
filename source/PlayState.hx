@@ -535,6 +535,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
+    #end
 
 		cnlogo = new BGSprite('cnlogo', 990, 600, 0, 0);
 		cnlogo.setGraphicSize(Std.int(cnlogo.width * 0.17));
@@ -575,6 +576,7 @@ class PlayState extends MusicBeatState
 		// video precachinggggggg
 		Paths.video('Cheating_is_a_sin');
 
+    #if desktop
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
@@ -588,19 +590,18 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		
-		curStage = SONG.stage;
-		stage = new ScriptConstructor('stages/${curStage}','stage');
-		@:privateAccess {
-			stage.script.scriptInterpreter.curExpr.line = 0;
-		}
+    curStage = SONG.stage;
+    stage = new ScriptConstructor('stages/${curStage}','stage');
+      @:privateAccess {
+       stage.script.scriptInterpreter.curExpr.line = 0;
+        }
         _scriptMap.set(curStage, stage.script);
         allScripts.push(stage);
-		add(stage);
-		SONG.stage = curStage;
+        add(stage);
+        SONG.stage = curStage;
 
         var daPath:String = 'assets/stages/${curStage}/scripts';
-        if (FileSystem.exists(daPath) && FileSystem.isDirectory(daPath)) {
-            var files:Array<String> = FileSystem.readDirectory(daPath);
+            var files:Array<String> = Assets.list().list(text -> text.contains(daPath));
             if (files.length > 0) {
                 for (file in files) {
                     var lastIndex:Int = file.lastIndexOf(".");
@@ -608,14 +609,13 @@ class PlayState extends MusicBeatState
                     if (lastIndex != -1) {
                         var fileFixed:String = file.substr(0, lastIndex);
                         trace('Currently loading additional script ${file}');
-                        var daScript:ScriptConstructor = new ScriptConstructor('stages/${curStage}/scripts', fileFixed);
+                        var daScript:ScriptConstructor = new ScriptConstructor('', fileFixed);
                         _scriptMap.set(file, daScript.script);
                         allScripts.push(daScript);
                         add(daScript);
                     }
                 }
             }
-        }
 
 		var stageData:StageFile = StageData.getStageFile(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
@@ -1184,7 +1184,7 @@ class PlayState extends MusicBeatState
 					luaArray.push(new FunkinLua(luaToLoad, false));
 				}
 			}
-			#elseif sys
+			#else
 			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
 			if(OpenFlAssets.exists(luaToLoad))
 			{
@@ -1744,7 +1744,7 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 
 		var filepath:String = Paths.video('Cheating_is_a_sin');
-		#if sys
+		#if desktop
 		if(!FileSystem.exists(filepath))
 		#else
 		if(!OpenFlAssets.exists(filepath))
@@ -1768,9 +1768,7 @@ class PlayState extends MusicBeatState
 		cheatingVideo.finishCallback = function()
 		{
 			persistentUpdate = true;
-			#if windows
-			lime.app.Application.current.window.alert('Our game, our rules, ' + Sys.environment()["USERNAME"] + '.' + '\n- Finn');
-			#end
+			lime.app.Application.current.window.alert('Our game, our rules' + '.' + '\n- Finn');
 			Sys.exit(0);
 		}
 		#else
@@ -1786,7 +1784,7 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
-		#if sys
+		#if desktop
 		if(!FileSystem.exists(filepath))
 		#else
 		if(!OpenFlAssets.exists(filepath))
@@ -7790,7 +7788,7 @@ class PlayState extends MusicBeatState
 			// had to do this because there is a bug in haxe where Stop != Continue doesnt work
 			var bool:Bool = ret == FunkinLua.Function_Continue;
 			if(!bool && ret != 0) {
-				returnVal = cast ret;
+				returnVal = ret;
 			}
 		}
 		#end
