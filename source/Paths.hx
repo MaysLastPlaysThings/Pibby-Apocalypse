@@ -428,10 +428,17 @@ class Paths
     }
 
 	inline static public function modsShaderFragment(key:String, ?library:String)
+		#if MODS_ALLOWED
 		return modFolders('shaders/' + key + '.frag');
-
+		#else
+		return getPreloadPath('shaders/' + key + '.frag');
+		#end
 	inline static public function modsShaderVertex(key:String, ?library:String)
+		#if MODS_ALLOWED
 		return modFolders('shaders/' + key + '.vert');
+		#else
+		return getPreloadPath('shaders/' + key + '.vert');
+		#end
 
 	inline static public function getContent(asset:String):Null<String>
 	{
