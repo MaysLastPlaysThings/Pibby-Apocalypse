@@ -1,7 +1,15 @@
-# Pibby: Apocalypse sauce code whoa
+# Pibby: Apocalypse Mobile (sauce code whoa)
 
-Note: This port is done for fun and to let everyone play og mod on mobile (not recreations or mods folder ports).
+## Note: This port is done for fun and to let everyone play og mod on mobile (not recreations or mods folder ports).
 
+
+
+
+
+
+
+
+# OG Pibby Apocalypse Source Code Things:
 aaron- yes this is legit the source code, most of it is a mess, and i dont think any of us expect this to be salvageable,
 but if you were interested in how the demo was programmed from december to november here you go!!! we all learned a lot through this so most of it again is a mess, but if you're interested in da journey and what other stuff we did here you go !! enjoy :3
 
