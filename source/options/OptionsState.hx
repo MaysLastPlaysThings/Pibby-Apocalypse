@@ -139,18 +139,16 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 
     #if mobile
-			if (virtualPad.buttonX.justPressed)
-					{
-									removeVirtualPad();
-												openSubState(new mobile.MobileControlsSubState());
-					}
-							if (virtualPad.buttonY.justPressed) {
-											removeVirtualPad();
-														openSubState(new mobile.AndroidSettingsSubState());
-							}
-									#end
-							}
-					}
+	 if (virtualPad.buttonX.justPressed)
+		{
+			removeVirtualPad();
+			openSubState(new mobile.MobileControlsSubState());
+		}
+		if (virtualPad.buttonY.justPressed) {
+			removeVirtualPad();
+			openSubState(new mobile.AndroidSettingsSubState());
+		}
+	#end
 
 		super.update(elapsed);
 

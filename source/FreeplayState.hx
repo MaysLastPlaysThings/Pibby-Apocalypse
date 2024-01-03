@@ -68,7 +68,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var threatPercent:Int;
-    var glitchFWFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
+    var glitchFWFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null);
 
 	var bg:FlxSprite;
     var arrowL:FlxSprite;
@@ -83,7 +83,7 @@ class FreeplayState extends MusicBeatState
 	var levelBar:FlxBar;
 	var gradient:FlxSprite;
 
-	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null, 120);
+	var bloomFNF:FlxRuntimeShader = new FlxRuntimeShader(RuntimeShaders.dayybloomshader, null);
 
 	var canPress = false;
 	var saveY:Float;
