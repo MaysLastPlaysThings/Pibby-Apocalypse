@@ -245,7 +245,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 					options = false;
 
+          #if MODS_ALLOWED
 					WeekData.loadTheFirstEnabledMod();
+					#end
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
 						FlxG.sound.playMusic(Paths.music('freakyMenu_${Main.funnyMenuMusic}'));

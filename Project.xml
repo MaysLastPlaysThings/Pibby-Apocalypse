@@ -48,7 +48,7 @@
 	<define name="LUA_ALLOWED" if="desktop || mobile" />
 	<define name="VIDEOS_ALLOWED" if="web || windows || mobile" unless="32bits"/>
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
-	<define name="CRASH_HANDLER" if="desktop release" />
+	<define name="CRASH_HANDLER" if="desktop release || android" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
@@ -112,7 +112,8 @@
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" version="2.6.1" /> <!--this version could be wrong but it works-->
+	<haxelib name="hxCodec" version="2.6.1" if="VIDEOS_ALLOWED" /> <!--this version could be wrong but it works-->
+	<haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="faxe" if='switch'/>
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
@@ -163,8 +164,9 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	
 	<!--Used for Izzy Engine's crash handler-->
-	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
+	<haxedef name="HXCPP_STACK_TRACE"/>
+	<haxedef name="HXCPP_CHECK_POINTER"/>
+	<haxedef name="HXCPP_STACK_LINE"/>
 
         <config:android gradle-version="7.5.1" />
         <config:android gradle-plugin="7.3.1" />
