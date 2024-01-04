@@ -51,8 +51,8 @@ class ScriptManager {
 
 			try
 			{
-				runtime = new FlxRuntimeShader(fragFile == null ? null : Paths.getContent(Paths.modsShaderFragment(fragFile)),
-					vertFile == null ? null : Paths.getContent(Paths.modsShaderVertex(vertFile)));
+				runtime = new FlxRuntimeShader(fragFile == null ? null : Paths.getContent(Paths.ShaderFragment(fragFile)),
+					vertFile == null ? null : Paths.getContent(Paths.ShaderVertex(vertFile)));
 			}
 			catch (e:Dynamic)
 			{
