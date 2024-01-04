@@ -2561,9 +2561,11 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "saveFile", function(path:String, content:String, ?absolute:Bool = false)
 		{
 			try {
+			  #if MOSD_ALLOWED
 				if(!absolute)
 					File.saveContent(Paths.mods(path), content);
 				else
+				#end
 					File.saveContent(path, content);
 
 				return true;
@@ -2911,7 +2913,7 @@ class FunkinLua {
 			#if desktop
 			if(FileSystem.exists(folder))
 			#else
-			if(OpenFlAssets.exists(folder))
+			if(Assets.exists(folder))
 			#end
 			{
 				var frag:String = folder + name + '.frag';
@@ -2932,14 +2934,14 @@ class FunkinLua {
 				}
 				else vert = null;
 				#else
-				if(OpenFlAssets.exists(frag))
+				if(Assets.exists(frag))
 				{
 					frag = Assets.getText(frag);
 					found = true;
 				}
 				else frag = null;
 	
-				if (OpenFlAssets.exists(vert))
+				if (Assets.exists(vert))
 				{
 					vert = Assets.getText(vert);
 					found = true;
