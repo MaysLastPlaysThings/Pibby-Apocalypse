@@ -60,7 +60,7 @@ class PACreditsState extends MusicBeatState
 	function getCreditJson(path:String):CreditsData {
 		var json:String = null;
 
-		json = File.getContent(Paths.json(path));
+		json = Assets.getText(Paths.json(path));
 
 		if (json != null && json.length > 0) {
 			return cast Json.parse(json);
