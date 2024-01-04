@@ -889,8 +889,8 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	vec2 uv = openfl_TextureCoordv;
       vec2 tvWow = screenDistort(uv);
       if(distortionOn){
-        uv.x += rand(vec2(0, (uv.y/125.0) + iTime))/256.;
-        uv.y += rand(vec2(0, (uv.x/125.0) + iTime))/256.;
+        uv.x += rand(vec2(0., (uv.y/125.0) + iTime))/256.;
+        uv.y += rand(vec2(0., (uv.x/125.0) + iTime))/256.;
       }
       vec2 curUV = screenDistort(distortUV(uv));
     	uv = scandistort(curUV);
@@ -921,7 +921,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       gl_FragColor = video;
 
       if(tvWow.x<0. || tvWow.x>1. || tvWow.y<0. || tvWow.y>1.){
-        gl_FragColor = vec4(0,0,0,0);
+        gl_FragColor = vec4(0.,0.,0.,0.);
       }
 
     }
@@ -1031,7 +1031,7 @@ uniform float iTime;
 
 vec2 iResolution = openfl_TextureSize;
 
-uniform float amount = 0.5;
+uniform float amount;
 
 const float pi = radians(180.);
 const int samples = 20;

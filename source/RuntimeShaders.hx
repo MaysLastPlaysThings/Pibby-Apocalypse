@@ -6,7 +6,7 @@ enum abstract RuntimeShaders(String) to String from String
     var distort = 
     "#pragma header
 
-    uniform float binaryIntensity = 1000.0;
+    uniform float binaryIntensity;
     uniform float negativity;
     
     void main(){
@@ -61,7 +61,7 @@ enum abstract RuntimeShaders(String) to String from String
     {
        #pragma body
 
-       vec4 sum = vec4(0);
+       vec4 sum = vec4(0.);
        vec2 texcoord = fragCoord.xy/iResolution.xy;
        int j;
        int i;
@@ -127,7 +127,7 @@ enum abstract RuntimeShaders(String) to String from String
     var monitor = "
     #pragma header
 
-    float zoom = 1;
+    float zoom = 1.;
     void main()
     {
         #pragma body
@@ -171,9 +171,9 @@ enum abstract RuntimeShaders(String) to String from String
     uniform float uTime;
     uniform vec4 iMouse;
 
-    const float amount = 1;
+    const float amount = 1.;
 
-    float dim = 2;
+    float dim = 2.;
     float Directions = 17.0;
     float Quality = 20.0; 
     float Size = 22.0; 
@@ -265,9 +265,9 @@ enum abstract RuntimeShaders(String) to String from String
         vec2 id = floor(uv);
         
         float n1 = rand(id);
-        float n2 = rand(id+vec2(1,0));
-        float n3 = rand(id+vec2(0,1));
-        float n4 = rand(id+vec2(1,1));
+        float n2 = rand(id+vec2(1.,0.));
+        float n3 = rand(id+vec2(0.,1.));
+        float n4 = rand(id+vec2(1.,1.));
         
         vec2 u = smoothstep(0.0, 1.0 + blockiness, lv);
 
@@ -415,7 +415,7 @@ enum abstract RuntimeShaders(String) to String from String
 	#define fragColor gl_FragColor
 	#define mainImage main
 
-	uniform float size = 5.0;
+	uniform float size;
 
 	void mainImage() {
 		vec2 coordinates = fragCoord.xy/iResolution.xy;
