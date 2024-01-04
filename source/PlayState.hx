@@ -1261,7 +1261,8 @@ class PlayState extends MusicBeatState
 		}
 
 		precacheList.set('alphabet', 'image');
-	
+
+		#if desktop	
 		switch(SONG.song.replace('-', ' '))
 		{
 			case "Mindless" | "Brotherly Love" | "Blessed By Swords" | "Suffering Siblings":
@@ -1280,7 +1281,6 @@ class PlayState extends MusicBeatState
 				largeKey = "https://i.imgur.com/j1NOFU9.gif";
 		}
 
-		#if desktop
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), null, null, largeKey);
 		#end
