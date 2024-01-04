@@ -1557,20 +1557,26 @@ class PlayState extends MusicBeatState
 			return true;
 		}
 
+        #if desktop
 		var foldersToCheck:Array<String> = [Paths.mods('shaders/')];
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
+		#else
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
+		#end
 
-		for(mod in Paths.getGlobalMods())
-			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-		
 		for (folder in foldersToCheck)
 		{
+			#if desktop
 			if(FileSystem.exists(folder))
+			#else
+			if(OpenFlAssets.exists(folder))
+			#end
 			{
 				var frag:String = folder + name + '.frag';
 				var vert:String = folder + name + '.vert';
 				var found:Bool = false;
+				#if desktop
 				if(FileSystem.exists(frag))
 				{
 					frag = File.getContent(frag);
@@ -1584,6 +1590,21 @@ class PlayState extends MusicBeatState
 					found = true;
 				}
 				else vert = null;
+				#else
+				if(OpenFlAssets.exists(frag))
+				{
+					frag = Assets.getText(frag);
+					found = true;
+				}
+				else frag = null;
+	
+				if (OpenFlAssets.exists(vert))
+				{
+					vert = Assets.getText(vert);
+					found = true;
+				}
+				else vert = null;
+				#end
 
 				if(found)
 				{
