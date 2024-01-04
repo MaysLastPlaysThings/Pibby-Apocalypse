@@ -1307,18 +1307,18 @@ class PlayState extends MusicBeatState
 		pibbyFNF = new Shaders.Pibbified();
 		ntscFNF = new Shaders.NtscShader();
 		mawFNF = new Shaders.MAWVHS();
-		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null, 120);
-		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
-        distortCAWMFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
-        glowfnf = new FlxRuntimeShader(RuntimeShaders.glowy, null, 120);
-		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null, 120);
+		crtFNF = new FlxRuntimeShader(RuntimeShaders.monitor, null);
+		distortFNF = new FlxRuntimeShader(RuntimeShaders.distort, null);
+        distortCAWMFNF = new FlxRuntimeShader(RuntimeShaders.distort, null);
+        glowfnf = new FlxRuntimeShader(RuntimeShaders.glowy, null);
+		distortDadFNF = new FlxRuntimeShader(RuntimeShaders.distort, null);
 		invertFNF = new Shaders.InvertShader();
-		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null, 120);
+		chromFNF = new FlxRuntimeShader(RuntimeShaders.chromShader, null);
 		pincFNF = new Shaders.PincushionShader();
 		blurFNF = new Shaders.BlurShader();
-		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
-		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null, 120);
-		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null, 120);
+		blurFNFZoomEdition = new FlxRuntimeShader(RuntimeShaders.blurZoom, null);
+		blurFNFZoomEditionHUD = new FlxRuntimeShader(RuntimeShaders.blurZoom, null);
+		glitchFWFNF = new FlxRuntimeShader(RuntimeShaders.fwGlitch, null);
 		camVoid.setFilters([new ShaderFilter(pincFNF)]);
 
         distortDadFNF.setFloat("negativity", 0.0);
@@ -1547,7 +1547,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function initLuaShader(name:String, ?glslVersion:Int = 120)
+	public function initLuaShader(name:String, ?glslVersion:Int = 100)
 	{
 		if(!ClientPrefs.shaders) return false;
 
