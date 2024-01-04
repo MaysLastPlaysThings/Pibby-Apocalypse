@@ -601,7 +601,7 @@ class PlayState extends MusicBeatState
         SONG.stage = curStage;
 
         var daPath:String = 'assets/stages/${curStage}/scripts';
-            var files:Array<String> = Assets.list().list(text -> text.contains(daPath));
+            var files:Array<String> = Assets.list().filter(text -> text.contains(daPath));
             if (files.length > 0) {
                 for (file in files) {
                     var lastIndex:Int = file.lastIndexOf(".");
