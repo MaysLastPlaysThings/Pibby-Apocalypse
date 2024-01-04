@@ -637,7 +637,7 @@ class ReflectionShader extends FlxShader
         color = vec4(0.7, 0.85, 1.0, 1.0);
       }
 
-        gl_FragColor = flixel_texture2D(bitmap, uv) * Color;
+        gl_FragColor = texture2D(bitmap, uv) * Color;
     }
   
   ')
@@ -828,7 +828,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     vec4 getVideo(vec2 uv)
       {
       	vec2 look = uv;
-      	vec4 video = flixel_texture2D(bitmap,look);
+      	vec4 video = texture2D(bitmap,look);
 
       	return video;
       }
@@ -879,7 +879,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	float scan2 = clamp(cos(uv.y * 2.0 + iTime + 4.0) * 10.0, 0.0, 1.0) ;
     	float amount = scan1 * scan2 * uv.x;
 
-    	uv.x -= 0.05 * mix(flixel_texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
+    	uv.x -= 0.05 * mix(texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
 
     	return uv;
 
@@ -1007,7 +1007,7 @@ class PincushionShader extends FlxShader
           
       uv.y *= prop;
   
-      vec3 col = texture(iChannel0, uv).rgb;
+      vec3 col = texture2D(iChannel0, uv).rgb;
       
       // inverted
       //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
@@ -1127,7 +1127,7 @@ class InvertShader extends FlxShader
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        vec4 color = flixel_texture2D(bitmap, vec2(rx, ry));
+        vec4 color = texture2D(bitmap, vec2(rx, ry));
     
         gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
     }
@@ -1191,7 +1191,7 @@ class OldTVShader extends FlxShader
                 }
             }
             
-            vec4 col = flixel_texture2D(bitmap, uv);
+            vec4 col = texture2D(bitmap, uv);
             
             //blur, from https://www.shadertoy.com/view/Xltfzj
             float directions = 16.0;
@@ -1201,7 +1201,7 @@ class OldTVShader extends FlxShader
             vec2 radius = size / openfl_TextureSize;
             for(float d = 0.0; d < TAU; d += TAU / directions) {
                 for(float i= 1.0 / quality; i <= 1.0; i += 1.0 / quality) {
-                    col += flixel_texture2D(bitmap, uv + vec2(cos(d), sin(d)) * radius * i);	
+                    col += texture2D(bitmap, uv + vec2(cos(d), sin(d)) * radius * i);	
                 }
             }
             col /= quality * directions - 14.0;
