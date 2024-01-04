@@ -110,7 +110,7 @@ class ControlsSubState extends MusicBeatSubstate {
 			}
 
         #if mobile
-		addVirtualPad(FULL_LEFT, A_B);
+		addVirtualPad(LEFT_FULL, A_B);
 		addVirtualPadCamera(false);
 		#end
 		}
