@@ -67,6 +67,7 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
@@ -93,12 +94,14 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.mouse.visible = true; // For the hovering over the discord stuff
 
+		
 		persistentUpdate = persistentDraw = true;
 
-		VCR = new Shaders.OldTVShader();
+		//VCR = new Shaders.OldTVShader();
+        //???????????????????????????
+		//pibbyFNF = new Shaders.Pibbified();
 
-		pibbyFNF = new Shaders.Pibbified();
-
+		
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(0, -10).loadGraphic(Paths.image('pibymenu/BACKGROUND'));
 		bg.scrollFactor.set(0, 0);
@@ -109,10 +112,12 @@ class MainMenuState extends MusicBeatState
 		if (ClientPrefs.shaders) bg.shader = VCR;
 		add(bg);
 
+        
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
+
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -137,7 +142,7 @@ class MainMenuState extends MusicBeatState
 		cinematicup.scrollFactor.set();
 		cinematicup.antialiasing = ClientPrefs.globalAntialiasing;
 		add(cinematicup);
-
+        
 		var options = new FlxSprite().loadGraphic(Paths.image('pibymenu/Options'));
 		options.alpha = 0.4;
 		options.scale.set(0.3, 0.3);
@@ -165,7 +170,7 @@ class MainMenuState extends MusicBeatState
 			 function( s : FlxSprite ) { FlxTween.tween(options, {alpha: 0.4}, 0.25, { ease: FlxEase.quadOut}); }
 			 );
 
-
+        
 		var discord = new FlxSprite().loadGraphic(Paths.image('pibymenu/discord'));
 		discord.alpha = 0.4;
 		discord.scale.set(0.3, 0.3);
@@ -251,13 +256,13 @@ class MainMenuState extends MusicBeatState
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
-				shaderIntensity = FlxG.random.float(0.2, 0.3);
+				//shaderIntensity = FlxG.random.float(0.2, 0.3);
 			}
 
 		if(ClientPrefs.shaders) {
-			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+			/*pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 			pibbyFNF.uTime.value[0] += elapsed;
-			VCR.iTime.value[0] += elapsed;
+			VCR.iTime.value[0] += elapsed;*/
 		}
 	
 		Conductor.changeBPM(100);
