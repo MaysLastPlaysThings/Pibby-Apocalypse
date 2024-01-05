@@ -482,7 +482,7 @@ void main()
 	var topPrefix:String = "";
 
 	public function new() {
-		topPrefix = "#version 100\n\n";
+		topPrefix = "";
 		__glSourceDirty = true;
 
 		super();
@@ -541,8 +541,8 @@ void main()
 				+ "#endif\n\n";
 			#end
 
-			var vertex = topPrefix + prefix + glVertexSource;
-			var fragment = topPrefix + prefix + glFragmentSource;
+			var vertex = prefix + glVertexSource;
+			var fragment = prefix + glFragmentSource;
 
 			var id = vertex + fragment;
 
