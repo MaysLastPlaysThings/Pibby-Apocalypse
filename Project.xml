@@ -52,6 +52,7 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
+	<assets path="mobile" rename="assets/mobile" if="mobile"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
