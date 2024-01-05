@@ -97,9 +97,9 @@ class MainMenuState extends MusicBeatState
 		
 		persistentUpdate = persistentDraw = true;
 
-		//VCR = new Shaders.OldTVShader();
+		VCR = new Shaders.OldTVShader();
         //???????????????????????????
-		//pibbyFNF = new Shaders.Pibbified();
+		pibbyFNF = new Shaders.Pibbified();
 
 		
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
@@ -256,7 +256,7 @@ class MainMenuState extends MusicBeatState
 
 		if (FlxG.random.int(0, 1) < 0.01) 
 			{
-				//shaderIntensity = FlxG.random.float(0.2, 0.3);
+				shaderIntensity = FlxG.random.float(0.2, 0.3);
 			}
 
 		if(ClientPrefs.shaders) {
