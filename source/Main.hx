@@ -65,7 +65,7 @@ class Main extends Sprite
 	{
 		super();
 
-    #if mobile
+        #if mobile
 		Generic.initCrashHandler();
 		Generic.mode = ROOTDATA;
 		#end

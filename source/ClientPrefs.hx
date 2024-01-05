@@ -15,13 +15,13 @@ class ClientPrefs {
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
-	public static var shaders:Bool = #if mobile false #else true #end;
-    public static var healthDrain:Bool = true;
-    public static var gore:Bool = true;
-    public static var screenGlitch:Bool = true;
+	public static var shaders:Bool = #if desktop true #else false #end;
+	public static var healthDrain:Bool = true;
+  public static var gore:Bool = true;
+  public static var screenGlitch:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
-    public static var killyourself:Bool = false;
+  public static var killyourself:Bool = false;
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
@@ -39,7 +39,7 @@ class ClientPrefs {
 	public static var padalpha:Float = 0.5;
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-    public static var useGPUCaching:Bool = false;
+  public static var useGPUCaching:Bool = false;
 	public static var widescreen:Bool = false;
 	public static var autopause:Bool = true;
 
