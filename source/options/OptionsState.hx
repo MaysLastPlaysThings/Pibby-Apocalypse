@@ -111,7 +111,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 
         #if mobile
-		addVirtualPad(UP_DOWN,A_B_X_Y);
+	   	addVirtualPad(UP_DOWN, A_B_X_Y);
 
 				var sus:FlxText = new FlxText(10, 14, 0, 'Press X to customize your android controls', 16);
 						sus.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
