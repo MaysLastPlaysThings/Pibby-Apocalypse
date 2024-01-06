@@ -102,7 +102,7 @@ class PlayState extends MusicBeatState
 
 	var canShakeNote:Bool; // fix for CAWM
 
-  if (ClientPrefs.shaders){
+  //if (ClientPrefs.shaders){
 	var crtFNF:FlxRuntimeShader;
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
@@ -118,7 +118,7 @@ class PlayState extends MusicBeatState
 	var blurFNFZoomEdition:FlxRuntimeShader;
 	var blurFNFZoomEditionHUD: FlxRuntimeShader;
 	var glitchFWFNF:FlxRuntimeShader; // here's where i follow scissor's concept n stuff
-  }
+  //}
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
