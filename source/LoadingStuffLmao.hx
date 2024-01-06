@@ -26,7 +26,7 @@ import haxe.Exception; //funi
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
-#if cpp
+#if (cpp && mobile)
 import sys.FileSystem;
 import sys.io.File;
 import sys.thread.Thread;
