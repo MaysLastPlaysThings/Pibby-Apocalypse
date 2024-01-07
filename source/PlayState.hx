@@ -102,6 +102,7 @@ class PlayState extends MusicBeatState
 
 	var canShakeNote:Bool; // fix for CAWM
 
+  //if (ClientPrefs.shaders){
 	var crtFNF:FlxRuntimeShader;
 	var mawFNF:Shaders.MAWVHS;
     var ntscFNF:Shaders.NtscShader;
@@ -117,6 +118,7 @@ class PlayState extends MusicBeatState
 	var blurFNFZoomEdition:FlxRuntimeShader;
 	var blurFNFZoomEditionHUD: FlxRuntimeShader;
 	var glitchFWFNF:FlxRuntimeShader; // here's where i follow scissor's concept n stuff
+  //}
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -1304,6 +1306,7 @@ class PlayState extends MusicBeatState
         }
 		timeTxt.setFormat(Paths.font(storyWeekName + '.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
+    if (ClientPrefs.shaders){
 		pibbyFNF = new Shaders.Pibbified();
 		ntscFNF = new Shaders.NtscShader();
 		mawFNF = new Shaders.MAWVHS();
@@ -1327,7 +1330,8 @@ class PlayState extends MusicBeatState
 
         distortFNF.setFloat("binaryIntensity", 1000.0);
         distortCAWMFNF.setFloat("binaryIntensity", 1000.0);
-        
+    }
+ 
 		if(ClientPrefs.shaders) {
 			camHUD.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
 			camGame.setFilters([new ShaderFilter(pibbyFNF),new ShaderFilter(chromFNF)]);
@@ -1468,7 +1472,6 @@ class PlayState extends MusicBeatState
 					{
 						FlxG.camera.pushFilter("blurMoment", new ShaderFilter(blurFNFZoomEdition));
 						camHUD.pushFilter("blurMoment2", new ShaderFilter(blurFNFZoomEditionHUD));
-					}
 					blurFNFZoomEdition.setFloat('posX', 0.5);
 					blurFNFZoomEdition.setFloat('posY', 0.5);
 					blurFNFZoomEdition.setFloat('focusPower', 6);
@@ -1476,6 +1479,7 @@ class PlayState extends MusicBeatState
 					blurFNFZoomEditionHUD.setFloat('posX', 0.5);
 					blurFNFZoomEditionHUD.setFloat('posY', 0.5);
 					blurFNFZoomEditionHUD.setFloat('focusPower', 2);
+					}
 
                     if (ClientPrefs.gore) {
 					    GameOverSubstate.characterName = 'bf-dead-finn';
@@ -5157,8 +5161,10 @@ class PlayState extends MusicBeatState
 									add(vig);
 								}
 							// im pretty sure i could just use camera._filters.remove(filter) but just in case
+							if (ClientPrefs.shaders){
 							blurFNFZoomEdition.setFloat('focusPower', 0);
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
+							}
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
 						case 656:
 							defaultCamZoom = 0.85;

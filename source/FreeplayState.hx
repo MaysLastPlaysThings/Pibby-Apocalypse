@@ -93,8 +93,8 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-		//Paths.clearStoredMemory();
-		//Paths.clearUnusedMemory();
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
@@ -138,7 +138,9 @@ class FreeplayState extends MusicBeatState
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
 			}
 		}
+		#if desktop
 		WeekData.loadTheFirstEnabledMod();
+		#end
 
 		// fuck you nulls
 		new FlxTimer().start(0.5, grah -> canPress = true);
@@ -664,7 +666,7 @@ class FreeplayState extends MusicBeatState
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
-		
+
 		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 
