@@ -9,12 +9,6 @@ import flixel.util.FlxColor;
 import flixel.addons.text.FlxTypeText;
 import flixel.FlxG;
 
-#if sys
-import sys.FileSystem;
-import sys.io.File;
-#end
-
-
 #if VIDEOS_ALLOWED
 import hxcodec.VideoHandler;
 import hxcodec.VideoSprite;
@@ -42,7 +36,7 @@ class CheatingState extends MusicBeatState
     
             var filepath:String = Paths.video(name);
       
-            if(!OpenFlAssets.exists(filepath))
+            if(!Assets.exists(filepath))
             {
                 FlxG.log.warn('Couldnt find video file: ' + name);
                 MusicBeatState.switchState(new FreeplayState());
