@@ -58,14 +58,13 @@ class WiggleEffect
 		shader.uSpeed.value = [waveSpeed];
 		return v;
 	}
-
 	function set_waveFrequency(v:Float):Float
 	{
 		waveFrequency = v;
 		shader.uFrequency.value = [waveFrequency];
 		return v;
 	}
-
+	
 	function set_waveAmplitude(v:Float):Float
 	{
 		waveAmplitude = v;
@@ -663,52 +662,52 @@ class Pibbified extends FlxShader
     uniform float glitchMultiply;
     
     float sat( float t ) {
-        return clamp( t, 0.0, 1.0 );
+        return clamp(t, 0.0, 1.0);
     }
     
     vec2 sat( vec2 t ) {
-        return clamp( t, 0.0, 1.0 );
+        return clamp(t, 0.0, 1.0);
     }
     
     //remaps inteval [a;b] to [0;1]
-    float remap  ( float t, float a, float b ) {
-        return sat( (t - a) / (b - a) );
+    float remap  (float t, float a, float b) {
+        return sat((t - a) / (b - a));
     }
     
     //note: /\\ t=[0;0.5;1], y=[0;1;0]
-    float linterp( float t ) {
-        return sat( 1.0 - abs( 2.0*t - 1.0 ) );
+    float linterp(float t) {
+        return sat(1.0 - abs(2.0*t - 1.0));
     }
     
-    vec3 spectrum_offset( float t ) {
+    vec3 spectrum_offset(float t) {
         float t0 = 3.0 * t - 1.5;
-        return clamp( vec3( -t0, 1.0-abs(t0), t0), 0.0, 1.0);
+        return clamp(vec3(-t0, 1.0-abs(t0), t0), 0.0, 1.0);
         /*
         vec3 ret;
         float lo = step(t,0.5);
         float hi = 1.0-lo;
-        float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
+        float w = linterp(remap(t, 1.0/6.0, 5.0/6.0));
         float neg_w = 1.0-w;
         ret = vec3(lo,1.0,hi) * vec3(neg_w, w, neg_w);
-        return pow( ret, vec3(1.0/2.2) );
+        return pow(ret, vec3(1.0/2.2));
     */
     }
     
     //note: [0;1]
-    float rand( vec2 n ) {
+    float rand(vec2 n) {
       return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
     }
     
     //note: [-1;1]
-    float srand( vec2 n ) {
+    float srand(vec2 n) {
         return rand(n) * 2.0 - 1.0;
     }
     
-    float mytrunc( float x, float num_levels )
+    float mytrunc(float x, float num_levels)
     {
         return floor(x*num_levels) / num_levels;
     }
-    vec2 mytrunc( vec2 x, float num_levels )
+    vec2 mytrunc(vec2 x, float num_levels)
     {
         return floor(x*num_levels) / num_levels;
     }
@@ -752,7 +751,7 @@ class Pibbified extends FlxShader
         
         vec4 sum = vec4(0.0);
         vec3 wsum = vec3(0.0);
-        for( int i=0; i<NUM_SAMPLES; ++i )
+        for(int i=0; i<NUM_SAMPLES; ++i )
         {
             float t = float(i) * RCP_NUM_SAMPLES_F;
             uv.x = sat( uv.x + ofs * t );
@@ -765,7 +764,7 @@ class Pibbified extends FlxShader
         sum.rgb /= wsum;
         sum.a *= RCP_NUM_SAMPLES_F;
     
-        //gl_FragColor = vec4( sum.bbb, 1.0 ); return;
+        //gl_FragColor = vec4(sum.bbb, 1.0); return;
         
         gl_FragColor.a = sum.a;
         gl_FragColor.rgb = sum.rgb; // * outcol0.a;
