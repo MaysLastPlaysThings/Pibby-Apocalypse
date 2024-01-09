@@ -626,6 +626,7 @@ class ReflectionShader extends FlxShader
 
 
     vec4 color = vec4(1.0);
+ 
     void main()
     {
       vec2 uv = openfl_TextureCoordv.xy / iResolution.xy;
@@ -854,8 +855,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
     }
 
-
-
     float noise(vec2 uv)
     {
      	vec2 i = floor(uv);
@@ -872,7 +871,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
     }
 
-
     vec2 scandistort(vec2 uv) {
     	float scan1 = clamp(cos(uv.y * 2.0 + iTime), 0.0, 1.0);
     	float scan2 = clamp(cos(uv.y * 2.0 + iTime + 4.0) * 10.0, 0.0, 1.0) ;
@@ -881,8 +879,8 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	uv.x -= 0.05 * mix(texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
 
     	return uv;
-
     }
+
     void main()
     {
     	vec2 uv = openfl_TextureCoordv;
@@ -897,7 +895,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       float vigAmt = 1.0;
       float x =  0.;
 
-
       video.r = getVideo(vec2(x+uv.x+0.001,uv.y+0.001)- vec2(0.005,0.004)).x+0.05;
       video.g = getVideo(vec2(x+uv.x+0.000,uv.y-0.002)).y+0.05;
       video.b = getVideo(vec2(x+uv.x-0.002,uv.y+0.000)+ vec2(0.005,0.004)).z+0.05;
@@ -907,7 +904,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
       video = clamp(video*0.6+0.4*video*video*1.0,0.0,1.0);
 
-
       if(vignetteMoving)
     	  vigAmt = 3.+.3*sin(iTime + 5.*cos(iTime*5.));
 
@@ -916,13 +912,11 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       if(vignetteOn)
     	 video *= vignette;
 
-
       gl_FragColor = video;
 
       if(tvWow.x<0. || tvWow.x>1. || tvWow.y<0. || tvWow.y>1.){
         gl_FragColor = vec4(0.,0.,0.,0.);
       }
-
     }
   ')
   public function new() {
@@ -957,6 +951,11 @@ class BlendModeEffect
 		shader.uBlendColor.value[3] = color.alphaFloat;
 
 		return this.color = color;
+
+    void main()
+    {
+    trace('death?');
+    }
 	}
 }
 
@@ -980,7 +979,7 @@ class PincushionShader extends FlxShader
   void main()
   {
       vec2 p = fragCoord.xy / iResolution.x;//normalized coords with some cheat
-                                                               //(assume 1:1 prop)
+      //(assume 1:1 prop)
       float prop = iResolution.x / iResolution.y;//screen proroption
       vec2 m = vec2(0.5, 0.5 / prop);//center coords
       vec2 d = p - m;//vector from center to current fragment
@@ -1009,8 +1008,8 @@ class PincushionShader extends FlxShader
       vec3 col = texture2D(iChannel0, uv).rgb;
       
       // inverted
-      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
-                                                        //for round effect, not elliptical
+      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat      
+      //for round effect, not elliptical
       fragColor = vec4(col, 1.0);
     }
    ')
@@ -1022,7 +1021,7 @@ class PincushionShader extends FlxShader
 
 class BlurShader extends FlxShader
 {
-    @:glFragmentSource('
+ @:glFragmentSource('
 
 #pragma header
 
