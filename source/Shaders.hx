@@ -662,16 +662,16 @@ class Pibbified extends FlxShader
     uniform int NUM_SAMPLES;
     uniform float glitchMultiply;
     
-    float sat( float t ) {
+    float sat(float t) {
         return clamp(t, 0.0, 1.0);
     }
     
-    vec2 sat( vec2 t ) {
+    vec2 sat(vec2 t) {
         return clamp(t, 0.0, 1.0);
     }
     
     //remaps inteval [a;b] to [0;1]
-    float remap  (float t, float a, float b) {
+    float remap(float t, float a, float b) {
         return sat((t - a) / (b - a));
     }
     
@@ -726,7 +726,7 @@ class Pibbified extends FlxShader
         //float rdist = length( (uv - vec2(0.5,0.5))*vec2(aspect, 1.0) )/1.4;
         //GLITCH *= rdist;
         
-        float gnm = sat( GLITCH );
+        float gnm = sat(GLITCH);
         float rnd0 = rand( mytrunc( vec2(time, time), 6.0 ) );
         float r0 = sat((1.0-gnm)*0.7 + rnd0);
         float rnd1 = rand( vec2(mytrunc( uv.x, 10.0*r0 ), time) ); //horz
