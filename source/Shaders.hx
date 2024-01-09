@@ -929,7 +929,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
   }
 }
 
-class BlendModeEffect
+/*class BlendModeEffect
 {
 	public var shader(default, null):BlendModeShader;
 
@@ -952,10 +952,7 @@ class BlendModeEffect
 
 		return this.color = color;
 	}
-void main(){
-    trace('death?');
-    }
-}
+}*/
 
 class PincushionShader extends FlxShader
 {
