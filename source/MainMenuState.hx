@@ -249,13 +249,13 @@ class MainMenuState extends MusicBeatState
 				}
 			}
 
-			menuItems.forEach(function(spr:FlxSprite)
+/*			menuItems.forEach(function(spr:FlxSprite)
 			{
 				if (BSLTouchUtils.aperta(spr, spr.ID) == 'primeiro')
 					changeItem(spr.ID);
 				else if (BSLTouchUtils.aperta(spr, spr.ID) == 'segundo')
 					selectThing();
-			});
+			});*/
 
 			if (BSLTouchUtils.apertasimples(options))
 			{
