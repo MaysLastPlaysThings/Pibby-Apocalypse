@@ -58,14 +58,13 @@ class WiggleEffect
 		shader.uSpeed.value = [waveSpeed];
 		return v;
 	}
-
 	function set_waveFrequency(v:Float):Float
 	{
 		waveFrequency = v;
 		shader.uFrequency.value = [waveFrequency];
 		return v;
 	}
-
+	
 	function set_waveAmplitude(v:Float):Float
 	{
 		waveAmplitude = v;
@@ -627,6 +626,7 @@ class ReflectionShader extends FlxShader
 
 
     vec4 color = vec4(1.0);
+ 
     void main()
     {
       vec2 uv = openfl_TextureCoordv.xy / iResolution.xy;
@@ -662,53 +662,53 @@ class Pibbified extends FlxShader
     uniform int NUM_SAMPLES;
     uniform float glitchMultiply;
     
-    float sat( float t ) {
-        return clamp( t, 0.0, 1.0 );
+    float sat(float t) {
+        return clamp(t, 0.0, 1.0);
     }
     
-    vec2 sat( vec2 t ) {
-        return clamp( t, 0.0, 1.0 );
+    vec2 sat(vec2 t) {
+        return clamp(t, 0.0, 1.0);
     }
     
     //remaps inteval [a;b] to [0;1]
-    float remap  ( float t, float a, float b ) {
-        return sat( (t - a) / (b - a) );
+    float remap(float t, float a, float b) {
+        return sat((t - a) / (b - a));
     }
     
     //note: /\\ t=[0;0.5;1], y=[0;1;0]
-    float linterp( float t ) {
-        return sat( 1.0 - abs( 2.0*t - 1.0 ) );
+    float linterp(float t) {
+        return sat(1.0 - abs(2.0*t - 1.0));
     }
     
-    vec3 spectrum_offset( float t ) {
+    vec3 spectrum_offset(float t) {
         float t0 = 3.0 * t - 1.5;
-        return clamp( vec3( -t0, 1.0-abs(t0), t0), 0.0, 1.0);
+        return clamp(vec3(-t0, 1.0-abs(t0), t0), 0.0, 1.0);
         /*
         vec3 ret;
         float lo = step(t,0.5);
         float hi = 1.0-lo;
-        float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
+        float w = linterp(remap(t, 1.0/6.0, 5.0/6.0));
         float neg_w = 1.0-w;
         ret = vec3(lo,1.0,hi) * vec3(neg_w, w, neg_w);
-        return pow( ret, vec3(1.0/2.2) );
+        return pow(ret, vec3(1.0/2.2));
     */
     }
     
     //note: [0;1]
-    float rand( vec2 n ) {
+    float rand(vec2 n) {
       return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
     }
     
     //note: [-1;1]
-    float srand( vec2 n ) {
+    float srand(vec2 n) {
         return rand(n) * 2.0 - 1.0;
     }
     
-    float mytrunc( float x, float num_levels )
+    float mytrunc(float x, float num_levels)
     {
         return floor(x*num_levels) / num_levels;
     }
-    vec2 mytrunc( vec2 x, float num_levels )
+    vec2 mytrunc(vec2 x, float num_levels)
     {
         return floor(x*num_levels) / num_levels;
     }
@@ -726,7 +726,7 @@ class Pibbified extends FlxShader
         //float rdist = length( (uv - vec2(0.5,0.5))*vec2(aspect, 1.0) )/1.4;
         //GLITCH *= rdist;
         
-        float gnm = sat( GLITCH );
+        float gnm = sat(GLITCH);
         float rnd0 = rand( mytrunc( vec2(time, time), 6.0 ) );
         float r0 = sat((1.0-gnm)*0.7 + rnd0);
         float rnd1 = rand( vec2(mytrunc( uv.x, 10.0*r0 ), time) ); //horz
@@ -752,7 +752,7 @@ class Pibbified extends FlxShader
         
         vec4 sum = vec4(0.0);
         vec3 wsum = vec3(0.0);
-        for( int i=0; i<NUM_SAMPLES; ++i )
+        for(int i=0; i<NUM_SAMPLES; ++i )
         {
             float t = float(i) * RCP_NUM_SAMPLES_F;
             uv.x = sat( uv.x + ofs * t );
@@ -765,7 +765,7 @@ class Pibbified extends FlxShader
         sum.rgb /= wsum;
         sum.a *= RCP_NUM_SAMPLES_F;
     
-        //gl_FragColor = vec4( sum.bbb, 1.0 ); return;
+        //gl_FragColor = vec4(sum.bbb, 1.0); return;
         
         gl_FragColor.a = sum.a;
         gl_FragColor.rgb = sum.rgb; // * outcol0.a;
@@ -855,8 +855,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
     }
 
-
-
     float noise(vec2 uv)
     {
      	vec2 i = floor(uv);
@@ -873,7 +871,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
     }
 
-
     vec2 scandistort(vec2 uv) {
     	float scan1 = clamp(cos(uv.y * 2.0 + iTime), 0.0, 1.0);
     	float scan2 = clamp(cos(uv.y * 2.0 + iTime + 4.0) * 10.0, 0.0, 1.0) ;
@@ -882,8 +879,8 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	uv.x -= 0.05 * mix(texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
 
     	return uv;
-
     }
+
     void main()
     {
     	vec2 uv = openfl_TextureCoordv;
@@ -898,7 +895,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       float vigAmt = 1.0;
       float x =  0.;
 
-
       video.r = getVideo(vec2(x+uv.x+0.001,uv.y+0.001)- vec2(0.005,0.004)).x+0.05;
       video.g = getVideo(vec2(x+uv.x+0.000,uv.y-0.002)).y+0.05;
       video.b = getVideo(vec2(x+uv.x-0.002,uv.y+0.000)+ vec2(0.005,0.004)).z+0.05;
@@ -908,7 +904,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
       video = clamp(video*0.6+0.4*video*video*1.0,0.0,1.0);
 
-
       if(vignetteMoving)
     	  vigAmt = 3.+.3*sin(iTime + 5.*cos(iTime*5.));
 
@@ -917,13 +912,11 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       if(vignetteOn)
     	 video *= vignette;
 
-
       gl_FragColor = video;
 
       if(tvWow.x<0. || tvWow.x>1. || tvWow.y<0. || tvWow.y>1.){
         gl_FragColor = vec4(0.,0.,0.,0.);
       }
-
     }
   ')
   public function new() {
@@ -958,6 +951,11 @@ class BlendModeEffect
 		shader.uBlendColor.value[3] = color.alphaFloat;
 
 		return this.color = color;
+
+    void main()
+    {
+    trace('death?');
+    }
 	}
 }
 
@@ -981,7 +979,7 @@ class PincushionShader extends FlxShader
   void main()
   {
       vec2 p = fragCoord.xy / iResolution.x;//normalized coords with some cheat
-                                                               //(assume 1:1 prop)
+      //(assume 1:1 prop)
       float prop = iResolution.x / iResolution.y;//screen proroption
       vec2 m = vec2(0.5, 0.5 / prop);//center coords
       vec2 d = p - m;//vector from center to current fragment
@@ -1010,8 +1008,8 @@ class PincushionShader extends FlxShader
       vec3 col = texture2D(iChannel0, uv).rgb;
       
       // inverted
-      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
-                                                        //for round effect, not elliptical
+      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat      
+      //for round effect, not elliptical
       fragColor = vec4(col, 1.0);
     }
    ')
@@ -1023,7 +1021,7 @@ class PincushionShader extends FlxShader
 
 class BlurShader extends FlxShader
 {
-    @:glFragmentSource('
+ @:glFragmentSource('
 
 #pragma header
 
@@ -1148,7 +1146,7 @@ class OldTVShader extends FlxShader
         #define id vec2(0.,1.)
         #define k 1103515245U
         #define PI 3.141592653
-        #define TAU PI * 2.
+        #define TAU (PI * 2.0)
 
         uniform float iTime;
 
