@@ -951,12 +951,10 @@ class BlendModeEffect
 		shader.uBlendColor.value[3] = color.alphaFloat;
 
 		return this.color = color;
-
-  void main()
-{
+	}
+void main(){
     trace('death?');
     }
-	}
 }
 
 class PincushionShader extends FlxShader
