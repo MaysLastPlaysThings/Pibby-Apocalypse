@@ -68,8 +68,8 @@ class MainMenuState extends MusicBeatState
 	{
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
-		#end
 		WeekData.loadTheFirstEnabledMod();
+		#end
 
 		openfl.Lib.application.window.title = "Pibby: Apocalypse - Main Menu";
 
@@ -193,6 +193,10 @@ class MainMenuState extends MusicBeatState
 			menuItem.x -= 125;
 		}
 		// NG.core.calls.event.logEvent('swag').send();
+		#if mobile
+		addVirtualPad(LEFT_RIGHT, A);
+		#end
+
 		changeItem();
 		super.create();
 		if (!FlxG.save.data.debugBuild)

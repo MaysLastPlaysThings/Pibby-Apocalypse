@@ -330,6 +330,10 @@ class FreeplayState extends MusicBeatState
 				}
 		});
 
+    #if mobile
+    addVirtualPad(UP_LEFT_RIGHT, A);
+    #end
+
 		super.create();
 	}
 
@@ -471,7 +475,7 @@ class FreeplayState extends MusicBeatState
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 		threatLerp = FlxMath.lerp(threatLerp, threatPercent, CoolUtil.boundTo(elapsed * 4, 0, 1));
 
-		if (controls.BACK)
+		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end)
 		{
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
