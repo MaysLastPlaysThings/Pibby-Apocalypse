@@ -35,7 +35,7 @@ enum abstract RuntimeShaders(String) to String from String
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        vec4 color = flixel_texture2D(bitmap, vec2(rx, ry));
+        vec4 color = texture2D(bitmap, vec2(rx, ry));
     
         gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
     }
@@ -50,7 +50,7 @@ enum abstract RuntimeShaders(String) to String from String
     uniform float iTime;
     uniform float Size;
     #define iChannel0 bitmap
-    #define texture flixel_texture2D
+    #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
 
@@ -120,7 +120,7 @@ enum abstract RuntimeShaders(String) to String from String
             texture2D(bitmap, uv + trueAberration).r, 
             texture2D(bitmap, uv).g, 
             texture2D(bitmap, uv - trueAberration).b, 
-            flixel_texture2D(bitmap,uv).a
+            texture2D(bitmap,uv).a
         );
     }";
 
@@ -144,7 +144,7 @@ enum abstract RuntimeShaders(String) to String from String
             texture2D(bitmap, uv+.001).r,
             texture2D(bitmap, uv).g,
             texture2D(bitmap, uv-.001).b, 
-            flixel_texture2D(bitmap, uv).a
+            texture2D(bitmap, uv).a
         );
         
         tex *= smoothstep(uv.x,uv.x+0.01,1.)*smoothstep(uv.y,uv.y+0.01,1.)*smoothstep(-0.01,0.,uv.x)*smoothstep(-0.01,0.,uv.y);
@@ -165,7 +165,7 @@ enum abstract RuntimeShaders(String) to String from String
     #define iChannel1 bitmap
     #define iChannel2 bitmap
     #define iChannelResolution bitmap
-    #define texture flixel_texture2D
+    #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
     uniform float uTime;
@@ -192,12 +192,12 @@ enum abstract RuntimeShaders(String) to String from String
     float ex = (cos(d)*Size*i)/openfl_TextureSize.x;
     float why = (sin(d)*Size*i)/openfl_TextureSize.y;
 
-    Color += flixel_texture2D(bitmap, uv+vec2(ex,why));	
+    Color += texture2D(bitmap, uv+vec2(ex,why));	
         }
     }
         
     Color /= (dim * Quality) * Directions - 15.0;
-    vec4 bloom =  (flixel_texture2D(bitmap, uv)/ dim)+Color;
+    vec4 bloom =  (texture2D(bitmap, uv)/ dim)+Color;
 
     gl_FragColor = bloom;
 
@@ -208,7 +208,7 @@ enum abstract RuntimeShaders(String) to String from String
     #pragma header
 
     #define round(a) floor(a + 0.5)
-    #define texture flixel_texture2D
+    #define texture texture2D
     #define iResolution openfl_TextureSize
     uniform float iTime;
     #define iChannel0 bitmap
@@ -247,7 +247,7 @@ enum abstract RuntimeShaders(String) to String from String
     vec2 iResolution = openfl_TextureSize;
     uniform float iTime;
     #define iChannel0 bitmap
-    #define texture flixel_texture2D
+    #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
 
@@ -321,7 +321,7 @@ enum abstract RuntimeShaders(String) to String from String
         
         // Output to screen
         fragColor = vec4(f, 1.0);
-    gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
+    gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ";
 
@@ -333,9 +333,8 @@ enum abstract RuntimeShaders(String) to String from String
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
-    #define texture flixel_texture2D
+    #define texture texture2D
     #define fragColor gl_FragColor
-    #define mainImage main
 
     // https://www.shadertoy.com/view/NtGfWw
 
@@ -401,7 +400,7 @@ enum abstract RuntimeShaders(String) to String from String
         video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
         
         gl_FragColor = vec4(video,1.0);
-    gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
+    gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }";
 
     var pixel = 
@@ -411,7 +410,7 @@ enum abstract RuntimeShaders(String) to String from String
 	vec2 iResolution = openfl_TextureSize;
 	uniform float iTime;
 	#define iChannel0 bitmap
-	#define texture flixel_texture2D
+	#define texture texture2D
 	#define fragColor gl_FragColor
 	#define mainImage main
 
