@@ -299,6 +299,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
@@ -342,10 +343,9 @@ class MainMenuState extends MusicBeatState
 				});
 			}
 		}
-		}
 
 		super.update(elapsed);
-	
+}
 
 /*	function selectThing()
 		{
