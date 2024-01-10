@@ -299,14 +299,55 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+			if (controls.ACCEPT)
+			{
+				selectedSomethin = true;
+				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-			
+				menuItems.forEach(function(spr:FlxSprite)
+				{
+					if (curSelected != spr.ID)
+					{
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
+							{
+								spr.kill();
+							}
+						});
+					}
+					else
+					{
+						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+						{
+							var daChoice:String = optionShit[curSelected];
+
+							switch (daChoice)
+							{
+								case 'STORY MODE':
+									MusicBeatState.switchState(new StoryMenuState());
+								case 'FREEPLAY':
+                                    MusicBeatState.switchState(new FreeplayState());
+									FlxG.sound.playMusic(Paths.music('fpmenu'));
+								case 'CREDITS':
+									//credits aint done i just did this to make testing easier
+									LoadingState.loadAndSwitchState(new PACreditsState());
+									FlxG.sound.playMusic(Paths.music('creditsmenu'));
+
+                                    //Lib.getURL(new URLRequest('https://gamebanana.com/wips/73842'));
+                                    //MusicBeatState.switchState(this);
+							}
+						});
+					}
+				});
+			}
+		}
 		}
 
 		super.update(elapsed);
 	}
 
-	function selectThing()
+/*	function selectThing()
 		{
 			selectedSomethin = true;
 			FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -347,7 +388,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			});
-		}
+		}*/
 
 	function changeItem(huh:Int = 0)
 	{
