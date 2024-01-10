@@ -972,7 +972,7 @@ class PincushionShader extends FlxShader
 
   //Inspired by http://stackoverflow.com/questions/6030814/add-fisheye-effect-to-images-at-runtime-using-opengl-es
   void main()
-{
+  {
       vec2 p = fragCoord.xy / iResolution.x;//normalized coords with some cheat
       //(assume 1:1 prop)
       float prop = iResolution.x / iResolution.y;//screen proroption
