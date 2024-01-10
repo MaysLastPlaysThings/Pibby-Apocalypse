@@ -345,7 +345,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-	}
+	
 
 /*	function selectThing()
 		{
