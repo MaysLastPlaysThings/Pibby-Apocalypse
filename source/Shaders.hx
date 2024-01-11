@@ -241,9 +241,9 @@ class MAWVHS extends FlxShader {
     
     vec2 screenDistort(vec2 uv)
     {
-        uv -= vec2(.5,.5);
+        uv -= vec2(.5);
         uv = uv*1.2*(1./1.2+2.*uv.x*uv.x*uv.y*uv.y);
-        uv += vec2(.5,.5);
+        uv += vec2(.5);
         return uv;
     }
     
