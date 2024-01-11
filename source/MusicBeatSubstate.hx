@@ -102,6 +102,9 @@ class MusicBeatSubstate extends FlxSubState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
+		if(FlxG.keys.justPressed.F12) {
+			ClientPrefs.shaders = !ClientPrefs.shaders;
+		}
 
 		super.update(elapsed);
 	}

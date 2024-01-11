@@ -175,6 +175,10 @@ class MusicBeatState extends FlxUIState
 
 		if(FlxG.save.data != null) FlxG.save.data.fullscreen = FlxG.fullscreen;
 
+		if(FlxG.keys.justPressed.F12) {
+			ClientPrefs.shaders = !ClientPrefs.shaders;
+		}
+
 		super.update(elapsed);
 	}
 

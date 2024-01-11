@@ -15,12 +15,12 @@ var coolThingColors = [0xFFc4c0c0, 0xFFC1CEAA]; // wtf - forgor, 2023
 
 function onCreate()
 {
-    coolShader = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.file, null, 120);
+    coolShader = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.file, null, 100);
 
-    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 100);
     pixel.setFloat('size', 10);
 
-    thatOtherPixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    thatOtherPixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 100);
     thatOtherPixel.setFloat('size', 5);
 
     void = new flixel.FlxSprite(0, -200);

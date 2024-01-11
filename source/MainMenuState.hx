@@ -90,7 +90,7 @@ class MainMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		FlxG.mouse.visible = false; // For the hovering over the discord stuff
+		FlxG.mouse.visible = #if android false; #elseif windows true; #end // For the hovering over the discord stuff
 
 		persistentUpdate = persistentDraw = true;
 

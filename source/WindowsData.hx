@@ -28,6 +28,6 @@ class WindowsData
 	public static function obtainRAM()
 	{
 		return 0;
-	}
-	#end
+	}	
 }
+#end

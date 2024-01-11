@@ -2900,7 +2900,7 @@ class FunkinLua {
 			return true;
 		}
 
-        #if desktop
+        #if none
 		var foldersToCheck:Array<String> = [Paths.mods('shaders/')];
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
