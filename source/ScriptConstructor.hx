@@ -28,7 +28,7 @@ class ScriptConstructor extends FlxTypedGroup<FlxBasic>
     public var foreground : FlxTypedGroup<FlxBasic>;
 
     // Incase you aren't aware already of what this is gonna do, its basically just gonna allow for hscript functionality with stages lol.
-    public function new(dir : String, file : String)
+    public function new(dir:String, file:String)
     {
         super();
 
