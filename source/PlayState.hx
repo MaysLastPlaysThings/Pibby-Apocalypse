@@ -1556,7 +1556,7 @@ class PlayState extends MusicBeatState
 			return true;
 		}
 
-        #if desktop
+        #if none
 		var foldersToCheck:Array<String> = [Paths.mods('shaders/')];
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
@@ -1858,10 +1858,18 @@ class PlayState extends MusicBeatState
 		for (asset in introAlts)
 			Paths.image(asset);
 		
-		Paths.sound('intro3' + introSoundsSuffix);
-		Paths.sound('intro2' + introSoundsSuffix);
-		Paths.sound('intro1' + introSoundsSuffix);
-		Paths.sound('introGo' + introSoundsSuffix);
+
+		if(isPixelStage) {
+		Paths.sound('intro3-pixel');
+		Paths.sound('intro2-pixel');
+		Paths.sound('intro1-pixel');
+		Paths.sound('introGo-pixel');
+		} else { // fix of the dumb error
+		Paths.sound('3');
+		Paths.sound('2');
+		Paths.sound('1');
+		Paths.sound('go');
+		}
 	}
 
 	private function cameraBump( isFinal : Bool = false ) : Void
@@ -2753,7 +2761,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders) {
 			shaderStuff += elapsed;
 
-            chromFNF.setFloat('aberration', abberationShaderIntensity);
+            chromFNF.setFloat('aberration', abberationShaderIntensity); // error in this shader/line
 			pibbyFNF.glitchMultiply.value[0] = glitchShaderIntensity;
             distortFNF.setFloat('binaryIntensity', distortIntensity);
             distortCAWMFNF.setFloat('binaryIntensity', distortIntensity);

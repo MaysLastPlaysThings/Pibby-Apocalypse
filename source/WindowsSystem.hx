@@ -6,9 +6,11 @@ package;
 #include <iostream>
 #include <string>
 ')
+#end
 	
 class WindowsSystem
 {    
+    #if android
     @:functionCode('
         std::string cmd = "notify-send -u normal \'";
         cmd += title.c_str();
