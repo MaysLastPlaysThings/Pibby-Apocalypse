@@ -58,14 +58,13 @@ class WiggleEffect
 		shader.uSpeed.value = [waveSpeed];
 		return v;
 	}
-
 	function set_waveFrequency(v:Float):Float
 	{
 		waveFrequency = v;
 		shader.uFrequency.value = [waveFrequency];
 		return v;
 	}
-
+	
 	function set_waveAmplitude(v:Float):Float
 	{
 		waveAmplitude = v;
@@ -165,7 +164,7 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
         
         vec4 greenScreen = vec4(0.,1.,0.,1.);
         vec3 color = texture2D(bitmap, uv).rgb;
-        float alpha = texture2D(bitmap, uv).a;
+        float alpha = flixel_texture2D(bitmap, uv).a;
         
         vec3 diff = color.xyz - greenScreen.xyz;
         float fac = smoothstep(threshold-padding,threshold+padding, dot(diff,diff));
@@ -262,7 +261,7 @@ class MAWVHS extends FlxShader {
         video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
         
         gl_FragColor = vec4(video,1.0);
-    gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
+    gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ')
 
@@ -474,7 +473,7 @@ void main()
 
 	vec3 rgb = yiq2rgb(signal.xyz);
 	float alpha = signal.a/(TAPS+1);
-	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), texture2D(bitmap, uv).a);
+	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), flixel_texture2D(bitmap, uv).a);
 	gl_FragColor = color;
 }
 ')
@@ -482,7 +481,7 @@ void main()
 	var topPrefix:String = "";
 
 	public function new() {
-		topPrefix = #if android "#version 100\n\n" #else "#version 120\n\n" #end;
+		topPrefix = "";
 		__glSourceDirty = true;
 
 		super();
@@ -541,8 +540,8 @@ void main()
 				+ "#endif\n\n";
 			#end
 
-			var vertex = topPrefix + prefix + glVertexSource;
-			var fragment = topPrefix + prefix + glFragmentSource;
+			var vertex = prefix + glVertexSource;
+			var fragment = prefix + glFragmentSource;
 
 			var id = vertex + fragment;
 
@@ -627,6 +626,7 @@ class ReflectionShader extends FlxShader
 
 
     vec4 color = vec4(1.0);
+ 
     void main()
     {
       vec2 uv = openfl_TextureCoordv.xy / iResolution.xy;
@@ -671,13 +671,13 @@ class Pibbified extends FlxShader
     }
     
     //remaps inteval [a;b] to [0;1]
-    float remap (float t, float a, float b) {
+    float remap(float t, float a, float b) {
         return sat((t - a) / (b - a));
     }
     
     //note: /\\ t=[0;0.5;1], y=[0;1;0]
     float linterp(float t) {
-        return sat(1.0 - abs(2.0*t - 1.0 ));
+        return sat(1.0 - abs(2.0*t - 1.0));
     }
     
     vec3 spectrum_offset(float t) {
@@ -687,10 +687,10 @@ class Pibbified extends FlxShader
         vec3 ret;
         float lo = step(t,0.5);
         float hi = 1.0-lo;
-        float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
+        float w = linterp(remap(t, 1.0/6.0, 5.0/6.0));
         float neg_w = 1.0-w;
         ret = vec3(lo,1.0,hi) * vec3(neg_w, w, neg_w);
-        return pow( ret, vec3(1.0/2.2) );
+        return pow(ret, vec3(1.0/2.2));
     */
     }
     
@@ -727,21 +727,21 @@ class Pibbified extends FlxShader
         //GLITCH *= rdist;
         
         float gnm = sat(GLITCH);
-        float rnd0 = rand(mytrunc(vec2(time, time), 6.0));
+        float rnd0 = rand( mytrunc( vec2(time, time), 6.0 ) );
         float r0 = sat((1.0-gnm)*0.7 + rnd0);
-        float rnd1 = rand(vec2(mytrunc(uv.x, 10.0*r0 ), time)); //horz
+        float rnd1 = rand( vec2(mytrunc( uv.x, 10.0*r0 ), time) ); //horz
         //float r1 = 1.0f - sat( (1.0f-gnm)*0.5f + rnd1 );
         float r1 = 0.5 - 0.5 * gnm + rnd1;
-        r1 = 1.0 - max(0.0, ((r1<1.0) ? r1 : 0.9999999)); //note: weird ass bug on old drivers
-        float rnd2 = rand(vec2(mytrunc(uv.y, 40.0*r1), time)); //vert
-        float r2 = sat(rnd2);
+        r1 = 1.0 - max( 0.0, ((r1<1.0) ? r1 : 0.9999999) ); //note: weird ass bug on old drivers
+        float rnd2 = rand( vec2(mytrunc( uv.y, 40.0*r1 ), time) ); //vert
+        float r2 = sat( rnd2 );
     
-        float rnd3 = rand(vec2(mytrunc(uv.y, 10.0*r0 ), time));
+        float rnd3 = rand( vec2(mytrunc( uv.y, 10.0*r0 ), time) );
         float r3 = (1.0-sat(rnd3+0.8)) - 0.1;
     
-        float pxrnd = rand(uv + time);
+        float pxrnd = rand( uv + time );
     
-        float ofs = 0.05 * r2 * GLITCH * (rnd0 > 0.5 ? 1.0 : -1.0);
+        float ofs = 0.05 * r2 * GLITCH * ( rnd0 > 0.5 ? 1.0 : -1.0 );
         ofs += 0.5 * pxrnd * ofs;
     
         uv.y += 0.1 * r3 * GLITCH;
@@ -752,12 +752,12 @@ class Pibbified extends FlxShader
         
         vec4 sum = vec4(0.0);
         vec3 wsum = vec3(0.0);
-        for(int i=0; i<NUM_SAMPLES; ++i)
+        for(int i=0; i<NUM_SAMPLES; ++i )
         {
             float t = float(i) * RCP_NUM_SAMPLES_F;
-            uv.x = sat(uv.x + ofs * t);
-            vec4 samplecol = texture2D(bitmap, uv);
-            vec3 s = spectrum_offset(t);
+            uv.x = sat( uv.x + ofs * t );
+            vec4 samplecol = texture2D( bitmap, uv );
+            vec3 s = spectrum_offset( t );
             samplecol.rgb = samplecol.rgb * s;
             sum += samplecol;
             wsum += s;
@@ -765,7 +765,7 @@ class Pibbified extends FlxShader
         sum.rgb /= wsum;
         sum.a *= RCP_NUM_SAMPLES_F;
     
-        //gl_FragColor = vec4( sum.bbb, 1.0 ); return;
+        //gl_FragColor = vec4(sum.bbb, 1.0); return;
         
         gl_FragColor.a = sum.a;
         gl_FragColor.rgb = sum.rgb; // * outcol0.a;
@@ -776,6 +776,8 @@ class Pibbified extends FlxShader
     public function new()
     {
         super();
+        uTime.value = [];
+        glitchMultiply.value = [];
         NUM_SAMPLES.value = [3];
         iMouseX.value = [500];
     }
@@ -866,6 +868,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
         vec2 u = smoothstep(0., 1., f);
 
         return mix(a,b, u.x) + (c - a) * u.y * (1. - u.x) + (d - b) * u.x * u.y;
+
     }
 
     vec2 scandistort(vec2 uv) {
@@ -876,8 +879,8 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	uv.x -= 0.05 * mix(texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
 
     	return uv;
-
     }
+
     void main()
     {
     	vec2 uv = openfl_TextureCoordv;
@@ -891,7 +894,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	vec4 video = getVideo(uv);
       float vigAmt = 1.0;
       float x =  0.;
-
 
       video.r = getVideo(vec2(x+uv.x+0.001,uv.y+0.001)- vec2(0.005,0.004)).x+0.05;
       video.g = getVideo(vec2(x+uv.x+0.000,uv.y-0.002)).y+0.05;
@@ -915,7 +917,6 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
       if(tvWow.x<0. || tvWow.x>1. || tvWow.y<0. || tvWow.y>1.){
         gl_FragColor = vec4(0.,0.,0.,0.);
       }
-
     }
   ')
   public function new() {
@@ -928,7 +929,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
   }
 }
 
-class BlendModeEffect
+/*class BlendModeEffect
 {
 	public var shader(default, null):BlendModeShader;
 
@@ -951,7 +952,7 @@ class BlendModeEffect
 
 		return this.color = color;
 	}
-}
+}*/
 
 class PincushionShader extends FlxShader
 {
@@ -973,7 +974,7 @@ class PincushionShader extends FlxShader
   void main()
   {
       vec2 p = fragCoord.xy / iResolution.x;//normalized coords with some cheat
-                                                               //(assume 1:1 prop)
+      //(assume 1:1 prop)
       float prop = iResolution.x / iResolution.y;//screen proroption
       vec2 m = vec2(0.5, 0.5 / prop);//center coords
       vec2 d = p - m;//vector from center to current fragment
@@ -1002,8 +1003,8 @@ class PincushionShader extends FlxShader
       vec3 col = texture2D(iChannel0, uv).rgb;
       
       // inverted
-      //vec3 col = texture2D(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
-                                                        //for round effect, not elliptical
+      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat      
+      //for round effect, not elliptical
       fragColor = vec4(col, 1.0);
     }
    ')
@@ -1015,7 +1016,7 @@ class PincushionShader extends FlxShader
 
 class BlurShader extends FlxShader
 {
-    @:glFragmentSource('
+ @:glFragmentSource('
 
 #pragma header
 
@@ -1127,6 +1128,8 @@ class InvertShader extends FlxShader
   
     public function new()
 	{
+                binaryIntensity.value = [1000.0];
+
 		super();
 	}
 }
@@ -1138,7 +1141,7 @@ class OldTVShader extends FlxShader
         #define id vec2(0.,1.)
         #define k 1103515245U
         #define PI 3.141592653
-        #define TAU PI * 2.
+        #define TAU (PI * 2.0)
 
         uniform float iTime;
 
