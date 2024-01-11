@@ -165,7 +165,7 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
         
         vec4 greenScreen = vec4(0.,1.,0.,1.);
         vec3 color = texture2D(bitmap, uv).rgb;
-        float alpha = flixel_texture2D(bitmap, uv).a;
+        float alpha = texture2D(bitmap, uv).a;
         
         vec3 diff = color.xyz - greenScreen.xyz;
         float fac = smoothstep(threshold-padding,threshold+padding, dot(diff,diff));
@@ -202,7 +202,7 @@ class MAWVHS extends FlxShader {
     
     float noise(vec2 p)
     {
-        float s = texture(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
+        float s = texture2D(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
         s *= s;
         return s;
     }
@@ -262,7 +262,7 @@ class MAWVHS extends FlxShader {
         video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
         
         gl_FragColor = vec4(video,1.0);
-    gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
+    gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ')
 
@@ -474,7 +474,7 @@ void main()
 
 	vec3 rgb = yiq2rgb(signal.xyz);
 	float alpha = signal.a/(TAPS+1);
-	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), flixel_texture2D(bitmap, uv).a);
+	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), texture2D(bitmap, uv).a);
 	gl_FragColor = color;
 }
 ')
@@ -637,7 +637,7 @@ class ReflectionShader extends FlxShader
         color = vec4(0.7, 0.85, 1.0, 1.0);
       }
 
-        gl_FragColor = flixel_texture2D(bitmap, uv) * Color;
+        gl_FragColor = texture2D(bitmap, uv) * Color;
     }
   
   ')
@@ -826,7 +826,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     vec4 getVideo(vec2 uv)
       {
       	vec2 look = uv;
-      	vec4 video = flixel_texture2D(bitmap,look);
+      	vec4 video = texture2D(bitmap,look);
 
       	return video;
       }
@@ -873,7 +873,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
     	float scan2 = clamp(cos(uv.y * 2.0 + iTime + 4.0) * 10.0, 0.0, 1.0) ;
     	float amount = scan1 * scan2 * uv.x;
 
-    	uv.x -= 0.05 * mix(flixel_texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
+    	uv.x -= 0.05 * mix(texture2D(noiseTex, vec2(uv.x, amount)).r * amount, amount, 0.9);
 
     	return uv;
 
@@ -999,10 +999,10 @@ class PincushionShader extends FlxShader
           
       uv.y *= prop;
   
-      vec3 col = texture(iChannel0, uv).rgb;
+      vec3 col = texture2D(iChannel0, uv).rgb;
       
       // inverted
-      //vec3 col = texture(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
+      //vec3 col = texture2D(iChannel0, vec2(uv.x, 1.0 - uv.y)).rgb;//Second part of cheat
                                                         //for round effect, not elliptical
       fragColor = vec4(col, 1.0);
     }
@@ -1119,7 +1119,7 @@ class InvertShader extends FlxShader
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        vec4 color = flixel_texture2D(bitmap, vec2(rx, ry));
+        vec4 color = texture2D(bitmap, vec2(rx, ry));
     
         gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
     }
@@ -1181,7 +1181,7 @@ class OldTVShader extends FlxShader
                 }
             }
             
-            vec4 col = flixel_texture2D(bitmap, uv);
+            vec4 col = texture2D(bitmap, uv);
             
             //blur, from https://www.shadertoy.com/view/Xltfzj
             float directions = 16.0;
@@ -1191,7 +1191,7 @@ class OldTVShader extends FlxShader
             vec2 radius = size / openfl_TextureSize;
             for(float d = 0.0; d < TAU; d += TAU / directions) {
                 for(float i= 1.0 / quality; i <= 1.0; i += 1.0 / quality) {
-                    col += flixel_texture2D(bitmap, uv + vec2(cos(d), sin(d)) * radius * i);	
+                    col += texture2D(bitmap, uv + vec2(cos(d), sin(d)) * radius * i);	
                 }
             }
             col /= quality * directions - 14.0;
