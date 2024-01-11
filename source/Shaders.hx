@@ -164,7 +164,7 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
         
         vec4 greenScreen = vec4(0.,1.,0.,1.);
         vec3 color = texture2D(bitmap, uv).rgb;
-        float alpha = flixel_texture2D(bitmap, uv).a;
+        float alpha = texture2D(bitmap, uv).a;
         
         vec3 diff = color.xyz - greenScreen.xyz;
         float fac = smoothstep(threshold-padding,threshold+padding, dot(diff,diff));
@@ -261,7 +261,7 @@ class MAWVHS extends FlxShader {
         video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
         
         gl_FragColor = vec4(video,1.0);
-    gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
+    gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ')
 
@@ -473,7 +473,7 @@ void main()
 
 	vec3 rgb = yiq2rgb(signal.xyz);
 	float alpha = signal.a/(TAPS+1);
-	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), flixel_texture2D(bitmap, uv).a);
+	vec4 color = vec4(pow(rgb, vec3(NTSC_CRT_GAMMA / NTSC_MONITOR_GAMMA)), texture2D(bitmap, uv).a);
 	gl_FragColor = color;
 }
 ')
@@ -929,7 +929,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
   }
 }
 
-/*class BlendModeEffect
+class BlendModeEffect
 {
 	public var shader(default, null):BlendModeShader;
 
@@ -952,7 +952,7 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
 		return this.color = color;
 	}
-}*/
+}
 
 class PincushionShader extends FlxShader
 {
@@ -1128,7 +1128,7 @@ class InvertShader extends FlxShader
   
     public function new()
 	{
-                binaryIntensity.value = [1000.0];
+                //binaryIntensity.value = [1000.0];
 
 		super();
 	}
