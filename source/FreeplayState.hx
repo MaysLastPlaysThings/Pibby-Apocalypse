@@ -591,6 +591,8 @@ class FreeplayState extends MusicBeatState
 			{
 				shaderIntensity = FlxG.random.float(0.2, 0.3);
 			}
+			
+			if (ClientPrefs.shaders)
 			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
 	}
 
