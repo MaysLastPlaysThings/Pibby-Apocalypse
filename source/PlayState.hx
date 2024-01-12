@@ -3495,7 +3495,7 @@ class PlayState extends MusicBeatState
 				else{
                     if(touhouBG==null)return; // ficks
                     isAppleLOL = false;
-                    if (ClientPrefs.shaders || !ClientPrefs.lowQuality) camGame.removeFilter("glow");
+                    if (ClientPrefs.shaders && !ClientPrefs.lowQuality) camGame.removeFilter("glow");
 					touhouBG.alpha = 0;
 					touhouBG.kill();
 					touhouBG = null;
@@ -5531,7 +5531,7 @@ class PlayState extends MusicBeatState
                             if (ClientPrefs.flashing) {
                                 camOverlay.flash(FlxColor.WHITE, 1.5);
                             }
-                            triggerEventNote('Apple Filter', 'off', 'black');
+                           triggerEventNote('Apple Filter', 'off', 'black');
 						case 1728:
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
