@@ -6,7 +6,7 @@ var pixel;
 
 function onCreate()
 {
-    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 100);
     pixel.setFloat('size', 5);
 
     bg = new flixel.FlxSprite(-800, -800);

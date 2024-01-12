@@ -37,7 +37,7 @@ var coolThingColors = [0xc4c0c0, 0xC1CEAA]; // wtf - forgor, 2023
 
 function onCreate()
 {
-    pixel = new FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel = new FlxRuntimeShader(RuntimeShaders.pixel, null, 100);
     pixel.setFloat('size', 10);
 
     background = new flixel.FlxSprite(0, 0);
