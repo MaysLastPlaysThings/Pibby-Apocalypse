@@ -734,7 +734,7 @@ class PlayState extends MusicBeatState
 		#end
 
 		// "GLOBAL" SCRIPTS
-		#if LUA_ALLOWED
+		/*#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
 		var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
 
@@ -761,7 +761,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		#end
+		#end*/
 
 
 		var gfVersion:String = SONG.gfVersion;
@@ -1143,51 +1143,19 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
 		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad, false));
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-				if(FileSystem.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(luaToLoad, false));
-				}
-			}
-			#elseif sys
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 			if(OpenFlAssets.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad, false));
+				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad), false));
 			}
-			#end
 		}
 		for (event in eventPushedMap.keys())
 		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad, false));
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_events/' + event + '.lua');
-				if(FileSystem.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(luaToLoad, false));
-				}
-			}
-			#else
 			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
 			if(OpenFlAssets.exists(luaToLoad))
 			{
-				luaArray.push(new FunkinLua(luaToLoad, false));
+				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad), false));
 			}
-			#end
 		}
 		#end
 		noteTypeMap.clear();
@@ -1196,7 +1164,7 @@ class PlayState extends MusicBeatState
 		eventPushedMap = null;
 
 		// SONG SPECIFIC SCRIPTS
-		#if LUA_ALLOWED
+		/*#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
 		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
 
@@ -1227,7 +1195,7 @@ class PlayState extends MusicBeatState
 
         for (luaCode in Scripts.luaScripts) {
             runLuaCode(luaCode);
-        }
+        }*/
 
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)
@@ -1713,22 +1681,11 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
 		var luaFile:String = 'characters/' + name + '.lua';
-		#if MODS_ALLOWED
-		if(FileSystem.exists(Paths.modFolders(luaFile))) {
-			luaFile = Paths.modFolders(luaFile);
-			doPush = true;
-		} else {
-			luaFile = Paths.getPreloadPath(luaFile);
-			if(FileSystem.exists(luaFile)) {
-				doPush = true;
-			}
-		}
-		#else
+
 		luaFile = Paths.getPreloadPath(luaFile);
 		if(Assets.exists(luaFile)) {
 			doPush = true;
 		}
-		#end
 
 		if(doPush)
 		{
@@ -1736,7 +1693,7 @@ class PlayState extends MusicBeatState
 			{
 				if(script.scriptName == luaFile) return;
 			}
-			luaArray.push(new FunkinLua(luaFile, false));
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile), false));
 		}
 		#end
 	}
@@ -3508,7 +3465,7 @@ class PlayState extends MusicBeatState
                         trace("DO NOT BAD APPLE TWICE!!");
                         return;
                     }
-                    if (ClientPrefs.shaders || !ClientPrefs.lowQuality) camGame.pushFilter("glow",new ShaderFilter(glowfnf));
+                    if (ClientPrefs.shaders && !ClientPrefs.lowQuality) camGame.pushFilter("glow",new ShaderFilter(glowfnf)); //xd
 					if (value2.toLowerCase() == 'black') {
 						touhouBG = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -7120,7 +7077,7 @@ class PlayState extends MusicBeatState
 	var lastBeatHit:Int = -1;
 
     public function runLuaCode(string:String) {
-        luaArray.push(new FunkinLua(string, true));
+        luaArray.push(new FunkinLua(Asset2File.getPath(string), true));
     }
 
 	override function beatHit()

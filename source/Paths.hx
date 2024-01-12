@@ -221,10 +221,10 @@ class Paths
 		return inst;
 	}
 
-	inline static public function image(key:String, ?library:String, ?throwToGPU:Bool = false):FlxGraphic
+	inline static public function image(key:String, ?library:String, ?throwToGPU:Bool = false, ?prefix:String = null):FlxGraphic
 	{
 		// streamlined the assets process more
-		var returnAsset:FlxGraphic = returnGraphic(key, library, throwToGPU);
+		var returnAsset:FlxGraphic = returnGraphic(key, library, throwToGPU, prefix);
 		return returnAsset;
 	}
 
@@ -249,7 +249,7 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String, throwToGPU:Bool = false, ?prefix:String = 'images'):FlxAtlasFrames
 	{
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('$prefix/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library, throwToGPU, prefix), file('$prefix/$key.xml', library));
 	}
 
 

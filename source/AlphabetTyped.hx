@@ -56,6 +56,7 @@ class AlphabetTyped extends FlxSpriteGroup
 			x = FlxMath.lerp(x, (targetY * 20) + 90, 0.30);
 		}
 
+		if (ClientPrefs.shaders)
 		pibbyFNF.uTime.value[0] += elapsed;
 
 		super.update(elapsed);

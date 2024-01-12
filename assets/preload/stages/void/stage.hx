@@ -95,7 +95,7 @@ function onCreate()
     if (!ClientPrefs.lowQuality) add(rock2);
     add(house);
     add(rock);
-    if (!ClientPrefs.lowQuality) add(wtf);
+    if (!ClientPrefs.lowQuality) foreground.add(wtf);
 }
 
 function onCreatePost()
