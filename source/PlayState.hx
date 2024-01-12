@@ -1380,7 +1380,7 @@ class PlayState extends MusicBeatState
                     if (ClientPrefs.gore) {
 					    //GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
 						GameOverSubstate.characterName = 'deathscreen';
-						GameOverSubstate.deathSoundName = 'glitchshit';
+						GameOverSubstate.deathSoundName = 'glitchhit';
 						GameOverSubstate.soundLibraryStart = 'shared';
 						GameOverSubstate.endSoundName = 'gameOverEnd';
 
