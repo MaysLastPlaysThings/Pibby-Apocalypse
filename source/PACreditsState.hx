@@ -73,6 +73,9 @@ class PACreditsState extends MusicBeatState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		FlxG.game.filtersEnabled = true;
 		pibbyFNF = new Shaders.Pibbified();
 
