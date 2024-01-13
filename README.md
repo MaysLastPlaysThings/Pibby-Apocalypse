@@ -9,6 +9,7 @@
 * [FNF BR](https://youtube.com/@FNF-BR) - Third Porter
 * [Idklool](https://youtube.com/@idklool121) - Fourth Porter
 * [MateusX02](https://youtube.com/@mateusx02) - Fifth Porter
+* [Ralsei](https://youtube.com/@ralsei.smol03) - Sixth Porter
 
 ### Special Thanks
 * [MAJigsaw](https://github.com/MAJigsaw77) - AndroidTools Creator
