@@ -39,37 +39,36 @@ class OptionsState extends MusicBeatState
 		switch(label) {
             case 'Pibby Apocalypse':
 			  #if mobile
-              removeVirtualPad();
+        removeVirtualPad();
 			  #end
 				openSubState(new options.PibbyOptionsSubState());
 			case 'Note Colors':
 			    #if mobile
 			    removeVirtualPad();
-                #end
+          #end
 				openSubState(new options.NotesSubState());
 			case 'Controls':
 			   #if mobile
-		   	   removeVirtualPad();
-               #end
+		   	 removeVirtualPad();
+         #end
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
 			    #if mobile
-                removeVirtualPad();
-		   	    #end
+          removeVirtualPad();
+		   	  #end
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
 			    #if mobile
-                removeVirtualPad();
-                #end
+          removeVirtualPad();
+          #end
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-			    #if mobile
-                removeVirtualPad();
-				#end
-
+			     #if mobile
+           removeVirtualPad();
+				   #end
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-			    #if mobile
+			  #if mobile
 				removeVirtualPad();
 				#end
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
@@ -80,6 +79,9 @@ class OptionsState extends MusicBeatState
 	var selectorRight:Alphabet;
 
 	override function create() {
+	 	Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		#if desktop
 		DiscordClient.changePresence("⚙️ | In the Options Menu", null);
 		#end

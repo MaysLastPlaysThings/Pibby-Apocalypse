@@ -66,6 +66,9 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		WeekData.loadTheFirstEnabledMod();
@@ -90,7 +93,7 @@ class MainMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		FlxG.mouse.visible = #if android false; #elseif windows true; #end // For the hovering over the discord stuff
+		FlxG.mouse.visible = true;
 
 		persistentUpdate = persistentDraw = true;
 
