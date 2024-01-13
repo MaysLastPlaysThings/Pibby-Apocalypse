@@ -1163,40 +1163,6 @@ class PlayState extends MusicBeatState
 		eventPushedMap.clear();
 		eventPushedMap = null;
 
-		// SONG SPECIFIC SCRIPTS
-		/*#if LUA_ALLOWED
-		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
-
-		#if MODS_ALLOWED
-		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
-		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
-
-		for(mod in Paths.getGlobalMods())
-			foldersToCheck.insert(0, Paths.mods(mod + '/data/' + Paths.formatToSongPath(SONG.song) + '/' ));// using push instead of insert because these should run after everything else
-		#end
-
-		for (folder in foldersToCheck)
-		{
-			if(FileSystem.exists(folder))
-			{
-				for (file in FileSystem.readDirectory(folder))
-				{
-					if(file.endsWith('.lua') && !filesPushed.contains(file))
-					{
-						luaArray.push(new FunkinLua(folder + file, false));
-						filesPushed.push(file);
-					}
-				}
-			}
-		}
-		#end
-
-        for (luaCode in Scripts.luaScripts) {
-            runLuaCode(luaCode);
-        }*/
-
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)
 		{
@@ -1721,11 +1687,7 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 
 		var filepath:String = Paths.video('Cheating_is_a_sin');
-		#if desktop
 		if(!FileSystem.exists(filepath))
-		#else
-		if(!OpenFlAssets.exists(filepath))
-		#end
 		{
 			FlxG.log.warn('Couldnt find video file!!');
 			MusicBeatState.switchState(new FreeplayState());
@@ -1761,11 +1723,7 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
-		#if desktop
 		if(!FileSystem.exists(filepath))
-		#else
-		if(!OpenFlAssets.exists(filepath))
-		#end
 		{
 			FlxG.log.warn('Couldnt find video file: ' + name);
 			startAndEnd();
