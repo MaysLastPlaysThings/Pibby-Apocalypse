@@ -190,6 +190,11 @@ class Paths
 		return Generic.returnPath() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
+	static public function truevideo(key:String)
+	{
+		return 'assets/videos/$key.$VIDEO_EXT';
+	}
+
 	static public function sound(key:String, ?library:String):Sound
 	{
 		var sound:Sound = returnSound('sounds', key, library);

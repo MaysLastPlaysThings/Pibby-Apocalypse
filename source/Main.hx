@@ -116,7 +116,7 @@ class Main extends Sprite
 		}
 
 		for (video in videos) {
-			Generic.copyContent(Paths.truvideo(video), Paths.truvideo(video));
+			Generic.copyContent(Paths.truevideo(video), Paths.truevideo(video));
 		}
 	#end
 		var stageWidth:Int = Lib.current.stage.stageWidth;
