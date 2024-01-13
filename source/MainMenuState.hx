@@ -227,11 +227,10 @@ class MainMenuState extends MusicBeatState
 			shaderIntensity = FlxG.random.float(0.2, 0.3);
 		}
 
-		if (ClientPrefs.shaders)
-		{
-			/*pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
-				pibbyFNF.uTime.value[0] += elapsed;
-				VCR.iTime.value[0] += elapsed; */
+		if (ClientPrefs.shaders) {
+			pibbyFNF.glitchMultiply.value[0] = shaderIntensity;
+			pibbyFNF.uTime.value[0] += elapsed;
+			VCR.iTime.value[0] += elapsed;
 		}
 
 		Conductor.changeBPM(100);

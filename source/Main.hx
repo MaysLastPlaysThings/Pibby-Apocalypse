@@ -53,6 +53,11 @@ class Main extends Sprite
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
+	static final videos:Array<String> = [
+		"Cheating_is_a_sin",
+		"forgottenscene",
+	];
+
 	public static function main():Void
 	{
 		#if windows
@@ -65,7 +70,7 @@ class Main extends Sprite
 	{
 		super();
 
-        #if mobile
+    #if mobile
 		Generic.initCrashHandler();
 		Generic.mode = ROOTDATA;
 		#end
@@ -98,6 +103,22 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+	  
+	#if mobile
+  //dude just wrote a full book of trash wtf
+
+		if (!FileSystem.exists(Generic.returnPath() + 'assets')) {
+			FileSystem.createDirectory(Generic.returnPath() + 'assets');
+		}
+
+		if (!FileSystem.exists(Generic.returnPath() + 'assets/videos')) {
+			FileSystem.createDirectory(Generic.returnPath() + 'assets/videos');
+		}
+
+		for (video in videos) {
+			Generic.copyContent(Paths.truvideo(video), Paths.truvideo(video));
+		}
+	#end
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
