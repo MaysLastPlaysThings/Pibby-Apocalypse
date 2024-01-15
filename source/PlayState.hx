@@ -573,6 +573,9 @@ class PlayState extends MusicBeatState
 			if(ClientPrefs.downScroll) cnlogo.y -= 530;
 		}
 
+		// video precachinggggggg
+		Paths.video('Cheating_is_a_sin');
+
     #if desktop
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
