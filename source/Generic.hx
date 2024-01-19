@@ -195,9 +195,11 @@ class PermsState extends FlxState {
 		text.y -= FlxG.height / 4;
 		text.alignment = CENTER;
 		add(text);
+		#if android
 		permsbutton = new FlxUIButton(0,0,"Ask Permissions", () -> {
             Permissions.requestPermissions([Permissions.WRITE_EXTERNAL_STORAGE, Permissions.READ_EXTERNAL_STORAGE]);
         });
+       #end
         permsbutton.screenCenter(XY);
         permsbutton.x -= 400;
         permsbutton.y += 100;
