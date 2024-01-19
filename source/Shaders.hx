@@ -1145,15 +1145,14 @@ class OldTVShader extends FlxShader {
     #define k vec3(0.1031, 0.1030, 0.0973)
 
 		uniform float iTime;
-    precision mediump float;	
 
 		//prng func, from https://stackoverflow.com/a/52207531
 
     vec3 hash(vec3 x) {
-    x = ((x / 256.0) + x.yzx) * k;
-    x = ((x / 256.0) + x.yzx) * k;
-    x = ((x / 256.0) + x.yzx) * k;
-    return x * (1.0 / 4294967295.0);
+			x = ((x * 255.0) + vec3(0.5)) * k;
+			x = ((x * 255.0) + vec3(0.5)) * k;
+			x = ((x * 255.0) + vec3(0.5)) * k;
+     return x / 255.0;
 }
 
 	/*	vec3 hash(vec3 p) {
