@@ -180,6 +180,12 @@ class PACreditsState extends MusicBeatState
 				Paths.returnGraphic('pacreditarts/' + person[1] + 2, null, true);
 			}
 
+    #if mobile
+    addVirtualPad(LEFT_UP, NONE);
+    addVirtualPadCamera(false);
+    virtualPad.x = 60;
+    #end
+
 		super.create();
 
 /*		var thenum:Int;
@@ -246,7 +252,7 @@ class PACreditsState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-			if (controls.BACK)
+			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
