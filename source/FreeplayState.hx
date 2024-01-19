@@ -417,7 +417,6 @@ class FreeplayState extends MusicBeatState
 		{
 			if (leftP)
 			{
-				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -435,7 +434,7 @@ class FreeplayState extends MusicBeatState
 			}
 			if (rightP)
 			{
-				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
+			    FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -578,8 +577,8 @@ class FreeplayState extends MusicBeatState
 		// todo: fix this
 		stagebox.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
 		image.y = 3 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.015));
-		if (!ClientPrefs.lowQuality && arrowL != null) arrowL.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
-		if (!ClientPrefs.lowQuality && arrowR != null) arrowR.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
+		if (arrowL != null) arrowL.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
+		if (arrowR != null) arrowR.y = 290 + Math.sin(Conductor.songPosition/600)*((FlxG.height * 0.065));
 	}
 
 	override function beatHit() {
