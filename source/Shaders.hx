@@ -1142,16 +1142,16 @@ class OldTVShader extends FlxShader {
 		//#define k 1103515245.0  //1103515245U
 		#define PI 3.141592653
 		#define TAU (PI * 2.0)
-
+		
 		uniform float iTime;
-
+		
 		//prng func, from https://stackoverflow.com/a/52207531
-
+		
 		vec3 hash(vec3 p) {
 			p = fract(p * 0.1031);
 			p += dot(p, p.yzx + 33.33);
 			return fract(vec3((p.x + p.y) * p.z, (p.y + p.z) * p.x, (p.z + p.x) * p.y));
-		} //different hash, yea (fuck it, idc anymore if it's not accurate atleast it works)
+		} //different hash, yea
 		
 		/*vec3 hash(uvec3 x) {
 			x = ((x>>8U)^x.yzx)*k;
