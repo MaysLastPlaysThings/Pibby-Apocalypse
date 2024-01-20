@@ -455,7 +455,7 @@ class FreeplayState extends MusicBeatState
 		{
 			if (leftP)
 			{
-				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
+			 FlxTween.tween(arrowL, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
@@ -474,7 +474,7 @@ class FreeplayState extends MusicBeatState
 			}
 			if (rightP)
 			{
-				if (!ClientPrefs.lowQuality) FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
+				 FlxTween.tween(arrowR, {alpha: 0.4}, 0.1, {
 					ease: FlxEase.quadInOut,
 					onComplete: 
 					function (twn:FlxTween)
