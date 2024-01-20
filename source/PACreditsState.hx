@@ -181,7 +181,7 @@ class PACreditsState extends MusicBeatState
 			}
 
     #if mobile
-    addVirtualPad(LEFT_UP, NONE);
+    addVirtualPad(LEFT_RIGHT, NONE);
     addVirtualPadCamera(false);
     virtualPad.x = 60;
     #end
