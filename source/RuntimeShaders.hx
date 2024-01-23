@@ -6,8 +6,8 @@ enum abstract RuntimeShaders(String) to String from String
     var distort = 
     "#pragma header
 
-    uniform float binaryIntensity;
-    uniform float negativity;
+    float binaryIntensity;
+    float negativity;
     
     void main(){
 
@@ -44,11 +44,11 @@ enum abstract RuntimeShaders(String) to String from String
     var glowy = "
     //SHADERTOY PORT FIX
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
-    uniform float Size;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
+    float Size;
     #define iChannel0 bitmap
     #define texture texture2D
     #define fragColor gl_FragColor
@@ -59,6 +59,10 @@ enum abstract RuntimeShaders(String) to String from String
 
     void mainImage()
     {
+ 	  uv = openfl_TextureCoordv.xy;
+	  fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	  iResolution = openfl_TextureSize;
+ 
        #pragma body
 
        vec4 sum = vec4(0.0);
@@ -97,7 +101,7 @@ enum abstract RuntimeShaders(String) to String from String
     https://www.shadertoy.com/view/wtt3z2
     */
     
-    uniform float aberration;
+    float aberration;
     
     vec3 tex2D(sampler2D _tex,vec2 _p)
     {
@@ -109,9 +113,7 @@ enum abstract RuntimeShaders(String) to String from String
     }
     
     void main() {
-
         #pragma body
-
         vec2 uv = openfl_TextureCoordv; //openfl_TextureCoordv.xy*2.0 / openfl_TextureSize.xy-vec2(1.0);
         
         vec2 trueAberration = aberration * pow((uv - 0.5), vec2(3.0, 3.0));
@@ -181,7 +183,7 @@ enum abstract RuntimeShaders(String) to String from String
 
     void mainImage()
     { 
-    uv = openfl_TextureCoordv.xy ;
+    uv = openfl_TextureCoordv.xy;
     fragCoord = openfl_TextureCoordv * openfl_TextureSize; //hi its me mariomaster
     iResolution = openfl_TextureSize;
     iTime = 0.0;
@@ -215,12 +217,12 @@ enum abstract RuntimeShaders(String) to String from String
     #define round(a) floor(a + 0.5)
     #define texture texture2D
     #define iResolution openfl_TextureSize
-    uniform float iTime;
+    float iTime;
     #define iChannel0 bitmap
 
-    uniform float posX; // from 0.0 to 1.0
-    uniform float posY; // from 0.0 to 1.0
-    uniform float focusPower; // 10.0
+    float posX; // from 0.0 to 1.0
+    float posY; // from 0.0 to 1.0
+    float focusPower; // 10.0
 
     #define focusDetail 7.0
     void mainImage(out vec4 fragColor, in vec2 fragCoord )
@@ -341,10 +343,10 @@ enum abstract RuntimeShaders(String) to String from String
 
     var file = "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
     #define texture texture2D
@@ -401,6 +403,9 @@ enum abstract RuntimeShaders(String) to String from String
 
     void main()
     {
+ 	  uv = openfl_TextureCoordv.xy;
+	  fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	  iResolution = openfl_TextureSize;
     vec2 fragCoord = openfl_TextureCoordv * iResolution;
         vec2 uv = fragCoord.xy / iResolution.xy;
         uv = screenDistort(uv);
@@ -422,7 +427,7 @@ enum abstract RuntimeShaders(String) to String from String
 	vec2 uv;
 	vec2 fragCoord;
 	vec2 iResolution;
-	uniform float iTime;
+	float iTime;
 	#define iChannel0 bitmap
 	#define texture texture2D
 	#define fragColor gl_FragColor
