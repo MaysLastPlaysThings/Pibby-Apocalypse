@@ -5626,6 +5626,7 @@ class PlayState extends MusicBeatState
 							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 							midSongVideo.bitmap.finishCallback = () -> { 
 								canPause = true;
+								blackie.alpha = 0;
 							};
 							#else
 							blackie.alpha = 1;
