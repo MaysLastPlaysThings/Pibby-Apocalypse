@@ -247,10 +247,12 @@ enum abstract RuntimeShaders(String) to String from String
 
     var fwGlitch = "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
+    float uTime;
+    vec4 iMouse;
     #define iChannel0 bitmap
     #define texture texture2D
     #define fragColor gl_FragColor
@@ -303,6 +305,13 @@ enum abstract RuntimeShaders(String) to String from String
     void mainImage()
     {
         // Normalized pixel coordinates (from 0 to 1)
+        uv = openfl_TextureCoordv.xy;
+        fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+        iResolution = openfl_TextureSize;
+        iTime = 0.0;
+        uTime = 0.0;
+        iMouse = vec4(0.0, 0.0, 0.0, 0.0);
+
         vec2 uv = fragCoord/iResolution.xy;
         vec2 a = vec2(uv.x * (iResolution.x / iResolution.y), uv.y);
         vec2 uv2 = vec2(a.x / iResolution.x, exp(a.y));
