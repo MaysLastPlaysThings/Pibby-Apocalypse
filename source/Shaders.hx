@@ -1120,9 +1120,9 @@ class InvertShader extends FlxShader
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        vec4 color = texture2D(bitmap, vec2(rx, ry));
-    
-        gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
+        vec4 mierdaColor = texture2D(bitmap, vec2(rx, ry));
+
+        gl_FragColor = mix(mierdaColor, vec4(1.0 - mierdaColor.r, 1.0 - mierdaColor.g, 1.0 - mierdaColor.b, mierdaColor.a) * mierdaColor.a, negativity);
     }
     ')
   

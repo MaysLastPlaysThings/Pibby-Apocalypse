@@ -6,8 +6,8 @@ enum abstract RuntimeShaders(String) to String from String
     var distort = 
     "#pragma header
 
-    float binaryIntensity;
-    float negativity;
+    uniform float binaryIntensity;
+    uniform float negativity;
     
     void main(){
 
@@ -35,35 +35,32 @@ enum abstract RuntimeShaders(String) to String from String
         float rx = (px - qx) * lum + uv.x;
         float ry = (py - qy) * lum + uv.y;
     
-        vec4 color = texture2D(bitmap, vec2(rx, ry));
-    
-        gl_FragColor = mix(color, vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a) * color.a, negativity);
+        vec4 mierdaColor = texture2D(bitmap, vec2(rx, ry));
+
+        gl_FragColor = mix(mierdaColor, vec4(1.0 - mierdaColor.r, 1.0 - mierdaColor.g, 1.0 - mierdaColor.b, mierdaColor.a) * mierdaColor.a, negativity);
     }
     ";
 	
     var glowy = "
     //SHADERTOY PORT FIX
     #pragma header
-    vec2 uv;
-    vec2 fragCoord;
-    vec2 iResolution;
-    float iTime;
-    float Size;
     #define iChannel0 bitmap
     #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
 
-    const float blurSize = 1.0/512.0;
-    const float intensity = 0.85;
-
     void mainImage()
     {
- 	  uv = openfl_TextureCoordv.xy;
-	  fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	  iResolution = openfl_TextureSize;
- 
        #pragma body
+
+       vec2 uv = openfl_TextureCoordv.xy;
+       vec2 fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+       vec2 iResolution = openfl_TextureSize;
+       float iTime = 0.0;
+       float Size = 0.0;
+       const float blurSize = 1.0 / 512.0;
+       const float intensity = 0.85;
+
 
        vec4 sum = vec4(0.0);
        vec2 texcoord = fragCoord.xy/iResolution.xy;
@@ -220,9 +217,9 @@ enum abstract RuntimeShaders(String) to String from String
     float iTime;
     #define iChannel0 bitmap
 
-    float posX; // from 0.0 to 1.0
-    float posY; // from 0.0 to 1.0
-    float focusPower; // 10.0
+    float posX;
+    float posY;
+    float focusPower;
 
     #define focusDetail 7.0
     void mainImage(out vec4 fragColor, in vec2 fragCoord )
@@ -436,9 +433,9 @@ enum abstract RuntimeShaders(String) to String from String
 	uniform float size;
 
 	void mainImage() {
-	  uv = openfl_TextureCoordv.xy;
-	  fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-	  iResolution = openfl_TextureSize;
+	    uv = openfl_TextureCoordv.xy;
+	    fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+	    iResolution = openfl_TextureSize;
 		vec2 coordinates = fragCoord.xy/iResolution.xy;
 		vec2 pixelSize = vec2(size/iResolution.x, size/iResolution.y);
 		vec2 position = floor(coordinates/pixelSize)*pixelSize;
