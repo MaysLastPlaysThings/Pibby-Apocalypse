@@ -331,7 +331,7 @@ class FreeplayState extends MusicBeatState
 		});
 
     #if mobile
-    addVirtualPad(LEFT_FULL, A_B);
+    addVirtualPad(UP_LEFT_RIGHT, A_B);
     #end
 
 		super.create();
