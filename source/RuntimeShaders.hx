@@ -157,10 +157,10 @@ enum abstract RuntimeShaders(String) to String from String
     var dayybloomshader = "
     #pragma header
 
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
     #define iChannel2 bitmap
@@ -168,8 +168,8 @@ enum abstract RuntimeShaders(String) to String from String
     #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
-    uniform float uTime;
-    uniform vec4 iMouse;
+    float uTime;
+    vec4 iMouse;
 
     const float amount = 1.0;
 
@@ -177,11 +177,16 @@ enum abstract RuntimeShaders(String) to String from String
     float Directions = 17.0;
     float Quality = 20.0; 
     float Size = 22.0; 
-    vec2 Radius = Size/openfl_TextureSize.xy;
+    vec2 Radius;
 
     void mainImage()
     { 
-        vec2 uv = openfl_TextureCoordv.xy ;
+    uv = openfl_TextureCoordv.xy ;
+    fragCoord = openfl_TextureCoordv * openfl_TextureSize; //hi its me mariomaster
+    iResolution = openfl_TextureSize;
+    iTime = 0.0;
+    uTime = 0.0;
+    iMouse = vec4(0.0, 0.0, 0.0, 0.0);
 
     float Pi = 6.28318530718; // Pi*2
         
