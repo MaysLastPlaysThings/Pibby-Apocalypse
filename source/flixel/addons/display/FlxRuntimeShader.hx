@@ -115,9 +115,9 @@ class FlxRuntimeShader extends FlxShader
 	static final BASE_FRAGMENT_BODY:String = "
 		vec4 color = texture2D(bitmap, openfl_TextureCoordv);
 		if (color.a == 0.0) {
-			gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+			gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
 		} else if (openfl_HasColorTransform) {
-			color = vec4 (color.rgb / color.a, color.a);
+			color = vec4(color.rgb / color.a, color.a);
 			mat4 colorMultiplier = mat4 (0);
 			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
 			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
@@ -125,9 +125,9 @@ class FlxRuntimeShader extends FlxShader
 			colorMultiplier[3][3] = 1.0; // openfl_ColorMultiplierv.w;
 			color = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
 			if (color.a > 0.0) {
-				gl_FragColor = vec4 (color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
+				gl_FragColor = vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
 			} else {
-				gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
+				gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
 			}
 		} else {
 			gl_FragColor = color * openfl_Alphav;
@@ -188,7 +188,7 @@ class FlxRuntimeShader extends FlxShader
 	static final PRAGMA_PRECISION:String = "#pragma precision";
 	static final PRAGMA_VERSION:String = "#pragma version";
 
-	private var _glslVersion:Int;
+	private var _glslesVersion:Int;
 
 	/**
 	 * Constructs a GLSL shader.
@@ -196,9 +196,9 @@ class FlxRuntimeShader extends FlxShader
 	 * @param vertexSource The vertex shader source.
 	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
-	public function new(fragmentSource:String = null, vertexSource:String = null, glslVersion:Int = 100):Void
+	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
 	{
-		_glslVersion = glslVersion;
+    _glslesVersion = glslesVersion;
 
 		if (fragmentSource == null)
 		{
@@ -291,7 +291,7 @@ class FlxRuntimeShader extends FlxShader
 			var gl = __context.gl;
 
 			var precisionHeaders = buildPrecisionHeaders();
-			var versionHeader = '#version ${_glslVersion}\n';
+			var versionHeader = '#version ${_glslesVersion}\n';
 
 			var vertex = StringTools.replace(glVertexSource, PRAGMA_PRECISION, precisionHeaders);
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);

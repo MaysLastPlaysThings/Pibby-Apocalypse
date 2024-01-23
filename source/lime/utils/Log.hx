@@ -45,7 +45,7 @@ class Log
 					+ Lib.application.meta.get('file')
 					+ '-'
 					+ Date.now().toString().replace(' ', '-').replace(':', "'")
-					+ '.log',
+					+ '.txt',
 					message
 					+ '\n');
                     #end

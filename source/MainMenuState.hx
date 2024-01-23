@@ -64,6 +64,9 @@ class MainMenuState extends MusicBeatState
 	var options:FlxSprite;
 	var discord:FlxSprite;
 
+	var freeplayhitbox:FlxSprite;
+	var creditshitbox:FlxSprite;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -93,13 +96,23 @@ class MainMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false; //uh
 
 		persistentUpdate = persistentDraw = true;
 
 		VCR = new Shaders.OldTVShader();
 		// ???????????????????????????
 		pibbyFNF = new Shaders.Pibbified();
+
+		//alpha 0 and visible false doesnt work (mouse dont detect the object for some reason)
+		//so now the hitboxes are behind everything xdxdd
+		freeplayhitbox = new FlxSprite(160, 30).makeGraphic(374, 59, FlxColor.GREEN);
+		freeplayhitbox.alpha = 1;
+		add(freeplayhitbox);
+
+		creditshitbox = new FlxSprite(740, 30).makeGraphic(374, 59, FlxColor.GREEN);
+		creditshitbox.alpha = 1;
+		add(creditshitbox);
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(0, -10).loadGraphic(Paths.image('pibymenu/BACKGROUND'));
@@ -195,10 +208,26 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 			menuItem.x -= 125;
 		}
+
+		FlxMouseEvent.add(freeplayhitbox, function onMouseDown(freeplay:FlxSprite)
+		{
+			if(curSelected != 0)
+			changeItem(-1);
+			else
+            selectThing();
+
+		}, null, null, null);
+
+		FlxMouseEvent.add(creditshitbox, function onMouseDown(credits:FlxSprite)
+		{
+			if(curSelected != 1) 
+			changeItem(1);
+			else
+		    selectThing();
+
+		}, null, null, null);
+
 		// NG.core.calls.event.logEvent('swag').send();
-		#if mobile
-		addVirtualPad(LEFT_RIGHT, A);
-		#end
 
 		changeItem();
 		super.create();
@@ -222,6 +251,7 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 
@@ -353,7 +383,7 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 }
 
-/*	function selectThing()
+	function selectThing()
 		{
 			selectedSomethin = true;
 			FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -394,7 +424,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			});
-		}*/
+		}
 
 	function changeItem(huh:Int = 0)
 	{

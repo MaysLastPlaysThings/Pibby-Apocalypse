@@ -61,7 +61,7 @@ enum abstract RuntimeShaders(String) to String from String
     {
        #pragma body
 
-       vec4 sum = vec4(0.);
+       vec4 sum = vec4(0.0);
        vec2 texcoord = fragCoord.xy/iResolution.xy;
        int j;
        int i;
@@ -102,8 +102,8 @@ enum abstract RuntimeShaders(String) to String from String
     vec3 tex2D(sampler2D _tex,vec2 _p)
     {
         vec3 col=texture2D(_tex,_p).xyz;
-        if(.5<abs(_p.x-.5)){
-            col=vec3(.1);
+        if(0.5<abs(_p.x-0.5)){
+            col=vec3(0.1);
         }
         return col;
     }
@@ -112,7 +112,7 @@ enum abstract RuntimeShaders(String) to String from String
 
         #pragma body
 
-        vec2 uv = openfl_TextureCoordv; //openfl_TextureCoordv.xy*2. / openfl_TextureSize.xy-vec2(1.);
+        vec2 uv = openfl_TextureCoordv; //openfl_TextureCoordv.xy*2.0 / openfl_TextureSize.xy-vec2(1.0);
         
         vec2 trueAberration = aberration * pow((uv - 0.5), vec2(3.0, 3.0));
         // vec4 texColor = tex2D(bitmap, uv_prj.st);
@@ -127,7 +127,7 @@ enum abstract RuntimeShaders(String) to String from String
     var monitor = "
     #pragma header
 
-    float zoom = 1.;
+    float zoom = 1.0;
     void main()
     {
         #pragma body
@@ -136,9 +136,9 @@ enum abstract RuntimeShaders(String) to String from String
         uv = (uv-.5)*2.;
         uv *= zoom;
         
-        uv.x *= 1. + pow(abs(uv.y/2.),3.);
-        uv.y *= 1. + pow(abs(uv.x/2.),3.);
-        uv = (uv + 1.)*.5;
+        uv.x *= 1.0 + pow(abs(uv.y/2.0),3.0);
+        uv.y *= 1.0 + pow(abs(uv.x/2.0),3.0);
+        uv = (uv + 1.0)*0.5;
         
         vec4 tex = vec4( 
             texture2D(bitmap, uv+.001).r,
@@ -147,20 +147,20 @@ enum abstract RuntimeShaders(String) to String from String
             texture2D(bitmap, uv).a
         );
         
-        tex *= smoothstep(uv.x,uv.x+0.01,1.)*smoothstep(uv.y,uv.y+0.01,1.)*smoothstep(-0.01,0.,uv.x)*smoothstep(-0.01,0.,uv.y);
+        tex *= smoothstep(uv.x,uv.x+0.01,1.0)*smoothstep(uv.y,uv.y+0.01,1.)*smoothstep(-0.01,0.0,uv.x)*smoothstep(-0.01,0.0,uv.y);
         
-        float avg = (tex.r+tex.g+tex.b)/3.;
-        gl_FragColor = tex + pow(avg,3.);
+        float avg = (tex.r+tex.g+tex.b)/3.0;
+        gl_FragColor = tex + pow(avg,3.0);
     }";
 
     // sylinpix / forteni made a joke of the shader and i decided to make it reality lmao
     var dayybloomshader = "
     #pragma header
 
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
     #define iChannel2 bitmap
@@ -168,20 +168,25 @@ enum abstract RuntimeShaders(String) to String from String
     #define texture texture2D
     #define fragColor gl_FragColor
     #define mainImage main
-    uniform float uTime;
-    uniform vec4 iMouse;
+    float uTime;
+    vec4 iMouse;
 
-    const float amount = 1.;
+    const float amount = 1.0;
 
-    float dim = 2.;
+    float dim = 2.0;
     float Directions = 17.0;
     float Quality = 20.0; 
     float Size = 22.0; 
-    vec2 Radius = Size/openfl_TextureSize.xy;
+    vec2 Radius;
 
     void mainImage()
     { 
-        vec2 uv = openfl_TextureCoordv.xy ;
+    uv = openfl_TextureCoordv.xy ;
+    fragCoord = openfl_TextureCoordv * openfl_TextureSize; //hi its me mariomaster
+    iResolution = openfl_TextureSize;
+    iTime = 0.0;
+    uTime = 0.0;
+    iMouse = vec4(0.0, 0.0, 0.0, 0.0);
 
     float Pi = 6.28318530718; // Pi*2
         
@@ -242,10 +247,12 @@ enum abstract RuntimeShaders(String) to String from String
 
     var fwGlitch = "
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
+    float uTime;
+    vec4 iMouse;
     #define iChannel0 bitmap
     #define texture texture2D
     #define fragColor gl_FragColor
@@ -255,7 +262,7 @@ enum abstract RuntimeShaders(String) to String from String
 
     float rand(vec2 p)
     {
-        float t = floor(iTime * 20.) / 10.;
+        float t = floor(iTime * 20.0) / 10.0;
         return fract(sin(dot(p, vec2(t * 12.9898, t * 78.233))) * 43758.5453);
     }
 
@@ -265,9 +272,9 @@ enum abstract RuntimeShaders(String) to String from String
         vec2 id = floor(uv);
         
         float n1 = rand(id);
-        float n2 = rand(id+vec2(1.,0.));
-        float n3 = rand(id+vec2(0.,1.));
-        float n4 = rand(id+vec2(1.,1.));
+        float n2 = rand(id+vec2(1.0,0.0));
+        float n3 = rand(id+vec2(0.0,1.0));
+        float n4 = rand(id+vec2(1.0,1.0));
         
         vec2 u = smoothstep(0.0, 1.0 + blockiness, lv);
 
@@ -298,6 +305,13 @@ enum abstract RuntimeShaders(String) to String from String
     void mainImage()
     {
         // Normalized pixel coordinates (from 0 to 1)
+        uv = openfl_TextureCoordv.xy;
+        fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+        iResolution = openfl_TextureSize;
+        iTime = 0.0;
+        uTime = 0.0;
+        iMouse = vec4(0.0, 0.0, 0.0, 0.0);
+
         vec2 uv = fragCoord/iResolution.xy;
         vec2 a = vec2(uv.x * (iResolution.x / iResolution.y), uv.y);
         vec2 uv2 = vec2(a.x / iResolution.x, exp(a.y));
@@ -308,14 +322,14 @@ enum abstract RuntimeShaders(String) to String from String
         float shift = glitchAmplitude * pow(fbm(uv2, int(rand(id) * 6.), glitchBlockiness, glitchNarrowness), glitchMinimizer);
         
         // Create a scanline effect
-        float scanline = abs(cos(uv.y * 400.));
+        float scanline = abs(cos(uv.y * 400.0));
         scanline = smoothstep(0.0, 2.0, scanline);
         shift = smoothstep(0.00001, 0.2, shift);
         
         // Apply glitch and RGB shift
-        float colR = texture2D(iChannel0, vec2(uv.x + shift, uv.y)).r * (1. - shift) ;
-        float colG = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).g * (1. - shift) + rand(id) * shift;
-        float colB = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).b * (1. - shift);
+        float colR = texture2D(iChannel0, vec2(uv.x + shift, uv.y)).r * (1.0 - shift) ;
+        float colG = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).g * (1.0 - shift) + rand(id) * shift;
+        float colB = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).b * (1.0 - shift);
         // Mix with the scanline effect
         vec3 f = vec3(colR, colG, colB) - (0.1 * scanline);
         
@@ -340,7 +354,7 @@ enum abstract RuntimeShaders(String) to String from String
 
     float noise(vec2 p)
     {
-        float s = texture(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
+        float s = texture(iChannel1,vec2(1.0,2.0*cos(iTime))*iTime*8.0 + p*1.0).x;
         s *= s;
         return s;
     }
@@ -354,34 +368,34 @@ enum abstract RuntimeShaders(String) to String from String
     {
         float inside = step(start,y) - step(end,y);
         float fact = (y-start)/(end-start)*inside;
-        return (1.-fact) * inside;
+        return (1.0-fact) * inside;
         
     }
 
     float stripes(vec2 uv)
     {
         
-        float noi = noise(uv*vec2(0.5,1.) + vec2(1.,3.));
-        return ramp(mod(uv.y*4. + iTime/2.+sin(iTime + sin(iTime*0.63)),1.),0.5,0.6)*noi;
+        float noi = noise(uv*vec2(0.5,1.0) + vec2(1.0,3.0));
+        return ramp(mod(uv.y*4.0 + iTime/2.0+sin(iTime + sin(iTime*0.63)),1.0),0.5,0.6)*noi;
     }
 
     vec3 getVideo(vec2 uv)
     {
         vec2 look = uv;
-        float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
-        look.x = look.x + sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window;
-        float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) + 
-                                            (0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
-        look.y = mod(look.y + vShift, 1.);
+        float window = 1.0/(1.+20.0*(look.y-mod(iTime/4.0,1.0))*(look.y-mod(iTime/4.0,1.0)));
+        look.x = look.x + sin(look.y*10.0 + iTime)/50.0*onOff(4.0,4.0,0.3)*(1.+cos(iTime*80.0))*window;
+        float vShift = 0.4*onOff(2.0,3.0,0.9)*(sin(iTime)*sin(iTime*20.0) + 
+                                            (0.5 + 0.1*sin(iTime*200.0)*cos(iTime)));
+        look.y = mod(look.y + vShift, 1.0);
         vec3 video = vec3(texture2D(iChannel0,look));
         return video;
     }
 
     vec2 screenDistort(vec2 uv)
     {
-        uv -= vec2(.5,.5);
-        uv = uv*1.2*(1./1.2+2.*uv.x*uv.x*uv.y*uv.y);
-        uv += vec2(.5,.5);
+        uv -= vec2(0.5,0.5);
+        uv = uv*1.2*(1.0/1.2+2.0*uv.x*uv.x*uv.y*uv.y);
+        uv += vec2(0.5,0.5);
         return uv;
     }
 
@@ -391,13 +405,13 @@ enum abstract RuntimeShaders(String) to String from String
         vec2 uv = fragCoord.xy / iResolution.xy;
         uv = screenDistort(uv);
         vec3 video = getVideo(uv);
-        float vigAmt = 3.+.3*sin(iTime + 5.*cos(iTime*5.));
-        float vignette = (1.-vigAmt*(uv.y-.5)*(uv.y-.5))*(1.-vigAmt*(uv.x-.5)*(uv.x-.5));
+        float vigAmt = 3.0+0.3*sin(iTime + 5.0*cos(iTime*5.0));
+        float vignette = (1.0-vigAmt*(uv.y-.5)*(uv.y-0.5))*(1.0-vigAmt*(uv.x-0.5)*(uv.x-0.5));
         
         video += stripes(uv);
-        video += noise(uv*2.)/2.;
+        video += noise(uv*2.0)/2.0;
         video *= vignette;
-        video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
+        video *= (12.0+mod(uv.y*30.0+iTime,1.0))/13.0;
         
         gl_FragColor = vec4(video,1.0);
     gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
