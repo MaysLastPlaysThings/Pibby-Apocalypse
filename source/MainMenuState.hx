@@ -312,7 +312,7 @@ class MainMenuState extends MusicBeatState
 					onComplete: function(twn:FlxTween)
 					{
 						twn.cancel(); // idk if this is necessary (idk how to write necessary sdfashdjfhdjhajdfhaskdhfalkdhfkj)
-						FlxG.openURL('https://discord.gg/dtnpa');
+						FlxG.openURL('https://discord.gg/yPKffqXtJd');
 					}
 				});
 			}
