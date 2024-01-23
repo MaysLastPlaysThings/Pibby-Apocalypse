@@ -26,7 +26,7 @@ function onCreate()
     background.scrollFactor.set(1, 1);
     background.updateHitbox();
 
-    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 120);
+    pixel = new flixel.addons.display.FlxRuntimeShader(RuntimeShaders.pixel, null, 100);
     pixel.setFloat('size', 10);
 
     if (!ClientPrefs.lowQuality)
