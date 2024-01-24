@@ -187,10 +187,10 @@ class GreenReplacementShader extends FlxShader { // green screen and replaces th
 class MAWVHS extends FlxShader {
     @:glFragmentSource('
     #pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
     #define texture flixel_texture2D
@@ -201,7 +201,7 @@ class MAWVHS extends FlxShader {
     
     float noise(vec2 p)
     {
-        float s = texture2D(iChannel1,vec2(1.,2.*cos(iTime))*iTime*8. + p*1.).x;
+        float s = texture2D(iChannel1,vec2(1.0,2.0*cos(iTime))*iTime*8.0 + p*1.0).x;
         s *= s;
         return s;
     }
@@ -222,45 +222,49 @@ class MAWVHS extends FlxShader {
     float stripes(vec2 uv)
     {
         
-        float noi = noise(uv*vec2(0.5,1.) + vec2(1.,3.));
-        return ramp(mod(uv.y*4. + iTime/2.+sin(iTime + sin(iTime*0.63)),1.),0.5,0.6)*noi;
+        float noi = noise(uv*vec2(0.5,1.0) + vec2(1.0,3.0));
+        return ramp(mod(uv.y*4.0 + iTime/2.0+sin(iTime + sin(iTime*0.63)),1.0),0.5,0.6)*noi;
     }
     
     vec3 getVideo(vec2 uv)
     {
         vec2 look = uv;
-        float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
-        look.x = look.x + sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window;
-        float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) + 
-                                             (0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
-        look.y = mod(look.y + vShift, 1.);
+        float window = 1.0/(1.0+20.0*(look.y-mod(iTime/4,1.0))*(look.y-mod(iTime/4.0,1.0)));
+        look.x = look.x + sin(look.y*10.0 + iTime)/50.0*onOff(4.0,4.0,0.3)*(1.0+cos(iTime*80.0))*window;
+        float vShift = 0.4*onOff(2.0,3.0,0.9)*(sin(iTime)*sin(iTime*20.0) + 
+                                             (0.5 + 0.1*sin(iTime*200.0)*cos(iTime)));
+        look.y = mod(look.y + vShift, 1.0);
         vec3 video = vec3(texture2D(iChannel0,look));
         return video;
     }
     
     vec2 screenDistort(vec2 uv)
     {
-        uv -= vec2(.5);
-        uv = uv*1.2*(1./1.2+2.*uv.x*uv.x*uv.y*uv.y);
-        uv += vec2(.5);
+        uv -= vec2(0.5);
+        uv = uv*1.2*(1.0/1.2+2.0*uv.x*uv.x*uv.y*uv.y);
+        uv += vec2(0.5);
         return uv;
     }
     
     void main()
     {
+    uv = openfl_TextureCoordv.xy;
+    fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    iResolution = openfl_TextureSize;
+
     vec2 fragCoord = openfl_TextureCoordv * iResolution;
         vec2 uv = fragCoord.xy / iResolution.xy;
         uv = screenDistort(uv);
         vec3 video = getVideo(uv);
-        float vigAmt = 3.+.3*sin(iTime + 5.*cos(iTime*5.));
-        float vignette = (1.-vigAmt*(uv.y-.5)*(uv.y-.5))*(1.-vigAmt*(uv.x-.5)*(uv.x-.5));
+        float vigAmt = 3.0+0.3*sin(iTime + 5.0*cos(iTime*5.0));
+        float vignette = (1.0-vigAmt*(uv.y-0.5)*(uv.y-0.5))*(1.0-vigAmt*(uv.x-0.5)*(uv.x-0.5));
         
         video += stripes(uv);
-        video += noise(uv*2.)/2.;
+        video += noise(uv*2.0)/2.0;
         video *= vignette;
-        video *= (12.+mod(uv.y*30.+iTime,1.))/13.;
+        video *= (12.0+mod(uv.y*30.0+iTime,1.0))/13.0;
         
-        gl_FragColor = vec4(video,1.0);
+    gl_FragColor = vec4(video,1.0);
     gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ')
