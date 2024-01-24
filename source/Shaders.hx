@@ -190,7 +190,7 @@ class MAWVHS extends FlxShader {
     vec2 uv;
     vec2 fragCoord;
     vec2 iResolution;
-    float iTime;
+    uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
     #define texture flixel_texture2D
@@ -229,7 +229,7 @@ class MAWVHS extends FlxShader {
     vec3 getVideo(vec2 uv)
     {
         vec2 look = uv;
-        float window = 1.0/(1.0+20.0*(look.y-mod(iTime/4,1.0))*(look.y-mod(iTime/4.0,1.0)));
+        float window = 1.0/(1.0+20.0*(look.y-mod(iTime/4.,1.0))*(look.y-mod(iTime/4.0,1.0)));
         look.x = look.x + sin(look.y*10.0 + iTime)/50.0*onOff(4.0,4.0,0.3)*(1.0+cos(iTime*80.0))*window;
         float vShift = 0.4*onOff(2.0,3.0,0.9)*(sin(iTime)*sin(iTime*20.0) + 
                                              (0.5 + 0.1*sin(iTime*200.0)*cos(iTime)));
