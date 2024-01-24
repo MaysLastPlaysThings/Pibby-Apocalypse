@@ -15,7 +15,7 @@ class ClientPrefs {
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
-	public static var shaders:Bool = #if desktop true #else false #end;
+	public static var shaders:Bool = true;
 	public static var healthDrain:Bool = true;
   public static var gore:Bool = true;
   public static var screenGlitch:Bool = true;
