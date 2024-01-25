@@ -5070,7 +5070,7 @@ class PlayState extends MusicBeatState
                                        
 									}
 							});
-							triggerEventNote('Change Character', '1', 'finncawm_reveal');
+							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
@@ -5179,14 +5179,14 @@ class PlayState extends MusicBeatState
 							}
 							dad.x = DAD_X + 260;
 							dad.y = DAD_Y + 250;
-							triggerEventNote('Change Character', '1', 'finncawm_start_new');
+							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
 
 							defaultCamZoom += 0.35; // black border fix
 
 							cameraSpeed = 50;
 							new FlxTimer().start(0.0461, a -> cameraSpeed = 1);
 						case 1648: 
-							triggerEventNote('Change Character', '1', 'finncawm_reveal');
+							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 0.3);
 							}
@@ -5194,7 +5194,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-							triggerEventNote('Change Character', '1', 'finn-sword-sha');
+							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
 							dad.x = fuckyouDadX;
 							dad.y = fuckyouDadY;
 							boyfriendGroup.visible = true;
@@ -5211,8 +5211,8 @@ class PlayState extends MusicBeatState
 							theBlackness.alpha = 1;
 							addBehindBF(blackie);
 							addBehindDad(blackie);
-							triggerEventNote('Change Character', '1', 'finncawn');
-							triggerEventNote('Change Character', '0', 'bfcawn');
+							triggerEventNote('Change Character', 'Dad', 'finncawn');
+							triggerEventNote('Change Character', 'BF', 'bfcawn');
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
 							boyfriend.angle = 180;
@@ -5297,8 +5297,8 @@ class PlayState extends MusicBeatState
 							blackie.alpha = 1;
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
-							triggerEventNote('Change Character', '1', 'finncawn');
-							triggerEventNote('Change Character', '0', 'bfcawn');
+							triggerEventNote('Change Character', 'Dad', 'finncawn');
+							triggerEventNote('Change Character', 'BF', 'bfcawn');
 							boyfriend.angle = 180;
 							dad.setPosition(400, 730);
 							boyfriend.setPosition(800, 640);
