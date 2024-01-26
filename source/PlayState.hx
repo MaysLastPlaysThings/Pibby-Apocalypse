@@ -5621,23 +5621,15 @@ class PlayState extends MusicBeatState
 						case 1180:
 							#if VIDEOS_ALLOWED
 							canPause = false; // due to the cool part been literally a video we prevent the player to pause on that part
-                            pibbyHealthbar.alpha = 0;
+
+              pibbyHealthbar.alpha = 0;
 							midSongVideo.bitmap.canSkip = false;
 							midSongVideo.bitmap.playVideo(Paths.video('forgottenscene'));
 							midSongVideo.bitmap.finishCallback = () -> { 
 								canPause = true;
 								blackie.alpha = 0;
+								blackie.visible = false;
 							};
-							#else
-							blackie.alpha = 1;
-
-							var text = new FlxText(0, 0, 500, 'sorry videos dont support 32 bits so heres a black screen', 20);
-							text.cameras = [camOther];
-							text.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-							text.screenCenter();
-							add(text);
-
-							FlxTween.tween(text, {alpha: 0}, 4, {startDelay: 4});
 							#end
 						case 1190:
 							defaultCamZoom = 0.7;
@@ -5653,6 +5645,7 @@ class PlayState extends MusicBeatState
 							#if VIDEOS_ALLOWED
 							midSongVideo.destroy();
 							blackie.alpha = 0;
+							blackie.visible = false;
 							#end
 
                         if (ClientPrefs.shaders) 
@@ -5741,7 +5734,6 @@ class PlayState extends MusicBeatState
 								camOther.flash(FlxColor.WHITE, 1);
 							}
 							camHUD.alpha = 0;
-							
 					}
 				case 'My Amazing World':
 					switch (curStep)
