@@ -5070,7 +5070,7 @@ class PlayState extends MusicBeatState
                                        
 									}
 							});
-							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+							triggerEventNote('Change Character', '1', 'finncawm_reveal');
 						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
@@ -5179,7 +5179,7 @@ class PlayState extends MusicBeatState
 							}
 							dad.x = DAD_X + 260;
 							dad.y = DAD_Y + 250;
-							triggerEventNote('Change Character', 'Dad', 'finncawm_start_new');
+							triggerEventNote('Change Character', '1', 'finncawm_start_new');
 
 							defaultCamZoom += 0.35; // black border fix
 
@@ -5194,7 +5194,7 @@ class PlayState extends MusicBeatState
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
-							triggerEventNote('Change Character', 'Dad', 'finn-sword-sha');
+							triggerEventNote('Change Character', '1', 'finn-sword-sha');
 							dad.x = fuckyouDadX;
 							dad.y = fuckyouDadY;
 							boyfriendGroup.visible = true;
@@ -5211,8 +5211,8 @@ class PlayState extends MusicBeatState
 							theBlackness.alpha = 1;
 							addBehindBF(blackie);
 							addBehindDad(blackie);
-							triggerEventNote('Change Character', 'Dad', 'finncawn');
-							triggerEventNote('Change Character', 'BF', 'bfcawn');
+							triggerEventNote('Change Character', '1', 'finncawn');
+							triggerEventNote('Change Character', '0', 'bfcawn');
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
 							boyfriend.angle = 180;
@@ -5297,8 +5297,8 @@ class PlayState extends MusicBeatState
 							blackie.alpha = 1;
 							dad.cameras = [camHUD];
 							boyfriend.cameras = [camHUD];
-							triggerEventNote('Change Character', 'Dad', 'finncawn');
-							triggerEventNote('Change Character', 'BF', 'bfcawn');
+							triggerEventNote('Change Character', '1', 'finncawn');
+							triggerEventNote('Change Character', '0', 'bfcawn');
 							boyfriend.angle = 180;
 							dad.setPosition(400, 730);
 							boyfriend.setPosition(800, 640);
