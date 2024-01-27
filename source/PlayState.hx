@@ -5048,7 +5048,7 @@ class PlayState extends MusicBeatState
 
             case 607:
             triggerEventNote('Change Character', '1', 'finnanimstuff');
-            triggerEventNote('Play Animation', 'lesgo', 'dad');
+            triggerEventNote('Play Animation', 'lesgo', '1');
 						case 608: 
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
@@ -5186,7 +5186,7 @@ class PlayState extends MusicBeatState
 							cameraSpeed = 50;
 							new FlxTimer().start(0.0461, a -> cameraSpeed = 1);
 						case 1648: 
-							triggerEventNote('Change Character', 'Dad', 'finncawm_reveal');
+							triggerEventNote('Change Character', '1', 'finncawm_reveal');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 0.3);
 							}
