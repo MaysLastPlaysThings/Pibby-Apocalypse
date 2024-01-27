@@ -2412,16 +2412,7 @@ class PlayState extends MusicBeatState
 				}
 
 				var newCharacter:String = event.value2;
-
-						if(dad.curCharacter != event.value2) {
-						  dad.alpha = 0;
-						}
-
-		     	if(dad.curCharacter == event.value2) {
-		      	  dad.alpha = 1;
-			}
-
-									new FlxTimer().start(0.1, e -> addCharacterToList(newCharacter, charType));
+         addCharacterToList(newCharacter, charType);
 		}
 		if(!eventPushedMap.exists(event.event)) {
 			eventPushedMap.set(event.event, true);
@@ -3617,15 +3608,7 @@ class PlayState extends MusicBeatState
 					case 1:
 						if(dad.curCharacter != value2) {
 							if(!dadMap.exists(value2)) {
-						if(dad.curCharacter != value2) {
-						  dad.alpha = 0;
-						}
-
-						if(dad.curCharacter == value2) {
-						  dad.alpha = 1;
-						}
-
-									new FlxTimer().start(0.1, e -> addCharacterToList(value2, charType));
+							addCharacterToList(value2, charType);
 							}
 
 							var wasGf:Bool = dad.curCharacter.startsWith('gf');
@@ -5062,7 +5045,12 @@ class PlayState extends MusicBeatState
 										}
 								});
 
-						case 608: 
+						case 608:
+         for (character in dadGroup){
+            if (Reflect.getField(character, "curCharacter") == "finncawm_start_new"){
+             dadGroup.remove(character).destroy();
+                }
+             }
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
 						case 628:
@@ -5082,6 +5070,11 @@ class PlayState extends MusicBeatState
                                        
 									}
 							});
+           for (character in dadGroup){
+            if (Reflect.getField(character, "curCharacter") == "finnanimstuff"){
+             dadGroup.remove(character).destroy();
+           }
+         }
 							triggerEventNote('Change Character', '1', 'finncawm_reveal');
 						defaultCamZoom = 0.75;
 
@@ -6616,6 +6609,11 @@ class PlayState extends MusicBeatState
 								});
 							}
 							defaultCamZoom = 0.9;
+             for (character in dadGroup){
+             if (Reflect.getField(character, "curCharacter") == "finn-sword"){
+             dadGroup.remove(character).destroy();
+                }
+              }
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
