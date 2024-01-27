@@ -3625,7 +3625,7 @@ class PlayState extends MusicBeatState
 						  dad.alpha = 1;
 						}
 
-									new FlxTimer().start(0.1, 								addCharacterToList(value2, charType));
+									new FlxTimer().start(0.1, e -> addCharacterToList(value2, charType));
 							}
 
 							var wasGf:Bool = dad.curCharacter.startsWith('gf');
