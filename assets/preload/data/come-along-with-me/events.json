@@ -2,6 +2,20 @@
     "song": {
         "events": [
             [
+                50583.3333333334, [
+                    [
+                        "Change Character",
+                        "dad",
+                        "finnanimstuff"
+                    ],
+                    [
+                        "Play Animation",
+                        "lesgo",
+                        "dad"
+                    ]
+                ]
+            ],
+            [
                 53333.3333333334, [
                     [
                         "Add Camera Zoom",
@@ -259,6 +273,15 @@
                         "Add Camera Zoom",
                         "",
                         ""
+                    ]
+                ]
+            ],
+            [
+                74666.6666666667, [
+                    [
+                        "Change Character",
+                        "dad",
+                        "finn-sword-sha"
                     ]
                 ]
             ]
