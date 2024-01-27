@@ -2412,9 +2412,6 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
-
-				var newCharacter:String = event.value2;
-				addCharacterToList(newCharacter, charType);
 		}
 
 		if(!eventPushedMap.exists(event.event)) {
@@ -3644,6 +3641,7 @@ class PlayState extends MusicBeatState
 								gf.alpha = 0.00001;
 								gf = gfMap.get(value2);
 								gf.alpha = lastAlpha;
+                iconP3.changeIcon(gf.healthIcon);
 							}
 							setOnLuas('gfName', gf.curCharacter);
 						}
