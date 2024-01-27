@@ -2398,7 +2398,8 @@ class PlayState extends MusicBeatState
 	}
 
 	function eventPushed(event:EventNote) {
-		switch(event.event) {			case 'Change Character':
+		switch(event.event) {
+		  case 'Change Character':
 				var charType:Int = 0;
 				switch(event.value1.toLowerCase()) {
 					case 'gf' | 'girlfriend' | '1':
@@ -2411,9 +2412,17 @@ class PlayState extends MusicBeatState
 				}
 
 				var newCharacter:String = event.value2;
-				addCharacterToList(newCharacter, charType);
-		}
 
+						if(dad.curCharacter != value2) {
+						  dad.alpha = 0;
+						}
+
+		     	if(dad.curCharacter == value2) {
+		      	  dad.alpha = 1;
+			}
+
+									new FlxTimer().start(0.1, e -> addCharacterToList(newCharacter, charType));
+		}
 		if(!eventPushedMap.exists(event.event)) {
 			eventPushedMap.set(event.event, true);
 		}
@@ -3608,7 +3617,15 @@ class PlayState extends MusicBeatState
 					case 1:
 						if(dad.curCharacter != value2) {
 							if(!dadMap.exists(value2)) {
-								addCharacterToList(value2, charType);
+						if(dad.curCharacter != value2) {
+						  dad.alpha = 0;
+						}
+
+						if(dad.curCharacter == value2) {
+						  dad.alpha = 1;
+						}
+
+									new FlxTimer().start(0.1, 								addCharacterToList(value2, charType));
 							}
 
 							var wasGf:Bool = dad.curCharacter.startsWith('gf');
