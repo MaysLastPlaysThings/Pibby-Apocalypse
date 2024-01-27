@@ -6575,6 +6575,7 @@ class PlayState extends MusicBeatState
 						case 2066:
 							triggerEventNote('Camera Follow Pos', '1830', '1100');
 						case 2071:
+						triggerEventNote('Change Character', '0', 'bfsword');
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing){
 								camOverlay.flash(FlxColor.WHITE, 0.5);
@@ -6588,6 +6589,9 @@ class PlayState extends MusicBeatState
 							jake.alpha = 0.0001;
 							theBlackness.alpha = 1;
 							defaultCamZoom = 0.65;
+
+            case 2111:
+            triggerEventNote('Change Character', '1', 'finn-slash')
 
 						case 2140:
 							boyfriend.playAnim('reload', true);
