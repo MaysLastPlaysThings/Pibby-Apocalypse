@@ -2413,11 +2413,11 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 
-						if(dad.curCharacter != value2) {
+						if(dad.curCharacter != event.value2) {
 						  dad.alpha = 0;
 						}
 
-		     	if(dad.curCharacter == value2) {
+		     	if(dad.curCharacter == event.value2) {
 		      	  dad.alpha = 1;
 			}
 
