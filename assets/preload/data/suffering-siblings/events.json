@@ -44,6 +44,16 @@
 				]
 			],
 			[
+				172583.333333333,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"finn-slash"
+					]
+				]
+			],
+			[
 				173333.333333333,
 				[
 					[
@@ -60,6 +70,16 @@
 						"Play Animation",
 						"idle-alt",
 						"GF"
+					]
+				]
+			],
+			[
+				194666.666666667,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"finn-sword"
 					]
 				]
 			],
@@ -170,6 +190,16 @@
 						"Add Camera Zoom",
 						"",
 						""
+					]
+				]
+			],
+			[
+				280000.000000001,
+				[
+					[
+						"Change Character",
+						"Dad",
+						"finn-sword"
 					]
 				]
 			]
