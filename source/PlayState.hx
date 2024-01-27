@@ -5047,7 +5047,7 @@ class PlayState extends MusicBeatState
 
 						case 608:
          for (character in dadGroup){
-            if (Reflect.getField(character, "curCharacter") == "finncawm_start_new"){
+            if (Reflect.getProperty(character, "curCharacter") == "finncawm_start_new"){
              dadGroup.remove(character).destroy();
                 }
              }
@@ -5071,7 +5071,7 @@ class PlayState extends MusicBeatState
 									}
 							});
            for (character in dadGroup){
-            if (Reflect.getField(character, "curCharacter") == "finnanimstuff"){
+            if (Reflect.getProperty(character, "curCharacter") == "finnanimstuff"){
              dadGroup.remove(character).destroy();
            }
          }
@@ -6610,7 +6610,7 @@ class PlayState extends MusicBeatState
 							}
 							defaultCamZoom = 0.9;
              for (character in dadGroup){
-             if (Reflect.getField(character, "curCharacter") == "finn-sword"){
+             if (Reflect.getProperty(character, "curCharacter") == "finn-sword"){
              dadGroup.remove(character).destroy();
                 }
               }
