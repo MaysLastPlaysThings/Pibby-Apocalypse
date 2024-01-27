@@ -6591,7 +6591,7 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 0.65;
 
             case 2111:
-            triggerEventNote('Change Character', '1', 'finn-slash')
+            triggerEventNote('Change Character', '1', 'finn-slash');
 
 						case 2140:
 							boyfriend.playAnim('reload', true);
