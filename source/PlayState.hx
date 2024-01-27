@@ -5045,9 +5045,6 @@ class PlayState extends MusicBeatState
 										}
 								});
 
-            case 607:
-            triggerEventNote('Change Character', '1', 'finnanimstuff');
-            triggerEventNote('Play Animation', 'lesgo', '1');
 						case 608: 
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
@@ -5096,7 +5093,6 @@ class PlayState extends MusicBeatState
 						case 848:
 							FlxG.camera.fade(FlxColor.BLACK, 3.52);
 						case 896:
-						triggerEventNote('Change Character', '1', 'finn-sword-sha');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 1);
 							}
@@ -6574,7 +6570,6 @@ class PlayState extends MusicBeatState
 						case 2066:
 							triggerEventNote('Camera Follow Pos', '1830', '1100');
 						case 2071:
-						triggerEventNote('Change Character', '0', 'bfsword');
 							defaultCamZoom = 0.9;
 							if (ClientPrefs.flashing){
 								camOverlay.flash(FlxColor.WHITE, 0.5);
@@ -6588,9 +6583,6 @@ class PlayState extends MusicBeatState
 							jake.alpha = 0.0001;
 							theBlackness.alpha = 1;
 							defaultCamZoom = 0.65;
-
-            case 2111:
-            triggerEventNote('Change Character', '1', 'finn-slash');
 
 						case 2140:
 							boyfriend.playAnim('reload', true);
