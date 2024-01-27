@@ -2398,8 +2398,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function eventPushed(event:EventNote) {
-		switch(event.event) {
-			case 'Change Character':
+		switch(event.event) {			case 'Change Character':
 				var charType:Int = 0;
 				switch(event.value1.toLowerCase()) {
 					case 'gf' | 'girlfriend' | '1':
@@ -2410,6 +2409,9 @@ class PlayState extends MusicBeatState
 						charType = Std.parseInt(event.value1);
 						if(Math.isNaN(charType)) charType = 0;
 				}
+
+				var newCharacter:String = event.value2;
+				addCharacterToList(newCharacter, charType);
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
@@ -3642,7 +3644,6 @@ class PlayState extends MusicBeatState
 								gf.alpha = 0.00001;
 								gf = gfMap.get(value2);
 								gf.alpha = lastAlpha;
-                                iconP3.changeIcon(gf.healthIcon);
 							}
 							setOnLuas('gfName', gf.curCharacter);
 						}
