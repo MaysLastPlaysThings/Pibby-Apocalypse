@@ -221,6 +221,11 @@ class TitleState extends MusicBeatState
 
 			openfl.Lib.application.window.title = "Pibby: Apocalypse - Title Screen";
 
+			if(!ClientPrefs.skipflashingstate) {
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				MusicBeatState.switchState(new FlashingState());
+			} else {
 			if (initialized)
 				startIntro();
 			else
@@ -230,6 +235,7 @@ class TitleState extends MusicBeatState
 					startIntro();
 				});
 			}
+		    }
 	}
 
 	var logoBl:FlxSprite;

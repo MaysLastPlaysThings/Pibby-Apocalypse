@@ -15,7 +15,7 @@ class ClientPrefs {
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
-	public static var shaders:Bool = true;
+	public static var shaders:Bool = false;
 	public static var healthDrain:Bool = true;
   public static var gore:Bool = true;
   public static var screenGlitch:Bool = true;
@@ -42,6 +42,8 @@ class ClientPrefs {
   public static var useGPUCaching:Bool = false;
 	public static var widescreen:Bool = false;
 	public static var autopause:Bool = true;
+
+	public static var skipflashingstate:Bool = false;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -112,6 +114,7 @@ class ClientPrefs {
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.flashing = flashing;
+		FlxG.save.data.skipflashingstate = skipflashingstate;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
@@ -181,6 +184,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;
+		}
+		if(FlxG.save.data.skipflashingstate != null) {
+			skipflashingstate = FlxG.save.data.skipflashingstate;
 		}
 		if(FlxG.save.data.globalAntialiasing != null) {
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;

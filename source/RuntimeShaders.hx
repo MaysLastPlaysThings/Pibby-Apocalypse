@@ -197,7 +197,7 @@ enum abstract RuntimeShaders(String) to String from String
     float why = (sin(d)*Size*i)/openfl_TextureSize.y;
 
     Color += texture2D(bitmap, uv+vec2(ex,why));	
-        }
+    }
     }
         
     Color /= (dim * Quality) * Directions - 15.0;
@@ -206,6 +206,60 @@ enum abstract RuntimeShaders(String) to String from String
     gl_FragColor = bloom;
 
     }";
+
+    var dayybloomshadertrash = "
+    #pragma header
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
+    float uTime;
+    vec4 iMouse;
+    
+    #define iChannel0 bitmap
+    #define iChannel1 bitmap
+    #define iChannel2 bitmap
+    #define iChannelResolution bitmap
+    #define texture texture2D
+    #define fragColor gl_FragColor
+    #define mainImage main
+    
+    const float amount = 1.0;
+    
+    float dim = 2.0;
+    float Directions = 2.5;
+    float Quality = 5.0;
+    float Size = 5.0;
+    vec2 Radius;
+    
+    void mainImage()
+    {
+        uv = openfl_TextureCoordv.xy;
+        fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+        iResolution = openfl_TextureSize;
+        iTime = 0.0;
+        uTime = 0.0;
+        iMouse = vec4(0.0, 0.0, 0.0, 0.0);
+    
+        float Pi = 6.28318530718; // Pi*2
+            
+        vec4 Color = texture2D(bitmap, uv);
+        
+        for (float d = 0.0; d < Pi; d += Pi / Directions) {
+            for (float i = 0.05; i <= 1.0; i += 0.05) {
+                float ex = (cos(d) * Size * i) / openfl_TextureSize.x;
+                float why = (sin(d) * Size * i) / openfl_TextureSize.y;
+    
+                Color += texture2D(bitmap, uv + vec2(ex, why));	
+            }
+        }
+            
+        Color /= (dim * Quality) * Directions - 15.0;
+        vec4 bloom = (texture2D(bitmap, uv) / dim) + Color;
+    
+        gl_FragColor = bloom;
+    }
+    ";
 
     // idfk why but using Shaders.hx gives null attacks *sobs
     var blurZoom = "
@@ -335,6 +389,95 @@ enum abstract RuntimeShaders(String) to String from String
         // Output to screen
         fragColor = vec4(f, 1.0);
     gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
+    }
+    ";
+
+    var fwGlitchtrash = "
+    #pragma header
+    vec2 uv;
+    vec2 fragCoord;
+    vec2 iResolution;
+    float iTime;
+    float uTime;
+    vec4 iMouse;
+    #define iChannel0 bitmap
+    #define texture texture2D
+    #define fragColor gl_FragColor
+    #define mainImage main
+
+    // https://www.shadertoy.com/view/MltBzf
+
+    float rand(vec2 p)
+    {
+        float t = floor(iTime * 20.0) / 10.0;
+        return fract(sin(dot(p, vec2(t * 12.9898, t * 78.233))) * 43758.5453);
+    }
+
+    float noise(vec2 uv, float blockiness)
+    {   
+        vec2 lv = fract(uv);
+        vec2 id = floor(uv);
+    
+        float n1 = rand(id);
+        float n2 = rand(id+vec2(1.0,0.0));
+        float n3 = rand(id+vec2(0.0,1.0));
+        float n4 = rand(id+vec2(1.0,1.0));
+    
+        vec2 u = smoothstep(0.0, 1.0 + blockiness, lv);
+
+        return mix(mix(n1, n2, u.x), mix(n3, n4, u.x), u.y);
+    }
+
+    float fbm(vec2 uv, int count, float blockiness, float complexity)
+    {
+       float val = 0.0;
+       float amp = 0.5;
+    
+       while(count != 0)
+       {
+         val += amp * noise(uv, blockiness);
+         amp *= 0.5;
+         uv *= complexity;    
+         count--;
+       }
+    
+    return val;
+    }
+
+    const float glitchAmplitude = 0.05;
+    const float glitchNarrowness = 4.0;
+    const float glitchBlockiness = 2.0;
+    const float glitchMinimizer = 1.0;
+
+    void mainImage()
+    {
+        uv = openfl_TextureCoordv.xy;
+        fragCoord = openfl_TextureCoordv * openfl_TextureSize;
+        iResolution = openfl_TextureSize;
+        iTime = 0.0;
+        uTime = 0.0;
+        iMouse = vec4(0.0, 0.0, 0.0, 0.0);
+
+        vec2 uv = fragCoord/iResolution.xy;
+        vec2 a = vec2(uv.x * (iResolution.x / iResolution.y), uv.y);
+        vec2 uv2 = vec2(a.x / iResolution.x, exp(a.y));
+        vec2 id = floor(uv * 8.0);
+
+        float shift = glitchAmplitude * pow(fbm(uv2, int(rand(id) * 1.5), glitchBlockiness, glitchNarrowness), glitchMinimizer);
+        
+
+        float scanline = abs(cos(uv.y * 400.0));
+        scanline = smoothstep(0.0, 2.0, scanline);
+        shift = smoothstep(0.00001, 0.2, shift);
+
+        float colR = texture2D(iChannel0, vec2(uv.x + shift, uv.y)).r * (1.0 - shift) ;
+        float colG = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).g * (1.0 - shift) + rand(id) * shift;
+        float colB = texture2D(iChannel0, vec2(uv.x - shift, uv.y)).b * (1.0 - shift);
+
+        vec3 f = vec3(colR, colG, colB) - (0.1 * scanline);
+        
+        fragColor = vec4(f, 1.0);
+        gl_FragColor.a = texture2D(bitmap, openfl_TextureCoordv).a;
     }
     ";
 
