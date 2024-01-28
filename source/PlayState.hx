@@ -5052,7 +5052,12 @@ class PlayState extends MusicBeatState
              character.alpha = 0;
                 }
              }
-             dad.alpha = 1;
+ 
+            for (character in dadGroup){
+            if (Reflect.getProperty(character, "curCharacter") == "finnanimstuff"){
+             character.alpha = 1;
+            }
+          }
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
 						case 628:
@@ -5078,6 +5083,11 @@ class PlayState extends MusicBeatState
            }
          }
 							triggerEventNote('Change Character', '1', 'finncawm_reveal');
+			            for (character in dadGroup){
+            if (Reflect.getProperty(character, "curCharacter") == "finncawm_reveal"){
+             character.alpha = 1;
+            }
+          }
 							dad.alpha = 1;
 						defaultCamZoom = 0.75;
 
