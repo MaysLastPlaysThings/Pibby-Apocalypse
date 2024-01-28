@@ -6624,15 +6624,15 @@ class PlayState extends MusicBeatState
 								});
 							}
 							defaultCamZoom = 0.9;
+
              for (character in dadGroup){
              if (Reflect.getProperty(character, "curCharacter") == "finn-hurting") {
              character.alpha = 0;
-             dad.alpha = 1;
-             //Mario idk how to fix it here, since other finn sprite dies too, if my shit won't work, try to fix it pls
                 }
              }
 
              triggerEventNote('Change Character', '1', 'finn-sword');
+
             for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finn-sword"){
              character.alpha = 1;
