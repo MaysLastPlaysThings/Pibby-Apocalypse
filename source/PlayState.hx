@@ -5052,6 +5052,7 @@ class PlayState extends MusicBeatState
              character.alpha = 0;
                 }
              }
+             dad.alpha = 1;
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
 						// I love timing shit.
 						case 628:
@@ -5077,6 +5078,7 @@ class PlayState extends MusicBeatState
            }
          }
 							triggerEventNote('Change Character', '1', 'finncawm_reveal');
+							dad.alpha = 1;
 						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
@@ -6622,6 +6624,7 @@ class PlayState extends MusicBeatState
 							}
 							gf.alpha = 1;
 							jake.alpha = 1;
+							dad.alpha = 1;
 							theBlackness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
