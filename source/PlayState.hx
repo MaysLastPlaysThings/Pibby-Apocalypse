@@ -5056,6 +5056,7 @@ class PlayState extends MusicBeatState
             for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finnanimstuff"){
              character.alpha = 1;
+             dad.alpha = 1;
             }
           }
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
@@ -5080,15 +5081,16 @@ class PlayState extends MusicBeatState
            for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finnanimstuff"){
              character.alpha = 0;
+             dad.alpha = 1;
            }
          }
 							triggerEventNote('Change Character', '1', 'finncawm_reveal');
 			            for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finncawm_reveal"){
              character.alpha = 1;
+             dad.alpha = 1;
             }
           }
-							dad.alpha = 1;
 						defaultCamZoom = 0.75;
 
 							if (!ClientPrefs.lowQuality)
@@ -6625,16 +6627,22 @@ class PlayState extends MusicBeatState
              for (character in dadGroup){
                             if (Reflect.getProperty(character, "curCharacter") == "finn-sword") {
              dadGroup.remove(character).kill();
+             dad.alpha = 1;
              //Mario idk how to fix it here, since other finn sprite dies too, if my shit won't work, try to fix it pls
                 }
              }
              triggerEventNote('Change Character', '1', 'finn-sword');
+            for (character in dadGroup){
+            if (Reflect.getProperty(character, "curCharacter") == "finn-sword"){
+             character.alpha = 1;
+             dad.alpha = 1;
+            }
+          }
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
 							gf.alpha = 1;
 							jake.alpha = 1;
-							dad.alpha = 1;
 							theBlackness.alpha = 0;
 						case 2368:
 							FlxTween.tween(this, {abberationShaderIntensity: 0.1}, 2.67, {
