@@ -1331,7 +1331,6 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
-					addCharacterToList('finn-sword', 1);
                         GameOverSubstate.characterName = 'pibby-dead';
 						GameOverSubstate.deathSoundName = 'glitchhit';
 						GameOverSubstate.soundLibraryStart = 'shared';
@@ -1346,7 +1345,8 @@ class PlayState extends MusicBeatState
 						GameOverSubstate.deathSoundName = 'bfjakedeath';
 						GameOverSubstate.endSoundName = 'gffinnrevive';
                     }
-				case 'Suffering Siblings': 
+				case 'Suffering Siblings':
+					addCharacterToList('finn-sword', 1);
                     if (ClientPrefs.gore) {
 					    //GameOverSubstate.characterName = (FlxG.random.bool() ? 'bf-dead-jake' : 'bf-dead-finn');
 						GameOverSubstate.characterName = 'deathscreen';
