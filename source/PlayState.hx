@@ -1331,6 +1331,7 @@ class PlayState extends MusicBeatState
 				case 'Blessed by Swords':
 					iconP1.changeIcon("pibby");
 					addCharacterToList('finn-slash', 1);
+					addCharacterToList('finn-sword', 1);
                         GameOverSubstate.characterName = 'pibby-dead';
 						GameOverSubstate.deathSoundName = 'glitchhit';
 						GameOverSubstate.soundLibraryStart = 'shared';
@@ -5048,7 +5049,7 @@ class PlayState extends MusicBeatState
 						case 608:
          for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finncawm_start_new"){
-             dadGroup.remove(character).destroy();
+             character.alpha = 0;
                 }
              }
 							FlxTween.tween(theBlackness, {alpha: 1}, 0.6, {ease: FlxEase.sineInOut});
@@ -5072,7 +5073,7 @@ class PlayState extends MusicBeatState
 							});
            for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finnanimstuff"){
-             dadGroup.remove(character).destroy();
+             character.alpha = 0;
            }
          }
 							triggerEventNote('Change Character', '1', 'finncawm_reveal');
@@ -6610,10 +6611,12 @@ class PlayState extends MusicBeatState
 							}
 							defaultCamZoom = 0.9;
              for (character in dadGroup){
-             if (Reflect.getProperty(character, "curCharacter") == "finn-sword"){
-             dadGroup.remove(character).destroy();
+                            if (Reflect.getProperty(character, "curCharacter") == "finn-sword" {
+             dadGroup.remove(character).kill();
+             //Mario idk how to fix it here, since other finn sprite dies too, if my shit won't work, try to fix it pls
                 }
-              }
+             }
+             triggerEventNote('Change Character', '1', 'finn-sword');
 							if (ClientPrefs.flashing) {
 								camOverlay.flash(FlxColor.WHITE, 2.5);
 							}
