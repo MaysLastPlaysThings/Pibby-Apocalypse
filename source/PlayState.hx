@@ -6611,7 +6611,7 @@ class PlayState extends MusicBeatState
 							}
 							defaultCamZoom = 0.9;
              for (character in dadGroup){
-                            if (Reflect.getProperty(character, "curCharacter") == "finn-sword" {
+                            if (Reflect.getProperty(character, "curCharacter") == "finn-sword") {
              dadGroup.remove(character).kill();
              //Mario idk how to fix it here, since other finn sprite dies too, if my shit won't work, try to fix it pls
                 }
