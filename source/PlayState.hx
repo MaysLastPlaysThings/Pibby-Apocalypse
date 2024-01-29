@@ -4983,6 +4983,7 @@ class PlayState extends MusicBeatState
 										camHUD.alpha = 0;
 									}
 							});
+						iconP1.alpha = 0;
 						case 36:
 							camGame.fade(FlxColor.BLACK, 5, true);
 							for (i in 0...opponentStrums.length) {
@@ -5045,7 +5046,7 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
-
+                iconP1.alpha = 1;
 						case 608:
          for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finncawm_start_new"){
