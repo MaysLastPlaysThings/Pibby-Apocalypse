@@ -5046,7 +5046,6 @@ class PlayState extends MusicBeatState
 											camHUD.alpha = 1;
 										}
 								});
-                iconP1.alpha = 1;
 						case 608:
          for (character in dadGroup){
             if (Reflect.getProperty(character, "curCharacter") == "finncawm_start_new"){
@@ -5108,6 +5107,7 @@ class PlayState extends MusicBeatState
 							blurFNFZoomEditionHUD.setFloat('focusPower', 0);
 							}
 							FlxTween.tween(theBlackness, {alpha: 0}, 0.6, {ease: FlxEase.sineInOut});
+                iconP1.alpha = 1;
 						case 656:
 							defaultCamZoom = 0.85;
 						case 672:
